@@ -1,0 +1,142 @@
+/*
+------- Product Block -----
+Product block is used on product to print a message like:
+buy this product and earn x beans.
+
+HTML Structure:
+
+div: .beans-product
+    div: .beans-product-div
+        -- buy this product and earn x beans.
+*/
+
+.beans-product:after, .beans-product:before{
+    content: '';
+    display: table;
+    clear: both;
+}
+.beans-product-div{
+    width: 100%;
+    display: block;
+    text-align: left;
+    margin: 20px 0;
+}
+
+
+/*
+------- Cart Block -----
+Cart Block is used on cart page to allow the user to redeem their beans.
+It contains a redeem button as well as some info text.
+Cart Block is responsive
+
+HTML Structure:
+
+div: .beans-cart
+    div: .beans-cart-div
+        div: .beans-cart-info-div
+            div: .beans-info-contain
+                -- You have x beans
+        div: .beans-cart-action-div
+             -- Redeem or Join button
+*/
+
+.beans-cart:after, .beans-cart:before{
+    content: '';
+    display: table;
+    clear: both;
+}
+.beans-cart-div{
+    display: table;
+    width: 100%;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 20px auto;
+    text-align: right;
+}
+.beans-cart-action-div{
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+    min-width: 100px;
+    max-width: 200px;
+    padding: 10px;
+}
+.beans-cart-info-div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    padding: 10px;
+}
+.beans-cart-info-div .beans-info-contain{
+    display: block;
+    max-width: 490px;
+}
+@media (max-width: 490px) {
+    .beans-cart-info-div, .beans-cart-action-div{
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .beans-button{
+        width: 100%;
+    }
+}
+
+
+/*
+------- Account Block -----
+Account Block is used on account page to display the user beans balance and history.
+
+HTML Structure:
+
+div: .beans-section
+
+  div: .beans-intro
+      -- Join our rewards program text
+
+  div: .beans-balance
+      -- user's account balance
+
+  ul: .beans-rules
+      -- Retailer's rules
+
+  table: .beans-history
+      -- user's account history
+*/
+.beans-section{
+    display: block;
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+.beans-section h1{
+    margin-bottom: 30px;
+}
+
+.beans-intro{
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.beans-balance{
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.beans-rules{
+    margin: 20px auto;
+}
+
+.beans-rules li{
+    margin: 10px auto;
+}
+
+.beans-history{
+    width: 100%;
+    margin: 20px auto;
+}
+

@@ -1,0 +1,213 @@
+@import url('_reset.css');
+
+#beans-section{
+  display: block;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+#beans-section > div {
+  display: block;
+  width: 100%;
+  margin: 20px auto;
+}
+
+#beans-section .beans-clearfix:before, .beans-clearfix:after{
+  content:" ";
+  display:table
+}
+#beans-section .beans-clearfix:after{
+  clear:both
+}
+
+#beans-section .beans-header{
+  display: block;
+}
+
+#beans-section .beans-header h1{
+
+}
+
+#beans-section .beans-intro{
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 15px;
+}
+
+#beans-section .beans-intro .beans-intro-content{
+  display: inline-block;
+  max-width: 400px;
+  text-align: left;
+}
+
+#beans-section .beans-cta-button{
+  display: inline-block;
+  margin: auto;
+  padding: 10px 15px;
+  font-weight: bold;
+  color: #000000;
+  border-radius: 4px;
+  float: right;
+  cursor: pointer;
+}
+
+#beans-section .beans-rate{
+  font-weight: bold;
+}
+
+#beans-section .beans-balance {
+  margin: 0;
+  clear: none;
+  width: auto;
+  min-width: 0;
+  color: rgb(255, 255, 255);
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  line-height: 1em;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px;
+}
+
+#beans-section .beans-rules{
+  margin: auto;
+  padding: 0;
+}
+
+#beans-section .beans-rule-item{
+  display: block;
+  width: 100%;
+  margin: 10px auto;
+  background-color: #F9F9F9;
+  border: 1px solid rgb(184, 184, 184);
+  padding: 20px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+#beans-section .beans-rule-icon-circle {
+  float: left;
+  height: 46px;
+  margin: auto 20px auto 0;
+  clear: none;
+  width: 46px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+#beans-section .beans-rule-image {
+  float: none;
+  width: 30px;
+  max-width: none;
+  height: 30px;
+  margin: 5px auto;
+  clear: none;
+  color: rgb(0, 0, 0);
+}
+
+#beans-section .beans-rule-text-wrapper {
+  float: none;
+  height: auto;
+  margin: 10px 0;
+  clear: none;
+  width: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#beans-section .beans-rule-title {
+  float: none;
+  font-size: 16px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  font-weight: bold;
+  line-height: 1em;
+  margin: 0 0 5px;
+  clear: none;
+  min-height: 0;
+  text-decoration: none;
+  text-transform: capitalize;
+  padding-bottom: 0;
+  display: block;
+}
+
+#beans-section .beans-rule-description {
+  float: none;
+  font-size: 15px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0;
+  clear: none;
+  min-height: 0;
+  text-decoration: none;
+  text-transform: none;
+  padding-bottom: 0;
+  display: block;
+  color: rgb(0, 0, 0);
+}
+
+#beans-section .beans-history{
+  width: 100%;
+  margin: 20px auto;
+}
+
+#beans-section .beans-history-entry {
+  display: block;
+  margin: 10px auto;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #F9F9F9;
+  border: 1px solid rgb(184, 184, 184);
+  padding: 10px;
+}
+
+#beans-section .beans-history-description{
+  font-size: 18px;
+  text-align: left;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0 0 5px;
+  min-height: 0;
+  padding-bottom: 0;
+  display: block;
+  color: rgb(68, 68, 68);
+}
+
+#beans-section .beans-history-beans {
+  font-size: 15px;
+  text-align: right;
+  font-weight: normal;
+  line-height: 1em;
+  margin: auto 10px;
+  display: inline-block;
+  width: 120px;
+  float: right;
+}
+
+#beans-section .beans-history-date {
+  font-size: 15px;
+  text-align: left;
+  font-weight: normal;
+  line-height: 1em;
+  display: inline-block;
+  color: rgb(102, 102, 102);
+  margin: auto;
+  float: left;
+}
+
+#beans-section .beans-cta-bottom-div{
+  margin: 20px auto;
+  cursor: pointer;
+  text-align: right;
+}
+
+#beans-section .beans-cta-bottom-div .beans-cta-button{
+  float: none;
+}

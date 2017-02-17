@@ -1,0 +1,254 @@
+<?php
+
+namespace BeansWoo;
+
+use Beans\Beans;
+
+class Helper {
+    const CONFIG_NAME = 'beans-woo-config';
+    const LOG_FILE = 'log.txt';
+
+    public static $card = null;
+    public static $key = null;
+
+    public static function getDomain($sub){
+        if($sub == 'API'){
+            $domain = getenv('BEANS_DOMAIN_API');
+            if(!$domain)
+                $domain = 'api.trybeans.com';
+            return $domain;
+        }else if($sub == 'BUSINESS'){
+            $domain = getenv('BEANS_DOMAIN_BUSINESS');
+            if(!$domain)
+                $domain = 'business.trybeans.com';
+            return $domain;
+        }else{
+            $domain = getenv('BEANS_DOMAIN_WWW');
+            if(!$domain)
+                $domain = 'www.trybeans.com';
+            return $domain;
+        }
+    }
+
+    public static function getAccountData($account, $k, $default=null){
+        if(isset($account[$k])) {
+            echo "$k:'".$account[$k]."',";
+        }
+        else if($default !== null) {
+            echo "$k: '',";
+        }
+    }
+
+    public static function getConfig($key){
+        $config = get_option(self::CONFIG_NAME);
+        if(isset($config[$key])) return $config[$key];
+        return null;
+    }
+
+    public static function isConfigured(){
+        return Helper::getConfig('key') &&
+               Helper::getConfig('card')&&
+               Helper::getConfig('secret');
+    }
+
+    public static function setConfig($key, $value){
+        $config = get_option(self::CONFIG_NAME);
+        $config[$key] = $value;
+        update_option(self::CONFIG_NAME, $config);
+    }
+
+    private static function setKey(){
+        if (!self::$key)
+            self::$key = self::getConfig('secret');
+    }
+
+    public static function API() {
+        self::setKey();
+        $beans           = new Beans(self::$key);
+        $beans->endpoint = self::getDomain('API').'/v1.1/';
+        return $beans;
+    }
+
+    public static function log($info){
+        $logfile = plugin_dir_path(__FILE__).self::LOG_FILE;
+        if(!is_writable($logfile)){
+            return false;
+        }
+        $log = date('Y-m-d H:i:s.uP') ." => ".$info.PHP_EOL;
+        try{
+            file_put_contents($logfile, $log, FILE_APPEND);
+        }catch(\Exception $e){
+            return false;
+        }
+        return true;
+    }
+
+    public static function getCard() {
+        if (!self::$card && self::isInstalled()) {
+            try {
+                self::$card = self::API()->get('card/current');
+            } catch (\Beans\Error\BaseError $e) {
+                self::log('Unable to get card: '.$e->getMessage());
+            }
+        }
+
+        if(self::getConfig('synced') != date('Y-m-dd')){
+            if(self::synchronise()){
+                self::setConfig('synced', date('Y-m-d'));
+            }
+        }
+
+        return self::$card;
+    }
+
+    public static function isInstalled() {
+        self::setKey();
+        return (bool) self::$key;
+    }
+
+    public static function isActive() {
+        if (!self::getCard())
+            return false;
+
+        return self::$card['is_active'];
+    }
+
+    public static function updateSession() {
+        $account = null;
+        if(!empty($_SESSION['beans_account'])) $account = $_SESSION['beans_account'];
+        if (!$account)
+            return;
+        try {
+            $account = self::API()->get('account/'.$account['id']);
+            $_SESSION['beans_account'] = $account;
+        } catch (\Beans\Error\BaseError $e) {
+            self::log('Unable to get account: '.$e->getMessage());
+        }
+    }
+
+    public static function flushRedemption() {
+
+        self::get_cart()->remove_coupon(BEANS_COUPON_UID);
+
+        unset($_SESSION['beans_coupon']);
+        unset($_SESSION['beans_debit']);
+    }
+
+    private static function getOAuthConsumer(){
+
+        global $wpdb;
+
+        $consumer_id = Helper::getConfig('oauth_consumer');
+        if($consumer_id) {
+            $consumer = $wpdb->get_row( $wpdb->prepare( "
+                SELECT key_id, user_id, description, permissions,
+                consumer_key, consumer_secret, truncated_key, last_access
+                FROM {$wpdb->prefix}woocommerce_api_keys
+                WHERE key_id = %d
+            ", $consumer_id ), ARRAY_A );
+
+            return $consumer;
+        }
+
+        if (!current_user_can('manage_woocommerce'))
+            return array();
+
+        $consumer_key    = 'ck_' . wc_rand_hash();
+        $consumer_secret = 'cs_' . wc_rand_hash();
+
+        $consumer = array(
+            'user_id'         => get_current_user_id(),
+            'description'     => 'Beans',
+            'permissions'     => 'read_write',
+            'consumer_key'    => wc_api_hash( $consumer_key ),
+            'consumer_secret' => $consumer_secret,
+            'truncated_key'   => substr( $consumer_key, -7 )
+        );
+
+        $wpdb->insert(
+            $wpdb->prefix . 'woocommerce_api_keys',
+            $consumer,
+            array(
+                '%d',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s'
+            )
+        );
+
+        $key_id = $wpdb->insert_id;
+
+        Helper::setConfig('oauth_consumer', $key_id);
+
+        return $consumer;
+    }
+
+    public static function synchronise(){
+
+        $estimated_account = 0;
+        $contact_data = array();
+
+        $users_count = count_users();
+        if(isset($users_count['avail_roles']['customer'])){
+            $estimated_account = $users_count['avail_roles']['customer'];
+        }
+
+        if (current_user_can('manage_woocommerce')){
+            $admin = wp_get_current_user();
+            $contact_data = array(
+                'email' => $admin->user_email,
+                'last_name' => $admin->user_lastname,
+                'first_name' => $admin->user_firstname,
+            );
+        }
+
+        $consumer_data = self::getOAuthConsumer();
+
+        $country_code = get_option('woocommerce_default_country');
+        if($country_code){
+            $country_code = explode(':', $country_code)[0];
+        }
+
+        $data = array(
+            'website' => get_site_url(),
+            'currency' => strtoupper(get_woocommerce_currency()),
+            'company_name' => get_bloginfo('name'),
+            'store_name' => get_bloginfo('name'),
+            'country_code' => $country_code,
+            'contact' => $contact_data,
+            'estimated_account' => $estimated_account,
+            'rest_consumer' => $consumer_data,
+            'rest_url' => get_site_url().'/wp-json/wc/v1/',
+            'shop_version' => self::wc_version(),
+            'php_version' => phpversion(),
+        );
+
+        try{
+            $response = self::API()->post('hook/integrations/woocommerce/synchronise', $data);
+            if(isset($response['result'])) return $response['result'];
+        }catch (\Exception $e) {
+            self::log('Unable to install: '.$e->getMessage());
+        }
+
+        return false;
+    }
+
+    public static function wc_version() {
+        if ( ! function_exists( 'get_plugins' ) )
+            require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        $plugin_folder = get_plugins( '/woocommerce' );
+        return $plugin_folder['woocommerce.php']['Version'];
+    }
+
+    public static function get_cart(){
+        global $woocommerce;
+
+        if(!empty($woocommerce->cart) && empty($woocommerce->cart->cart_contents))
+            $woocommerce->cart->calculate_totals();
+
+        return $woocommerce->cart;
+    }
+
+}
