@@ -4,10 +4,6 @@
 
 <div id="beans-section">
 
-    <div class="page-title" id="beans-header-no">
-        <h1>Rewards Program</h1>
-    </div>
-
     <div id="beans-block-intro" style="display: none;">
         <div class="beans-intro beans-clearfix">
             <a class="beans-cta-button" href="#"  onclick="return Beans.connect();">Join now</a>

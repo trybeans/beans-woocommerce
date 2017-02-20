@@ -1,14 +1,14 @@
 === Beans · Loyalty & Reward  ===
 
-Contributors: nas2lor
+Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
-Simple, non-intrusive, and efficient loyalty and reward program for woocommerce retailers.
+Simple, non-intrusive, and efficient loyalty and rewards program for woocommerce retailers.
 
 == Contact us before any installation ==
 
@@ -114,14 +114,18 @@ Help us translate Beans. Send us your .po and .mo files and they will be integra
 1. Beans Admin Interface: Putting a face on your customers' name.
 2. Build customers engagement with the rules you need.
 3. Very beautiful and tight integration. With Beans, good design matters!
-4. Create the reward program you need with the user-experience you want.
+4. Create the rewards program you need with the user-experience you want.
 5. Beans Analytics: You can only improve what you can measure.
 6. All these shops are already happy with Beans. And you?
 
 == Changelog ==
 
+= 0.9.2 =
+- fix logging issue
+- Add registration first and last name
+
 = 0.9.1 =
-Make installation easier
+- Make installation easier
 
 = 0.9.0 =
 *Pre-release

@@ -173,10 +173,6 @@ class Setup
             <div>
               Your Beans account "<?php echo $card_address; ?>" is successfully connected.
               <a target='_blank' href='//<?php echo $domain; ?>'>Update settings</a>.
-                <p>
-                    For Beans to work correctly is it is recommended
-                    to activate customer registration with first name and last name mandatory.
-                </p>
             </div>
             <div style='margin: 20px auto'>
             </div>

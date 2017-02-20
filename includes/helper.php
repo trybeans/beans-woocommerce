@@ -6,7 +6,6 @@ use Beans\Beans;
 
 class Helper {
     const CONFIG_NAME = 'beans-woo-config';
-    const LOG_FILE = 'log.txt';
 
     public static $card = null;
     public static $key = null;
@@ -70,13 +69,17 @@ class Helper {
     }
 
     public static function log($info){
-        $logfile = plugin_dir_path(__FILE__).self::LOG_FILE;
-        if(!is_writable($logfile)){
+        if( file_exists(BEANS_INFO_LOG) && filesize(BEANS_INFO_LOG)>100000)
+            unlink(BEANS_INFO_LOG);
+
+        if(!is_writable(BEANS_INFO_LOG)){
             return false;
         }
+
         $log = date('Y-m-d H:i:s.uP') ." => ".$info.PHP_EOL;
+
         try{
-            file_put_contents($logfile, $log, FILE_APPEND);
+            file_put_contents(BEANS_INFO_LOG, $log, FILE_APPEND);
         }catch(\Exception $e){
             return false;
         }
@@ -92,7 +95,7 @@ class Helper {
             }
         }
 
-        if(self::getConfig('synced') != date('Y-m-dd')){
+        if(self::getConfig('synced') != date('Y-m-d')){
             if(self::synchronise()){
                 self::setConfig('synced', date('Y-m-d'));
             }

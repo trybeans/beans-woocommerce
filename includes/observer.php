@@ -46,9 +46,13 @@ class Observer {
     public static function customerRegister($user_id) {
 
         $user_data = get_userdata($user_id);
-        $user_meta = get_user_meta($user_id);
-        $first_name = $user_meta['first_name'][0];
-        $last_name = $user_meta['last_name'][0];
+
+        $first_name = get_user_meta( $user_id, 'first_name', true );
+        if(!$first_name && isset($_POST['first_name'])) $first_name = $_POST['first_name'];
+
+        $last_name = get_user_meta( $user_id, 'last_name', true );
+        if(!$last_name && isset($_POST['last_name'])) $last_name = $_POST['last_name'];
+
         $email = $user_data->user_email;
 
         if($email){

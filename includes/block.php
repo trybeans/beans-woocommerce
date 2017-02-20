@@ -7,11 +7,12 @@ class Block {
 
     public static function init(){
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
-        add_filter('woocommerce_single_product_summary',             array(__CLASS__, 'render_product'), 15, 1);
-        add_filter('woocommerce_after_cart_table',                   array(__CLASS__, 'render_cart'),    10, 1);
-        add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),    15, 1);
-        add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),    10, 1);
-        add_filter('the_content',                                    array(__CLASS__, 'render_page'),    10, 1);
+        add_filter('woocommerce_single_product_summary',             array(__CLASS__, 'render_product'),  15, 1);
+        add_filter('woocommerce_after_cart_table',                   array(__CLASS__, 'render_cart'),     10, 1);
+        add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),     15, 1);
+        add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
+        add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),     10, 1);
+        add_filter('the_content',                                    array(__CLASS__, 'render_page'),     10, 1);
     }
 
     public static function enqueue_scripts(){
@@ -39,7 +40,6 @@ class Block {
         <?php
     }
 
-
     public static function render_cart(){
         $cart_subtotal  = Helper::get_cart()->cart_contents_total;
 
@@ -47,7 +47,6 @@ class Block {
         <div class="beans-cart" beans-btn-class="button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
         <?php
     }
-
 
     public static function render_init($force=false){
         if (!$force && get_the_ID() === Helper::getConfig('page')) return;
@@ -87,6 +86,20 @@ class Block {
             $content = str_replace('[beans_page]', $page, $content);
         }
         return $content;
+    }
+
+    public static function render_register(){
+       ?>
+        <p class="form-row form-row-first">
+            <label for="reg_first_name"><?php _e( 'First name', 'woocommerce' ); ?><span class="required">*</span></label>
+            <input type="text" class="input-text" name="first_name" id="reg_first_name" value="<?php if ( ! empty( $_POST['first_name'] ) ) esc_attr_e( $_POST['first_name'] ); ?>" />
+        </p>
+
+        <p class="form-row form-row-last">
+            <label for="reg_last_name"><?php _e( 'Last name', 'woocommerce' ); ?><span class="required">*</span></label>
+            <input type="text" class="input-text" name="last_name" id="reg_last_name" value="<?php if ( ! empty( $_POST['last_name'] ) ) esc_attr_e( $_POST['last_name'] ); ?>" />
+        </p>
+        <?php
     }
 
 }

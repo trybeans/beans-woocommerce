@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://business.trybeans.com/
  * Description: Reward your customers to grow your business.
- * Version: 0.9.1
+ * Version: 0.9.2
  * Author: Beans
  * Author URI: https://business.trybeans.com/
  * Text Domain: woocommerce-beans
@@ -25,6 +25,7 @@ define('BEANS_PLUGIN_FILE',             plugin_basename(__FILE__));
 define('BEANS_CSS_FILE',                plugin_dir_path(__FILE__).'local/beans.css');
 define('BEANS_CSS_MASTER',              plugin_dir_path(__FILE__).'assets/beans.css');
 define('BEANS_REWARD_PAGE',             plugin_dir_path(__FILE__).'includes/reward.php');
+define('BEANS_INFO_LOG',                plugin_dir_path(__FILE__).'log.txt');
 
 include_once(plugin_dir_path(__FILE__).'includes/beans.php');
 include_once(plugin_dir_path(__FILE__).'includes/helper.php');
