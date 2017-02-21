@@ -217,11 +217,6 @@ class Setup
 
     private static function _installAssets()
     {
-        // Install CSS file
-//        if(!file_exists(BEANS_CSS_FILE) && file_exists(BEANS_CSS_MASTER) ) {
-//            copy( BEANS_CSS_MASTER, BEANS_CSS_FILE );
-//        }
-
         // Install Reward Program Page
         if(!get_post(Helper::getConfig('page'))){
             require_once(WP_PLUGIN_DIR . '/woocommerce/includes/admin/wc-admin-functions.php');

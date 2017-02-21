@@ -224,8 +224,9 @@ class Helper {
             'estimated_account' => $estimated_account,
             'rest_consumer' => $consumer_data,
             'rest_url' => get_site_url().'/wp-json/wc/v1/',
-            'shop_version' => self::wc_version(),
             'php_version' => phpversion(),
+            'shop_version' => self::plugin_version('woocommerce'),
+            'plugin_version' => self::plugin_version('beans-woo'),
         );
 
         try{
@@ -238,11 +239,12 @@ class Helper {
         return false;
     }
 
-    public static function wc_version() {
-        if ( ! function_exists( 'get_plugins' ) )
+    public static function plugin_version($plugin_name = 'woocommerce') {
+        if (!function_exists( 'get_plugins' ) )
             require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-        $plugin_folder = get_plugins( '/woocommerce' );
-        return $plugin_folder['woocommerce.php']['Version'];
+
+        $plugin_folder = get_plugins("/$plugin_name");
+        return $plugin_folder["$plugin_name.php"]['Version'];
     }
 
     public static function get_cart(){

@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://business.trybeans.com/
  * Description: Reward your customers to grow your business.
- * Version: 0.9.2
+ * Version: 0.9.3
  * Author: Beans
  * Author URI: https://business.trybeans.com/
  * Text Domain: woocommerce-beans
@@ -19,12 +19,8 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '0.9.1');
 define('BEANS_COUPON_UID',              'beans_redeem');
 define('BEANS_PLUGIN_FILE',             plugin_basename(__FILE__));
-define('BEANS_CSS_FILE',                plugin_dir_path(__FILE__).'local/beans.css');
-define('BEANS_CSS_MASTER',              plugin_dir_path(__FILE__).'assets/beans.css');
-define('BEANS_REWARD_PAGE',             plugin_dir_path(__FILE__).'includes/reward.php');
 define('BEANS_INFO_LOG',                plugin_dir_path(__FILE__).'log.txt');
 
 include_once(plugin_dir_path(__FILE__).'includes/beans.php');
@@ -42,7 +38,6 @@ if ( ! class_exists( 'WC_Beans' ) ) :
         protected static $_instance = null;
 
         function __construct(){
-//            array('wp_enqueue_scripts',         'load_beans_script',        10, 1),
             add_filter('init',              array(__CLASS__, 'init'),         10, 1);
         }
 
@@ -62,18 +57,6 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             \BeansWoo\Setup::init();
             \BeansWoo\Block::init();
         }
-
-        function load_beans_script() {
-            // Register the script like this for a plugin:
-
-            // or
-            // Register the script like this for a theme:
-            //wp_register_script( 'custom-script', get_template_directory_uri() . '/js/custom-script.js' );
-
-            // For either a plugin or a theme, you can then enqueue the script:
-            //wp_enqueue_script( 'custom-script' );
-        }
-
     }
 
 

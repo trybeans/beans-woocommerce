@@ -126,8 +126,6 @@ class Beans
             CURLOPT_POSTFIELDS     => $data_string,
             CURLOPT_CONNECTTIMEOUT => 30,
             CURLOPT_TIMEOUT        => 80,
-            CURLOPT_HTTPAUTH       => CURLAUTH_BASIC,
-            CURLOPT_USERPWD        => $this->secret.':',
             CURLOPT_HTTPHEADER     => array(                                                                          
                 'Accept: application/json',
                 'Content-Type: application/json',
@@ -135,6 +133,10 @@ class Beans
                 'X-Beans-Client-User-Agent: '. json_encode($ua),
             ),
         );
+        if($this->secret){
+            $curlConfig[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+            $curlConfig[CURLOPT_USERPWD] = $this->secret;
+        }
         
         //Make HTTP request
         $ch = $this->_getCurlHandle();
