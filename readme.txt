@@ -120,6 +120,9 @@ Help us translate Beans. Send us your .po and .mo files and they will be integra
 
 == Changelog ==
 
+= 0.9.5 =
+- Minor bug fix
+
 = 0.9.4 =
 - Minor bug fix
 

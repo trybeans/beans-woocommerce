@@ -211,7 +211,10 @@ class Helper {
 
         $country_code = get_option('woocommerce_default_country');
         if($country_code && strpos($country_code, ':') !== false){
-            $country_code = explode(':', $country_code)[0];
+            try {
+                $country_parts = explode( ':', $country_code );
+                $country_code = $country_parts[0];
+            }catch(\Exception $e){}
         }
 
         $data = array(
@@ -227,7 +230,7 @@ class Helper {
             'php_version' => phpversion(),
             'shop_version' => self::plugin_version('woocommerce'),
             'plugin_version' => self::plugin_version('beans-woo'),
-            'plugin_version_fallback' => '0.9.4',
+            'plugin_version_fallback' => '0.9.5',
         );
 
         try{

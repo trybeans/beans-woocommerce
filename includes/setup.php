@@ -113,8 +113,11 @@ class Setup
         $admin = wp_get_current_user();
         $country_code = get_option('woocommerce_default_country');
 
-        if($country_code){
-            $country_code = explode(':', $country_code)[0];
+        if($country_code && strpos($country_code, ':') !== false){
+            try {
+                $country_parts = explode( ':', $country_code );
+                $country_code = $country_parts[0];
+            }catch(\Exception $e){}
         }
 
         $params = array(
