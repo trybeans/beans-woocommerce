@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 0.9.3
+Stable tag: 0.9.4
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -119,6 +119,9 @@ Help us translate Beans. Send us your .po and .mo files and they will be integra
 6. All these shops are already happy with Beans. And you?
 
 == Changelog ==
+
+= 0.9.4 =
+- Minor bug fix
 
 = 0.9.3 =
 - fix synchronisation issue with Beans

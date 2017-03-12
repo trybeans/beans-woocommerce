@@ -249,13 +249,13 @@
                     for (i = 0; i < settings.length; i++){
                         var attr = settings[i].getAttribute('beans-rule_settings').split(':')[2];
                         if(attr == 'minimum'){
-                            settings[i].innerHTML = rule.settings['attr'] || '0.01';
+                            settings[i].innerHTML = rule.settings[attr] || '0.01';
                         }
                         else if(attr == 'all_purchases_str'){
                             settings[i].innerHTML = rule.settings['all_purchases'] ? 'each' : 'the first';
                         }
                         else{
-                            settings[i].innerHTML = rule.settings['attr'];
+                            settings[i].innerHTML = rule.settings[attr];
                         }
                     }
                 }

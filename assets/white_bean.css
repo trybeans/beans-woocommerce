@@ -163,9 +163,9 @@
   margin: 10px auto;
   width: 100%;
   border-radius: 2px;
-  background-color: #F9F9F9;
-  border: 1px solid rgb(184, 184, 184);
   padding: 10px;
+  border: 1px solid rgb(184, 184, 184);
+  background-color: #F9F9F9;
 }
 
 #beans-section .beans-history-description{
@@ -210,4 +210,7 @@
 
 #beans-section .beans-cta-bottom-div .beans-cta-button{
   float: none;
+}
+.beans-help-block{
+  display: none;
 }

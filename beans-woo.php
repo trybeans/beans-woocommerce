@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://business.trybeans.com/
  * Description: Reward your customers to grow your business.
- * Version: 0.9.3
+ * Version: 0.9.4
  * Author: Beans
  * Author URI: https://business.trybeans.com/
  * Text Domain: woocommerce-beans

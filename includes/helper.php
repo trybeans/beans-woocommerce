@@ -95,7 +95,7 @@ class Helper {
             }
         }
 
-        if(self::getConfig('synced') != date('Y-m-d')){
+        if(self::getConfig('synced') != date('Y-m-dd')){
             if(self::synchronise()){
                 self::setConfig('synced', date('Y-m-d'));
             }
@@ -210,7 +210,7 @@ class Helper {
         $consumer_data = self::getOAuthConsumer();
 
         $country_code = get_option('woocommerce_default_country');
-        if($country_code){
+        if($country_code && strpos($country_code, ':') !== false){
             $country_code = explode(':', $country_code)[0];
         }
 
@@ -227,6 +227,7 @@ class Helper {
             'php_version' => phpversion(),
             'shop_version' => self::plugin_version('woocommerce'),
             'plugin_version' => self::plugin_version('beans-woo'),
+            'plugin_version_fallback' => '0.9.4',
         );
 
         try{
