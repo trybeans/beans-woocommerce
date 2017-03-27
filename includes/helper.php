@@ -230,7 +230,7 @@ class Helper {
             'php_version' => phpversion(),
             'shop_version' => self::plugin_version('woocommerce'),
             'plugin_version' => self::plugin_version('beans-woo'),
-            'plugin_version_fallback' => '0.9.5',
+            'plugin_version_fallback' => '0.9.6',
         );
 
         try{

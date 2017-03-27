@@ -87,7 +87,16 @@ class Observer {
         $cart = Helper::get_cart();
         $card = Helper::getCard();
 
-        $amount = min($cart->subtotal, $account['beans_value']);
+        $max_amount = $cart->subtotal;
+        if(isset($card['settings']) && isset($card['settings']['range_max_redeem'])){
+            $percent_discount = $card['settings']['range_max_redeem'];
+            if($percent_discount < 100){
+                $max_amount = (1.0*$cart->subtotal*$percent_discount)/100;
+                wc_add_notice("Maximum discount allowed for this order is $percent_discount%", 'notice');
+            }
+        }
+
+        $amount = min($max_amount, $account['beans_value']);
         $amount = sprintf('%0.2f', $amount);
 
         $_SESSION['beans_debit'] = array(
