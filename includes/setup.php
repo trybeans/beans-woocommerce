@@ -213,7 +213,7 @@ class Setup
         Helper::setConfig('card', null);
         Helper::setConfig('secret', null);
         Helper::setConfig('oauth_token', null);
-        Helper::setConfig('oauth_consumer', null);
+        Helper::setConfig('oauth_consumer_connect', null);
 
         return true;
     }

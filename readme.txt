@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 0.9.6
+Stable tag: 0.9.7
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -106,25 +106,6 @@ The WordPress codex contains instructions on
 
 [Learn more about pricing](http://bit.ly/2nZeAfI).
 
-= How can you modify the style? =
-
-You can create your own style by modifying the file *local.beans.css*. This file is located at
-*woocommerce-beans/assets/css/local.beans.css*. If *local.beans.css* does not exist,
-you should create it by copying *master.beans.css*: *woocommerce-beans/assets/css/master.beans.css*
-
-= How can you change Beans plugin language? =
-
-- Get the .pot file located at languages/woocommerce-beans.pot in the Beans plugin directory.
-- Create the .mo using your preferred [translation Tool](https://make.wordpress.org/polyglots/handbook/tools/).
-- Put your custom Beans translations in your WordPress language directory,
-located at: WP_LANG_DIR . "/plugins/woocommerce-beans-{$locale}.mo".
-For example: /wp-content/languages/plugins/woocommerce-beans-af_ZA.mo
-for Afrikaans - South Africa translation.
-
-Help us translate Beans. Send us your .po and .mo files and they will be integrated in the next update.
-
-[More info about translating](http://codex.wordpress.org/Translating_WordPress).
-
 == Screenshots ==
 
 1. Easy one click redemption for reduced cart abandonment.
@@ -135,6 +116,9 @@ Help us translate Beans. Send us your .po and .mo files and they will be integra
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 0.9.7 =
+- Fix bug of credit not being applied after order
 
 = 0.9.6 =
 - Add support for maximum discount option

@@ -95,9 +95,9 @@ class Helper {
             }
         }
 
-        if(self::getConfig('synced') != date('Y-m-dd')){
+        if(self::getConfig('synced') != date('Y-m-d').BEANS_VERSION){
             if(self::synchronise()){
-                self::setConfig('synced', date('Y-m-d'));
+                self::setConfig('synced', date('Y-m-d').BEANS_VERSION);
             }
         }
 
@@ -141,7 +141,8 @@ class Helper {
 
         global $wpdb;
 
-        $consumer_id = Helper::getConfig('oauth_consumer');
+        /* In the past key oauth_consumer, but it has been compromised after bad synchronisation */
+        $consumer_id = Helper::getConfig('oauth_consumer_connect');
         if($consumer_id) {
             $consumer = $wpdb->get_row( $wpdb->prepare( "
                 SELECT key_id, user_id, description, permissions,
@@ -150,7 +151,8 @@ class Helper {
                 WHERE key_id = %d
             ", $consumer_id ), ARRAY_A );
 
-            return $consumer;
+            if($consumer)
+                return array();
         }
 
         if (!current_user_can('manage_woocommerce'))
@@ -161,7 +163,7 @@ class Helper {
 
         $consumer = array(
             'user_id'         => get_current_user_id(),
-            'description'     => 'Beans',
+            'description'     => 'Beans Connect',
             'permissions'     => 'read_write',
             'consumer_key'    => wc_api_hash( $consumer_key ),
             'consumer_secret' => $consumer_secret,
@@ -183,8 +185,8 @@ class Helper {
 
         $key_id = $wpdb->insert_id;
 
-        Helper::setConfig('oauth_consumer', $key_id);
-
+        Helper::setConfig('oauth_consumer_connect', $key_id);
+        $consumer['consumer_key'] = $consumer_key ;
         return $consumer;
     }
 
@@ -229,8 +231,7 @@ class Helper {
             'rest_url' => get_site_url().'/wp-json/wc/v1/',
             'php_version' => phpversion(),
             'shop_version' => self::plugin_version('woocommerce'),
-            'plugin_version' => self::plugin_version('beans-woo'),
-            'plugin_version_fallback' => '0.9.6',
+            'plugin_version' => BEANS_VERSION,
         );
 
         try{

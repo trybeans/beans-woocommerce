@@ -221,6 +221,7 @@ class Observer {
         if (!$account) return;
 
         $total = $order->get_total() - $order->get_total_shipping();
+        $total = sprintf('%0.2f', $total);
 
         if($new_status=='processing' || $new_status=='completed'){
 
