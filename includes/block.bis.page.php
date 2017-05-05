@@ -2,7 +2,12 @@
 $finishing = 'white';
 ?>
 
-<div id="beans-section">
+<div id="beans-section" class="beans-section beans-reward-reset">
+
+  {% block html %}
+  <div class="beans-header" id="beans-header">
+    <h1>Rewards Program</h1>
+  </div>
 
   <div id="beans-block-intro" style="display: none;">
     <div class="beans-intro beans-clearfix">
@@ -14,7 +19,7 @@ $finishing = 'white';
     </div>
   </div>
 
-  <div id="beans-block-balance" class="box-head" style="display: none;">
+  <div id="beans-block-balance" style="display: none;">
     <h2>Balance</h2>
     <div class="beans-intro beans-clearfix">
       <a class="beans-cta-button" href="@card_url">Go to Dashboard</a>
@@ -57,24 +62,29 @@ $finishing = 'white';
       during your purchase. The option to redeem your <span class="beans-beans_name"></span> is available on the cart
       page,
       just before checkout.
-      <!--            {% if shop.options.min_beans_redeem %}-->
-      <!--            You need to have at least {{ shop.options.min_beans_redeem }} <span class="beans-beans_name"></span>to be able to redeem.-->
-      <!--            {% endif %}-->
-      <!--            {% if shop.options.range_max_redeem %}-->
-      <!--            You can pay up to {{ shop.options.range_max_redeem }}% of your order with your <span class="beans-beans_name"></span>.-->
-      <!--            {% endif %}-->
+      {% if shop.settings.min_beans_redeem %}
+      You need to have at least {{ shop.settings.min_beans_redeem }} <span class="beans-beans_name"></span> to be able
+      to redeem.
+      {% endif %}
+      {% if shop.settings.max_beans_redeem %}
+      You can redeem up to {{ shop.settings.max_beans_redeem }} <span class="beans-beans_name"></span> at once.
+      {% endif %}
+      {% if shop.settings.range_max_redeem %}
+      You can pay up to {{ shop.settings.range_max_redeem }}% of your order with your <span
+          class="beans-beans_name"></span>.
+      {% endif %}
     </p>
 
-    <h3 class="beans-help-title" id="beans-help-inactivity">When do my <span class="beans-beans_name"></span> expire?
-    </h3>
-    <p>
-      Your <span class="beans-beans_name"></span> have no expiration date.
-      <span beans-help="beans:inactivity">
-              However you will loose <span beans-rule_beans="beans:inactivity"></span> every
-                <span beans-rule_settings="beans:inactivity:period"></span> days for inactivity,
-              if you do not get or spend any <span class="beans-beans_name"></span> during this period.
-            </span>
-    </p>
+    {# <h3 class="beans-help-title" id="beans-help-inactivity">When do my <span class="beans-beans_name"></span> expire?
+    </h3>#}
+    {# <p>#}
+      {# Your <span class="beans-beans_name"></span> have no expiration date.#}
+      {# <span beans-help="beans:inactivity">#}
+{#        However you will loose <span beans-rule_beans="beans:inactivity"></span> every#}
+{#          <span beans-rule_settings="beans:inactivity:period"></span> days for inactivity,#}
+{#        if you do not get or spend any <span class="beans-beans_name"></span> during this period.#}
+{#      </span>#}
+      {# </p>#}
 
     <h3 class="beans-help-title" id="beans-help-rules">How do I get more <span class="beans-beans_name"></span>?</h3>
     <p>Please check our list of rules for more information about how to get more <span class="beans-beans_name"></span>.
