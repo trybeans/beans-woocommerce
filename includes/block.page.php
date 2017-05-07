@@ -65,22 +65,22 @@ $finishing = 'white';
       <!--            {% endif %}-->
     </p>
 
-    <h3 class="beans-help-title" id="beans-help-inactivity">When do my <span class="beans-beans_name"></span> expire?
-    </h3>
-    <p>
-      Your <span class="beans-beans_name"></span> have no expiration date.
-      <span beans-help="beans:inactivity">
-              However you will loose <span beans-rule_beans="beans:inactivity"></span> every
-                <span beans-rule_settings="beans:inactivity:period"></span> days for inactivity,
-              if you do not get or spend any <span class="beans-beans_name"></span> during this period.
-            </span>
-    </p>
+<!--    <h3 class="beans-help-title" id="beans-help-inactivity">When do my <span class="beans-beans_name"></span> expire?-->
+<!--    </h3>-->
+<!--    <p>-->
+<!--      Your <span class="beans-beans_name"></span> have no expiration date.-->
+<!--      <span beans-help="beans:inactivity">-->
+<!--              However you will loose <span beans-rule_beans="beans:inactivity"></span> every-->
+<!--                <span beans-rule_settings="beans:inactivity:period"></span> days for inactivity,-->
+<!--              if you do not get or spend any <span class="beans-beans_name"></span> during this period.-->
+<!--            </span>-->
+<!--    </p>-->
 
     <h3 class="beans-help-title" id="beans-help-rules">How do I get more <span class="beans-beans_name"></span>?</h3>
     <p>Please check our list of rules for more information about how to get more <span class="beans-beans_name"></span>.
     </p>
 
-    <div
+    <div class="beans-help-block"
         beans-help="beans:refer_friend_fixed,beans:refer_friend_signup,beans:refer_friend_two_sided,beans:refer_friend_percent">
       <h3 class="beans-help-title" id="beans-help-refer">How do I get <span class="beans-beans_name"></span> for
         referral?</h3>

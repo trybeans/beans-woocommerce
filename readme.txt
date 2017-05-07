@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 0.9.7
+Stable tag: 0.9.8
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -117,7 +117,7 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
-= 0.9.7 =
+= 0.9.8 =
 - Fix bug of credit not being applied after order
 
 = 0.9.6 =
