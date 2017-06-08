@@ -155,7 +155,7 @@ class Setup
                     Happy incentivizing!
                 </p>
                 <p>
-                    <a href="//<?php echo $domain.$action; ?>/register/" class="button button-primary">
+                    <a href="//<?php echo $domain.$action; ?>" class="button button-primary">
                         Connect to Beans
                     </a>
                 </p>
