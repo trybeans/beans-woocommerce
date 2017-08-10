@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://business.trybeans.com/
  * Description: Reward your customers to grow your business.
- * Version: 0.9.8
+ * Version: 0.9.9
  * Author: Beans
  * Author URI: https://business.trybeans.com/
  * Text Domain: woocommerce-beans
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '0.9.8');
+define('BEANS_VERSION',                 '0.9.9');
 define('BEANS_COUPON_UID',              'beans_redeem');
 define('BEANS_PLUGIN_FILE',             plugin_basename(__FILE__));
 define('BEANS_INFO_LOG',                plugin_dir_path(__FILE__).'log.txt');

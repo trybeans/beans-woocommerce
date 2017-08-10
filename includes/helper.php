@@ -24,7 +24,7 @@ class Helper {
         }else{
             $domain = getenv('BEANS_DOMAIN_WWW');
             if(!$domain)
-                $domain = 'www.trybeans.com';
+                $domain = 'w1.trybeans.com';
             return $domain;
         }
     }
