@@ -7,7 +7,6 @@ class Block {
 
     public static function init(){
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
-        add_filter('woocommerce_single_product_summary',             array(__CLASS__, 'render_product'),  15, 1);
         add_filter('woocommerce_after_cart_table',                   array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),     15, 1);
         add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
@@ -16,28 +15,8 @@ class Block {
     }
 
     public static function enqueue_scripts(){
-        wp_enqueue_script('beans-script', '//'.Helper::getDomain('WWW').'/assets/static/js/lib/1.1/shop.beans.js');
+        wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js');
         wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILE ));
-        wp_enqueue_style( 'beans-page-style', plugins_url( 'assets/white_bean.css' , BEANS_PLUGIN_FILE ));
-    }
-
-    public static function render_product(){
-        global $post;
-
-        if(function_exists('wc_get_product')){
-            $product = wc_get_product( $post->ID );
-        }else{
-            $product = get_product( $post->ID );
-        }
-
-        $price          = $product->get_price();
-        $sku            = $product->get_sku();
-        $min_price      = $product->min_variation_price;
-        $max_price      = $product->max_variation_price;
-
-        ?>
-            <div class="beans-product" beans-price="<?php echo $price;?>"  beans-price_min="<?php echo $min_price;?>" beans-price_max="<?php echo $max_price;?>" beans-sku="<?php echo $sku;?>"></div>
-        <?php
     }
 
     public static function render_cart(){
@@ -52,8 +31,10 @@ class Block {
         if (!$force && get_the_ID() === Helper::getConfig('page')) return;
 
         $account = array();
+        $token = array();
         $debit = array();
         if(isset($_SESSION['beans_account'])) $account = $_SESSION['beans_account'];
+        if(isset($_SESSION['beans_token'])) $token = $_SESSION['beans_token'];
         if(isset($_SESSION['beans_debit'])) $debit = $_SESSION['beans_debit'];
 
         ?>
@@ -62,11 +43,11 @@ class Block {
             Beans.Shop.init({
                 is_redeem: true,
                 address: '<?php echo Helper::getConfig('card'); ?>',
-                beans_domain: '<?php echo Helper::getDomain('WWW'); ?>',
-                beans_domain_api: '<?php echo Helper::getDomain('API'); ?>',
+                domainAPI: '<?php echo Helper::getDomain('API'); ?>',
                 reward_page: '<?php echo get_permalink( Helper::getConfig('page') ); ?>',
                 login_page: '<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>',
                 account: {<?php Helper::getAccountData($account, 'id', '');  Helper::getAccountData($account, 'beans'); ?>},
+                account_token: <?php  echo isset($token['key'])? $token['key'] : ''; ?>,
             });
             Beans.Shop.Redemption = {
                 <?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>

@@ -50,9 +50,9 @@ if (!function_exists('json_decode'))
 class Beans
 {
 
-    public $endpoint = 'https://api.trybeans.com/v1.1/';
+    public $endpoint = 'https://api-2.trybeans.com/v2/';
 
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     private $secret = '';
     private $_next_page = '';

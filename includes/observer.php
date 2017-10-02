@@ -21,6 +21,7 @@ class Observer {
     }
 
     public static function clearSession(){
+        unset($_SESSION['beans_token']);
         unset($_SESSION['beans_account']);
         unset($_SESSION['beans_coupon']);
         unset($_SESSION['beans_debit']);
@@ -58,6 +59,11 @@ class Observer {
         if($email){
             $account  = self::createBeansAccount($email, $first_name, $last_name);
             $_SESSION['beans_account'] = $account;
+            if($account){
+                $_SESSION['beans_token'] = Helper::API()->post('consumer_token', array(
+                    'account'     => $account['id']
+                ));
+            }
         }
     }
 

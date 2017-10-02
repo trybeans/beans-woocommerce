@@ -14,17 +14,12 @@ class Helper {
         if($sub == 'API'){
             $domain = getenv('BEANS_DOMAIN_API');
             if(!$domain)
-                $domain = 'api.trybeans.com';
-            return $domain;
-        }else if($sub == 'BUSINESS'){
-            $domain = getenv('BEANS_DOMAIN_BUSINESS');
-            if(!$domain)
-                $domain = 'business.trybeans.com';
+                $domain = 'api-2.trybeans.com';
             return $domain;
         }else{
-            $domain = getenv('BEANS_DOMAIN_WWW');
+            $domain = getenv('BEANS_DOMAIN_BUSINESS');
             if(!$domain)
-                $domain = 'w1.trybeans.com';
+                $domain = 'www.trybeans.com';
             return $domain;
         }
     }
@@ -61,10 +56,18 @@ class Helper {
             self::$key = self::getConfig('secret');
     }
 
+    public static function resetSetup(){
+        self::setConfig('key', null);
+        self::setConfig('card', null);
+        self::setConfig('secret', null);
+        self::setConfig('oauth_token', null);
+        self::setConfig('oauth_consumer_connect', null);
+        return true;
+    }
     public static function API() {
         self::setKey();
         $beans           = new Beans(self::$key);
-        $beans->endpoint = self::getDomain('API').'/v1.1/';
+        $beans->endpoint = self::getDomain('API').'/v2/';
         return $beans;
     }
 
@@ -90,12 +93,17 @@ class Helper {
         if (!self::$card && self::isInstalled()) {
             try {
                 self::$card = self::API()->get('card/current');
+                if(!isset(self::$card['version']) || self::$card['version'] < 2){
+                    self::resetSetup();
+                    self::log('Please upgeade to Beans 2.0');
+                    self::$card = null;
+                }
             } catch (\Beans\Error\BaseError $e) {
                 self::log('Unable to get card: '.$e->getMessage());
             }
         }
 
-        if(self::getConfig('synced') != date('Y-m-d').BEANS_VERSION){
+        if(self::$card && self::getConfig('synced') != date('Y-m-d').BEANS_VERSION){
             if(self::synchronise()){
                 self::setConfig('synced', date('Y-m-d').BEANS_VERSION);
             }

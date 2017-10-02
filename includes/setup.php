@@ -59,19 +59,19 @@ class Setup
                  '</a>' .
                  '</div></div>';
         }
-        if ( !Helper::log('|') ) {
-
-            echo '<div class="error" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: '.
-                 __( 'Beans is unable to log error trace.', 'beans-woo' ) .
-                 '</div></div>';
-        }
+//        if ( !Helper::log('|') ) {
+//
+//            echo '<div class="error" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: '.
+//                 __( 'Beans is unable to log error trace.', 'beans-woo' ) .
+//                 '</div></div>';
+//        }
     }
 
     public static function render_settings_page()
     {
 
         if(isset($_GET['reset_beans'])){
-            if(self::_resetSetup()){
+            if(Helper::resetSetup()){
                 return wp_redirect(admin_url( 'admin.php?page=beans-woo' ));
             }
         }
@@ -194,26 +194,21 @@ class Setup
         Helper::$key = $card;
 
         try{
-            $app_key = Helper::API()->get('app_key/'.$token);
+            $integration_key = Helper::API()->get('integration_key/'.$token);
+            if($integration_key['card']['version'] < 2){
+                Helper::resetSetup();
+                self::$errors[] = 'Please upgrade your rewards program to Beans 2.0';
+                return null;
+            }
         }catch(\Beans\Error\BaseError  $e){
             self::$errors[] = 'Connecting to Beans failed with message: '.$e->getMessage();
             Helper::log('Connecting failed: '.$e->getMessage());
             return null;
         }
 
-        Helper::setConfig('key', $app_key['id']);
-        Helper::setConfig('card', $app_key['card']);
-        Helper::setConfig('secret', $app_key['secret']);
-
-        return true;
-    }
-
-    private static function _resetSetup(){
-        Helper::setConfig('key', null);
-        Helper::setConfig('card', null);
-        Helper::setConfig('secret', null);
-        Helper::setConfig('oauth_token', null);
-        Helper::setConfig('oauth_consumer_connect', null);
+        Helper::setConfig('key', $integration_key['id']);
+        Helper::setConfig('card', $integration_key['card']['id']);
+        Helper::setConfig('secret', $integration_key['secret']);
 
         return true;
     }

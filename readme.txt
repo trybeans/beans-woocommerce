@@ -4,56 +4,53 @@ Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 0.9.9
+Stable tag: 2.0.0
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
+Beans is loyalty and rewards program for Woocommerce. Increase brand loyalty and repeat purchases from existing customers.
 
 == Description ==
 
-[Beans](http://bit.ly/2o1dED4) allows you to easily reward your customers for all the things that matter to your business.
+Beans is an automated rewards program that gets
+your customers to come back your store and buy from you more often. Beans
+helps you increase brand loyalty and repeat purchases from existing customers.
 
+- 20+ ways to reward your customers
+- Create exclusive time based promotions for loyal customers
+- 50% of fastest growing online shops use Beans
 
-= Reward your customers the way you want, with 30 innovative reward rules. =
+[https://www.youtube.com/watch?v=iiqCC_B9qzY]
 
-We’ve got you covered for everything you'd expect, such as Loyalty and Referral, but also for fun and unique ways to reward customers that you won’t find anywhere else.
+= [☞ ☞ ☞ Online Demo ☜ ☜ ☜] (http://bit.ly/2xOEPaT)=
 
-- **Use [Facebook Lottery](http://bit.ly/2p4aLDn) to encourage customers to like and share your Facebook competition post
-- **Use [Twitter Public Testimonials](http://bit.ly/2oV9Nwb) to reward customers for talking about you on Twitter
-- **Use [Instagram Public Testimonials](http://bit.ly/2pqrwb7) to reward customers for posting pics of their purchases on Instagram
-- **Use [Cart Booster](http://bit.ly/2o3Ug9c) to reward customers for spending more
-- **Use [Youtube Subscriber](http://bit.ly/2o0VLnG) to reward customers for youtube subcriptions
-- **Use [Frequency Booster](http://bit.ly/2p2iQLv) to reward customers based on how often they shop
-- **Use [Customer Loyalty](http://bit.ly/2o119Y9) to encourage customers to purchase more
-- **Use [4 Referral Rules](http://bit.ly/2pql1oG) to reward customers for telling their friends about your business
+= Reward Rules =
 
-= [See our complete list of 30 rewards](http://bit.ly/2pqdLt2See) =
+Engage your customers and reward them for the things that are strategically important to your business, including loyalty, signup, referral, reviews, special occasions and more.
 
-= Why Beans? =
+= Notifications =
 
-Beans puts your customers first by creating a simple, fun and engaging experience. While for you we keep things simple: go through our quick set-up and after that everything is automated. The result is that Beans retailers get 5x more usage compared to traditional rewards systems.
+Send customized notifications to your customers so they don’t forget to come back and spend their credit.
 
+= Integrations =
 
-= Beans Enterprise =
-Beans is the chosen store credit system of many of Woocommerce’s largest retailers. Compared with traditional rewards programs Beans puts your customers in charge. This increases usage and diminishes support requests. We have the capability to provide high-volume retailers with both the necessary robust infrastructure and the support to launch their rewards program on Beans. You also have the option to build the exact rewards program you want with the Beans API.
+Extend the power of Beans with 10+ integrations, including Juge.me, Shopify Product Review, Referral, Mailchimp and more.
 
-[Get in touch about volume discount](http://bit.ly/2p2nI35)
+= Time based campaigns =
 
+Create urgency among your customers with limited time promotions such as double and triple points campaigns.
 
-= About Beans =
-We created Beans because we were frustrated with existing software, which are hard for customers to use and therefore unengaging. Our mission is to create an experience that's centered around customers, so that they keep coming back, and back, and... Well you get it!
+= Customers =
 
- = Roadmap =
-We've created a community where you can request features you'd like us to add. Feel free to join in by clicking [here](http://bit.ly/2oVa6at). We'd love to hear from you if you have any questions – get in touch at hello@trybeans.com
+Successful Stores across all ecommerce verticles are using Beans to grow their business and increase their retention
 
-Beans is currently available in English only and in limited number of currencies. You can see a list of currencies [here](http://bit.ly/2o3WB3W). Internationalization is very important for us and we're working hard to add new currencies and languages. We're happy to hear your requests regarding this.
+- Apparel: [The Babe Cave](http://bit.ly/2yRSfTm)
+- Beauty and Cosmetics: [Faux Freckles](http://bit.ly/2xapofO).
+- Baby: [DGB Baby](http://bit.ly/2x9uBEN)
 
- = Get started =
-Use our quick set-up feature to put in place powerful marketing products which are proven to increase revenue, retention and customer satisfaction. It's free to create an account
+= Get Started =
 
-[Get started with Beans today](http://bit.ly/2o0ZiSY)
-
-
+[Find out about Beans Pricing and Features](http://bit.ly/2wtEJ6Z)
 
 == Installation ==
 
@@ -78,7 +75,7 @@ The WordPress codex contains instructions on
 
 = How much does Beans cost? =
 
-[Learn more about pricing](http://bit.ly/2nZeAfI).
+[Learn more about pricing](http://bit.ly/2wtEJ6Z)
 
 == Screenshots ==
 
@@ -90,6 +87,9 @@ The WordPress codex contains instructions on
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 2.0.0 =
+- Stable Release of Beans 2.0
 
 = 0.9.9 =
 - Update reference to Beans website
