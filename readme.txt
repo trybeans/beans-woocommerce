@@ -12,17 +12,15 @@ Beans is loyalty and rewards program for Woocommerce. Increase brand loyalty and
 
 == Description ==
 
-Beans is an automated rewards program that gets
-your customers to come back your store and buy from you more often. Beans
-helps you increase brand loyalty and repeat purchases from existing customers.
+Beans is an automated rewards program that gets your customers to come back your store and buy from you more often. Beans helps you increase brand loyalty and repeat purchases from existing customers.
 
 - 20+ ways to reward your customers
 - Create exclusive time based promotions for loyal customers
 - 50% of fastest growing online shops use Beans
 
-[https://www.youtube.com/watch?v=iiqCC_B9qzY]
+[youtube https://www.youtube.com/watch?v=iiqCC_B9qzY]
 
-= [☞ ☞ ☞ Online Demo ☜ ☜ ☜] (http://bit.ly/2xOEPaT)=
+☞ ☞ ☞ [Online Demo](http://bit.ly/2xOEPaT) ☜ ☜ ☜
 
 = Reward Rules =
 
@@ -40,15 +38,15 @@ Extend the power of Beans with 10+ integrations, including Juge.me, Shopify Prod
 
 Create urgency among your customers with limited time promotions such as double and triple points campaigns.
 
-= Customers =
+== Customers ==
 
 Successful Stores across all ecommerce verticles are using Beans to grow their business and increase their retention
 
 - Apparel: [The Babe Cave](http://bit.ly/2yRSfTm)
-- Beauty and Cosmetics: [Faux Freckles](http://bit.ly/2xapofO).
-- Baby: [DGB Baby](http://bit.ly/2x9uBEN)
+- Beauty and Cosmetics: [Faux Freckles](http://bit.ly/2qouGQo)
+- Baby: [DGB Baby](http://bit.ly/2xWDW00)
 
-= Get Started =
+== Get Started ==
 
 [Find out about Beans Pricing and Features](http://bit.ly/2wtEJ6Z)
 
