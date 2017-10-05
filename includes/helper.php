@@ -62,12 +62,13 @@ class Helper {
         self::setConfig('secret', null);
         self::setConfig('oauth_token', null);
         self::setConfig('oauth_consumer_connect', null);
+        self::$card = null;
         return true;
     }
     public static function API() {
         self::setKey();
         $beans           = new Beans(self::$key);
-        $beans->endpoint = self::getDomain('API').'/v2/';
+        $beans->endpoint = 'https://'.self::getDomain('API').'/v2/';
         return $beans;
     }
 
@@ -95,10 +96,12 @@ class Helper {
                 self::$card = self::API()->get('card/current');
                 if(!isset(self::$card['version']) || self::$card['version'] < 2){
                     self::resetSetup();
-                    self::log('Please upgeade to Beans 2.0');
-                    self::$card = null;
+                    self::log('Please upgrade to Beans 2.0');
                 }
             } catch (\Beans\Error\BaseError $e) {
+                if($e->getCode() < 400){
+                    self::resetSetup();
+                }
                 self::log('Unable to get card: '.$e->getMessage());
             }
         }

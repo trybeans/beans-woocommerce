@@ -144,14 +144,6 @@ class Setup
                     <a href="//<?php echo $domain; ?>" target="_blank">Learn more</a>
                 </p>
                 <p>
-                    This is a Beans private beta. Contact us on Twitter to request an invitation to join our private beta.
-                </p>
-                <p>
-                    <a href="https://twitter.com/BeansHQ" target="_blank" class="button">
-                        Request access
-                    </a>
-                </p>
-                <p>
                     Happy incentivizing!
                 </p>
                 <p>
@@ -178,6 +170,7 @@ class Setup
               <a target='_blank' href='//<?php echo $domain; ?>'>Update settings</a>.
             </div>
             <div style='margin: 20px auto'>
+              <a  href='<?php echo admin_url( 'admin.php?page=beans-woo&reset_beans=1' ); ?>'>Reset</a>
             </div>
         </div>
         <?php

@@ -46,8 +46,8 @@ class Block {
                 domainAPI: '<?php echo Helper::getDomain('API'); ?>',
                 reward_page: '<?php echo get_permalink( Helper::getConfig('page') ); ?>',
                 login_page: '<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>',
+                account_token: '<?php  echo isset($token['key'])? $token['key'] : ''; ?>',
                 account: {<?php Helper::getAccountData($account, 'id', '');  Helper::getAccountData($account, 'beans'); ?>},
-                account_token: <?php  echo isset($token['key'])? $token['key'] : ''; ?>,
             });
             Beans.Shop.Redemption = {
                 <?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>
