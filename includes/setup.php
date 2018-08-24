@@ -188,11 +188,6 @@ class Setup
 
         try{
             $integration_key = Helper::API()->get('integration_key/'.$token);
-            if($integration_key['card']['version'] < 2){
-                Helper::resetSetup();
-                self::$errors[] = 'Please upgrade your rewards program to Beans 2.0';
-                return null;
-            }
         }catch(\Beans\Error\BaseError  $e){
             self::$errors[] = 'Connecting to Beans failed with message: '.$e->getMessage();
             Helper::log('Connecting failed: '.$e->getMessage());

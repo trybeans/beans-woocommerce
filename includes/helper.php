@@ -94,10 +94,6 @@ class Helper {
         if (!self::$card && self::isInstalled()) {
             try {
                 self::$card = self::API()->get('card/current');
-                if(!isset(self::$card['version']) || self::$card['version'] < 2){
-                    self::resetSetup();
-                    self::log('Please upgrade to Beans 2.0');
-                }
             } catch (\Beans\Error\BaseError $e) {
                 if($e->getCode() < 400){
                     self::resetSetup();
