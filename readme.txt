@@ -3,8 +3,8 @@
 Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.6
-Tested up to: 4.8.2
-Stable tag: 2.0.0
+Tested up to: 4.9.9
+Stable tag: 2.0.1
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -12,7 +12,7 @@ Beans is loyalty and rewards program for Woocommerce. Increase brand loyalty and
 
 == Description ==
 
-Beans is an automated rewards program that gets your customers to come back your store and buy from you more often. Beans helps you increase brand loyalty and repeat purchases from existing customers.
+Beans is an automated loyalty and rewards program that gets your customers to come back your store and buy from you more often. Beans helps you increase brand loyalty and repeat purchases from existing customers.
 
 - 20+ ways to reward your customers
 - Create exclusive time based promotions for loyal customers
@@ -85,6 +85,9 @@ The WordPress codex contains instructions on
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 2.0.1 =
+- Fix issue with Beans version check
 
 = 2.0.0 =
 - Stable Release of Beans 2.0
