@@ -7,6 +7,7 @@ class Block {
 
     public static function init(){
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
+        add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
         add_filter('woocommerce_after_cart_table',                   array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),     15, 1);
         add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
@@ -15,8 +16,17 @@ class Block {
     }
 
     public static function enqueue_scripts(){
-        wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js');
+        // wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js');
         wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILE ));
+    }
+
+    public static function render_head(){
+        /* Issue with wp_enqueue_script not always loading, prefered using wp_head for a quick fix
+           Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
+        */
+        ?>
+      <script src='https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js' type="text/javascript"></script>
+        <?php
     }
 
     public static function render_cart(){

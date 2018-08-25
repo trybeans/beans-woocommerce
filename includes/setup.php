@@ -20,7 +20,7 @@ class Setup
         if ( $file == BEANS_PLUGIN_FILE ) {
             $row_meta = array(
                 'help'      => '<a href="http://help.trybeans.com/" title="Help">Get help</a>',
-                'api'       => '<a href="http://business.trybeans.com/doc/api/" title="Help">API doc</a>',
+//                'api'       => '<a href="http://www.trybeans.com/doc/api/" title="Help">API doc</a>',
             );
 
             return array_merge( $links, $row_meta );
