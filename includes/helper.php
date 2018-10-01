@@ -65,6 +65,7 @@ class Helper {
         self::$card = null;
         return true;
     }
+
     public static function API() {
         self::setKey();
         $beans           = new Beans(self::$key);
@@ -102,11 +103,11 @@ class Helper {
             }
         }
 
-        if(self::$card && self::getConfig('synced') != date('Y-m-d').BEANS_VERSION){
-            if(self::synchronise()){
-                self::setConfig('synced', date('Y-m-d').BEANS_VERSION);
-            }
-        }
+//        if(self::$card && self::getConfig('synced') != date('Y-m-d').BEANS_VERSION){
+//            if(self::synchronise()){
+//                self::setConfig('synced', date('Y-m-d').BEANS_VERSION);
+//            }
+//        }
 
         return self::$card;
     }
@@ -145,6 +146,8 @@ class Helper {
     }
 
     private static function getOAuthConsumer(){
+
+        Helper::log('Retrieving API Access');
 
         global $wpdb;
 
@@ -199,6 +202,8 @@ class Helper {
 
     public static function synchronise(){
 
+        Helper::log('Launching synchronization');
+
         $estimated_account = 0;
         $contact_data = array();
 
@@ -217,6 +222,7 @@ class Helper {
         }
 
         $consumer_data = self::getOAuthConsumer();
+//        $consumer_data = array();
 
         $country_code = get_option('woocommerce_default_country');
         if($country_code && strpos($country_code, ':') !== false){

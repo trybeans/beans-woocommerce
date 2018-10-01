@@ -181,6 +181,8 @@ class Setup
 
         self::_installAssets();
 
+        Helper::log(print_r($_GET, true));
+
         $card = $_GET['card'];
         $token = $_GET['token'];
 
@@ -206,7 +208,7 @@ class Setup
         // Install Reward Program Page
         if(!get_post(Helper::getConfig('page'))){
             require_once(WP_PLUGIN_DIR . '/woocommerce/includes/admin/wc-admin-functions.php');
-            $page_id = wc_create_page('beans', self::REWARD_PROGRAM_PAGE, 'Beans', '[beans_page]', 0);
+            $page_id = wc_create_page('rewards-program', self::REWARD_PROGRAM_PAGE, 'Rewards Program', '[beans_page]', 0);
             Helper::setConfig('page', $page_id);
         }
     }
