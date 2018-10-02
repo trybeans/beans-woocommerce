@@ -27,7 +27,7 @@ class Observer {
         unset($_SESSION['beans_debit']);
     }
 
-    private static function createBeansAccount($email, $firstname, $lastname) {
+    public static function createBeansAccount($email, $firstname, $lastname) {
         try {
             return Helper::API()->post('account', array(
                 'email'      => $email,
