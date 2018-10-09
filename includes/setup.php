@@ -76,7 +76,7 @@ class Setup
             }
         }
 
-        Helper::synchronise();
+//        Helper::synchronise();
 
         if(isset($_GET['card']) && isset($_GET['token'])){
             if(self::_processSetup()){
