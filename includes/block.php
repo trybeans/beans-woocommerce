@@ -43,6 +43,11 @@ class Block {
         $account = array();
         $token = array();
         $debit = array();
+
+        if (is_user_logged_in() and !isset($_SESSION['beans_account'])){
+            Observer::customerRegister(get_current_user_id());
+        }
+
         if(isset($_SESSION['beans_account'])) $account = $_SESSION['beans_account'];
         if(isset($_SESSION['beans_token'])) $token = $_SESSION['beans_token'];
         if(isset($_SESSION['beans_debit'])) $debit = $_SESSION['beans_debit'];

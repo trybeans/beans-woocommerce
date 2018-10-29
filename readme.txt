@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.6
 Tested up to: 4.9.9
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -79,12 +79,17 @@ The WordPress codex contains instructions on
 
 1. Easy one click redemption for reduced cart abandonment.
 2. Non-intrusive popup widget to encourage new visitors to signup and purchase.
-3. Referral dasboard for customers to track their referral and make sure their friend signup.
+3. Referral dashboard for customers to track their referral and make sure their friend signup.
 4. Reminders to keep your customers come back.
 5. Customers can easily keep up to date.
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 2.0.5 =
+- Fix login issues
+- Retrieve information (first name and last name) from billing address or shipping address whenever possible
+- Auto reconnect the customer when they get disconnected from their beans account
 
 = 2.0.4 =
 - deactivate synchronizaton

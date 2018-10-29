@@ -50,9 +50,13 @@ class Observer {
 
         $first_name = get_user_meta( $user_id, 'first_name', true );
         if(!$first_name && isset($_POST['first_name'])) $first_name = $_POST['first_name'];
+        if(!$first_name) $first_name = get_user_meta( $user_id, 'billing_first_name', true );
+        if(!$first_name) $first_name = get_user_meta( $user_id, 'shipping_first_name', true );
 
         $last_name = get_user_meta( $user_id, 'last_name', true );
         if(!$last_name && isset($_POST['last_name'])) $last_name = $_POST['last_name'];
+        if(!$last_name) $first_name = get_user_meta( $user_id, 'billing_last_name', true );
+        if(!$last_name) $first_name = get_user_meta( $user_id, 'shipping_last_name', true );
 
         $email = $user_data->user_email;
 
