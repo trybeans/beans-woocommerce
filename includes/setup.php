@@ -200,6 +200,8 @@ class Setup
         Helper::setConfig('card', $integration_key['card']['id']);
         Helper::setConfig('secret', $integration_key['secret']);
 
+        Helper::synchronise();
+
         return true;
     }
 

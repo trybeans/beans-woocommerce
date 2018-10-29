@@ -199,7 +199,7 @@ class Helper {
         $consumer['consumer_key'] = $consumer_key ;
         return $consumer;
     }
-/*
+
     public static function synchronise(){
 
         Helper::log('Launching synchronization');
@@ -221,8 +221,8 @@ class Helper {
             );
         }
 
-        $consumer_data = self::getOAuthConsumer();
-//        $consumer_data = array();
+//        $consumer_data = self::getOAuthConsumer();
+        $consumer_data = array();
 
         $country_code = get_option('woocommerce_default_country');
         if($country_code && strpos($country_code, ':') !== false){
@@ -256,7 +256,7 @@ class Helper {
 
         return false;
     }
-*/
+
     public static function plugin_version($plugin_name = 'woocommerce') {
         if (!function_exists( 'get_plugins' ) )
             require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
