@@ -1,6 +1,8 @@
 <?php
 
-namespace BeansWoo;
+namespace BeansWoo\Liana;
+
+use BeansWoo\Helper;
 
 class Observer {
 
@@ -13,8 +15,8 @@ class Observer {
         add_filter('wp_login',                                      array(__CLASS__, 'customerLogin'),     10, 2);
         add_filter('user_register',                                 array(__CLASS__, 'customerRegister'),  10, 1);
         add_filter('profile_update',                                array(__CLASS__, 'customerRegister'),  10, 1);
-        add_filter('wp_loaded',                                     array(__CLASS__, 'form_post_handler'), 30, 1);
-        add_filter('woocommerce_get_shop_coupon_data',              array(__CLASS__, 'get_coupon'),        10, 2);
+        add_filter('wp_loaded',                                     array(__CLASS__, 'handleRedemptionForm'), 30, 1);
+        add_filter('woocommerce_get_shop_coupon_data',              array(__CLASS__, 'getCoupon'),        10, 2);
         add_filter('woocommerce_checkout_order_processed',          array(__CLASS__, 'orderPlaced'),       10, 1);
         add_filter('woocommerce_order_status_changed',              array(__CLASS__, 'orderPaid'),         10, 3);
 //        add_filter('woocommerce_update_cart_action_cart_updated',   array(__CLASS__, 'cancel_redemption'),10, 1);
@@ -29,7 +31,7 @@ class Observer {
 
     public static function createBeansAccount($email, $firstname, $lastname) {
         try {
-            return Helper::API()->post('account', array(
+            return Helper::API()->post('/liana/account', array(
                 'email'      => $email,
                 'first_name' => $firstname,
                 'last_name'  => $lastname,
@@ -64,14 +66,14 @@ class Observer {
             $account  = self::createBeansAccount($email, $first_name, $last_name);
             $_SESSION['beans_account'] = $account;
             if($account){
-                $_SESSION['beans_token'] = Helper::API()->post('consumer_token', array(
+                $_SESSION['beans_token'] = Helper::API()->post('/core/consumer_token', array(
                     'account'     => $account['id']
                 ));
             }
         }
     }
 
-    public static function form_post_handler() {
+    public static function handleRedemptionForm() {
 
 
         if(!isset($_POST['beans_action'])) return;
@@ -79,46 +81,15 @@ class Observer {
         $action = $_POST['beans_action'];
 
         if($action == 'apply'){
-            self::apply_redemption();
+            self::applyRedemption();
         }else {
-            Helper::flushRedemption();
+            self::cancelRedemption();
         }
     }
 
-    private static function apply_redemption(){
+    public static function getCoupon($coupon, $coupon_code){
 
-        if(!isset($_SESSION['beans_account'])) return;
-
-        Helper::flushRedemption();
-        Helper::updateSession();
-
-        $account = $_SESSION['beans_account'];
-
-        $cart = Helper::get_cart();
-        $card = Helper::getCard();
-
-        $max_amount = $cart->subtotal;
-        if(isset($card['settings']) && isset($card['settings']['range_max_redeem'])){
-            $percent_discount = $card['settings']['range_max_redeem'];
-            if($percent_discount < 100){
-                $max_amount = (1.0*$cart->subtotal*$percent_discount)/100;
-                wc_add_notice("Maximum discount allowed for this order is $percent_discount%", 'notice');
-            }
-        }
-
-        $amount = min($max_amount, $account['beans_value']);
-        $amount = sprintf('%0.2f', $amount);
-
-        $_SESSION['beans_debit'] = array(
-            'beans' => $amount * $card['beans_rate'],
-            'value' => $amount
-        );
-        $cart->add_discount(BEANS_COUPON_UID);
-    }
-
-    public static function get_coupon($coupon, $coupon_code){
-
-        if( $coupon_code != BEANS_COUPON_UID)                       return $coupon;
+        if( $coupon_code != BEANS_LIANA_COUPON_UID)                       return $coupon;
         if( !isset($_SESSION['beans_account']) ||
             !isset($_SESSION['beans_account']['beans']) )           return $coupon;
         if( !isset($_SESSION['beans_debit']) ||
@@ -127,10 +98,10 @@ class Observer {
         if(isset($_SESSION['beans_coupon']) &&
            $_SESSION['beans_coupon'])                               return $_SESSION['beans_coupon'];
 
-        $cart = Helper::get_cart();
+        $cart = Helper::getCart();
         if(empty($cart))                                            return $coupon;
 
-        $quantity = $_SESSION['beans_debit']['beans'];
+//        $quantity = $_SESSION['beans_debit']['beans'];
         $amount = $_SESSION['beans_debit']['value'];
 
         $coupon_data = array();
@@ -164,6 +135,45 @@ class Observer {
         return $coupon_data;
     }
 
+    public static function applyRedemption(){
+
+        if(!isset($_SESSION['beans_account'])) return;
+
+        self::cancelRedemption();
+        Helper::updateSession();
+
+        $account = $_SESSION['beans_account'];
+
+        $cart = Helper::getCart();
+        $card = Helper::getCard();
+
+        $max_amount = $cart->subtotal;
+        if(isset($card['settings']) && isset($card['settings']['range_max_redeem'])){
+            $percent_discount = $card['settings']['range_max_redeem'];
+            if($percent_discount < 100){
+                $max_amount = (1.0*$cart->subtotal*$percent_discount)/100;
+                wc_add_notice("Maximum discount allowed for this order is $percent_discount%", 'notice');
+            }
+        }
+
+        $amount = min($max_amount, $account['beans_value']);
+        $amount = sprintf('%0.2f', $amount);
+
+        $_SESSION['beans_debit'] = array(
+            'beans' => $amount * $card['beans_rate'],
+            'value' => $amount
+        );
+        $cart->add_discount(BEANS_LIANA_COUPON_UID);
+    }
+
+    public static function cancelRedemption() {
+
+        Helper::getCart()->remove_coupon(BEANS_LIANA_COUPON_UID);
+
+        unset($_SESSION['beans_coupon']);
+        unset($_SESSION['beans_debit']);
+    }
+
     public static function orderPlaced($order_id) {
         $order = new \WC_Order($order_id);
 
@@ -175,7 +185,7 @@ class Observer {
 
         foreach ($coupon_codes as $code) {
 
-            if ($code === BEANS_COUPON_UID) {
+            if ( $code === BEANS_LIANA_COUPON_UID) {
 
                 if(!$account) throw new \Exception('Trying to redeem beans without beans account.');
 
@@ -190,13 +200,13 @@ class Observer {
                     'rule'          => strtoupper(get_woocommerce_currency()),
                     'account'       => $account['id'],
                     'description'   => "Debited for a $amount_str discount",
-                    'uid'           => 'wc_'.$order->id . '_' . $order->order_key,
+                    'uid'           => 'wc_'.$order->get_id() . '_' . $order->order_key,
                     'commit'        => true
                 );
 
 
                 try {
-                    $debit = Helper::API()->post('debit', $data);
+                    $debit = Helper::API()->post('/liana/debit', $data);
                 } catch (\Beans\Error\BaseError $e) {
                     if($e->getCode() != 409) {
                         Helper::log('Debiting failed: ' . $e->getMessage());
@@ -207,7 +217,7 @@ class Observer {
             }
         }
 
-        Helper::flushRedemption();
+        self::cancelRedemption();
         Helper::updateSession();
     }
 
@@ -216,7 +226,7 @@ class Observer {
         $account = null;
 
         try {
-            $account = Helper::API()->get('account/' . $order->billing_email);
+            $account = Helper::API()->get('/liana/account/' . $order->billing_email);
         } catch (\Beans\Error\ValidationError $e) {
             if ($e->getCode() == 404 && $order->customer_user) {
                 $account = self::createBeansAccount($order->billing_email, $order->billing_first_name, $order->billing_last_name);
@@ -230,18 +240,18 @@ class Observer {
 
         if (!$account) return;
 
-        $total = $order->get_total() - $order->get_total_shipping();
+        $total = $order->get_total() - $order->get_shipping_total();
         $total = sprintf('%0.2f', $total);
 
         if($new_status=='processing' || $new_status=='completed'){
 
             try {
-                $credit = Helper::API()->post('credit', array(
+                $credit = Helper::API()->post('/liana/credit', array(
                     'account'     => $account['id'],
                     'quantity'    => $total,
                     'rule'        => 'beans:currency_spent',
-                    'uid'         => 'wc_'.$order->id . '_' . $order->order_key,
-                    'description' => 'Customer loyalty rewarded for order #' . $order->id,
+                    'uid'         => 'wc_'.$order->get_id() . '_' . $order->order_key,
+                    'description' => 'Customer loyalty rewarded for order #' . $order->get_id(),
                     'commit'      => true
                 ));
             } catch (\Beans\Error\BaseError $e) {
@@ -250,14 +260,14 @@ class Observer {
             }
         }
         else if($new_status == 'cancelled'){
-            $order_key = 'wc_'.$order->id . '_' . $order->order_key;
+            $order_key = 'wc_'.$order->get_id() . '_' . $order->order_key;
             try {
-                Helper::API()->post("debit/$order_key/cancel");
+                Helper::API()->post("/liana/debit/$order_key/cancel");
             } catch (\Beans\Error\BaseError $e) {
                 Helper::log('Cancelling debit failed with message: ' . $e->getMessage());
             }
             try {
-                Helper::API()->post("credit/$order_key/cancel");
+                Helper::API()->post("/liana/credit/$order_key/cancel");
             } catch (\Beans\Error\BaseError $e) {
                 Helper::log('Cancelling credit failed with message: ' . $e->getMessage());
             }

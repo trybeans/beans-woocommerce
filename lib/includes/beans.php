@@ -40,19 +40,20 @@ use Beans\Error\ConnectionError;
 use Beans\Error\ServerError;
 use Beans\Error\ValidationError;
 
-if (!function_exists('curl_init'))
-    trigger_error('Beans needs the CURL PHP extension.');
+// Using the check before connect: more user friendly
+//if (!function_exists('curl_init'))
+//    trigger_error('Beans needs the CURL PHP extension.');
 
-if (!function_exists('json_decode'))
-    trigger_error('Beans needs the JSON PHP extension.');
+//if (!function_exists('json_decode'))
+//    trigger_error('Beans needs the JSON PHP extension.');
 
 
 class Beans
 {
 
-    public $endpoint = 'https://api-2.trybeans.com/v2/';
+    public $endpoint = 'https://api-3.trybeans.com/v3/';
 
-    const VERSION = '1.0.1';
+    const VERSION = '3.0.0';
 
     private $secret = '';
     private $_next_page = '';

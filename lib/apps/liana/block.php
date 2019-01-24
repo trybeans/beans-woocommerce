@@ -1,6 +1,8 @@
 <?php
 
-namespace BeansWoo;
+namespace BeansWoo\Liana;
+
+use BeansWoo\Helper;
 
 class Block {
 
@@ -17,7 +19,7 @@ class Block {
 
     public static function enqueue_scripts(){
         // wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js');
-        wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILE ));
+        wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
     public static function render_head(){
@@ -30,7 +32,7 @@ class Block {
     }
 
     public static function render_cart(){
-        $cart_subtotal  = Helper::get_cart()->cart_contents_total;
+        $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
         <div class="beans-cart" beans-btn-class="button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
@@ -77,7 +79,7 @@ class Block {
         if (strpos($content,'[beans_page]') !== false) {
             ob_start();
             self::render_init(true);
-            include(dirname(__FILE__).'/block.page.php');
+            include( dirname( __FILE__ ) . '/block.page.php' );
             $page = ob_get_clean();
             $content = str_replace('[beans_page]', $page, $content);
         }
