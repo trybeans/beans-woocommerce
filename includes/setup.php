@@ -141,7 +141,7 @@ class Setup
                     Beans allows you to easily reward your customers for their loyalty, referrals and things
                     that matters to your business. Everything is automated. All you need to do is set how you want to reward your customers and then sit back.
                     Last year, retailers using Beans have increased their revenue by 40% in average.
-                    <a href="//<?php echo $domain; ?>" target="_blank">Learn more</a>
+                    <a href="https://www.trybeans.com" target="_blank">Learn more</a>
                 </p>
                 <p>
                     Happy incentivizing!

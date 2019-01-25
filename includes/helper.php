@@ -19,7 +19,7 @@ class Helper {
         }else{
             $domain = getenv('BEANS_DOMAIN_BUSINESS');
             if(!$domain)
-                $domain = 'www.trybeans.com';
+                $domain = 'loyalty.trybeans.com';
             return $domain;
         }
     }
@@ -96,9 +96,9 @@ class Helper {
             try {
                 self::$card = self::API()->get('card/current');
             } catch (\Beans\Error\BaseError $e) {
-                if($e->getCode() < 400){
-                    self::resetSetup();
-                }
+//                if($e->getCode() < 400){
+//                    self::resetSetup();
+//                }
                 self::log('Unable to get card: '.$e->getMessage());
             }
         }
