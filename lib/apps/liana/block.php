@@ -5,8 +5,7 @@ namespace BeansWoo\Liana;
 use BeansWoo\Helper;
 
 class Block {
-
-
+    
     public static function init(){
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
         add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
@@ -18,7 +17,7 @@ class Block {
     }
 
     public static function enqueue_scripts(){
-        // wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js');
+        // wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js');
         wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
@@ -27,7 +26,8 @@ class Block {
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
         ?>
-      <script src='https://trybeans.s3.amazonaws.com/static/js/lib/2.0/shop.beans.js' type="text/javascript"></script>
+<!--      <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>-->
+          <script src='http://localhost:8002/assets/static/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
         <?php
     }
 
@@ -46,30 +46,30 @@ class Block {
         $token = array();
         $debit = array();
 
-        if (is_user_logged_in() and !isset($_SESSION['beans_account'])){
+        if (is_user_logged_in() and !isset($_SESSION['liana_account'])){
             Observer::customerRegister(get_current_user_id());
         }
 
-        if(isset($_SESSION['beans_account'])) $account = $_SESSION['beans_account'];
-        if(isset($_SESSION['beans_token'])) $token = $_SESSION['beans_token'];
-        if(isset($_SESSION['beans_debit'])) $debit = $_SESSION['beans_debit'];
+        if(isset($_SESSION['liana_account'])) $account = $_SESSION['liana_account'];
+        if(isset($_SESSION['liana_token'])) $token = $_SESSION['liana_token'];
+        if(isset($_SESSION['liana_debit'])) $debit = $_SESSION['liana_debit'];
 
         ?>
         <div></div>
         <script>
-            Beans.Shop.init({
+            Beans3.Liana.init({
                 is_redeem: true,
                 address: '<?php echo Helper::getConfig('card'); ?>',
                 domainAPI: '<?php echo Helper::getDomain('API'); ?>',
                 reward_page: '<?php echo get_permalink( Helper::getConfig('page') ); ?>',
                 login_page: '<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>',
                 account_token: '<?php  echo isset($token['key'])? $token['key'] : ''; ?>',
-                account: {<?php Helper::getAccountData($account, 'id', '');  Helper::getAccountData($account, 'beans'); ?>},
+                account: {<?php Helper::getAccountData($account, 'id', '');  Helper::getAccountData($account, 'beans'); ?>}
             });
-            Beans.Shop.Redemption = {
+            Beans3.Liana.Redemption = {
                 <?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>
-                apply: function(){Beans.Shop.utils.formPost('', {beans_action: 'apply'});},
-                cancel: function(){Beans.Shop.utils.formPost('', {beans_action: 'cancel'});},
+                apply: function(){Beans3.Liana.utils.formPost('', {beans_action: 'apply'});},
+                cancel: function(){Beans3.Liana.utils.formPost('', {beans_action: 'cancel'});}
             };
         </script>
         <?php

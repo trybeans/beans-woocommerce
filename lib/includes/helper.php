@@ -7,28 +7,47 @@ use Beans\Beans;
 class Helper {
     const CONFIG_NAME = 'beans-woo-config';
 
-    public static $card = null;
+    private static $cards = array();
     public static $key = null;
 
     public static function getDomain( $sub ) {
-        $key = "BEANS_DOMAIN_$sub";
+        $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
-            'API' => 'api-3.trybeans.com',
+            'API'     => 'api-3.trybeans.com',
             'CONNECT' => 'connect.trybeans.com',
-            'WWW' => 'www.trybeans.com',
+            'WWW'     => 'www.trybeans.com',
         );
-        $val = getenv($key);
-        return  empty($val) ? $domains[$sub] : getenv( $key );
+        $val     = getenv( $key );
+
+        return empty( $val ) ? $domains[ $sub ] : getenv( $key );
+    }
+
+    public static function getApps() {
+        return array(
+            'liana' => array(
+                'name' => 'Liana',
+                'description' =>'Loyalty program to keep customers tight to your shop.'
+            ),
+            'bamboo' => array(
+                'name' => 'Bamboo',
+                'description' => 'Referral program to make customers bring more customers.'
+            ),
+            'lotus' => array(
+                'name' => 'Lotus',
+                'description' => 'Social media posting automation.'
+            ),
+        );
     }
 
     public static function API() {
-        self::setKey();
-        $beans           = new Beans(self::$key);
-        $beans->endpoint = 'https://'.self::getDomain('API').'/v3/';
+        if ( ! self::$key ) {
+            self::$key = self::getConfig( 'secret' );
+        }
+        $beans           = new Beans( self::$key );
+        $beans->endpoint = 'https://' . self::getDomain( 'API' ) . '/v3/';
+
         return $beans;
     }
-
-
 
     public static function getAccountData( $account, $k, $default = null ) {
         if ( isset( $account[ $k ] ) ) {
@@ -47,29 +66,23 @@ class Helper {
         return null;
     }
 
-    public static function isConfigured() {
-        return Helper::getConfig( 'key' ) &&
-               Helper::getConfig( 'card' ) &&
-               Helper::getConfig( 'secret' );
-    }
-
     public static function setConfig( $key, $value ) {
         $config         = get_option( self::CONFIG_NAME );
         $config[ $key ] = $value;
         update_option( self::CONFIG_NAME, $config );
     }
 
-    private static function setKey() {
-        if ( ! self::$key ) {
-            self::$key = self::getConfig( 'secret' );
-        }
+    public static function isSetup() {
+        return Helper::getConfig( 'key' ) &&
+               Helper::getConfig( 'card' ) &&
+               Helper::getConfig( 'secret' );
     }
 
     public static function resetSetup() {
         self::setConfig( 'key', null );
         self::setConfig( 'card', null );
         self::setConfig( 'secret', null );
-        self::$card = null;
+        self::$cards = array();
 
         return true;
     }
@@ -94,55 +107,16 @@ class Helper {
         return true;
     }
 
-    public static function getCard() {
-        if ( ! self::$card && self::isInstalled() ) {
+    public static function getCard($app_name) {
+        if ( ! isset(self::$cards[$app_name]) && self::isSetup() ) {
             try {
-                self::$card = self::API()->get( 'card/current' );
+                self::$cards[$app_name] = self::API()->get( "${app_name}/card/current" );
             } catch ( \Beans\Error\BaseError $e ) {
-                if ( $e->getCode() < 400 ) {
-                    self::resetSetup();
-                }
                 self::log( 'Unable to get card: ' . $e->getMessage() );
             }
         }
 
-//        if(self::$card && self::getConfig('synced') != date('Y-m-d').BEANS_VERSION){
-//            if(self::synchronise()){
-//                self::setConfig('synced', date('Y-m-d').BEANS_VERSION);
-//            }
-//        }
-
-        return self::$card;
-    }
-
-    public static function isInstalled() {
-        self::setKey();
-
-        return (bool) self::$key;
-    }
-
-    public static function isActive() {
-        if ( ! self::getCard() ) {
-            return false;
-        }
-
-        return self::$card['is_active'];
-    }
-
-    public static function updateSession() {
-        $account = null;
-        if ( ! empty( $_SESSION['beans_account'] ) ) {
-            $account = $_SESSION['beans_account'];
-        }
-        if ( ! $account ) {
-            return;
-        }
-        try {
-            $account                   = self::API()->get( 'account/' . $account['id'] );
-            $_SESSION['beans_account'] = $account;
-        } catch ( \Beans\Error\BaseError $e ) {
-            self::log( 'Unable to get account: ' . $e->getMessage() );
-        }
+        return isset(self::$cards[$app_name]) ? self::$cards[$app_name] : null;
     }
 
     public static function getCart() {

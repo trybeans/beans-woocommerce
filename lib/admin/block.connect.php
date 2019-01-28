@@ -30,7 +30,7 @@ function check_woo_api_v2_uri( &$http_status, &$content_type ) {
         CURLOPT_TIMEOUT        => 80
     );
     curl_setopt_array( $ch, $curlConfig );
-    $response     = curl_exec( $ch );
+    curl_exec( $ch );
     $http_status  = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
     $content_type = curl_getinfo( $ch, CURLINFO_CONTENT_TYPE );
     curl_close( $ch );
@@ -48,7 +48,7 @@ function check_woo_api_v2_auth( &$http_status, &$content_type ) {
         CURLOPT_TIMEOUT        => 80
     );
     curl_setopt_array( $ch, $curlConfig );
-    $response     = curl_exec( $ch );
+    curl_exec( $ch );
     $http_status  = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
     $content_type = curl_getinfo( $ch, CURLINFO_CONTENT_TYPE );
     curl_close( $ch );

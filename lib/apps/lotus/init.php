@@ -3,7 +3,7 @@
 namespace BeansWoo\Lotus;
 
 
-class Lotus {
+class Main {
 
     public static function init() {
 

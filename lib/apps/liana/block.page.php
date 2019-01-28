@@ -4,12 +4,13 @@ use BeansWoo\Helper;
 
 <script type="text/javascript">
     (function (e) {
-        if (e.Beans) return; var r = {};r._q = [];
+        if (e.Beans3) return; var r = {};r._q = [];
         function a(e) {r[e] = function () {r._q.push([e].concat([].slice.call(arguments, 0)))}}
         var i = ["init", "get", "post", "put", "delete", "updateDisplay", "getAccountID", "setAccountID", "setAccountToken"];
-        for (var o = 0; o < i.length; o++) {a(i[o])}e.Beans = r
+        for (var o = 0; o < i.length; o++) {a(i[o])}e.Beans3 = r
     })(window);
 </script>
+
 <script type="text/javascript" src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
 <script type="text/javascript" src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
 <script type="text/javascript" src="https://trybeans.s3.amazonaws.com/static/js/lib/2.0/beans-rwds.js"></script>

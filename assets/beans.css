@@ -108,7 +108,7 @@ div: .beans-cart
     display: block;
     width: 100%;
     padding: 10px 0 10px 10px;
-    min-height: 62px;
+    /*min-height: 62px;*/
     /*border-top: 1px solid #DDD;*/
     /*border-bottom: 1px solid #DDD;*/
 }

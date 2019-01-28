@@ -25,13 +25,13 @@ define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
 define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
 define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
 
-include_once(BEANS_PLUGIN_PATH.'lib/includes/beans.php');
-include_once(BEANS_PLUGIN_PATH.'lib/includes/helper.php');
+include_once('lib/includes/beans.php');
+include_once('lib/includes/helper.php');
 
-include_once(BEANS_PLUGIN_PATH.'lib/admin/init.php');
+include_once('lib/admin/init.php');
 
-include_once(BEANS_PLUGIN_PATH.'lib/apps/liana/init.php');
-include_once(BEANS_PLUGIN_PATH.'lib/apps/lotus/init.php');
+include_once('lib/apps/liana/init.php');
+include_once('lib/apps/lotus/init.php');
 
 
 if ( ! class_exists( 'WC_Beans' ) ) :
@@ -55,10 +55,10 @@ if ( ! class_exists( 'WC_Beans' ) ) :
                 session_start();
             }
 
-            \BeansWoo\Setup::init();
             \BeansWoo\Admin\Main::init();
 
             \BeansWoo\Liana\Main::init();
+            \BeansWoo\Lotus\Main::init();
         }
     }
 

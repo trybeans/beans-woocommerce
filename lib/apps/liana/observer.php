@@ -8,7 +8,8 @@ class Observer {
 
     public static function init(){
 
-        if (!Helper::isActive())
+        $card = Helper::getCard('liana');
+        if (empty($card) || !$card['is_active'])
             return;
 
         add_filter('wp_logout',                                     array(__CLASS__, 'clearSession'),      10, 1);
@@ -23,10 +24,10 @@ class Observer {
     }
 
     public static function clearSession(){
-        unset($_SESSION['beans_token']);
-        unset($_SESSION['beans_account']);
-        unset($_SESSION['beans_coupon']);
-        unset($_SESSION['beans_debit']);
+        unset($_SESSION['liana_token']);
+        unset($_SESSION['liana_account']);
+        unset($_SESSION['liana_coupon']);
+        unset($_SESSION['liana_debit']);
     }
 
     public static function createBeansAccount($email, $firstname, $lastname) {
@@ -64,9 +65,9 @@ class Observer {
 
         if($email){
             $account  = self::createBeansAccount($email, $first_name, $last_name);
-            $_SESSION['beans_account'] = $account;
+            $_SESSION['liana_account'] = $account;
             if($account){
-                $_SESSION['beans_token'] = Helper::API()->post('/core/consumer_token', array(
+                $_SESSION['liana_token'] = Helper::API()->post('/core/consumer_token', array(
                     'account'     => $account['id']
                 ));
             }
@@ -90,19 +91,19 @@ class Observer {
     public static function getCoupon($coupon, $coupon_code){
 
         if( $coupon_code != BEANS_LIANA_COUPON_UID)                       return $coupon;
-        if( !isset($_SESSION['beans_account']) ||
-            !isset($_SESSION['beans_account']['beans']) )           return $coupon;
-        if( !isset($_SESSION['beans_debit']) ||
-            !isset($_SESSION['beans_debit']['beans']) )             return $coupon;
+        if( !isset($_SESSION['liana_account']) ||
+            !isset($_SESSION['liana_account']['beans']) )           return $coupon;
+        if( !isset($_SESSION['liana_debit']) ||
+            !isset($_SESSION['liana_debit']['beans']) )             return $coupon;
 
-        if(isset($_SESSION['beans_coupon']) &&
-           $_SESSION['beans_coupon'])                               return $_SESSION['beans_coupon'];
+        if(isset($_SESSION['liana_coupon']) &&
+           $_SESSION['liana_coupon'])                               return $_SESSION['liana_coupon'];
 
         $cart = Helper::getCart();
         if(empty($cart))                                            return $coupon;
 
-//        $quantity = $_SESSION['beans_debit']['beans'];
-        $amount = $_SESSION['beans_debit']['value'];
+//        $quantity = $_SESSION['liana_debit']['beans'];
+        $amount = $_SESSION['liana_debit']['value'];
 
         $coupon_data = array();
 
@@ -130,22 +131,22 @@ class Observer {
         $coupon_data['coupon_amount']              = $amount;
         $coupon_data['expiry_date']                = strtotime('+1 day', time());
 
-        $_SESSION['beans_coupon'] = $coupon_data;
+        $_SESSION['liana_coupon'] = $coupon_data;
 
         return $coupon_data;
     }
 
     public static function applyRedemption(){
 
-        if(!isset($_SESSION['beans_account'])) return;
+        if(!isset($_SESSION['liana_account'])) return;
 
         self::cancelRedemption();
-        Helper::updateSession();
+        self::updateSession();
 
-        $account = $_SESSION['beans_account'];
+        $account = $_SESSION['liana_account'];
 
         $cart = Helper::getCart();
-        $card = Helper::getCard();
+        $card = Helper::getCard('liana');
 
         $max_amount = $cart->subtotal;
         if(isset($card['settings']) && isset($card['settings']['range_max_redeem'])){
@@ -159,7 +160,7 @@ class Observer {
         $amount = min($max_amount, $account['beans_value']);
         $amount = sprintf('%0.2f', $amount);
 
-        $_SESSION['beans_debit'] = array(
+        $_SESSION['liana_debit'] = array(
             'beans' => $amount * $card['beans_rate'],
             'value' => $amount
         );
@@ -170,8 +171,8 @@ class Observer {
 
         Helper::getCart()->remove_coupon(BEANS_LIANA_COUPON_UID);
 
-        unset($_SESSION['beans_coupon']);
-        unset($_SESSION['beans_debit']);
+        unset($_SESSION['liana_coupon']);
+        unset($_SESSION['liana_debit']);
     }
 
     public static function orderPlaced($order_id) {
@@ -179,7 +180,7 @@ class Observer {
 
         $account = null;
 
-        if(isset($_SESSION['beans_account'])) $account = $_SESSION['beans_account'];
+        if(isset($_SESSION['liana_account'])) $account = $_SESSION['liana_account'];
 
         $coupon_codes = $order->get_used_coupons();
 
@@ -218,7 +219,7 @@ class Observer {
         }
 
         self::cancelRedemption();
-        Helper::updateSession();
+        self::updateSession();
     }
 
     public static function orderPaid($order_id, $old_status, $new_status) {
@@ -272,7 +273,23 @@ class Observer {
                 Helper::log('Cancelling credit failed with message: ' . $e->getMessage());
             }
         }
-        Helper::updateSession();
+        self::updateSession();
+    }
+
+    public static function updateSession() {
+        $account = null;
+        if ( ! empty( $_SESSION['liana_account'] ) ) {
+            $account = $_SESSION['liana_account'];
+        }
+        if ( ! $account ) {
+            return;
+        }
+        try {
+            $account                   = Helper::API()->get( 'liana/account/' . $account['id'] );
+            $_SESSION['liana_account'] = $account;
+        } catch ( \Beans\Error\BaseError $e ) {
+            Helper::log( 'Unable to get account: ' . $e->getMessage() );
+        }
     }
 
 }
