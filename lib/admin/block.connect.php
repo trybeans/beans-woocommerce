@@ -175,13 +175,13 @@ if($country_code && strpos($country_code, ':') !== false){
               Connect to Beans
             </button>
         </p>
-        <input type="hidden" name="email" value="<? echo $admin->user_email; ?>">
-        <input type="hidden" name="first_name" value="<? echo $admin->user_firstname; ?>">
-        <input type="hidden" name="last_name" value="<? echo $admin->user_lastname; ?>">
-        <input type="hidden" name="country" value="<? echo $country_code; ?>">
-        <input type="hidden" name="company_name" value="<? echo get_bloginfo('name'); ?>">
-        <input type="hidden" name="currency" value="<? echo strtoupper(get_woocommerce_currency()); ?>">
-        <input type="hidden" name="website" value="<? echo get_site_url(); ?>">
+        <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
+        <input type="hidden" name="first_name" value="<?php echo $admin->user_firstname; ?>">
+        <input type="hidden" name="last_name" value="<?php echo $admin->user_lastname; ?>">
+        <input type="hidden" name="country" value="<?php echo $country_code; ?>">
+        <input type="hidden" name="company_name" value="<?php echo get_bloginfo('name'); ?>">
+        <input type="hidden" name="currency" value="<?php echo strtoupper(get_woocommerce_currency()); ?>">
+        <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
         <input type="hidden" name="api_uri" value="<?php echo BEANS_WOO_API_ENDPOINT;?>">
         <input type="hidden" name="api_auth_uri" value="<?php echo BEANS_WOO_API_AUTH_ENDPOINT;?>">
         <input type="hidden" name="redirect" value="<?php echo admin_url( 'admin.php?page=beans-woo' );?>">
@@ -282,8 +282,8 @@ if($country_code && strpos($country_code, ':') !== false){
                 <p class="beans-admin-check-warning">
                   Unable to connect to the API using endpoint: <br/>
                     <?php echo BEANS_WOO_API_ENDPOINT; ?> <br/>
-                  HTTP Status: <? echo $woo_api_v2_uri_http_status ?> <br/>
-                  Content Type: <? echo $woo_api_v2_uri_content_type ?> <br/>
+                  HTTP Status: <?php echo $woo_api_v2_uri_http_status ?> <br/>
+                  Content Type: <?php echo $woo_api_v2_uri_content_type ?> <br/>
                   Please:
                   <a href="mailto:hello@trbyeans.com" target="_blank">Contact the Beans Team</a> for assistance.
                   Attach a screenshot of this page to your email.
@@ -301,8 +301,8 @@ if($country_code && strpos($country_code, ':') !== false){
                 <p class="beans-admin-check-warning">
                   Unable to connect to the API using authentication endpoint: <br/>
                     <?php echo BEANS_WOO_API_AUTH_ENDPOINT; ?> <br/>
-                  HTTP Status: <? echo $woo_api_v2_auth_http_status ?> <br/>
-                  Content Type: <? echo $woo_api_v2_auth_content_type ?> <br/>
+                  HTTP Status: <?php echo $woo_api_v2_auth_http_status ?> <br/>
+                  Content Type: <?php echo $woo_api_v2_auth_content_type ?> <br/>
                   Please:
                   <a href="mailto:hello@trbyeans.com" target="_blank">Contact the Beans Team</a> for assistance.
                   Attach a screenshot of this page to your email.

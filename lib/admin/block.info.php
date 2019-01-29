@@ -2,9 +2,9 @@
 
 use BeansWoo\Helper;
 
-//try {
+try {
     $loginkey = Helper::API()->post( 'core/user/current/loginkey' );
-//} catch ( \Beans\Error\BaseError  $e ) {}
+} catch ( \Beans\Error\BaseError  $e ) {}
 
 $apps = Helper::getApps();
 $card = array();

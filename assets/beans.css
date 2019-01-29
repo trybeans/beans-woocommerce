@@ -147,6 +147,7 @@ div: .beans-cart
     cursor: pointer;
     display: inline-block;
     box-shadow: 0 10px 25px 0 rgba(49, 49, 93, 0.1);
+    position: relative;
 }
 
 .bns-cart-box .bns-cart-redeem-box > div {
