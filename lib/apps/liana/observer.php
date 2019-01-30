@@ -81,7 +81,7 @@ class Observer {
             $account                   = self::createBeansAccount( $email, $first_name, $last_name );
             $_SESSION['liana_account'] = $account;
             if ( $account ) {
-                $_SESSION['liana_token'] = Helper::API()->post( '/liana/consumer_token', array('account' => $account['id']) );
+                $_SESSION['liana_token'] = Helper::API()->post( '/liana/auth/consumer_token', array('account' => $account['id']) );
             }
         }
     }
