@@ -74,13 +74,11 @@ $json_is_supported = function_exists( 'json_decode' );
 
 $permalink_is_supported = ! is_null( get_option( 'permalink_structure' ) );
 
-//$woo_api_is_supported = get_option( 'woocommerce_api_enabled' ) === 'yes';
-// Only legacy api required checking. wp-json api is enabled by default.
-$woo_api_is_supported = true;
+$wp_permalink_is_supported = ! is_null(get_option('permalink_structure'));
 
 $beans_is_supported = $woo_is_supported && $wp_is_supported && $php_is_supported &&
                       $curl_is_supported && $json_is_supported && $permalink_is_supported &&
-                      $woo_api_is_supported;
+                      $wp_permalink_is_supported;
 
 $woo_api_v2_uri_http_status  = null;
 $woo_api_v2_uri_content_type = null;
@@ -264,14 +262,14 @@ if($country_code && strpos($country_code, ':') !== false){
       </li>
       <li>
         <p>
-          <strong>WooCommerce API Enabled</strong>: <?php get_supported_tag( $woo_api_is_supported ); ?>
+          <strong>WordPress Permalink Enabled</strong>: <?php get_supported_tag( $wp_permalink_is_supported ); ?>
         </p>
-          <?php if ( ! $woo_api_is_supported ): ?>
+          <?php if ( ! $wp_permalink_is_supported ): ?>
             <p class="beans-admin-check-warning">
-              Please enable WooCommerce API:
-              <a href="https://docs.woocommerce.com/document/woocommerce-rest-api/#section-2" target="_blank">How to
-                enable
-                WooCommerce API</a>
+              Please enable pretty permalink:
+              <a href="https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure" target="_blank">
+                How to enable pretty permalink
+              </a>
             </p>
           <?php endif; ?>
       </li>
