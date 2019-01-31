@@ -74,7 +74,9 @@ $json_is_supported = function_exists( 'json_decode' );
 
 $permalink_is_supported = ! is_null( get_option( 'permalink_structure' ) );
 
-$woo_api_is_supported = get_option( 'woocommerce_api_enabled' ) === 'yes';
+//$woo_api_is_supported = get_option( 'woocommerce_api_enabled' ) === 'yes';
+// Only legacy api required checking. wp-json api is enabled by default.
+$woo_api_is_supported = true;
 
 $beans_is_supported = $woo_is_supported && $wp_is_supported && $php_is_supported &&
                       $curl_is_supported && $json_is_supported && $permalink_is_supported &&

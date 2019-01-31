@@ -42,18 +42,18 @@ foreach ( $apps as $app_name => &$app_info ) {
     box-sizing: border-box;
   }
 
-  .beans-admin-content p.beans-admin-check-warning {
+  p.beans-admin-check-warning {
     background-color: #d70000;
     color: #ffffff;
     font-weight: 500;
     padding: 5px;
   }
 
-  .beans-admin-content p.beans-admin-check-warning a {
+  p.beans-admin-check-warning a {
     color: #fffca6;
   }
 
-  .beans-admin-content p.beans-admin-check-warning a:hover {
+  p.beans-admin-check-warning a:hover {
     color: #dce249;
   }
 
@@ -80,6 +80,23 @@ foreach ( $apps as $app_name => &$app_info ) {
 
   <img class="beans-admin-logo" src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/beans.svg"
        alt="Beans">
+
+  <?php if(empty($card)): ?>
+
+  <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
+    <p class="beans-admin-check-warning">
+      Unable to connect to Beans. Unable to retrieve information about your account status.
+      Please:
+      <a href="mailto:hello@trbyeans.com" target="_blank">Contact the Beans Team</a> for assistance.
+      Attach a screenshot of this page to your email.
+    </p>
+
+    <div style='margin: 20px auto'>
+      <a  style="color: #d70000; float: right" href='<?php echo admin_url( 'admin.php?page=beans-woo&reset_beans=1' ); ?>'>Reset Settings Now</a>
+    </div>
+  </div>
+
+  <?php else: ?>
 
   <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
     <h1>Connected</h1>
@@ -127,8 +144,9 @@ foreach ( $apps as $app_name => &$app_info ) {
         leave us a ★★★★★ rating
       </a>
       </p>
-      <a  style="color: #d70000; float: right" href='<?php echo admin_url( 'admin.php?page=beans-woo&reset_beans=1' ); ?>'>Reset Now</a>
+      <a  style="color: #d70000; float: right" href='<?php echo admin_url( 'admin.php?page=beans-woo&reset_beans=1' ); ?>'>Reset Settings Now</a>
     </div>
   </div>
+  <?php endif; ?>
 </div>
 
