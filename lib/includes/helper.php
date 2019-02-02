@@ -5,7 +5,7 @@ namespace BeansWoo;
 use Beans\Beans;
 
 class Helper {
-    const CONFIG_NAME = 'beans-woo-config';
+    const CONFIG_NAME = 'beans-config-3';
 
     private static $cards = array();
     public static $key = null;
