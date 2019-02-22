@@ -57,7 +57,6 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             \BeansWoo\Admin\Main::init();
 
             \BeansWoo\Liana\Main::init();
-            \BeansWoo\Lotus\Main::init();
         }
     }
 
