@@ -108,14 +108,9 @@ div: .beans-cart
     display: block;
     width: 100%;
     padding: 10px 0 10px 10px;
-    min-height: 62px;
+    /*min-height: 62px;*/
     /*border-top: 1px solid #DDD;*/
     /*border-bottom: 1px solid #DDD;*/
-}
-
-.bns-cart-box.bns-cart-box-info {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
 }
 
 .bns-cart-box .bns-cart-info {
@@ -147,6 +142,7 @@ div: .beans-cart
     cursor: pointer;
     display: inline-block;
     box-shadow: 0 10px 25px 0 rgba(49, 49, 93, 0.1);
+    position: relative;
 }
 
 .bns-cart-box .bns-cart-redeem-box > div {
@@ -154,7 +150,6 @@ div: .beans-cart
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
 }
 
 .bns-cart-box .bns-cart-img {

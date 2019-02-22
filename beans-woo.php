@@ -2,15 +2,16 @@
 /**
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
- * Description: Reward your customers to grow your business.
- * Version: 2.0.7
+ * Description: Marketing Apps for WooCommerce.
+ * Version: 3.0.0
  * Author: Beans
  * Author URI: https://www.trybeans.com/
- * Text Domain: woocommerce-beans
+ * Text Domain: beans-woo
  * Domain Path: /languages
  *
  * @author Beans
  */
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) )
     exit;
@@ -19,18 +20,17 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '2.0.7');
-define('BEANS_COUPON_UID',              'beans_redeem');
-define('BEANS_PLUGIN_FILE',             plugin_basename(__FILE__));
-define('BEANS_INFO_LOG',                plugin_dir_path(__FILE__).'log.txt');
+define('BEANS_VERSION',                 '2.0.6');
+define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
+define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
+define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
 
-include_once(plugin_dir_path(__FILE__).'includes/beans.php');
-include_once(plugin_dir_path(__FILE__).'includes/helper.php');
-include_once(plugin_dir_path(__FILE__).'includes/block.php');
-include_once(plugin_dir_path(__FILE__).'includes/observer.php');
-include_once(plugin_dir_path(__FILE__).'includes/setup.php');
+include_once( 'includes/beans.php' );
+include_once( 'includes/helper.php' );
 
-use BeansWoo\Helper;
+include_once( 'admin/init.php' );
+
+include_once('liana/init.php');
 
 
 if ( ! class_exists( 'WC_Beans' ) ) :
@@ -54,9 +54,10 @@ if ( ! class_exists( 'WC_Beans' ) ) :
                 session_start();
             }
 
-            \BeansWoo\Observer::init();
-            \BeansWoo\Setup::init();
-            \BeansWoo\Block::init();
+            \BeansWoo\Admin\Main::init();
+
+            \BeansWoo\Liana\Main::init();
+            \BeansWoo\Lotus\Main::init();
         }
     }
 
