@@ -3,8 +3,8 @@
 Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.6
-Tested up to: 4.9.9
-Stable tag: 2.0.7
+Tested up to: 5.1.0
+Stable tag: 3.0.0
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -53,7 +53,7 @@ Successful Stores across all ecommerce verticles are using Beans to grow their b
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 2.6
+- WooCommerce >= 3.0
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers
@@ -85,6 +85,9 @@ The WordPress codex contains instructions on
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 3.0.0 =
+- Introducing Liana: the new loyalty program
 
 = 2.0.7 =
 - Fix disconnecting issue
