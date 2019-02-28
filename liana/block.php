@@ -26,7 +26,8 @@ class Block {
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
         ?>
-      <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
+          <script src='https://snow.trybeans.com/static/lib/snow.beans.js' type="text/javascript"></script>
+          <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
 <!--          <script src='http://localhost:8002/assets/static/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>-->
         <?php
     }
