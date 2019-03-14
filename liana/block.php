@@ -26,7 +26,6 @@ class Block {
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
         ?>
-          <script src='https://snow.trybeans.com/static/lib/snow.beans.js' type="text/javascript"></script>
           <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
 <!--          <script src='http://localhost:8002/assets/static/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>-->
         <?php
@@ -58,14 +57,17 @@ class Block {
         ?>
         <div></div>
         <script>
-            Beans3.Liana.init({
-                is_redeem: true,
+            var beans_init_data = {
                 address: '<?php echo Helper::getConfig('card'); ?>',
                 domainAPI: '<?php echo Helper::getDomain('API'); ?>',
                 reward_page: '<?php echo get_permalink( Helper::getConfig('page') ); ?>',
                 login_page: '<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>',
                 account_token: '<?php  echo isset($token['key'])? $token['key'] : ''; ?>',
                 account: {<?php Helper::getAccountData($account, 'id', '');  Helper::getAccountData($account, 'beans'); ?>}
+            };
+            Beans3.init(beans_init_data);
+            Beans3.Orchard.register("liana", ['snow']).then(function () {
+                Beans3.Liana.init(beans_init_data);
             });
             Beans3.Liana.Redemption = {
                 <?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>

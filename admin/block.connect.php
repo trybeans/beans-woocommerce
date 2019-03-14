@@ -102,6 +102,8 @@ if($country_code && strpos($country_code, ':') !== false){
     }catch(\Exception $e){}
 }
 
+$force = isset( $_GET['force_beans'] );
+
 ?>
 
 <style>
@@ -167,7 +169,7 @@ if($country_code && strpos($country_code, ':') !== false){
     <div>
       <form method="get" class="beans-admin-form" action="https://<?php echo Helper::getDomain('CONNECT');?>/cms/woocommerce/liana/connect/">
         <p class="wc-setup-actions step">
-            <?php if ( $beans_is_supported ): ?>
+            <?php if ( $beans_is_supported || $force): ?>
             <button type="submit" class="button  button-primary  button-hero" value="Connect to Beans">
               <?php else: ?>
             <button type="submit" class="button button-disabled  button-hero" value="Connect to Beans" disabled>
