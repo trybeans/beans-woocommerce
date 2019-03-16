@@ -139,7 +139,7 @@ class Observer {
         $coupon_data = array();
 
         $coupon_data['id']                         = true;
-        $coupon_data['individual_use']             = true;
+        $coupon_data['individual_use']             = false;
         $coupon_data['product_ids']                = array();
         $coupon_data['exclude_product_ids']        = array();
         $coupon_data['usage_limit']                = null;
@@ -151,7 +151,7 @@ class Observer {
         $coupon_data['free_shipping']              = false;
         $coupon_data['product_categories']         = array();
         $coupon_data['exclude_product_categories'] = array();
-        $coupon_data['exclude_sale_items']         = true;
+        $coupon_data['exclude_sale_items']         = false;
         $coupon_data['minimum_amount']             = null;
         $coupon_data['maximum_amount']             = null;
         $coupon_data['customer_email']             = null;
