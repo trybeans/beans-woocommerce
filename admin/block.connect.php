@@ -35,7 +35,8 @@ function check_woo_api_v2_uri( &$http_status, &$content_type ) {
     $content_type = curl_getinfo( $ch, CURLINFO_CONTENT_TYPE );
     curl_close( $ch );
 
-    return $http_status === 200 && strpos( $content_type, 'application/json' ) !== false;
+    return $http_status === 200;
+//    && strpos( $content_type, 'application/json' ) !== false
 }
 
 function check_woo_api_v2_auth( &$http_status, &$content_type ) {

@@ -288,7 +288,7 @@ class Observer {
                 $credit = Helper::API()->post( '/liana/credit', array(
                     'account'     => $account['id'],
                     'quantity'    => $total,
-                    'rule'        => 'beans:currency_spent',
+                    'rule'        => 'rule:liana:currency_spent',
                     'uid'         => 'wc_' . $order->get_id() . '_' . $order->order_key,
                     'description' => 'Customer loyalty rewarded for order #' . $order->get_id(),
                     'commit'      => true

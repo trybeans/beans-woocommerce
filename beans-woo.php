@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo

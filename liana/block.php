@@ -5,7 +5,7 @@ namespace BeansWoo\Liana;
 use BeansWoo\Helper;
 
 class Block {
-    
+
     public static function init(){
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
         add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
@@ -57,6 +57,9 @@ class Block {
         ?>
         <div></div>
         <script>
+            Beans3.Liana.Snow = Beans3.Liana.Snow || {
+                toast: function () {}
+            };
             var beans_init_data = {
                 address: '<?php echo Helper::getConfig('card'); ?>',
                 domainAPI: '<?php echo Helper::getDomain('API'); ?>',
