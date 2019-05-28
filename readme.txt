@@ -2,7 +2,7 @@
 
 Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 4.6
+Requires at least: 4.7
 Tested up to: 5.2.1
 Stable tag: 3.0.3
 License: Apache License, Version 2.0
