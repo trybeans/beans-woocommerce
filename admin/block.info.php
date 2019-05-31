@@ -87,7 +87,7 @@ foreach ( $apps as $app_name => &$app_info ) {
     <p class="beans-admin-check-warning">
       Unable to connect to Beans. Unable to retrieve information about your account status.
       Please:
-      <a href="mailto:hello@trbyeans.com" target="_blank">Contact the Beans Team</a> for assistance.
+      <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for assistance.
       Attach a screenshot of this page to your email.
     </p>
 

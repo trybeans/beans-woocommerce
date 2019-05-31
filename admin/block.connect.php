@@ -288,7 +288,7 @@ $force = isset( $_GET['force_beans'] );
                   HTTP Status: <?php echo $woo_api_v2_uri_http_status ?> <br/>
                   Content Type: <?php echo $woo_api_v2_uri_content_type ?> <br/>
                   Please:
-                  <a href="mailto:hello@trbyeans.com" target="_blank">Contact the Beans Team</a> for assistance.
+                  <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for assistance.
                   Attach a screenshot of this page to your email.
                 </p>
               <?php endif; ?>
@@ -307,7 +307,7 @@ $force = isset( $_GET['force_beans'] );
                   HTTP Status: <?php echo $woo_api_v2_auth_http_status ?> <br/>
                   Content Type: <?php echo $woo_api_v2_auth_content_type ?> <br/>
                   Please:
-                  <a href="mailto:hello@trbyeans.com" target="_blank">Contact the Beans Team</a> for assistance.
+                  <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for assistance.
                   Attach a screenshot of this page to your email.
                 </p>
               <?php endif; ?>
