@@ -166,7 +166,6 @@ $force = isset( $_GET['force_beans'] );
 
     .bg-primary {
         color: white !important;
-        opacity: 0.75;
         text-transform: uppercase;
     }
 

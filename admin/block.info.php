@@ -81,7 +81,6 @@ if ( ! empty( $app_info['instance'] ) ) {
 
     .bg-primary {
         color: white !important;
-        opacity: 0.75;
         text-transform: uppercase;
     }
 
