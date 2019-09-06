@@ -9,7 +9,7 @@ class Observer {
     public static function init() {
 
         $card = Helper::getCard( 'liana' );
-        if ( empty( $card ) || ! $card['is_active'] ) {
+        if ( empty( $card ) || ! $card['is_active'] || !Helper::isSetupApp('liana')) {
             return;
         }
 
@@ -30,6 +30,10 @@ class Observer {
         unset( $_SESSION['liana_coupon'] );
         unset( $_SESSION['liana_debit'] );
     }
+
+	public static function admin_notice() {
+		Helper::admin_notice('liana');
+	}
 
     public static function createBeansAccount( $email, $firstname, $lastname ) {
         try {

@@ -7,15 +7,19 @@ use BeansWoo\Helper;
 class Block {
 
     public static function init(){
+	    $card = Helper::getCard( 'liana' );
+	    if ( empty( $card ) || ! $card['is_active'] || !Helper::isSetupApp('liana')) {
+		    return;
+	    }
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
         add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
         add_filter('woocommerce_after_cart_table',                   array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
         add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),     10, 1);
         add_filter('the_content',                                    array(__CLASS__, 'render_page'),     10, 1);
-        if (is_user_logged_in() && isset($_SESSION['liana_account']) ){
-            add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),     15, 1);
-        }
+	    if (is_user_logged_in() && isset($_SESSION['liana_account']) ){
+		    add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),     15, 1);
+	    }
     }
 
     public static function enqueue_scripts(){
@@ -84,7 +88,7 @@ class Block {
     }
 
     public static function render_page($content, $vars=null){
-        if (strpos($content,'[beans_page]') !== false) {
+        if (strpos($content,'[beans_page]') !== false and !is_null(Helper::getConfig('page')) ) {
             ob_start();
             self::render_init(true);
             include( dirname( __FILE__ ) . '/block.page.php' );
