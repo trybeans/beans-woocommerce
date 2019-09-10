@@ -1,10 +1,12 @@
 <?php
 
-namespace BeansWoo\Admin;
+namespace BeansWoo\Admin\Connector;
 
-class BlockSnow extends BlockAbstract {
+class LotusConnector extends AbstractConnector {
 
-	static public $app_name = 'snow';
+	static public $app_name = 'lotus';
+
+	static $config;
 
 	public static function init() {
 		// TODO: Implement init() method.

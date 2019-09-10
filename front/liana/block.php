@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Liana;
+namespace BeansWoo\Front\Liana;
 
 use BeansWoo\Helper;
 
@@ -91,7 +91,7 @@ class Block {
         if (strpos($content,'[beans_page]') !== false and !is_null(Helper::getConfig('page')) ) {
             ob_start();
             self::render_init(true);
-            include( dirname( __FILE__ ) . '/block.page.php' );
+            include(dirname(__FILE__) . '/block.page.php');
             $page = ob_get_clean();
             $content = str_replace('[beans_page]', $page, $content);
         }

@@ -1,10 +1,10 @@
 <?php
 
-namespace BeansWoo\Admin;
+namespace BeansWoo\Admin\Connector;
 
 use BeansWoo\Helper;
 
-class BlockBamboo extends BlockAbstract {
+class BambooConnector extends AbstractConnector {
 	const REFERRAL_PROGRAM_PAGE = 'beans_bamboo_page_id';
 
 	static public $app_name = 'bamboo';

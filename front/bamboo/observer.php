@@ -1,11 +1,15 @@
 <?php
 
 
-namespace BeansWoo\Lotus;
+namespace BeansWoo\Front\Bamboo;
+
+
 use BeansWoo\Helper;
 
-class Block {
+class Observer {
+
 	public static function init(){
 
 	}
+
 }

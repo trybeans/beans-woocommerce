@@ -30,10 +30,10 @@ include_once( 'includes/helper.php' );
 
 include_once( 'admin/init.php' );
 
-include_once('liana/init.php');
-include_once ('snow/init.php');
-include_once ('bamboo/init.php');
-include_once ('lotus/init.php');
+include_once('front/liana/init.php');
+include_once('front/snow/init.php');
+include_once('front/bamboo/init.php');
+include_once('front/lotus/init.php');
 
 if ( ! class_exists( 'WC_Beans' ) ) :
 
@@ -58,13 +58,11 @@ if ( ! class_exists( 'WC_Beans' ) ) :
 
             \BeansWoo\Admin\Main::init();
 
-            \BeansWoo\Liana\Main::init();
-            \BeansWoo\Snow\Main::init();
-            \BeansWoo\Bamboo\Main::init();
-
+            \BeansWoo\Front\Liana\Main::init();
+            \BeansWoo\Front\Snow\Main::init();
+            \BeansWoo\Front\Bamboo\Main::init();
         }
     }
-
 
 endif;
 

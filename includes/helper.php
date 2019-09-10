@@ -90,12 +90,13 @@ class Helper {
                Helper::getConfig( 'secret' );
     }
 
-    public static function resetSetup(string $app_name) {
+    public static function resetSetup($app_name) {
     	$apps_installed = self::getConfig('apps');
 
     	if( in_array($app_name, $apps_installed) ){
     		unset($apps_installed[ $app_name ]);
 			self::setConfig('apps', $apps_installed);
+			# todo Handle case if app have page (eg: liana and Bamboo)
 			if ($app_name == 'liana'){
 				wp_delete_post(self::getConfig('page'), true);
 				self::setConfig('page', null);
@@ -159,18 +160,6 @@ class Helper {
         return $woocommerce->cart;
     }
 
-	public static function admin_notice($app_name) {
-
-		if ( ! self::isSetup() || ! self::isSetupApp($app_name)) {
-			$app_info = self::getApps()[$app_name];
-			echo '<div class="error" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
-			     __( "${app_info['name']} is not properly setup.", 'beans-woo' ) .
-			     ' <a href="' . admin_url($app_info['link'] ) . '">' .
-			     __( 'Set up', 'beans-woo' ) .
-			     '</a>' .
-			     '</div></div>';
-		}
-	}
 
 	public static function setAppInstalled($app_name){
 		$config         = get_option( self::CONFIG_NAME );

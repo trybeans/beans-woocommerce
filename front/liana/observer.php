@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Liana;
+namespace BeansWoo\Front\Liana;
 
 use BeansWoo\Helper;
 
@@ -30,10 +30,6 @@ class Observer {
         unset( $_SESSION['liana_coupon'] );
         unset( $_SESSION['liana_debit'] );
     }
-
-	public static function admin_notice() {
-		Helper::admin_notice('liana');
-	}
 
     public static function createBeansAccount( $email, $firstname, $lastname ) {
         try {

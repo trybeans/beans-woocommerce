@@ -1,10 +1,10 @@
 <?php
 
-namespace BeansWoo\Admin;
+namespace BeansWoo\Admin\Connector;
 
 use BeansWoo\Helper;
 
-class BlockLiana extends BlockAbstract {
+class LianaConnector extends AbstractConnector {
 	const REWARD_PROGRAM_PAGE = 'beans_page_id';
 
 	static public $app_name = 'liana';

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace BeansWoo\Admin;
+namespace BeansWoo\Admin\Connector;
 
 use BeansWoo\Helper;
 
-abstract class BlockAbstract {
+abstract class AbstractConnector {
 
 	static public $errors = array();
 	static public $messages = array();
@@ -36,11 +36,11 @@ abstract class BlockAbstract {
 
 		self::_render_notices();
 
-		if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
-			return include( dirname( __FILE__ ) . '/block.info.php' );
+		if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name) ) {
+			return include( dirname( __FILE__ , 2) . '/views/html-info.php' );
 		}
 
-		return include( dirname( __FILE__ ) . '/block.connect.php' );
+		return include( dirname( __FILE__,2) . '/views/html-connect.php' );
 	}
 
 
@@ -94,4 +94,17 @@ abstract class BlockAbstract {
 			<?php
 		}
 	}
+
+    public static function admin_notice() {
+        static::$app_info = Helper::getApps()[static::$app_name];
+
+        if ( ! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name)) {
+            echo '<div class="notice notice-error is-dismissible" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
+                __(  static::$app_info['name'] ." is not properly setup.", 'beans-woo' ) .
+                ' <a href="' . admin_url(static::$app_info['link'] ) . '">' .
+                __( 'Set up', 'beans-woo' ) .
+                '</a>' .
+                '</div></div>';
+        }
+    }
 }
