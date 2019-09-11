@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Liana;
+namespace BeansWoo\Front\Liana;
 
 use BeansWoo\Helper;
 
@@ -9,7 +9,7 @@ class Observer {
     public static function init() {
 
         $card = Helper::getCard( 'liana' );
-        if ( empty( $card ) || ! $card['is_active'] ) {
+        if ( empty( $card ) || ! $card['is_active'] || !Helper::isSetupApp('liana')) {
             return;
         }
 

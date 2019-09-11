@@ -7,25 +7,20 @@ use BeansWoo\Helper;
 class Observer {
 
     public static function init(){
-        add_action( 'admin_notices',                array( __CLASS__, 'admin_notice' ) );
-        add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ), 100 );
-        add_filter( 'plugin_row_meta',              array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
+        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
+        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
+        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
+	    add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
+        add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
+        add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
     }
 
     public static function plugin_row_meta( $links, $file ) {
         if ( $file == BEANS_PLUGIN_FILENAME ) {
 
-//            $synced = Helper::getConfig('synced');
-//            if( empty($synced)){
-//                if(self::synchronise()){
-//                    Helper::setConfig('synced', BEANS_VERSION);
-//                }
-//            }
-
             $row_meta = array(
                 'help'    => '<a href="http://help.trybeans.com/" title="Help">Help Center</a>',
                 'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
-//                'api'       => '<a href="http://www.trybeans.com/doc/api/" title="Help">API doc</a>',
             );
 
             return array_merge( $links, $row_meta );
@@ -34,11 +29,32 @@ class Observer {
         return (array) $links;
     }
 
+    public static function admin_style(){
+        wp_enqueue_style( 'admin-styles', plugins_url( 'assets/beans-admin.css' , BEANS_PLUGIN_FILENAME ));
+    }
+
     public static function admin_menu() {
-        if ( current_user_can( 'manage_woocommerce' ) ) {
-            add_submenu_page( 'woocommerce', 'Beans',
-                'Beans', 'manage_woocommerce',
-                'beans-woo', array( '\BeansWoo\Admin\Block', 'render_settings_page' ) );
+
+        if ( current_user_can( 'manage_options' ) ) {
+        	add_menu_page('Beans', 'Beans', 'manage_options', 'beans-woo',
+		        ['\BeansWoo\Admin\Connector\LianaConnector', 'render_settings_page'],
+		        plugins_url('/assets/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME), 56);
+
+            add_submenu_page( 'beans-woo', 'Liana',
+                'Liana', 'manage_options',
+                'beans-woo');
+
+	        add_submenu_page( 'beans-woo', 'Bamboo',
+		        'Bamboo', 'manage_options',
+		        'beans-woo-bamboo', ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'] );
+
+	        add_submenu_page( 'beans-woo', 'Lotus',
+		        'Lotus', 'manage_options',
+		        'beans-woo-lotus', [ '\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page' ] );
+
+	        add_submenu_page( 'beans-woo', 'Snow',
+		        'Snow', 'manage_options',
+		        'beans-woo-snow', ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page']);
         }
     }
 

@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.0.4
+ * Version: 3.0.3
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '3.0.4');
+define('BEANS_VERSION',                 '2.0.6');
 define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
 define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
 define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
@@ -30,8 +30,10 @@ include_once( 'includes/helper.php' );
 
 include_once( 'admin/init.php' );
 
-include_once('liana/init.php');
-
+include_once('front/liana/init.php');
+include_once('front/snow/init.php');
+include_once('front/bamboo/init.php');
+include_once('front/lotus/init.php');
 
 if ( ! class_exists( 'WC_Beans' ) ) :
 
@@ -56,10 +58,11 @@ if ( ! class_exists( 'WC_Beans' ) ) :
 
             \BeansWoo\Admin\Main::init();
 
-            \BeansWoo\Liana\Main::init();
+            \BeansWoo\Front\Liana\Main::init();
+            \BeansWoo\Front\Snow\Main::init();
+            \BeansWoo\Front\Bamboo\Main::init();
         }
     }
-
 
 endif;
 
