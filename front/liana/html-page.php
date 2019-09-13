@@ -31,8 +31,8 @@ use BeansWoo\Helper;
 
 <script type="text/javascript" src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
 <script type="text/javascript" src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
-<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.1/js/beans-loyalty-page.js"></script>
-<link type="text/css" rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/bamboo/lib/3.1/css/beans-referral-page.css">
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.0/js/beans-loyalty-page.js"></script>
+<link type="text/css" rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.0/css/beans-loyalty-page.css">
 
 <div style="margin: 50px auto 20px; max-width: 800px; text-align: center">
   <p style="text-align: center">
