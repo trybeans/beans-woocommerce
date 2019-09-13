@@ -8,10 +8,12 @@ use BeansWoo\Helper;
 class Observer {
 
     static public $app_name = 'snow';
+    static $card;
 
-	public static function init(){
-        $card = Helper::getCard( self::$app_name );
-        if ( empty( $card ) || ! $card['is_active'] || ! Helper::isSetupApp(self::$app_name)) {
+    public static function init(){
+        self::$card = Helper::getCard( self::$app_name );
+
+        if ( empty( self::$card ) || !self::$card['is_active'] || ! Helper::isSetupApp(self::$app_name)) {
             return;
         }
 
@@ -22,9 +24,19 @@ class Observer {
         /* Issue with wp_enqueue_script not always loading, prefered using wp_head for a quick fix
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
+
+        if ( strpos(BEANS_DOMAIN_API, 'bns') !== flase ){
+
         ?>
-        <script src='https://trybeans.s3.amazonaws.com/lib/snow/3.1/js/snow.beans.js?domainAPI=api-3.bns.re&domainConnect=connect.bns.re&env=beta&shop=corentin-test.myshopify.com' type="text/javascript"></script>
+            <script src='https://bnsre.s3.amazonaws.com/lib/snow/3.1/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
+        }
+        else{
+
+        ?>
+            <script src='https://trybeans.s3.amazonaws.com/lib/snow/3.1/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <?php
+        }
     }
 
 

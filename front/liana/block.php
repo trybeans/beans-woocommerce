@@ -34,10 +34,19 @@ class Block {
         /* Issue with wp_enqueue_script not always loading, prefered using wp_head for a quick fix
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
-        ?>
-          <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
-<!--          <script src='http://localhost:8002/assets/static/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>-->
-        <?php
+
+        if ( strpos(BEANS_DOMAIN_API, 'bns') !== flase ){
+
+            ?>
+            <script src='https://bnsre.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
+            <?php
+        }
+        else{
+
+            ?>
+            <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
+            <?php
+        }
     }
 
     public static function render_cart(){

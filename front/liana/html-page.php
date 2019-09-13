@@ -31,11 +31,18 @@ use BeansWoo\Helper;
 
 <script type="text/javascript" src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
 <script type="text/javascript" src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
-<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.0/js/beans-loyalty-page.js"></script>
-<link type="text/css" rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.0/css/beans-loyalty-page.css">
+
+<?php if ( strpos(BEANS_DOMAIN_API, 'bns') !== flase ):  ?>
+    <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.0/js/beans-loyalty-page.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/liana/lib/3.0/css/beans-loyalty-page.css">
+
+<?php else: ?>
+    <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/trybeans/static-v3/liana/lib/3.0/js/beans-loyalty-page.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/trybeans/static-v3/liana/lib/3.0/css/beans-loyalty-page.css">
+<?php endif; ?>
 
 <div style="margin: 50px auto 20px; max-width: 800px; text-align: center">
   <p style="text-align: center">
-    This <a href="https://www.trybeans.com/">rewards program</a> is powered by Beans
+    This <a href="https://www.trybeans.com/liana">rewards program</a> is powered by Beans
   </p>
 </div>
