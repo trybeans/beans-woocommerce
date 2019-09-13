@@ -7,6 +7,8 @@ use Beans\Beans;
 class Helper {
     const CONFIG_NAME = 'beans-config-3';
 
+    const BASE_LINK = 'admin.php?page=';
+
     private static $cards = array();
     public static $key = null;
 
@@ -28,26 +30,28 @@ class Helper {
                 'name' => 'Liana',
                 'title' => 'Make your customers addicted to your shop',
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
-	            'link' => 'admin.php?page=beans-woo',
+	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
             ),
             'snow' => array(
             	'name' => 'Snow',
 	            'title' => 'Communicate with customers without disrupting their journey',
 	            'description' => 'Automatically let customers know about new products and promotions in your shop.',
-	            'link' => 'admin.php?page=beans-woo-snow',
+	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
             ),
-	        'bamboo' => array(
+
+            /**'bamboo' => array(
 	        	'name' => 'Bamboo',
 		        'title' => 'Turn your customers into advocates of your brand',
 		        'description' => 'Let your customers grow your business by referring you to their friends.',
-		        'link' => 'admin.php?page=beans-woo-bamboo',
+		        'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
 	        ),
 	        'lotus' => array(
 	        	'name' => 'Lotus',
 		        'title' => 'Save time managing social media for your shop',
 		        'description' => 'Automatically let customers know about new products and promotions in your shop.',
-		        'link' => 'admin.php?page=beans-woo-lotus',
-	        )
+		        'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
+	        ) **/
+
         );
     }
 
@@ -95,12 +99,12 @@ class Helper {
 
     	if( in_array($app_name, $apps_installed) ){
     		unset($apps_installed[ $app_name ]);
-			self::setConfig('apps', $apps_installed);
-			# todo Handle case if app have page (eg: liana and Bamboo)
-			if ($app_name == 'liana'){
-				wp_delete_post(self::getConfig('page'), true);
-				self::setConfig('page', null);
+            $app_page = self::getConfig($app_name . '_page');
+            if (!is_null($app_page)){
+				wp_delete_post($app_page, true);
+				self::setConfig($app_name . '_page', null);
 			}
+            self::setConfig('apps', $apps_installed);
     	}
 
     	if (empty($apps_installed)){
@@ -139,7 +143,7 @@ class Helper {
     }
 
     public static function getCard($app_name) {
-        if ( ! isset(self::$cards[$app_name]) && self::isSetup() ) {
+        if ( ! isset(self::$cards[$app_name]) && self::isSetup() && self::isSetupApp($app_name)) {
             try {
                 self::$cards[$app_name] = self::API()->get( "${app_name}/card/current" );
             } catch ( \Beans\Error\BaseError $e ) {
@@ -159,7 +163,6 @@ class Helper {
 
         return $woocommerce->cart;
     }
-
 
 	public static function setAppInstalled($app_name){
 		$config         = get_option( self::CONFIG_NAME );
