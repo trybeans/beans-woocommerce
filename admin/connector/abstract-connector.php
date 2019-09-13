@@ -38,6 +38,17 @@ abstract class AbstractConnector {
 
 		self::_render_notices();
 
+		if (Helper::isSetup()){
+		    if (static::$app_name == 'liana'){
+		        $page = Helper::getConfig('page');
+		        if ( ! is_null($page)){
+		            Helper::setConfig(static::$app_name. '_page', $page);
+		            Helper::setConfig('page', null);
+                    Helper::setAppInstalled(static::$app_name);
+		        }
+            }
+        }
+
 		if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name) ) {
 			return include( dirname( __FILE__ , 2) . '/views/html-info.php' );
 		}
