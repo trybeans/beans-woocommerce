@@ -2,17 +2,66 @@
 
 namespace BeansWoo\Admin;
 
-use BeansWoo\Helper;
+defined('ABSPATH') or die;
+
+//use BeansWoo\Helper;
+use BeansWoo\Admin\Connector\LianaConnector;
+use BeansWoo\Admin\Connector\SnowConnector;
+//use BeansWoo\Admin\Connector\BambooConnector;
+//use BeansWoo\Admin\Connector\LotusConnector;
 
 class Observer {
 
+    public static $submenu_pages = [];
+
     public static function init(){
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
+
+        static::$submenu_pages = [
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(LianaConnector::$app_name),
+                'menu_title' => ucfirst(LianaConnector::$app_name),
+                'capability' => 'manage_options',
+                'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'callback' => '',
+
+            ],
+
+//            [
+//                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+//                'page_title' => ucfirst(BambooConnector::$app_name),
+//                'menu_title' => ucfirst(BambooConnector::$app_name),
+//                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . BambooConnector::$app_name,
+//                'capability' => 'manage_options',
+//                'callback' => ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'],
+//            ],
+//
+//            [
+//                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+//                'page_title' => ucfirst(LotusConnector::$app_name),
+//                'menu_title' => ucfirst(LotusConnector::$app_name),
+//                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LotusConnector::$app_name,
+//                'capability' => 'manage_options',
+//                'callback' => ['\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page'],
+//            ],
+
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(SnowConnector::$app_name),
+                'menu_title' => ucfirst(SnowConnector::$app_name),
+                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . SnowConnector::$app_name,
+                'capability' => 'manage_options',
+                'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
+            ],
+
+        ];
+
+//        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
+        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
 	    add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
         add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
-        add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
+        add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
     }
 
     public static function plugin_row_meta( $links, $file ) {
@@ -30,45 +79,35 @@ class Observer {
     }
 
     public static function admin_style(){
-        wp_enqueue_style( 'admin-styles', plugins_url( 'assets/beans-admin.css' , BEANS_PLUGIN_FILENAME ));
+        wp_enqueue_style( 'admin-styles', plugins_url( 'assets/beans-admin.css' ,
+            BEANS_PLUGIN_FILENAME ));
     }
 
     public static function admin_menu() {
 
         if ( current_user_can( 'manage_options' ) ) {
-        	add_menu_page('Beans', 'Beans', 'manage_options', 'beans-woo',
+        	add_menu_page(
+        	    'Beans',
+                'Beans',
+                'manage_options',
+                BEANS_WOO_BASE_MENU_SLUG,
 		        ['\BeansWoo\Admin\Connector\LianaConnector', 'render_settings_page'],
-		        plugins_url('/assets/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME), 56);
+		        plugins_url('/assets/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
+                56);
 
-            add_submenu_page( 'beans-woo', 'Liana',
-                'Liana', 'manage_options',
-                'beans-woo');
-
-	        add_submenu_page( 'beans-woo', 'Bamboo',
-		        'Bamboo', 'manage_options',
-		        'beans-woo-bamboo', ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'] );
-
-	        add_submenu_page( 'beans-woo', 'Lotus',
-		        'Lotus', 'manage_options',
-		        'beans-woo-lotus', [ '\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page' ] );
-
-	        add_submenu_page( 'beans-woo', 'Snow',
-		        'Snow', 'manage_options',
-		        'beans-woo-snow', ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page']);
+        	foreach (static::$submenu_pages as $submenu_page){
+        	   add_submenu_page(
+        	       $submenu_page['parent_slug'],
+                   $submenu_page['page_title'],
+                   $submenu_page['menu_title'],
+                   $submenu_page['capability'],
+                   $submenu_page['menu_slug'],
+                   $submenu_page['callback']
+               ) ;
+            }
         }
     }
-
-    public static function admin_notice() {
-        if ( ! Helper::isSetup() ) {
-            echo '<div class="error" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
-                 __( 'Beans is not properly setup.', 'beans-woo' ) .
-                 ' <a href="' . admin_url( 'admin.php?page=beans-woo' ) . '">' .
-                 __( 'Set up', 'beans-woo' ) .
-                 '</a>' .
-                 '</div></div>';
-        }
-    }
-
+/**
     private static function synchronise(){
 
         $estimated_account = 0;
@@ -117,4 +156,5 @@ class Observer {
 
         return false;
     }
+**/
 }

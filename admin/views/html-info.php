@@ -1,15 +1,17 @@
 <?php
 
+defined('ABSPATH') or die;
+
 use BeansWoo\Helper;
 
 try {
 	$loginkey = Helper::API()->post( 'core/user/current/loginkey' );
 } catch ( \Beans\Error\BaseError  $e ) {}
 
-$app_info = Helper::getApps()['snow'];
+$app_info = Helper::getApps()[static::$app_name];
 $card = array();
 
-$app_info['instance'] = Helper::getCard( 'snow' );
+$app_info['instance'] = Helper::getCard( static::$app_name );
 if ( ! empty( $app_info['instance'] ) ) {
 	$card = $app_info['instance'];
 }
@@ -47,10 +49,10 @@ if ( ! empty( $app_info['instance'] ) ) {
                 Your store unique identifier <b><?php echo $card['address']; ?></b>
             </p>
             <div style="margin: auto;">
-                <img src="https://<?php echo Helper::getDomain( 'WWW' ); ?>/static/img/products/<?php echo static::$app_name; ?>/hero-image.svg"
-                     alt="" width="95%" onerror="this.style.display='none'">
-                <img src="https://<?php echo Helper::getDomain( 'WWW' ); ?>/static/img/products/<?php echo static::$app_name; ?>/hero-image.png"
-                     alt="hero-image" width="95%" onerror="this.style.display='none'">
+                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.svg",
+                    BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
+                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.png",
+                    BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
             </div>
 
             <div>

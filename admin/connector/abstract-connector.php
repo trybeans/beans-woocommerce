@@ -3,6 +3,8 @@
 
 namespace BeansWoo\Admin\Connector;
 
+defined('ABSPATH') or die;
+
 use BeansWoo\Helper;
 
 abstract class AbstractConnector {
@@ -11,7 +13,7 @@ abstract class AbstractConnector {
 	static public $messages = array();
 
     static public $app_name;
-	static public $app_info ;
+    static public $app_info;
 
     static public $has_install_asset = false;
 
@@ -20,7 +22,7 @@ abstract class AbstractConnector {
 	abstract protected static function _installAssets();
 
 	public static function render_settings_page() {
-		static::$app_info = Helper::getApps()[static::$app_name];
+        self::$app_info = Helper::getApps()[static::$app_name];
 
 		if ( isset( $_GET['card'] ) && isset( $_GET['token'] ) ) {
 			if ( static::_processSetup() ) {
@@ -97,8 +99,10 @@ abstract class AbstractConnector {
 
     public static function admin_notice() {
         static::$app_info = Helper::getApps()[static::$app_name];
+        $page = $_GET['page'];
 
-        if ( ! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name)) {
+        if ( strpos($page, BEANS_WOO_BASE_MENU_SLUG ) !== false and
+            (! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name))) {
             echo '<div class="notice notice-error is-dismissible" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
                 __(  static::$app_info['name'] ." is not properly setup.", 'beans-woo' ) .
                 ' <a href="' . admin_url(static::$app_info['link'] ) . '">' .
@@ -107,4 +111,5 @@ abstract class AbstractConnector {
                 '</div></div>';
         }
     }
+
 }

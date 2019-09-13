@@ -2,12 +2,13 @@
 
 namespace BeansWoo\Admin\Connector;
 
+defined('ABSPATH') or die;
+
 class SnowConnector extends AbstractConnector {
 
 	static public $app_name = 'snow';
 
 	public static function init() {
-		// TODO: Implement init() method.
 	}
 
 	protected static function _installAssets() {

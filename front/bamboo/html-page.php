@@ -23,7 +23,7 @@ use BeansWoo\Helper;
 
 <script type="text/javascript" src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
 <script type="text/javascript" src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
-<script type="text/javascript" src="https://bnsre.s3.amazonaws.com/lib/bamboo/3.1/js/bamboo.beans.js?domainAPI=api-3.bns.re&domainConnect=connect.bns.re&env=beta&shop=corentin-test.myshopify.com"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/bnsre/static-v3/bamboo/lib/3.0/js/beans-referral-page.js"></script>
 <link type="text/css" rel="stylesheet" href="https://bnsre.s3.amazonaws.com/lib/bamboo/3.1/css/bamboo.beans.min.css">
 
 <div style="margin: 50px auto 20px; max-width: 800px; text-align: center">

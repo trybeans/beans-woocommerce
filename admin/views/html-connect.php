@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') or die;
+
 use BeansWoo\Helper;
 function plugin_version( $plugin_name = 'woocommerce' ) {
 	if ( ! function_exists( 'get_plugins' ) ) {
@@ -111,20 +113,16 @@ $force = isset( $_GET['force_beans'] );
          src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name;  ?>.svg"
          alt="<?php echo static::$app_name;  ?>-logo">
     <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
-
-        <h1><?php echo static::$app_info['title']; ?></h1>
-        <p>
-	        <?php echo static::$app_info['description']; ?>
-            <a href="https://<?php echo Helper::getDomain( 'WWW' ); ?>/<?php echo static::$app_name;  ?>"
-               target="_blank">Learn more about <?php echo ucfirst(static::$app_name);  ?></a>
-        </p>
+        <div style="margin-bottom: 50px !important; ">
+            <h2 style="text-align: center;"><?php echo static::$app_info['title']; ?></h2>
+        </div>
 
         <div>
             <div style="margin: auto;">
-                <img src="https://<?php echo Helper::getDomain( 'WWW' ); ?>/static/img/products/<?php echo static::$app_name; ?>/hero-image.svg"
-                     alt="" width="95%" onerror="this.style.display='none'">
-                <img src="https://<?php echo Helper::getDomain( 'WWW' ); ?>/static/img/products/<?php echo static::$app_name; ?>/hero-image.png"
-                     alt="hero-image" width="95%" onerror="this.style.display='none'">
+                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.svg",
+                    BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
+                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.png",
+                    BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
             </div>
             <form method="get" class="beans-admin-form"
                   action="https://<?php echo Helper::getDomain( 'CONNECT' ); ?>/cms/woocommerce/<?php echo static::$app_name; ?>/connect/">
@@ -137,7 +135,8 @@ $force = isset( $_GET['force_beans'] );
                                 class="button button-disabled bg-primary bg-primary-<?php echo static::$app_name;  ?>
                                 shadow-md " value="Connect to <?php echo ucfirst(static::$app_name);  ?>"
                                 disabled>
-                            <?php endif; ?>Connect to <?php echo ucfirst(static::$app_name);  ?>
+                            <?php endif; ?>
+                            Connect to <?php echo ucfirst(static::$app_name);  ?>
                         </button>
                 </p>
                 <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
@@ -153,10 +152,11 @@ $force = isset( $_GET['force_beans'] );
 
             </form>
         </div>
-        <p>Your store is almost ready! To activate services like customer loyalty program, referral system, popup and
-            more,
-            just connect to Beans. <a href="https://<?php echo Helper::getDomain( 'WWW' ); ?>" target="_blank">Learn
-                more about Beans</a></p>
+        <p>
+            <?php echo static::$app_info['description']; ?>
+            <a href="https://<?php echo Helper::getDomain( 'WWW' ); ?>/<?php echo static::$app_name;  ?>"
+               target="_blank">Learn more about <?php echo ucfirst(static::$app_name);  ?></a>
+        </p>
 
         <a href="javascript:void(0)" id="view-config">View configuration</a>
         <ul class="wc-wizard-features" style="display: None" id="config-status">
@@ -320,6 +320,7 @@ $force = isset( $_GET['force_beans'] );
             || php_is_supported !== '1' || curl_is_supported !== '1' || json_is_supported !== '1'
             || permalink_is_supported !== '1' || wp_permalink_is_supported !== '1'
             || woo_api_v2_auth_is_up !== '1' || woo_api_v2_uri_is_up !== '1') {
+            jQuery('#view-config').text('View less');
             jQuery('#config-status').slideDown('slow');
         }
         jQuery('#view-config').click(function () {

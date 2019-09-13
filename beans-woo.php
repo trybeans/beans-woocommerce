@@ -13,6 +13,7 @@
  */
 
 // Exit if accessed directly
+
 if ( ! defined( 'ABSPATH' ) )
     exit;
 
@@ -32,13 +33,20 @@ include_once( 'admin/init.php' );
 
 include_once('front/liana/init.php');
 include_once('front/snow/init.php');
-include_once('front/bamboo/init.php');
-include_once('front/lotus/init.php');
+//include_once('front/bamboo/init.php');
+# include_once('front/lotus/init.php');
+
+use BeansWoo\Admin\Main as AdminMain;
+use BeansWoo\Front\Liana\Main as LianaMain;
+use BeansWoo\Front\Snow\Main as SnowMain;
+//use BeansWoo\Front\Bamboo\Main as BambooMain;
+
 
 if ( ! class_exists( 'WC_Beans' ) ) :
 
     class WC_Beans{
-        protected static $_instance = null;
+     protected static $_instance = null;
+
 
         function __construct(){
             add_filter('init',              array(__CLASS__, 'init'),         10, 1);
@@ -56,11 +64,11 @@ if ( ! class_exists( 'WC_Beans' ) ) :
                 session_start();
             }
 
-            \BeansWoo\Admin\Main::init();
+            AdminMain::init();
 
-            \BeansWoo\Front\Liana\Main::init();
-            \BeansWoo\Front\Snow\Main::init();
-            \BeansWoo\Front\Bamboo\Main::init();
+            LianaMain::init();
+            SnowMain::init();
+//            BambooMain::init();
         }
     }
 

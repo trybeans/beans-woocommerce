@@ -2,6 +2,8 @@
 
 namespace BeansWoo\Admin\Connector;
 
+defined('ABSPATH') or die;
+
 class LotusConnector extends AbstractConnector {
 
 	static public $app_name = 'lotus';
@@ -9,7 +11,6 @@ class LotusConnector extends AbstractConnector {
 	static $config;
 
 	public static function init() {
-		// TODO: Implement init() method.
 	}
 
 	protected static function _installAssets() {
