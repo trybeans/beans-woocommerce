@@ -23,8 +23,8 @@ class Block {
         add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),     10, 1);
         add_filter('woocommerce_before_checkout_process', array(__CLASS__, 'render_cart'), 10, 1);
 
+        add_filter('woocommerce_review_order_after_payment',            array(__CLASS__, 'render_cart'),     15, 1);
 	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
-		    add_filter('woocommerce_after_checkout_form',            array(__CLASS__, 'render_cart'),     15, 1);
 	    }
     }
 
@@ -53,7 +53,6 @@ class Block {
     public static function render_init($force=false){
         if (!$force && get_the_ID() === Helper::getConfig(static::$app_name. '_page')) return;
 
-        $account = array();
         $token = array();
         $debit = array();
 
@@ -61,9 +60,9 @@ class Block {
             Observer::customerRegister(get_current_user_id());
         }
 
-        if(isset($_SESSION[static::$app_name . "_account"])) $account = $_SESSION[static::$app_name . "_account"];
         if(isset($_SESSION[static::$app_name . '_token'])) $token = $_SESSION[static::$app_name . '_token'];
         if(isset($_SESSION[static::$app_name . '_debit'])) $debit = $_SESSION[static::$app_name . '_debit'];
+
         ?>
         <div></div>
         <script>
@@ -74,8 +73,16 @@ class Block {
                 aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
                 debit: {<?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>},
             };
+            if (window.liana_init_data.debit.beans === ""){
+                delete window.liana_init_data.debit;
+            }
             window.Beans3.Liana.Radix.init();
-
+            <?php if (Helper::getCart()->cart_contents_count != 0): ?>
+            window.Beans3.Liana.storage.cart = {
+                item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
+                total_price: "<?php echo Helper::getCart()->subtotal; ?>",
+            };
+            <?php endif; ?>
         </script>
         <?php
     }

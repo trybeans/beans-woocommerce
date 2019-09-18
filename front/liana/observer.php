@@ -21,7 +21,11 @@ class Observer {
         add_filter( 'woocommerce_get_shop_coupon_data', array( __CLASS__, 'getCoupon' ), 10, 2 );
         add_filter( 'woocommerce_checkout_order_processed', array( __CLASS__, 'orderPlaced' ), 10, 1 );
         add_filter( 'woocommerce_order_status_changed', array( __CLASS__, 'orderPaid' ), 10, 3 );
-//        add_filter('woocommerce_update_cart_action_cart_updated',   array(__CLASS__, 'cancel_redemption'),10, 1);
+//       add_filter('woocommerce_update_cart_action_cart_updated',   array(__CLASS__, 'cancel_redemption'),10, 1);
+
+        add_action( 'wc_ajax_remove_coupon', array(__CLASS__, 'cancelRedemption'), 10, 1 );
+        add_action( 'wp_ajax_woocommerce_remove_coupon', array(__CLASS__, 'cancelRedemption'), 10, 1 );
+        add_action( 'wp_ajax_nopriv_woocommerce_remove_coupon', array(__CLASS__, 'cancelRedemption'), 10, 1 );
     }
 
     public static function clearSession() {
