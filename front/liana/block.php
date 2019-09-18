@@ -7,26 +7,28 @@ use BeansWoo\Helper;
 class Block {
 
     public static $app_name = 'liana';
+    static $card;
 
     public static function init(){
-	    $card = Helper::getCard( self::$app_name );
-	    if ( empty( $card ) || ! $card['is_active'] || !Helper::isSetupApp(self::$app_name)) {
+	    self::$card = Helper::getCard( self::$app_name );
+	    if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp(self::$app_name)) {
 		    return;
 	    }
 
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
         add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
-        add_filter('woocommerce_after_cart_table',                   array(__CLASS__, 'render_cart'),     10, 1);
+        add_filter('the_content',                                    array(__CLASS__, 'render_page'),     10, 1);
+        add_filter('woocommerce_proceed_to_checkout',                array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
         add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),     10, 1);
-        add_filter('the_content',                                    array(__CLASS__, 'render_page'),     10, 1);
+        add_filter('woocommerce_before_checkout_process', array(__CLASS__, 'render_cart'), 10, 1);
+
 	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
-		    add_filter('woocommerce_before_checkout_form',               array(__CLASS__, 'render_cart'),     15, 1);
+		    add_filter('woocommerce_after_checkout_form',            array(__CLASS__, 'render_cart'),     15, 1);
 	    }
     }
 
     public static function enqueue_scripts(){
-        // wp_enqueue_script('beans-script', 'https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js');
         wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
@@ -35,25 +37,16 @@ class Block {
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
 
-        if ( strpos(BEANS_DOMAIN_API, 'bns') !== flase ){
-
-            ?>
-            <script src='https://bnsre.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
-            <?php
-        }
-        else{
-
-            ?>
-            <script src='https://trybeans.s3.amazonaws.com/static-v3/liana/lib/3.0/js/woocommerce/liana.beans.js' type="text/javascript"></script>
-            <?php
-        }
+        ?>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <?php
     }
 
     public static function render_cart(){
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
-        <div class="beans-cart" beans-btn-class="button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
+        <div class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
         <?php
     }
 
@@ -71,39 +64,41 @@ class Block {
         if(isset($_SESSION[static::$app_name . "_account"])) $account = $_SESSION[static::$app_name . "_account"];
         if(isset($_SESSION[static::$app_name . '_token'])) $token = $_SESSION[static::$app_name . '_token'];
         if(isset($_SESSION[static::$app_name . '_debit'])) $debit = $_SESSION[static::$app_name . '_debit'];
-
         ?>
         <div></div>
         <script>
-            Beans3.Liana.Snow = Beans3.Liana.Snow || {
-                toast: function () {}
+            window.liana_init_data = {
+                currentPage: '<?php echo self::getCurrentPage(); ?>',
+                accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
+                loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
+                debit: {<?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>},
             };
-            const beans_init_data = {
-                address: '<?php echo Helper::getConfig('card'); ?>',
-                domainAPI: '<?php echo Helper::getDomain('API'); ?>',
-                reward_page: '<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>',
-                login_page: '<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>',
-                account_token: '<?php  echo isset($token['key'])? $token['key'] : ''; ?>',
-                account: {<?php Helper::getAccountData($account, 'id', '');  Helper::getAccountData($account, 'beans'); ?>}
-            };
-            Beans3.init(beans_init_data);
-            Beans3.Orchard.register('<?php echo static::$app_name; ?>', ['snow']).then(function () {
-                Beans3.Liana.init(beans_init_data);
-            });
-            Beans3.Liana.Redemption = {
-                <?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>
-                apply: function(){Beans3.Liana.utils.formPost('', {beans_action: 'apply'});},
-                cancel: function(){Beans3.Liana.utils.formPost('', {beans_action: 'cancel'});}
-            };
+            window.Beans3.Liana.Radix.init();
+
         </script>
         <?php
+    }
+
+    public static function getCurrentPage(){
+        $pages = [
+            get_permalink(get_option('woocommerce_myaccount_page_id')) => 'login',
+            get_permalink(get_option('woocommerce_cart_page_id')) => 'cart',
+            get_permalink(get_option('woocommerce_shop_page_id')) => 'product',
+            get_permalink(get_option('woocommerce_checkout_page_id')) => 'checkout',
+            get_permalink(Helper::getConfig(static::$app_name . '_page')) => 'reward',
+        ];
+
+        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
+
+        return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
     public static function render_page($content, $vars=null){
         if (strpos($content,'[beans_page]') !== false and !is_null(Helper::getConfig(static::$app_name. '_page')) ) {
             ob_start();
-            self::render_init(true);
             include(dirname(__FILE__) . '/html-page.php');
+            self::render_init(true);
             $page = ob_get_clean();
             $content = str_replace('[beans_page]', $page, $content);
         }

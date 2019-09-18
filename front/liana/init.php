@@ -14,6 +14,5 @@ class Main {
 
         Observer::init();
         Block::init();
-
     }
 }

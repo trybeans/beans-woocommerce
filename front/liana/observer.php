@@ -5,11 +5,11 @@ namespace BeansWoo\Front\Liana;
 use BeansWoo\Helper;
 
 class Observer {
-
+    public static $card;
     public static function init() {
 
-        $card = Helper::getCard( 'liana' );
-        if ( empty( $card ) || ! $card['is_active'] || !Helper::isSetupApp('liana')) {
+        self::$card = Helper::getCard( 'liana' );
+        if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp('liana')) {
             return;
         }
 
@@ -182,9 +182,16 @@ class Observer {
         $card = Helper::getCard( 'liana' );
 
         $max_amount = $cart->subtotal;
-        if ( isset( $card['settings'] ) && isset( $card['settings']['range_max_redeem'] ) ) {
-            $percent_discount = $card['settings']['range_max_redeem'];
-            if ( $percent_discount < 100 ) {
+        if ( isset( $card['redemption'] ) && isset( $card['redemption']['min_beans'] ) &&
+            isset($card['redemption']['max_percentage']) ) {
+            $min_beans = $card['redemption']['min_beans'];
+            if ($account['beans']  < $min_beans){
+                wc_add_notice( "Minimum discount allowed is $min_beans ".$card['beans_name'], 'notice' );
+                return;
+            }
+
+            $percent_discount = $card['redemption']['max_percentage'];
+            if ( $percent_discount > 0 && $percent_discount <= 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
                 wc_add_notice( "Maximum discount allowed for this order is $percent_discount%", 'notice' );
             }
@@ -241,7 +248,6 @@ class Observer {
                     'uid'         => 'wc_' . $order->get_id() . '_' . $order->order_key,
                     'commit'      => true
                 );
-
 
                 try {
                     $debit = Helper::API()->post( '/liana/debit', $data );
