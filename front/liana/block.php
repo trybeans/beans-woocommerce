@@ -39,14 +39,21 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>        <?php
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <?php
     }
 
     public static function render_cart(){
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
-        <div class="beans-cart order-summary__section--discount" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
+        <div class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
+        <script>
+            coupon_remove_element = document.getElementsByClassName('woocommerce-remove-coupon');
+            if( coupon_remove_element.length !== 0){
+                document.getElementsByClassName("woocommerce-remove-coupon")[0].style.display = "none";
+            }
+        </script>
         <?php
     }
 
@@ -71,7 +78,12 @@ class Block {
                 accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
-                debit: {<?php Helper::getAccountData($debit, 'beans', 0);  Helper::getAccountData($debit, 'message', ''); ?>},
+                debit: {
+                    <?php
+                        Helper::getAccountData($debit, 'beans', 0);
+                        Helper::getAccountData($debit, 'message', '');
+                        echo "uid: '". BEANS_LIANA_COUPON_UID . "'";?>
+                },
             };
             if (window.liana_init_data.debit.beans === ""){
                 delete window.liana_init_data.debit;
