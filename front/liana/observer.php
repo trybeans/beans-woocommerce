@@ -1,15 +1,15 @@
 <?php
 
-namespace BeansWoo\Liana;
+namespace BeansWoo\Front\Liana;
 
 use BeansWoo\Helper;
 
 class Observer {
-
+    public static $card;
     public static function init() {
 
-        $card = Helper::getCard( 'liana' );
-        if ( empty( $card ) || ! $card['is_active'] ) {
+        self::$card = Helper::getCard( 'liana' );
+        if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp('liana')) {
             return;
         }
 
@@ -21,7 +21,7 @@ class Observer {
         add_filter( 'woocommerce_get_shop_coupon_data', array( __CLASS__, 'getCoupon' ), 10, 2 );
         add_filter( 'woocommerce_checkout_order_processed', array( __CLASS__, 'orderPlaced' ), 10, 1 );
         add_filter( 'woocommerce_order_status_changed', array( __CLASS__, 'orderPaid' ), 10, 3 );
-//        add_filter('woocommerce_update_cart_action_cart_updated',   array(__CLASS__, 'cancel_redemption'),10, 1);
+//       add_filter('woocommerce_update_cart_action_cart_updated',   array(__CLASS__, 'cancel_redemption'),10, 1);
     }
 
     public static function clearSession() {
@@ -182,9 +182,16 @@ class Observer {
         $card = Helper::getCard( 'liana' );
 
         $max_amount = $cart->subtotal;
-        if ( isset( $card['settings'] ) && isset( $card['settings']['range_max_redeem'] ) ) {
-            $percent_discount = $card['settings']['range_max_redeem'];
-            if ( $percent_discount < 100 ) {
+        if ( isset( $card['redemption'] ) && isset( $card['redemption']['min_beans'] ) &&
+            isset($card['redemption']['max_percentage']) ) {
+            $min_beans = $card['redemption']['min_beans'];
+            if ($account['beans']  < $min_beans){
+                wc_add_notice( "Minimum discount allowed is $min_beans ".$card['beans_name'], 'notice' );
+                return;
+            }
+
+            $percent_discount = $card['redemption']['max_percentage'];
+            if ( $percent_discount > 0 && $percent_discount <= 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
                 wc_add_notice( "Maximum discount allowed for this order is $percent_discount%", 'notice' );
             }
@@ -241,7 +248,6 @@ class Observer {
                     'uid'         => 'wc_' . $order->get_id() . '_' . $order->order_key,
                     'commit'      => true
                 );
-
 
                 try {
                     $debit = Helper::API()->post( '/liana/debit', $data );

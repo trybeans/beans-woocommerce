@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.0.4
+ * Version: 3.1.0
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
@@ -13,6 +13,7 @@
  */
 
 // Exit if accessed directly
+
 if ( ! defined( 'ABSPATH' ) )
     exit;
 
@@ -20,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '3.0.4');
+define('BEANS_VERSION',                 '3.1.0');
 define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
 define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
 define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
@@ -30,13 +31,22 @@ include_once( 'includes/helper.php' );
 
 include_once( 'admin/init.php' );
 
-include_once('liana/init.php');
+include_once('front/liana/init.php');
+include_once('front/snow/init.php');
+//include_once('front/bamboo/init.php');
+# include_once('front/lotus/init.php');
+
+use BeansWoo\Admin\Main as AdminMain;
+use BeansWoo\Front\Liana\Main as LianaMain;
+use BeansWoo\Front\Snow\Main as SnowMain;
+//use BeansWoo\Front\Bamboo\Main as BambooMain;
 
 
 if ( ! class_exists( 'WC_Beans' ) ) :
 
     class WC_Beans{
-        protected static $_instance = null;
+     protected static $_instance = null;
+
 
         function __construct(){
             add_filter('init',              array(__CLASS__, 'init'),         10, 1);
@@ -54,12 +64,13 @@ if ( ! class_exists( 'WC_Beans' ) ) :
                 session_start();
             }
 
-            \BeansWoo\Admin\Main::init();
+            AdminMain::init();
 
-            \BeansWoo\Liana\Main::init();
+            LianaMain::init();
+            SnowMain::init();
+//            BambooMain::init();
         }
     }
-
 
 endif;
 

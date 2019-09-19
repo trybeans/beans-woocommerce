@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.7
 Tested up to: 5.2.1
-Stable tag: 3.0.4
+Stable tag: 3.0.3
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -86,11 +86,20 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.0 =
+- Introducing Snow: the new widget notifications
+
+= 3.0.6 =
+- Fix redemption issues
+
+= 3.0.5 =
+- Update Liana to latest version
+
 = 3.0.4 =
-- hide button on checkout page
+- Hide button on checkout page
 
 = 3.0.3 =
-- fix connect issues
+- Fix connect issues
 
 = 3.0.2 =
 - Allow points redemption to be not be exclusive
