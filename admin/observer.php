@@ -57,7 +57,7 @@ class Observer {
         ];
 
 //        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
+//        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
 	    add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
         add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
