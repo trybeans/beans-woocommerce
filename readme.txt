@@ -86,15 +86,20 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.0 =
+- Introducing Snow: the new widget notifications
+
+= 3.0.6 =
+- Fix redemption issues
+
 = 3.0.5 =
-- update liana to latest version
-- add new feature: snow
+- Update Liana to latest version
 
 = 3.0.4 =
-- hide button on checkout page
+- Hide button on checkout page
 
 = 3.0.3 =
-- fix connect issues
+- Fix connect issues
 
 = 3.0.2 =
 - Allow points redemption to be not be exclusive
