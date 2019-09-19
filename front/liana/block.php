@@ -15,18 +15,44 @@ class Block {
 		    return;
 	    }
 
-        add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
-        add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
-        add_filter('the_content',                                    array(__CLASS__, 'render_page'),     10, 1);
-        add_filter('woocommerce_after_cart',                array(__CLASS__, 'render_cart'),     10, 1);
-        add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
-        add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),     10, 1);
-        add_filter('woocommerce_before_checkout_process', array(__CLASS__, 'render_cart'), 10, 1);
+        add_filter('wp_enqueue_scripts',                            array(__CLASS__, 'enqueue_scripts'), 10, 1);
+        add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
+        add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+        add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
+        add_filter('woocommerce_register_form_start',               array(__CLASS__, 'render_register'), 15, 1);
+        add_filter( 'woocommerce_add_to_cart_fragments',            array(__CLASS__, 'render_cart_fragment'), 10, 1 );
 
-//        add_filter('woocommerce_review_order_after_payment',            array(__CLASS__, 'render_cart'),     15, 1);
-	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
-            add_filter('woocommerce_review_order_after_submit',            array(__CLASS__, 'render_cart'),     15, 1);
+        add_filter('wp_footer',                                     array(__CLASS__, 'render_init'),     10, 1);
+
+
+        //add_filter('woocommerce_review_order_after_payment',         array(__CLASS__, 'render_cart'),     15, 1);
+//	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
+//            add_filter('woocommerce_review_order_after_submit',      array(__CLASS__, 'render_cart'),     15, 1);
+//        }
+    }
+
+    public static function render_cart_fragment( $fragments ) {
+        $cart_subtotal  = Helper::getCart()->cart_contents_total;
+        if($cart_subtotal == 0){
+            Observer::cancelRedemption();
+            ob_start();
+            ?>
+            <script>
+                delete window.liana_init_data.debit
+            </script>
+            <?php
         }
+        self::render_cart();
+        if ($fragments){
+
+        ?>
+        <script>
+            window.Beans3.Liana.Radix.init();
+        </script>
+        <?php
+        }
+         $fragments['div.beans-cart'] = ob_get_clean();
+         return $fragments;
     }
 
     public static function enqueue_scripts(){
@@ -48,12 +74,6 @@ class Block {
 
         ?>
         <div class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
-        <script>
-            coupon_remove_element = document.getElementsByClassName('woocommerce-remove-coupon');
-            if( coupon_remove_element.length !== 0){
-                document.getElementsByClassName("woocommerce-remove-coupon")[0].style.display = "none";
-            }
-        </script>
         <?php
     }
 
