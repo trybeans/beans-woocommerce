@@ -86,6 +86,13 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.0.5 =
+- update liana to latest version
+- add new feature: snow
+
+= 3.0.4 =
+- hide button on checkout page
+
 = 3.0.3 =
 - fix connect issues
 
