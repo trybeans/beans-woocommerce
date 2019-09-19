@@ -75,12 +75,12 @@
 }
 
 .bns-normalize div {
-    box-sizing: border-box
+    /*box-sizing: border-box*/
 }
 
 .beans-clearfix:before, .beans-clearfix:after{
     content:" ";
-    display:table
+    /*display:table*/
 }
 .beans-clearfix:after {
     clear: both
@@ -104,17 +104,17 @@ div: .beans-cart
 */
 
 .bns-cart-box {
-    margin-top: 15px;
-    display: block;
-    width: 100%;
-    padding: 10px 0 10px 10px;
+    margin-top: 0 !important;
+    display: inline-block !important;
+    /*width: 100%;*/
+    /*padding: 10px 0 10px 10px;*/
     /*min-height: 62px;*/
     /*border-top: 1px solid #DDD;*/
     /*border-bottom: 1px solid #DDD;*/
 }
 
 .bns-cart-box .bns-cart-info {
-    display: inline-block;
+    /*display: inline-block;*/
     padding: 0 10px;
     text-align: left;
     font-size: 13px;
@@ -128,12 +128,13 @@ div: .beans-cart
     display: inline-block;
     text-align: right;
     vertical-align: middle;
-    min-width: 100px;
-    max-width: 200px;
+    /*min-width: 100px;*/
+    width: 100%;
     max-height: 50px;
-    overflow: hidden;
+    overflow: unset;
     padding: 0;
     float: right;
+    max-width: 100%;
 }
 
 .bns-cart-box .bns-cart-redeem-box {
@@ -143,6 +144,8 @@ div: .beans-cart
     display: inline-block;
     box-shadow: 0 10px 25px 0 rgba(49, 49, 93, 0.1);
     position: relative;
+    width: 100%;
+    text-align: center;
 }
 
 .bns-cart-box .bns-cart-redeem-box > div {
@@ -168,14 +171,19 @@ div: .beans-cart
 }
 
 .bns-cart-box .bns-cart-title {
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 15px;
     margin-left: 3px;
     display: inline-block;
     vertical-align: middle;
     color: #fff;
-    max-width: 145px;
+    text-transform: uppercase;
+    /*max-width: 145px;*/
+}
+
+.bns-cart-box .bns-cart-box-info {
+    display: none !important;
 }
 
 .bns-cart-box .bns-animate-bounce {
@@ -254,4 +262,10 @@ div: .beans-section
 
 .beans-rules li {
     margin: 10px auto;
+}
+
+
+/* Woocommerce */
+.woocommerce-remove-coupon[data-coupon="redeem_points"] {
+    display: none;
 }
