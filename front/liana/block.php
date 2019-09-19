@@ -18,14 +18,15 @@ class Block {
         add_filter('wp_enqueue_scripts',                             array(__CLASS__, 'enqueue_scripts'), 10, 1);
         add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
         add_filter('the_content',                                    array(__CLASS__, 'render_page'),     10, 1);
-        add_filter('woocommerce_proceed_to_checkout',                array(__CLASS__, 'render_cart'),     10, 1);
+        add_filter('woocommerce_after_cart',                array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_register_form_start',                array(__CLASS__, 'render_register'), 15, 1);
         add_filter('wp_footer',                                      array(__CLASS__, 'render_init'),     10, 1);
         add_filter('woocommerce_before_checkout_process', array(__CLASS__, 'render_cart'), 10, 1);
 
-        add_filter('woocommerce_review_order_after_payment',            array(__CLASS__, 'render_cart'),     15, 1);
+//        add_filter('woocommerce_review_order_after_payment',            array(__CLASS__, 'render_cart'),     15, 1);
 	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
-	    }
+            add_filter('woocommerce_review_order_after_submit',            array(__CLASS__, 'render_cart'),     15, 1);
+        }
     }
 
     public static function enqueue_scripts(){
@@ -38,15 +39,14 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
-        <?php
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>        <?php
     }
 
     public static function render_cart(){
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
-        <div class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
+        <div class="beans-cart order-summary__section--discount" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
         <?php
     }
 
