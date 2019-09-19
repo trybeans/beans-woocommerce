@@ -25,18 +25,9 @@ class Observer {
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
 
-        if ( strpos(BEANS_DOMAIN_API, 'bns') !== flase ){
-
         ?>
-            <script src='https://bnsre.s3.amazonaws.com/lib/snow/3.1/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/snow/3.1/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
-        }
-        else{
-
-        ?>
-            <script src='https://trybeans.s3.amazonaws.com/lib/snow/3.1/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
-        <?php
-        }
     }
 
 
