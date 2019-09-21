@@ -110,9 +110,9 @@ abstract class AbstractConnector {
 
     public static function admin_notice() {
         static::$app_info = Helper::getApps()[static::$app_name];
-        $page = $_GET['page'];
+        $page = isset($_GET['page']) ? $_GET['page'] : null;
 
-        if ( strpos($page, BEANS_WOO_BASE_MENU_SLUG ) !== false and
+        if ($page && strpos($page, BEANS_WOO_BASE_MENU_SLUG ) !== false and
             (! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name))) {
             echo '<div class="notice notice-error is-dismissible" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
                 __(  static::$app_info['name'] ." is not properly setup.", 'beans-woo' ) .
