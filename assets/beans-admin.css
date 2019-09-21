@@ -90,6 +90,10 @@ p.beans-admin-check-warning a:hover {
     background-color: #d67e0a !important;
 }
 
+.bg-primary-foxx {
+    background-color: #19899f !important;
+}
+
 .bg-primary:hover {
     cursor: pointer;
     opacity: 1;
