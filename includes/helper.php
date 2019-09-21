@@ -40,6 +40,13 @@ class Helper {
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
             ),
 
+            'foxx' => array(
+                'name' => 'Foxx',
+                'title' => 'Super-targeted automated emails that drive sales',
+                'description' => 'Reach out to customers with highly relevant offers 
+                at the moment they are most likely to shop.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-foxx',
+            ),
             /**'bamboo' => array(
 	        	'name' => 'Bamboo',
 		        'title' => 'Turn your customers into advocates of your brand',
