@@ -33,6 +33,14 @@ class Helper {
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
             ),
+            
+            'lotus' => array(
+                'name' => 'Lotus',
+                'title' => 'Save time managing social media for your shop',
+                'description' => 'Automatically let customers know about new products and promotions in your shop.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
+            ),
+
             'snow' => array(
             	'name' => 'Snow',
 	            'title' => 'Communicate with customers without disrupting their journey',
@@ -53,12 +61,7 @@ class Helper {
 		        'description' => 'Let your customers grow your business by referring you to their friends.',
 		        'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
 	        ),
-	        'lotus' => array(
-	        	'name' => 'Lotus',
-		        'title' => 'Save time managing social media for your shop',
-		        'description' => 'Automatically let customers know about new products and promotions in your shop.',
-		        'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
-	        ) **/
+	         **/
 
         );
     }
