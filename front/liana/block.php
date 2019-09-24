@@ -20,7 +20,7 @@ class Block {
         add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_register_form_start',               array(__CLASS__, 'render_register'), 15, 1);
-        add_filter( 'woocommerce_add_to_cart_fragments',            array(__CLASS__, 'render_cart_fragment'), 999, 1 );
+        add_filter( 'add_to_cart_fragments',                        array(__CLASS__, 'render_cart_fragment'), 999, 1 );
 
         add_filter('wp_footer',                                     array(__CLASS__, 'render_init'),     10, 1);
 
