@@ -43,7 +43,7 @@ abstract class AbstractConnector {
 		        $page = Helper::getConfig('page');
      		        if ( ! is_null($page)){
      		            Helper::setConfig('page', null);
-     		            return wp_redirect(admin_url( static::$app_info['link']. "&redirect_beans=1" ));
+     		            return wp_redirect(admin_url( static::$app_info['link']. "&reset_beans=1" ));
 		        }
             }
         }
