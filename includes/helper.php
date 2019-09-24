@@ -15,6 +15,7 @@ class Helper {
     public static function getDomain( $sub ) {
         $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
+            'NAME' => 'trybeans.com',
             'API'     => 'api-3.trybeans.com',
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
@@ -33,26 +34,13 @@ class Helper {
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
             ),
+
             'snow' => array(
             	'name' => 'Snow',
 	            'title' => 'Communicate with customers without disrupting their journey',
 	            'description' => 'Automatically let customers know about new products and promotions in your shop.',
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
             ),
-
-            /**'bamboo' => array(
-	        	'name' => 'Bamboo',
-		        'title' => 'Turn your customers into advocates of your brand',
-		        'description' => 'Let your customers grow your business by referring you to their friends.',
-		        'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
-	        ),
-	        'lotus' => array(
-	        	'name' => 'Lotus',
-		        'title' => 'Save time managing social media for your shop',
-		        'description' => 'Automatically let customers know about new products and promotions in your shop.',
-		        'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
-	        ) **/
-
         );
     }
 
@@ -112,7 +100,7 @@ class Helper {
 			self::setConfig( 'key', null );
 			self::setConfig( 'card', null );
 			self::setConfig( 'secret', null );
-			self::setConfig('apps', null);
+			self::setConfig('apps', []);
 			self::$cards = array();
 		}
 
@@ -120,7 +108,11 @@ class Helper {
     }
 
     public static function isSetupApp( $app_name){
-    	return in_array($app_name, self::getConfig('apps'));
+        $apps = self::getConfig('apps');
+        if(! $apps){
+            $apps = [];
+        }
+        return in_array($app_name, $apps);
     }
 
     public static function log( $info ) {

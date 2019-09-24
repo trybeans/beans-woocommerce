@@ -136,7 +136,7 @@ $force = isset( $_GET['force_beans'] );
                                 shadow-md " value="Connect to <?php echo ucfirst(static::$app_name);  ?>"
                                 disabled>
                             <?php endif; ?>
-                            Connect to <?php echo ucfirst(static::$app_name);  ?>
+                            Get <?php echo ucfirst(static::$app_name);  ?>
                         </button>
                 </p>
                 <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">

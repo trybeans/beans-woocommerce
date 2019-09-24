@@ -7,6 +7,7 @@ defined('ABSPATH') or die;
 class SnowConnector extends AbstractConnector {
 
 	static public $app_name = 'snow';
+    static public $has_install_asset = false;
 
 	public static function init() {
 	}

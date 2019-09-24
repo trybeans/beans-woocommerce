@@ -86,8 +86,16 @@ p.beans-admin-check-warning a:hover {
 
 }
 
+.bg-primary-foxx {
+    background-color: #19899f !important;
+}
+
 .bg-primary-snow {
     background-color: #d67e0a !important;
+}
+
+.bg-primary-poppy {
+    background-color: #f9283e !important;
 }
 
 .bg-primary:hover {
