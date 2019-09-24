@@ -41,8 +41,9 @@ abstract class AbstractConnector {
 		if (Helper::isSetup()){
 		    if (static::$app_name == 'liana'){
 		        $page = Helper::getConfig('page');
-     		        if ( ! is_null($page)){ Helper::setConfig('page', null);
-                            return wp_redirect(admin_url( static::$app_info['link']. "&redirect_beans=1" ));
+     		        if ( ! is_null($page)){
+     		            Helper::setConfig('page', null);
+     		            return wp_redirect(admin_url( static::$app_info['link']. "&redirect_beans=1" ));
 		        }
             }
         }

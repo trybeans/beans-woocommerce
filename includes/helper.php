@@ -41,6 +41,13 @@ class Helper {
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
             ),
 
+            'poppy' => array(
+                'name' => 'Poppy',
+                'title' => 'Get customers to take actions when they are most likely to convert',
+                'description' => 'Display the right popup at the right time to the right customer.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-poppy',
+            ),
+
             'snow' => array(
             	'name' => 'Snow',
 	            'title' => 'Communicate with customers without disrupting their journey',
@@ -122,7 +129,7 @@ class Helper {
 			self::setConfig( 'key', null );
 			self::setConfig( 'card', null );
 			self::setConfig( 'secret', null );
-			self::setConfig('apps', null);
+			self::setConfig('apps', []);
 			self::$cards = array();
 		}
 
@@ -130,7 +137,11 @@ class Helper {
     }
 
     public static function isSetupApp( $app_name){
-    	return in_array($app_name, self::getConfig('apps'));
+        $apps = self::getConfig('apps');
+        if(! $apps){
+            $apps = [];
+        }
+        return in_array($app_name, $apps);
     }
 
     public static function log( $info ) {
