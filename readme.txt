@@ -88,6 +88,7 @@ The WordPress codex contains instructions on
 
 = 3.1.0 =
 - Introducing Snow: the new widget notifications
+- Introducing Liana redemption feature
 
 = 3.0.6 =
 - Fix redemption issues

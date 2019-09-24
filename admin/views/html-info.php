@@ -72,9 +72,9 @@ if ( ! empty( $app_info['instance'] ) ) {
                         leave us a ★★★★★ rating
                     </a>
                 </p>
-                <div>
-                    <a  style="color: #d70000; float: right" href='<?php echo admin_url( static::$app_info['link'].'&reset_beans=1' ); ?>'>Reset Settings Now</a>
-                </div>
+            </div>
+            <div>
+                <a  style="color: #d70000; float: left" href='<?php echo admin_url( static::$app_info['link'].'&reset_beans=1' ); ?>'>Reset Settings Now</a>
             </div>
         </div>
 	<?php endif; ?>
