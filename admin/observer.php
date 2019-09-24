@@ -4,13 +4,8 @@ namespace BeansWoo\Admin;
 
 defined('ABSPATH') or die;
 
-//use BeansWoo\Helper;
 use BeansWoo\Admin\Connector\LianaConnector;
-use BeansWoo\Admin\Connector\LotusConnector;
-use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
-use BeansWoo\Admin\Connector\FoxxConnector;
-//use BeansWoo\Admin\Connector\BambooConnector;
 
 class Observer {
 
@@ -29,33 +24,6 @@ class Observer {
 
             ],
 
-//            [
-//                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-//                'page_title' => ucfirst(BambooConnector::$app_name),
-//                'menu_title' => ucfirst(BambooConnector::$app_name),
-//                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . BambooConnector::$app_name,
-//                'capability' => 'manage_options',
-//                'callback' => ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'],
-//            ],
-
-            [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'page_title' => ucfirst(LotusConnector::$app_name),
-                'menu_title' => ucfirst(LotusConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LotusConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page'],
-            ],
-
-            [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'page_title' => ucfirst(PoppyConnector::$app_name),
-                'menu_title' => ucfirst(PoppyConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . PoppyConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\PoppyConnector', 'render_settings_page'],
-            ],
-
             [
                 'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
                 'page_title' => ucfirst(SnowConnector::$app_name),
@@ -64,25 +32,11 @@ class Observer {
                 'capability' => 'manage_options',
                 'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
             ],
-
-            [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'page_title' => ucfirst(FoxxConnector::$app_name),
-                'menu_title' => ucfirst(FoxxConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . FoxxConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\FoxxConnector', 'render_settings_page'],
-            ],
-
         ];
 
-//        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\PoppyConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
-	    add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\FoxxConnector', 'admin_notice' ) );
-        add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
+	    add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
         add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
     }
 
