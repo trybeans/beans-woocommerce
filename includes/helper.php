@@ -15,6 +15,7 @@ class Helper {
     public static function getDomain( $sub ) {
         $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
+            'NAME' => 'trybeans.com',
             'API'     => 'api-3.trybeans.com',
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',

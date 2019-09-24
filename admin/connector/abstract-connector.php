@@ -121,5 +121,4 @@ abstract class AbstractConnector {
                 '</div></div>';
         }
     }
-
 }

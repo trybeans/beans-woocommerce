@@ -59,7 +59,7 @@ if ( ! empty( $app_info['instance'] ) ) {
                 <div class="beans-admin-form">
                     <p class="wc-setup-actions step" style="display: flex; justify-content: center;">
                         <a class="btn bg-primary bg-primary-<?php echo static::$app_name;  ?>"
-                           href="https://<?php echo Helper::getDomain( 'CONNECT' ) . "/auth/login/${loginkey['key']}"; ?>" target="_blank">
+                           href="https://<?php echo Helper::getDomain( 'CONNECT' ) . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo static::$app_name. ".". Helper::getDomain( 'NAME' ) ?>" target="_blank">
                             Go To <?php echo ucfirst(static::$app_name);  ?>
                         </a>
                     </p>
