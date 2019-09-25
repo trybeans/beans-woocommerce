@@ -48,39 +48,78 @@ if ( ! empty( $app_info['instance'] ) ) {
             <p>
                 Your store unique identifier <b><?php echo $card['address']; ?></b>
             </p>
-            <div style="margin: auto;">
-                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.svg",
-                    BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
-                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.png",
-                    BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
-            </div>
 
             <div>
                 <div class="beans-admin-form">
                     <p class="wc-setup-actions step" style="display: flex; justify-content: center;">
-                        <a class="btn bg-primary bg-primary-<?php echo static::$app_name;  ?>"
+                        <a class="button button-primary"
                            href="https://<?php echo Helper::getDomain( 'CONNECT' ) . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo static::$app_name. ".". Helper::getDomain( 'NAME' ) ?>" target="_blank">
                             Go To <?php echo ucfirst(static::$app_name);  ?>
                         </a>
                     </p>
+                    <?php if(static::$app_name == 'liana') :?>
+                    <p class="wc-setup-actions step" style="display: flex; justify-content: center;">
+                        <a  style=" background-color: #fff !important; border: solid 1px gray;color: black !important;" class="btn bg-primary" href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>" target="_blank">
+                            Rewards Page
+                        </a>
+                    </p>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div style='margin: 20px auto; display: flex; justify-content: space-between '>
-                <p>
-                    If you like Beans, please
-                    <a  href='https://wordpress.org/support/plugin/beans-woocommerce-loyalty-rewards/reviews/' target="_blank">
-                        leave us a ★★★★★ rating
-                    </a>
-                </p>
+            <div style='margin: 20px 0px; display: flex; justify-content: space-between; flex-direction: column; padding: 10px; background-color: #f9f9f9; '>
+                <div style="margin:0px;">
+                    <p class="section-title"> Informations</p>
+                    <p>
+                        <a target="_blank" href="https://web.facebook.com/groups/1220975858059106/">Join our Facebook Group</a> |
+                        <a href="mailto:hello@trybeans.com">Contact Support</a> |
+                        <a target="_blank" href="http://help.trybeans.com/">Help Center</a>
+                    </p>
+                    <p style="margin-top: 10px;">
+                        If you like Beans, please
+                        <a  href='https://wordpress.org/support/plugin/beans-woocommerce-loyalty-rewards/reviews/' target="_blank">
+                            leave us a ★★★★★ rating
+                        </a>
+                    </p>
+                </div>
             </div>
+            <?php if(static::$app_name == 'liana') :?>
+                <div class="beans-setting" style="margin: 20px 0px; display: flex; justify-content: space-between; flex-direction: column; padding: 10px; background-color: #f9f9f9; ">
+                    <p class="section-title"> Settings</p>
+                    <form method="post" action="options.php">
+                        <?php
+                        settings_fields("beans-section");
+
+                        do_settings_sections("beans-woo");
+
+                        submit_button();
+                        ?>
+                    </form>
+                </div>
+            <?php endif; ?>
             <div>
                 <a  style="color: #d70000; float: left" href='<?php echo admin_url( static::$app_info['link'].'&reset_beans=1' ); ?>'>Reset Settings Now</a>
             </div>
         </div>
+        <style>
+            .section-title {
+                font-size: 18px;
+                font-weight: 400;
+                color: #23282d !important;
+            }
+
+            .beans-setting .form-table th {
+                display: none;
+            }
+
+            /*p {*/
+            /*    margin: 0px;*/
+            /*}*/
+        </style>
+
 	<?php endif; ?>
-    <div style="margin-top: 20px !important;" >
+    <div style="margin-top: 20px !important; text-align: center" >
         <img  src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/beans.svg"
-              alt="Beans" width="5%">
+              alt="Beans">
     </div>
 </div>
 

@@ -33,7 +33,7 @@ class Observer {
                 'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
             ],
         ];
-
+        add_action("admin_init", [__CLASS__, "setting_options"]);
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
 	    add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
@@ -57,6 +57,27 @@ class Observer {
     public static function admin_style(){
         wp_enqueue_style( 'admin-styles', plugins_url( 'assets/beans-admin.css' ,
             BEANS_PLUGIN_FILENAME ));
+    }
+
+    public static function setting_options(){
+        add_settings_section("beans-section", "", null, "beans-woo");
+        add_settings_field(
+            "beans-liana-display-redemption-checkout",
+            "Display redemption",
+            array(__CLASS__, "demo_checkbox_display"),
+            "beans-woo", "beans-section"
+        );
+        register_setting("beans-section", "beans-liana-display-redemption-checkout");
+    }
+
+    public static function demo_checkbox_display(){
+        ?>
+        <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
+        <div>
+            <input type="checkbox" name="beans-liana-display-redemption-checkout" value="1" <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?> />
+            <labe>Display redemption on checkout page</labe>
+        </div>
+        <?php
     }
 
     public static function admin_menu() {
