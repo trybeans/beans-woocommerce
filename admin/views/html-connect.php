@@ -55,7 +55,7 @@ function check_woo_api_v2_auth( &$http_status, &$content_type ) {
 	$content_type = curl_getinfo( $ch, CURLINFO_CONTENT_TYPE );
 	curl_close( $ch );
 
-	return $http_status === 401 && strpos( $content_type, 'text/html' ) !== false;
+	return in_array($http_status, [401, 503]) && strpos( $content_type, 'text/html' ) !== false;
 }
 
 $woo_version           = plugin_version( 'woocommerce' );
