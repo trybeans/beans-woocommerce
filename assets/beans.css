@@ -269,3 +269,8 @@ div: .beans-section
 .woocommerce-remove-coupon[data-coupon="redeem_points"] {
     display: none;
 }
+
+/* Snow */
+.ectomycorrhiza-icon img + img {
+    display:none !important;
+}
