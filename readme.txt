@@ -89,6 +89,7 @@ The WordPress codex contains instructions on
 = 3.1.1 =
 - Fix Snow display
 - Fix connect issues
+- Add Informations and Setting section
 
 = 3.1.0 =
 - Introducing Snow: the new widget notifications
