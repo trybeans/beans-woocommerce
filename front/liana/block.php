@@ -98,6 +98,7 @@ class Block {
                 accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
+                cartPage: "<?php echo get_permalink(get_option('woocommerce_checkout_page_id')); ?>",
                 debit: {
                     <?php
                         Helper::getAccountData($debit, 'beans', 0);

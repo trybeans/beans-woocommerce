@@ -64,24 +64,19 @@ class Observer {
         add_settings_section("beans-section", "", null, "beans-woo");
         add_settings_field(
             "beans-liana-display-redemption-checkout",
-            "Display redemption",
+            "Redemption on checkout",
             array(__CLASS__, "demo_checkbox_display"),
             "beans-woo", "beans-section"
         );
         register_setting("beans-section", "beans-liana-display-redemption-checkout");
-
-        if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) ){
-            $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
-            update_option( 'beans-liana-display-redemption-checkout', $is_redeem_checkout);
-        }
     }
 
     public static function demo_checkbox_display(){
         ?>
         <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
         <div>
-            <input type="checkbox" name="beans-liana-display-redemption-checkout" value="1" <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?> />
-            <labe>Display redemption on checkout page</labe>
+            <input type="checkbox" id="beans-liana-display-redemption-checkout" name="beans-liana-display-redemption-checkout" value="1" <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?> />
+            <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
         </div>
         <?php
     }
