@@ -52,14 +52,14 @@ if ( ! empty( $app_info['instance'] ) ) {
             <div>
                 <div class="beans-admin-form">
                     <p class="wc-setup-actions step" style="display: flex; justify-content: center;">
-                        <a class="button button-primary"
+                        <a class="button button-hero"
                            href="https://<?php echo Helper::getDomain( 'CONNECT' ) . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo static::$app_name. ".". Helper::getDomain( 'NAME' ) ?>" target="_blank">
                             Go To <?php echo ucfirst(static::$app_name);  ?>
                         </a>
                     </p>
                     <?php if(static::$app_name == 'liana') :?>
                     <p class="wc-setup-actions step" style="display: flex; justify-content: center;">
-                        <a  style=" background-color: #fff !important; border: solid 1px gray;color: black !important;" class="btn bg-primary" href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>" target="_blank">
+                        <a  style=" background-color: #fff !important;" href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>" target="_blank">
                             Rewards Page
                         </a>
                     </p>
@@ -100,22 +100,6 @@ if ( ! empty( $app_info['instance'] ) ) {
                 <a  style="color: #d70000; float: left" href='<?php echo admin_url( static::$app_info['link'].'&reset_beans=1' ); ?>'>Reset Settings Now</a>
             </div>
         </div>
-        <style>
-            .section-title {
-                font-size: 18px;
-                font-weight: 400;
-                color: #23282d !important;
-            }
-
-            .beans-setting .form-table th {
-                display: none;
-            }
-
-            /*p {*/
-            /*    margin: 0px;*/
-            /*}*/
-        </style>
-
 	<?php endif; ?>
     <div style="margin-top: 20px !important; text-align: center" >
         <img  src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/beans.svg"
