@@ -33,6 +33,7 @@ class Observer {
                 'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
             ],
         ];
+
         add_action("admin_init", [__CLASS__, "setting_options"]);
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
@@ -68,6 +69,11 @@ class Observer {
             "beans-woo", "beans-section"
         );
         register_setting("beans-section", "beans-liana-display-redemption-checkout");
+
+        if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) ){
+            $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
+            update_option( 'beans-liana-display-redemption-checkout', $is_redeem_checkout);
+        }
     }
 
     public static function demo_checkbox_display(){
