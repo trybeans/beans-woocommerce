@@ -26,9 +26,9 @@ class Block {
 
 
         //add_filter('woocommerce_review_order_after_payment',         array(__CLASS__, 'render_cart'),     15, 1);
-//	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
-//            add_filter('woocommerce_review_order_after_submit',      array(__CLASS__, 'render_cart'),     15, 1);
-//        }
+	    if (get_option('beans-liana-display-redemption-checkout')){
+            add_filter('woocommerce_review_order_after_payment',      array(__CLASS__, 'render_cart'),     15, 1);
+        }
     }
 
     public static function render_cart_fragment( $fragments ) {
@@ -98,6 +98,7 @@ class Block {
                 accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
+                cartPage: "<?php echo get_permalink(get_option('woocommerce_checkout_page_id')); ?>",
                 debit: {
                     <?php
                         Helper::getAccountData($debit, 'beans', 0);
@@ -124,7 +125,7 @@ class Block {
             get_permalink(get_option('woocommerce_myaccount_page_id')) => 'login',
             get_permalink(get_option('woocommerce_cart_page_id')) => 'cart',
             get_permalink(get_option('woocommerce_shop_page_id')) => 'product',
-            get_permalink(get_option('woocommerce_checkout_page_id')) => 'checkout',
+            get_permalink(get_option('woocommerce_checkout_page_id')) => 'cart',
             get_permalink(Helper::getConfig(static::$app_name . '_page')) => 'reward',
         ];
 
