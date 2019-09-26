@@ -26,9 +26,9 @@ class Block {
 
 
         //add_filter('woocommerce_review_order_after_payment',         array(__CLASS__, 'render_cart'),     15, 1);
-//	    if (is_user_logged_in() && isset($_SESSION[static::$app_name . "_account"]) ){
-        add_filter('woocommerce_review_order_after_payment',      array(__CLASS__, 'render_cart'),     15, 1);
-//        }
+	    if (get_option('beans-liana-display-redemption-checkout')){
+            add_filter('woocommerce_review_order_after_payment',      array(__CLASS__, 'render_cart'),     15, 1);
+        }
     }
 
     public static function render_cart_fragment( $fragments ) {

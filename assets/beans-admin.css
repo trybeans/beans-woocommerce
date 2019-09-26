@@ -102,3 +102,13 @@ p.beans-admin-check-warning a:hover {
     cursor: pointer;
     opacity: 1;
 }
+
+.section-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #23282d !important;
+}
+
+.beans-setting .form-table th {
+    display: none;
+}
