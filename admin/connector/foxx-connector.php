@@ -4,9 +4,9 @@ namespace BeansWoo\Admin\Connector;
 
 defined('ABSPATH') or die;
 
-class SnowConnector extends AbstractConnector {
+class FoxxConnector extends AbstractConnector {
 
-	static public $app_name = 'snow';
+	static public $app_name = 'foxx';
     static public $has_install_asset = false;
 
 	public static function init() {
