@@ -38,7 +38,7 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
 
 <div style="max-width: 700px; margin: auto; margin-top: 30px;">
 
-    <div style="padding:20px;font-family: 'Ubuntu';">
+    <div style="padding:20px;">
         <div class="beans-woo-header">
             <div class="beans-woo-banner">
                 <img width="auto" ; height="30px;"
@@ -97,6 +97,14 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
                             <img
                                     src="<?php echo plugins_url('assets/facebook.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
                         </span>Join Facebook Group
+                    </a>
+                </span>
+                <span class="beans-woo-help-action">
+                    <a target="_blank" href="https://twitter.com/beanshq">
+                        <span>
+                            <img
+                                    src="<?php echo plugins_url('assets/twitter.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                        </span>Follow us on Twitter
                     </a>
                 </span>
                 <span class="beans-woo-help-action">
