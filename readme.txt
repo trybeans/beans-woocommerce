@@ -86,6 +86,13 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.2.0 =
+- Introducing Foxx: Email automation
+
+= 3.1.2 =
+- Use default button class of wordpress
+- Remove font-family from connected stat
+
 = 3.1.1 =
 - Fix Snow display
 - Fix connect issues
