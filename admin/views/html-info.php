@@ -66,7 +66,8 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
                         The rewards page is available on your website and let your customers join and use your rewards
                         program.
                     </div>
-                    <span class=""><a class="button beans-woo-reward-link" target="_blank"
+                    <span class="" >
+                        <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
                                       href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>">Go to the reward page</a></span>
                 </div>
                 <div style="display: flex; align-items: center; margin-left: 20px;">
