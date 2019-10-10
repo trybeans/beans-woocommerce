@@ -27,4 +27,9 @@ class LianaConnector extends AbstractConnector {
 			Helper::setConfig( static::$app_name . '_page', $page_id );
 		}
 	}
+
+    protected static function _uninstallAssets()
+    {
+        delete_option('beans-liana-display-redemption-checkout');
+    }
 }
