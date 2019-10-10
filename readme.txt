@@ -88,10 +88,11 @@ The WordPress codex contains instructions on
 
 = 3.2.0 =
 - Introducing Foxx: Email automation
+- Fix connect issues
 
 = 3.1.2 =
 - Use default button class of wordpress
-- Remove font-family from connected stat
+- Remove font-family from connected state
 
 = 3.1.1 =
 - Fix Snow display

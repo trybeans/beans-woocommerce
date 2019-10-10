@@ -21,6 +21,8 @@ abstract class AbstractConnector {
 
 	abstract protected static function _installAssets();
 
+	abstract protected static function _uninstallAssets();
+
 	public static function render_settings_page() {
         self::$app_info = Helper::getApps()[static::$app_name];
 
@@ -32,6 +34,9 @@ abstract class AbstractConnector {
 
 		if ( isset( $_GET['reset_beans'] ) ) {
 			if ( Helper::resetSetup(static::$app_name) ) {
+			    if (static::$has_install_asset){
+                    static::_uninstallAssets();
+                }
 				return wp_redirect( admin_url( static::$app_info['link'] ) );
 			}
 		}
