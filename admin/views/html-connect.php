@@ -305,16 +305,16 @@ $force = isset( $_GET['force_beans'] );
 <script>
     jQuery(function () {
 
-        let woo_is_supported = "<?php echo $woo_is_supported; ?>";
-        let wp_is_supported = "<?php echo $wp_is_supported; ?>";
-        let php_is_supported = "<?php echo $php_is_supported; ?>";
-        let curl_is_supported = "<?php echo $curl_is_supported; ?>";
-        let json_is_supported = "<?php echo $json_is_supported; ?>";
-        let permalink_is_supported = "<?php echo $permalink_is_supported; ?>";
-        let wp_permalink_is_supported = "<?php echo $wp_permalink_is_supported; ?>";
-        let woo_api_v2_uri_is_up = "<?php echo $woo_api_v2_uri_is_up; ?>";
-        let woo_api_v2_auth_is_up = "<?php echo $woo_api_v2_auth_is_up; ?>";
-        let beans_is_supported = "<?php echo $beans_is_supported; ?>";
+        const woo_is_supported = "<?php echo $woo_is_supported; ?>";
+        const wp_is_supported = "<?php echo $wp_is_supported; ?>";
+        const php_is_supported = "<?php echo $php_is_supported; ?>";
+        const curl_is_supported = "<?php echo $curl_is_supported; ?>";
+        const json_is_supported = "<?php echo $json_is_supported; ?>";
+        const permalink_is_supported = "<?php echo $permalink_is_supported; ?>";
+        const wp_permalink_is_supported = "<?php echo $wp_permalink_is_supported; ?>";
+        const woo_api_v2_uri_is_up = "<?php echo $woo_api_v2_uri_is_up; ?>";
+        const woo_api_v2_auth_is_up = "<?php echo $woo_api_v2_auth_is_up; ?>";
+        const beans_is_supported = "<?php echo $beans_is_supported; ?>";
 
         if (woo_is_supported !== '1' || wp_is_supported !== '1' || php_is_supported !== '1'
             || php_is_supported !== '1' || curl_is_supported !== '1' || json_is_supported !== '1'
