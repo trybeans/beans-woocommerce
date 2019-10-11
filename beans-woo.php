@@ -32,12 +32,15 @@ include_once( 'includes/helper.php' );
 
 include_once( 'admin/init.php' );
 
+include_once ('api/api-beans-rest-woocommerce.php');
+
 include_once('front/liana/init.php');
 include_once('front/snow/init.php');
 
 use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\Front\Liana\Main as LianaMain;
 use BeansWoo\Front\Snow\Main as SnowMain;
+use BeansWoo\API\BeansRestWoocommerce;
 
 if ( ! class_exists( 'WC_Beans' ) ) :
 
@@ -62,6 +65,8 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             }
 
             AdminMain::init();
+
+            BeansRestWoocommerce::init();
 
             LianaMain::init();
             SnowMain::init();
