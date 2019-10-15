@@ -5,6 +5,7 @@ namespace BeansWoo\Admin;
 defined('ABSPATH') or die;
 
 use BeansWoo\Admin\Connector\LianaConnector;
+use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
 use BeansWoo\Admin\Connector\FoxxConnector;
 
@@ -23,6 +24,15 @@ class Observer {
                 'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
                 'callback' => '',
 
+            ],
+
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(PoppyConnector::$app_name),
+                'menu_title' => ucfirst(PoppyConnector::$app_name),
+                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . PoppyConnector::$app_name,
+                'capability' => 'manage_options',
+                'callback' => ['\BeansWoo\Admin\Connector\PoppyConnector', 'render_settings_page'],
             ],
 
             [
@@ -46,6 +56,7 @@ class Observer {
 
         add_action("admin_init", [__CLASS__, "setting_options"]);
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
+        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\PoppyConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\FoxxConnector', 'admin_notice' ) );
 	    add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
