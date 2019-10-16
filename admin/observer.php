@@ -28,6 +28,15 @@ class Observer {
 
             [
                 'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(FoxxConnector::$app_name),
+                'menu_title' => ucfirst(FoxxConnector::$app_name),
+                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . FoxxConnector::$app_name,
+                'capability' => 'manage_options',
+                'callback' => ['\BeansWoo\Admin\Connector\FoxxConnector', 'render_settings_page'],
+            ],
+
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
                 'page_title' => ucfirst(PoppyConnector::$app_name),
                 'menu_title' => ucfirst(PoppyConnector::$app_name),
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . PoppyConnector::$app_name,
@@ -44,14 +53,6 @@ class Observer {
                 'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
             ],
 
-            [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'page_title' => ucfirst(FoxxConnector::$app_name),
-                'menu_title' => ucfirst(FoxxConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . FoxxConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\FoxxConnector', 'render_settings_page'],
-            ],
         ];
 
         add_action("admin_init", [__CLASS__, "setting_options"]);
