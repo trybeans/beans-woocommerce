@@ -86,6 +86,9 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.3 =
+- Introducing Poppy: Smart Popups
+
 = 3.1.2 =
 - Introducing Foxx: Email automation
 - Fix connect issues
