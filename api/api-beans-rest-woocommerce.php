@@ -109,7 +109,7 @@ class BeansRestWoocommerce
                 'shortcode_required' => True,
                 'shortcode_present'  => True,
                 'type' => $values['type'],
-                'path' => str_replace(home_url(), '', get_permalink(Helper::getConfig('liana_page'))),
+                'path' => str_replace(home_url(), '', get_permalink(Helper::getConfig($app_name.'_page'))),
             );
         }
 
