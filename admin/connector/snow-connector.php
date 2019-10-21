@@ -12,10 +12,6 @@ class SnowConnector extends AbstractConnector {
 	public static function init() {
 	}
 
-	protected static function _installAssets() {
-		// TODO: Implement _installAssets() method.
-	}
-
     protected static function _uninstallAssets()
     {
         // TODO: Implement _uninstallAssets() method.

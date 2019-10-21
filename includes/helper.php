@@ -182,4 +182,18 @@ class Helper {
 		}
 		update_option( self::CONFIG_NAME, $config );
 	}
+
+	public static function getPages(){
+        return [
+            'liana' => [
+                'shortcode' => '[beans_page]',
+                'page_id' => self::getConfig('liana_page'),
+                'page_name' => 'Rewards Program',
+                'option' => 'beans_page_id',
+                'slug' => 'rewards-program',
+                'type' => 'reward',
+            ],
+
+        ];
+    }
 }

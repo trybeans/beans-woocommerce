@@ -19,7 +19,21 @@ abstract class AbstractConnector {
 
 	abstract public static function init();
 
-	abstract protected static function _installAssets();
+    protected static function _installAssets() {
+        // Install Page
+        $page_infos = Helper::getPages()[static::$app_name];
+
+        if ( ! get_post( Helper::getConfig( static::$app_name . '_page' ) ) ) {
+            require_once( WP_PLUGIN_DIR . '/woocommerce/includes/admin/wc-admin-functions.php' );
+            $page_id = wc_create_page(
+                    $page_infos['slug'],
+                    $page_infos['option'],
+                    $page_infos['page_name'],
+                    $page_infos['shortcode'], 0
+            );
+            Helper::setConfig( static::$app_name . '_page', $page_id );
+        }
+    }
 
 	abstract protected static function _uninstallAssets();
 
