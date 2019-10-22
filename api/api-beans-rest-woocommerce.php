@@ -67,7 +67,11 @@ class BeansRestWoocommerce
             }
         }
 
-        $response->data['pages'] = array_merge($response->data['pages'], self::get_beans_pages());
+        $response->data['pages'] = array_merge($response->data['pages'], self::get_beans_pages(), [[
+            'page_name' => 'Thank you',
+            'path' => $pages[get_option('woocommerce_checkout_page_id')]['path']. get_option('woocommerce_checkout_order_received_endpoint'). '/',
+            'type' => 'thank_you']
+        ]);
 
         return $response;
     }
