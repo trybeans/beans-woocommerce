@@ -14,6 +14,7 @@
  */
 
 // Exit if accessed directly
+namespace BeansWoo;
 
 if ( ! defined( 'ABSPATH' ) )
     exit;
@@ -43,10 +44,8 @@ use BeansWoo\Front\Liana\Main as LianaMain;
 use BeansWoo\Front\Poppy\Main as PoppyMain;
 use BeansWoo\Front\Snow\Main as SnowMain;
 use BeansWoo\API\BeansRestWoocommerce;
-use BeansWoo\Helper;
 
 if ( ! class_exists( 'WC_Beans' ) ) :
-
     class WC_Beans{
      protected static $_instance = null;
 
@@ -91,25 +90,21 @@ endif;
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
 function wc_beans_instance() {
+    if ( ! is_null(Helper::getConfig('secret'))){
+        $args = [
+            'status' => 'activated',
+            'shop_url' => home_url(),
+        ] ;
+        WC_Beans::send_status($args);
+    }
      return WC_Beans::instance();
 }
 
-register_activation_hook(__FILE__, function(){
-    $GLOBALS['wc_beans'] = wc_beans_instance();
-
-    if ( ! is_null(Helper::getConfig('secret'))){
-       $args = [
-           'is_active' => 'activated',
-           'shop_url' => home_url(),
-       ] ;
-       WC_Beans::send_status($args);
-    }
-
-});
+$GLOBALS['wc_beans'] = wc_beans_instance();
 
 function wc_beans_plugins_deactivate(){
     $args = array(
-        'is_active' => 'deactivated',
+        'status' => 'deactivated',
         'shop_url' => home_url(),
     );
 
