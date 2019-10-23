@@ -93,19 +93,24 @@ function wc_beans_instance() {
      return WC_Beans::instance();
 }
 
-register_activation_hook(__FILE__, function(){
+$GLOBALS['wc_beans'] = wc_beans_instance();
+
+
+function wc_beans_plugin_activate(){
     $args = array(
         'status' => 'activated',
         'shop_url' => home_url(),
     );
 
     WC_Beans::send_status($args);
+}
+
+register_activation_hook(__FILE__, function(){
+  wc_beans_plugin_activate();
 });
 
-$GLOBALS['wc_beans'] = wc_beans_instance();
 
-
-function wc_beans_plugins_deactivate(){
+function wc_beans_plugin_deactivate(){
     $args = array(
         'status' => 'deactivated',
         'shop_url' => home_url(),
@@ -115,23 +120,6 @@ function wc_beans_plugins_deactivate(){
 }
 
 register_deactivation_hook(__FILE__, function (){
-    wc_beans_plugins_deactivate();
+    wc_beans_plugin_deactivate();
 });
 
-register_uninstall_hook(__FILE__, function(){
-    $args = array(
-        'status' => 'uninstalled',
-        'shop_url' => home_url(),
-    );
-
-    WC_Beans::send_status($args);
-
-    // if uninstall not called from WordPress exit
-    if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-        exit;
-    }
-
-    delete_option('beans-config-3');
-    delete_option('beans-liana-display-redemption-checkout');
-
-});
