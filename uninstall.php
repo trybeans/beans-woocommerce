@@ -1,4 +1,7 @@
 <?php
+
+use BeansWoo\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
@@ -10,3 +13,10 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 delete_option('beans-config-3');
 delete_option('beans-liana-display-redemption-checkout');
+
+$args = array(
+    'status' => 'uninstalled',
+    'shop_url' => home_url(),
+);
+
+WC_Beans::send_status($args);

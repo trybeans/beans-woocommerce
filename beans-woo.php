@@ -43,6 +43,7 @@ use BeansWoo\Front\Liana\Main as LianaMain;
 use BeansWoo\Front\Poppy\Main as PoppyMain;
 use BeansWoo\Front\Snow\Main as SnowMain;
 use BeansWoo\API\BeansRestWoocommerce;
+use BeansWoo\Helper;
 
 if ( ! class_exists( 'WC_Beans' ) ) :
 
@@ -74,6 +75,13 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             PoppyMain::init();
             SnowMain::init();
         }
+
+        public static function send_status($args){
+            $api = Helper::API(1);
+            $api->endpoint = 'http://e9a37f58.eu.ngrok.io/v3';
+
+            $api->post('/radix/woocommerce/hook/shop/plugin_status', $args);
+        }
     }
 
 endif;
@@ -83,7 +91,29 @@ endif;
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
 function wc_beans_instance() {
-    return WC_Beans::instance();
+     return WC_Beans::instance();
 }
 
-$GLOBALS['wc_beans'] = wc_beans_instance();
+register_activation_hook(__FILE__, function(){
+    $GLOBALS['wc_beans'] = wc_beans_instance();
+
+    if ( ! is_null(Helper::getConfig('secret'))){
+       $args = [
+           'is_active' => 'activated',
+           'shop_url' => home_url(),
+       ] ;
+       WC_Beans::send_status($args);
+    }
+
+});
+
+function wc_beans_plugins_deactivate(){
+    $args = array(
+        'is_active' => 'deactivated',
+        'shop_url' => home_url(),
+    );
+
+    WC_Beans::send_status($args);
+}
+
+register_deactivation_hook(__FILE__, 'wc_beans_plugins_deactivate');
