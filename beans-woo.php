@@ -77,7 +77,6 @@ if ( ! class_exists( 'WC_Beans' ) ) :
 
         public static function send_status($args){
             $api = Helper::API(1);
-            $api->endpoint = 'http://e9a37f58.eu.ngrok.io/v3';
 
             $api->post('/radix/woocommerce/hook/shop/plugin_status', $args);
         }
