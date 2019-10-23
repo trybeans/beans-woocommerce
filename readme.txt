@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.7
 Tested up to: 5.2.1
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -85,6 +85,9 @@ The WordPress codex contains instructions on
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 3.1.4 =
+ - integrate plugin status webhook
 
 = 3.1.3 =
 - Introducing Poppy: Smart Popups
