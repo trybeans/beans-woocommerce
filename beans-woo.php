@@ -90,17 +90,20 @@ endif;
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
 function wc_beans_instance() {
-    if ( ! is_null(Helper::getConfig('secret'))){
-        $args = [
-            'status' => 'activated',
-            'shop_url' => home_url(),
-        ] ;
-        WC_Beans::send_status($args);
-    }
      return WC_Beans::instance();
 }
 
+register_activation_hook(__FILE__, function(){
+    $args = array(
+        'status' => 'activated',
+        'shop_url' => home_url(),
+    );
+
+    WC_Beans::send_status($args);
+});
+
 $GLOBALS['wc_beans'] = wc_beans_instance();
+
 
 function wc_beans_plugins_deactivate(){
     $args = array(
@@ -111,4 +114,6 @@ function wc_beans_plugins_deactivate(){
     WC_Beans::send_status($args);
 }
 
-register_deactivation_hook(__FILE__, 'wc_beans_plugins_deactivate');
+register_deactivation_hook(__FILE__, function (){
+    wc_beans_plugins_deactivate();
+});
