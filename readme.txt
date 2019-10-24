@@ -87,7 +87,8 @@ The WordPress codex contains instructions on
 == Changelog ==
 
 = 3.1.4 =
- - integrate plugin status webhook
+ - Fix redeem button issues
+ - integrate plugin status webhooks
 
 = 3.1.3 =
 - Introducing Poppy: Smart Popups
