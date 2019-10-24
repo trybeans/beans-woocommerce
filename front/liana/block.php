@@ -31,6 +31,7 @@ class Block {
 
     public static function render_cart_fragment( $fragments ) {
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
+        ob_start();
         if($cart_subtotal == 0){
             Observer::cancelRedemption();
             ?>
@@ -39,7 +40,6 @@ class Block {
             </script>
             <?php
         }
-        ob_start();
         self::render_cart();
         if ($fragments){
 
