@@ -20,12 +20,10 @@ class Block {
         add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
         add_filter('woocommerce_register_form_start',               array(__CLASS__, 'render_register'), 15, 1);
-        add_filter( 'add_to_cart_fragments',                        array(__CLASS__, 'render_cart_fragment'), 999, 1 );
+        add_filter('woocommerce_add_to_cart_fragments',             array(__CLASS__, 'render_cart_fragment'), 15, 1 );
 
         add_filter('wp_footer',                                     array(__CLASS__, 'render_init'),     10, 1);
 
-
-        //add_filter('woocommerce_review_order_after_payment',         array(__CLASS__, 'render_cart'),     15, 1);
 	    if (get_option('beans-liana-display-redemption-checkout')){
             add_filter('woocommerce_review_order_after_payment',      array(__CLASS__, 'render_cart'),     15, 1);
         }
@@ -33,9 +31,9 @@ class Block {
 
     public static function render_cart_fragment( $fragments ) {
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
+        ob_start();
         if($cart_subtotal == 0){
             Observer::cancelRedemption();
-            ob_start();
             ?>
             <script>
                 delete window.liana_init_data.debit
@@ -60,7 +58,7 @@ class Block {
     }
 
     public static function render_head(){
-        /* Issue with wp_enqueue_script not always loading, prefered using wp_head for a quick fix
+        /* Issue with wp_enqueue_script not always loading, preferred using wp_head for a quick fix
            Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
         */
 
@@ -73,7 +71,7 @@ class Block {
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
-        <div class="beans-cart"  beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
+        <div id="beans-cart-redeem-button" class="beans-cart"  beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
         <?php
     }
 

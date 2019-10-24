@@ -3,7 +3,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.1.3
+ * Version: 3.1.4
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
@@ -14,6 +14,7 @@
  */
 
 // Exit if accessed directly
+namespace BeansWoo;
 
 if ( ! defined( 'ABSPATH' ) )
     exit;
@@ -22,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '3.1.3');
+define('BEANS_VERSION',                 '3.1.4');
 define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
 define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
 define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
@@ -45,7 +46,6 @@ use BeansWoo\Front\Snow\Main as SnowMain;
 use BeansWoo\API\BeansRestWoocommerce;
 
 if ( ! class_exists( 'WC_Beans' ) ) :
-
     class WC_Beans{
      protected static $_instance = null;
 
@@ -74,6 +74,12 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             PoppyMain::init();
             SnowMain::init();
         }
+
+        public static function send_status($args){
+            $api = Helper::API(1);
+
+            $api->post('/radix/woocommerce/hook/shop/plugin_status', $args);
+        }
     }
 
 endif;
@@ -83,7 +89,36 @@ endif;
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
 function wc_beans_instance() {
-    return WC_Beans::instance();
+     return WC_Beans::instance();
 }
 
 $GLOBALS['wc_beans'] = wc_beans_instance();
+
+
+function wc_beans_plugin_activate(){
+    $args = array(
+        'status' => 'activated',
+        'shop_url' => home_url(),
+    );
+
+    WC_Beans::send_status($args);
+}
+
+register_activation_hook(__FILE__, function(){
+  wc_beans_plugin_activate();
+});
+
+
+function wc_beans_plugin_deactivate(){
+    $args = array(
+        'status' => 'deactivated',
+        'shop_url' => home_url(),
+    );
+
+    WC_Beans::send_status($args);
+}
+
+register_deactivation_hook(__FILE__, function (){
+    wc_beans_plugin_deactivate();
+});
+

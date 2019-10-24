@@ -132,6 +132,7 @@ class Beans
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data_string),
                 'X-Beans-Client-User-Agent: '. json_encode($ua),
+                'X-WC-Webhook-Source:'. home_url(),
             ),
         );
         if($this->secret){
