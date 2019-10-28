@@ -4,6 +4,7 @@ namespace BeansWoo\Admin;
 
 defined('ABSPATH') or die;
 
+use BeansWoo\Admin\Connector\BambooConnector;
 use BeansWoo\Admin\Connector\LianaConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
@@ -24,6 +25,15 @@ class Observer {
                 'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
                 'callback' => '',
 
+            ],
+
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(BambooConnector::$app_name),
+                'menu_title' => ucfirst(BambooConnector::$app_name),
+                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . BambooConnector::$app_name,
+                'capability' => 'manage_options',
+                'callback' => ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'],
             ],
 
             [
