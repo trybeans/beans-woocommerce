@@ -58,11 +58,11 @@ class Helper {
         );
     }
 
-    public static function API($status = null) {
+    public static function API() {
         if ( ! self::$key ) {
             self::$key = self::getConfig( 'secret' );
         }
-        $beans = ($status === 1) ? $beans = new Beans() : new Beans(self::$key);
+        $beans = new Beans(self::$key);
 
         $beans->endpoint = 'https://' . self::getDomain( 'API' ) . '/v3/';
 
