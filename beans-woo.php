@@ -79,9 +79,9 @@ if ( ! class_exists( 'WC_Beans' ) ) :
         }
 
         public static function send_status($args){
-            $api = Helper::API(1);
-
-            $api->post('/radix/woocommerce/hook/shop/plugin_status', $args);
+            $api = Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, array(
+                'X-WC-Webhook-Source:'. home_url(),
+            ));
         }
     }
 

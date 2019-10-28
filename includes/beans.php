@@ -65,9 +65,9 @@ class Beans
         $this->secret = $secret;
     }
     
-    public function get($path, $arg=null)
+    public function get($path, $arg=null, $headers=null)
     {       
-        return $this->make_request($path, $arg, 'GET');
+        return $this->make_request($path, $arg, 'GET', $headers);
     }
 
     public function get_next_page()
@@ -80,22 +80,22 @@ class Beans
         return $this->_previous_page? $this->get($this->_previous_page, null) : array();
     }
     
-    public function post($path, $arg=null)
+    public function post($path, $arg=null, $headers=null)
     {       
-        return $this->make_request($path, $arg, 'POST');
+        return $this->make_request($path, $arg, 'POST', $headers);
     }
 
-    public function put($path, $arg=null)
+    public function put($path, $arg=null, $headers=null)
     {
-        return $this->make_request($path, $arg, 'PUT');
+        return $this->make_request($path, $arg, 'PUT', $headers);
     }
         
-    public function delete($path, $arg=null)
+    public function delete($path, $arg=null, $headers=null)
     {       
-        return $this->make_request($path, $arg, 'DELETE');
+        return $this->make_request($path, $arg, 'DELETE', $headers);
     }
     
-    public function make_request($path, $data=null, $method=null)
+    public function make_request($path, $data=null, $method=null, $headers=null)
     {
 
         $url = $this->endpoint . $path;
@@ -117,6 +117,22 @@ class Beans
             'publisher'         => 'Beans',
         );
 
+        if (!is_null($headers)){
+           $headers = array_merge( array(
+                'Accept: application/json',
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string),
+                'X-Beans-Client-User-Agent: '. json_encode($ua),
+            ), $headers);
+        }
+        else{
+            $headers = array(
+                'Accept: application/json',
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string),
+                'X-Beans-Client-User-Agent: '. json_encode($ua),
+            );
+        }
         // Set Request Options
         // DO NOT: do not add CURLOPT_FOLLOWLOCATION, CURLOPT_MAXREDIRS without proper testing..
         // Theses options has been the cause of bugs in the past...
@@ -127,13 +143,7 @@ class Beans
             CURLOPT_POSTFIELDS     => $data_string,
             CURLOPT_CONNECTTIMEOUT => 30,
             CURLOPT_TIMEOUT        => 80,
-            CURLOPT_HTTPHEADER     => array(                                                                          
-                'Accept: application/json',
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string),
-                'X-Beans-Client-User-Agent: '. json_encode($ua),
-                'X-WC-Webhook-Source:'. home_url(),
-            ),
+            CURLOPT_HTTPHEADER     => $headers,
         );
         if($this->secret){
             $curlConfig[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
