@@ -21,4 +21,6 @@ $args = array(
     'shop_url' => home_url(),
 );
 
-Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args);
+$api = Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args,  array(
+    'X-WC-Webhook-Source:'. home_url(),
+));

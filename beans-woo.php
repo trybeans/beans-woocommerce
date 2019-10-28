@@ -76,7 +76,9 @@ if ( ! class_exists( 'WC_Beans' ) ) :
         }
 
         public static function send_status($args){
-            Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args);
+            $api = Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, array(
+                'X-WC-Webhook-Source:'. home_url(),
+            ));
         }
     }
 
@@ -119,3 +121,4 @@ function wc_beans_plugin_deactivate(){
 register_deactivation_hook(__FILE__, function (){
     wc_beans_plugin_deactivate();
 });
+
