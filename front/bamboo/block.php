@@ -34,21 +34,66 @@ class Block {
 
     public static function render_init($force=false){
         if (!$force && get_the_ID() === Helper::getConfig(static::$app_name. '_page')) return;
-        ?>
-        <div></div>
-        <script>
+        $token = array();
+        $debit = array();
 
+        if (is_user_logged_in() and !isset($_SESSION[static::$app_name . "_account"])){
+            Observer::customerRegister(get_current_user_id());
+        }
+
+        if(isset($_SESSION[static::$app_name . '_token'])) $token = $_SESSION[static::$app_name . '_token'];
+        if(isset($_SESSION[static::$app_name . '_debit'])) $debit = $_SESSION[static::$app_name . '_debit'];
+
+        ?>
+        <script>
+            window.Beans3.Bamboo.Shopify.opt = {
+                current_page: "<?php echo Helper::getCurrentPage(); ?>",
+                login_page: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                register_page: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                reward_page: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
+                referral_page: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>"
+            };
+            //window.Beans3.Bamboo.Account = {
+            //    _update: function (resolve, reject) {
+            //        window.Beans3
+            //            .get('bamboo/account/current')
+            //            .then(function (account) {
+            //                console.log(account);
+            //                resolve(account);
+            //                // if (!account.referral && Bamboo.Referral._br) {
+            //                //     window.Beans3.Bamboo.Referral.commit(account);
+            //                // }
+            //                // window.Beans3.Bamboo.Coupon.refresh();
+            //                window.Beans3.setAccountID(account.id);
+            //            })
+            //            .catch(reject);
+            //    },
+            //    authenticate: function () {
+            //        return new Promise(function (resolve, reject) {
+            //            const accountToken = "<?php // echo isset($token['key'])? $token['key'] : ''; ?>//";
+            //            if(accountToken){
+            //
+            //                window.Beans3.setAccountToken(accountToken);
+            //                // window.Beans3.Widget.showMessageDefault(true);
+            //                return window.Beans3.Bamboo.Account._update(resolve, reject);
+            //            }
+            //            resolve();
+            //        })
+            //    },
+            //};
+            window.Beans3.Bamboo.init();
         </script>
         <?php
+
     }
 
     public static function render_page($content, $vars=null){
-        if (strpos($content,'[beans_referral_page]') !== false and !is_null(Helper::getConfig(static::$app_name. '_page')) ) {
+        if (strpos($content,'[beans_bamboo_page]') !== false and !is_null(Helper::getConfig(static::$app_name. '_page')) ) {
             ob_start();
             include(dirname(__FILE__) . '/html-page.php');
             self::render_init(true);
             $page = ob_get_clean();
-            $content = str_replace('[beans_referral_page]', $page, $content);
+            $content = str_replace('[beans_bamboo_page]', $page, $content);
         }
         return $content;
     }
