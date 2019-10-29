@@ -228,4 +228,13 @@ class Helper {
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
+    public static function postWebhookStatus($status){
+        $args = [
+          'status' => $status
+        ];
+        $headers =  array(
+            'X-WC-Webhook-Source:'. home_url(),
+        );
+        self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
+    }
 }
