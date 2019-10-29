@@ -28,72 +28,54 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/bamboo/3.1/js/bamboo.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'http://localhost:5000/bundle.js?radix=woocommerce&shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 
     public static function render_init($force=false){
-        if (!$force && get_the_ID() === Helper::getConfig(static::$app_name. '_page')) return;
+        if (!$force && get_the_ID() === Helper::getConfig( 'bamboo_page')) return;
         $token = array();
         $debit = array();
 
-        if (is_user_logged_in() and !isset($_SESSION[static::$app_name . "_account"])){
+        if (is_user_logged_in() and !isset($_SESSION[ "bamboo_account"])){
             Observer::customerRegister(get_current_user_id());
         }
 
-        if(isset($_SESSION[static::$app_name . '_token'])) $token = $_SESSION[static::$app_name . '_token'];
-        if(isset($_SESSION[static::$app_name . '_debit'])) $debit = $_SESSION[static::$app_name . '_debit'];
+        if(isset($_SESSION['bamboo_token'])) {
+            $token = $_SESSION['bamboo_token'];
+            $current_user = wp_get_current_user();
+            ?>
+            <script>
+                window.bamboo_customer_id = {
+                    id: "<?php echo $current_user->ID ?>",
+                    email: "<?php echo $current_user->user_email ?>",
+                }
+            </script>
+            <?php
+        }
 
         ?>
         <script>
-            window.Beans3.Bamboo.Shopify.opt = {
-                current_page: "<?php echo Helper::getCurrentPage(); ?>",
-                login_page: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
-                register_page: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
-                reward_page: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
-                referral_page: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>"
+            window.bamboo_init_data = {
+                currentPage: "<?php echo Helper::getCurrentPage(); ?>",
+                loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                registerPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                rewardPage: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
+                referralPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
+                accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
             };
-            //window.Beans3.Bamboo.Account = {
-            //    _update: function (resolve, reject) {
-            //        window.Beans3
-            //            .get('bamboo/account/current')
-            //            .then(function (account) {
-            //                console.log(account);
-            //                resolve(account);
-            //                // if (!account.referral && Bamboo.Referral._br) {
-            //                //     window.Beans3.Bamboo.Referral.commit(account);
-            //                // }
-            //                // window.Beans3.Bamboo.Coupon.refresh();
-            //                window.Beans3.setAccountID(account.id);
-            //            })
-            //            .catch(reject);
-            //    },
-            //    authenticate: function () {
-            //        return new Promise(function (resolve, reject) {
-            //            const accountToken = "<?php // echo isset($token['key'])? $token['key'] : ''; ?>//";
-            //            if(accountToken){
-            //
-            //                window.Beans3.setAccountToken(accountToken);
-            //                // window.Beans3.Widget.showMessageDefault(true);
-            //                return window.Beans3.Bamboo.Account._update(resolve, reject);
-            //            }
-            //            resolve();
-            //        })
-            //    },
-            //};
-            window.Beans3.Bamboo.init();
+            window.Beans3.Bamboo.Radix.init();
         </script>
         <?php
-
     }
 
     public static function render_page($content, $vars=null){
-        if (strpos($content,'[beans_bamboo_page]') !== false and !is_null(Helper::getConfig(static::$app_name. '_page')) ) {
+        if (strpos($content,'[beans_referral_page]') !== false and !is_null(Helper::getConfig(static::$app_name. '_page')) ) {
             ob_start();
             include(dirname(__FILE__) . '/html-page.php');
             self::render_init(true);
             $page = ob_get_clean();
-            $content = str_replace('[beans_bamboo_page]', $page, $content);
+            $content = str_replace('[beans_referral_page]', $page, $content);
         }
         return $content;
     }
