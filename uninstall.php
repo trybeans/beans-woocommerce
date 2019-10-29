@@ -1,7 +1,6 @@
 <?php
 namespace BeansWoo;
 
-include_once( 'includes/beans.php' );
 include_once( 'includes/helper.php' );
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,11 +15,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 delete_option('beans-config-3');
 delete_option('beans-liana-display-redemption-checkout');
 
-$args = array(
-    'status' => 'uninstalled',
-    'shop_url' => home_url(),
-);
-
-$api = Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args,  array(
-    'X-WC-Webhook-Source:'. home_url(),
-));
+Helper::postWebhookStatus('uninstalled');

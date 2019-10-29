@@ -74,12 +74,6 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             PoppyMain::init();
             SnowMain::init();
         }
-
-        public static function send_status($args){
-            $api = Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, array(
-                'X-WC-Webhook-Source:'. home_url(),
-            ));
-        }
     }
 
 endif;
@@ -96,12 +90,7 @@ $GLOBALS['wc_beans'] = wc_beans_instance();
 
 
 function wc_beans_plugin_activate(){
-    $args = array(
-        'status' => 'activated',
-        'shop_url' => home_url(),
-    );
-
-    WC_Beans::send_status($args);
+    Helper::postWebhookStatus('activated');
 }
 
 register_activation_hook(__FILE__, function(){
@@ -110,12 +99,7 @@ register_activation_hook(__FILE__, function(){
 
 
 function wc_beans_plugin_deactivate(){
-    $args = array(
-        'status' => 'deactivated',
-        'shop_url' => home_url(),
-    );
-
-    WC_Beans::send_status($args);
+    Helper::postWebhookStatus('deactivated');
 }
 
 register_deactivation_hook(__FILE__, function (){
