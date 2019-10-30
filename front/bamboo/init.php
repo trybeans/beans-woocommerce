@@ -12,7 +12,7 @@ class Main {
 
     public static function init() {
 
-        Observer::init();
+//        Observer::init();
         Block::init();
     }
 }

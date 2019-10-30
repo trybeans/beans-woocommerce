@@ -28,41 +28,24 @@ class Block {
         */
 
         ?>
-        <script src= 'http://localhost:5000/bundle.js?radix=woocommerce&shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'http://778793f0.eu.ngrok.io/bundle.js?radix=woocommerce&shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 
     public static function render_init($force=false){
         if (!$force && get_the_ID() === Helper::getConfig( 'bamboo_page')) return;
-        $token = array();
-        $debit = array();
-
-        if (is_user_logged_in() and !isset($_SESSION[ "bamboo_account"])){
-            Observer::customerRegister(get_current_user_id());
-        }
-
-        if(isset($_SESSION['bamboo_token'])) {
-            $token = $_SESSION['bamboo_token'];
-            $current_user = wp_get_current_user();
-            ?>
-            <script>
-                window.bamboo_customer_id = {
-                    id: "<?php echo $current_user->ID ?>",
-                    email: "<?php echo $current_user->user_email ?>",
-                }
-            </script>
-            <?php
-        }
 
         ?>
+
         <script>
+            window.beans_cjs_id = "<?php echo is_user_logged_in() ? wp_get_current_user()->ID: ''; ?>";
+            window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
             window.bamboo_init_data = {
                 currentPage: "<?php echo Helper::getCurrentPage(); ?>",
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 registerPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 rewardPage: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
                 referralPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
-                accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
             };
             window.Beans3.Bamboo.Radix.init();
         </script>
@@ -78,21 +61,5 @@ class Block {
             $content = str_replace('[beans_referral_page]', $page, $content);
         }
         return $content;
-    }
-
-    public static function render_register(){
-       ?>
-        <p class="form-row form-row-first">
-            <label for="reg_first_name"><?php _e( 'First name', 'woocommerce' ); ?><span class="required">*</span></label>
-            <input type="text" class="input-text" name="first_name" id="reg_first_name"
-                   value="<?php if ( ! empty( $_POST['first_name'] ) ) esc_attr_e( $_POST['first_name'] ); ?>" />
-        </p>
-
-        <p class="form-row form-row-last">
-            <label for="reg_last_name"><?php _e( 'Last name', 'woocommerce' ); ?><span class="required">*</span></label>
-            <input type="text" class="input-text" name="last_name" id="reg_last_name"
-                   value="<?php if ( ! empty( $_POST['last_name'] ) ) esc_attr_e( $_POST['last_name'] ); ?>" />
-        </p>
-        <?php
     }
 }
