@@ -3,18 +3,14 @@
 
 namespace BeansWoo\Front;
 
-
-use BeansWoo\Helper;
-
 class Base
 {
     public static function init(){
-        if(Helper::isSetupApp('liana') || Helper::isSetupApp('bamboo')){
-            add_filter( 'woocommerce_registration_errors',  array(__CLASS__, 'register_validate_name_fields'), 10, 3 );
-            add_action('woocommerce_register_form_start',   array(__CLASS__, 'render_register'));
-            add_action( 'woocommerce_created_customer',     array(__CLASS__, 'register_save_name_fields') );
-        }
+        add_filter( 'woocommerce_registration_errors',  array(__CLASS__, 'register_validate_name_fields'), 10, 3 );
+        add_action('woocommerce_register_form_start',   array(__CLASS__, 'render_register'));
+        add_action( 'woocommerce_created_customer',     array(__CLASS__, 'register_save_name_fields') );
 
+        add_filter('wp_enqueue_scripts',                    array(__CLASS__, 'enqueue_scripts'), 10, 1);
     }
 
 
@@ -55,6 +51,10 @@ class Base
                    value="<?php if ( ! empty( $_POST['last_name'] ) ) esc_attr_e( $_POST['last_name'] ); ?>" />
         </p>
         <?php
+    }
+
+    public static function enqueue_scripts(){
+        wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
 }

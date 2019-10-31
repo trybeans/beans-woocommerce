@@ -15,7 +15,6 @@ class Block {
 		    return;
 	    }
 
-        add_filter('wp_enqueue_scripts',                            array(__CLASS__, 'enqueue_scripts'), 10, 1);
         add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
         add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
@@ -51,10 +50,6 @@ class Block {
         }
          $fragments['div.beans-cart'] = ob_get_clean();
          return $fragments;
-    }
-
-    public static function enqueue_scripts(){
-        wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
     public static function render_head(){

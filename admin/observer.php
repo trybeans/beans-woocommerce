@@ -67,6 +67,7 @@ class Observer {
 
         add_action("admin_init", [__CLASS__, "setting_options"]);
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
+        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\FoxxConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\PoppyConnector', 'admin_notice' ) );
         add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );

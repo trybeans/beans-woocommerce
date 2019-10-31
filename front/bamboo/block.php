@@ -28,7 +28,7 @@ class Block {
         */
 
         ?>
-        <script src= 'http://778793f0.eu.ngrok.io/bundle.js?radix=woocommerce&shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/bamboo/3.1/js/bamboo.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 

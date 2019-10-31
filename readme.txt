@@ -86,6 +86,9 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.5 =
+ - Introducing Bamboo: Referral program
+
 = 3.1.4 =
  - Fix redeem button issues
  - integrate plugin status webhooks
