@@ -1,11 +1,12 @@
 <?php
 namespace BeansWoo;
 
-include_once( 'includes/helper.php' );
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
+
+include_once ('includes/beans.php');
+include_once( 'includes/helper.php' );
 
 // if uninstall not called from WordPress exit
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {

@@ -55,6 +55,13 @@ class Helper {
 	            'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-foxx',
             ),
+
+            'bamboo' => array(
+                'name' => 'Bamboo',
+                'title' => 'Turn your customers into advocates of your brand',
+                'description' => 'Let your customers grow your business by referring you to their friends.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
+            ),
         );
     }
 
@@ -194,8 +201,31 @@ class Helper {
                 'slug' => 'rewards-program',
                 'type' => 'reward',
             ],
+            'bamboo' => [
+                'shortcode' => '[beans_referral_page]',
+                'page_id' => self::getConfig('bamboo_page'),
+                'page_name' => 'Referral Program',
+                'option' => 'beans_referral_page_id',
+                'slug' => 'referral-program',
+                'type' => 'referral',
+            ],
 
         ];
+    }
+
+    public static function getCurrentPage(){
+        $pages = [
+            get_permalink(get_option('woocommerce_myaccount_page_id')) => 'login',
+            get_permalink(get_option('woocommerce_cart_page_id')) => 'cart',
+            get_permalink(get_option('woocommerce_shop_page_id')) => 'product',
+            get_permalink(get_option('woocommerce_checkout_page_id')) => 'cart',
+            get_permalink(Helper::getConfig('liana_page')) => 'reward',
+            get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
+        ];
+
+        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
+
+        return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
     public static function postWebhookStatus($status){
