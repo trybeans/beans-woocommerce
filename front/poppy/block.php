@@ -5,7 +5,7 @@ namespace BeansWoo\Front\Poppy;
 
 use BeansWoo\Helper;
 
-class Observer {
+class Block {
 
     static public $app_name = 'poppy';
     static $card;
