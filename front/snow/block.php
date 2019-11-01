@@ -5,7 +5,7 @@ namespace BeansWoo\Front\Snow;
 
 use BeansWoo\Helper;
 
-class Observer {
+class Block {
 
     static public $app_name = 'snow';
     static $card;
