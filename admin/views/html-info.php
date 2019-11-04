@@ -67,8 +67,14 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
                         <?php endif; ?>
                     </div>
                     <div class="beans-woo-reward-description">
-                        The referral page is available on your website and let your customers join and use your referrals
-                        program.
+                        <?php if(static::$app_name === 'liana'): ?>
+                            The reward page is available on your website and let your customers join and use your rewards
+                            program.
+                        <?php elseif (static::$app_name === 'bamboo'):  ?>
+                            The referral page is available on your website and let your customers join and use your referrals
+                            program.
+                        <?php endif; ?>
+
                     </div>
                     <span class="" >
                         <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
