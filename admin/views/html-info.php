@@ -56,37 +56,51 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
                 </a>
             </div>
         </div>
-        <?php if (static::$app_name === 'liana'): ?>
+        <?php if (static::$app_name === 'liana' || static::$app_name === 'bamboo' ): ?>
             <div class="beans-woo-reward">
                 <div>
                     <div class="beans-woo-reward-title">
+                        <?php if(static::$app_name === 'liana'): ?>
                         Reward page
+                        <?php elseif (static::$app_name === 'bamboo'):  ?>
+                        Referral page
+                        <?php endif; ?>
                     </div>
                     <div class="beans-woo-reward-description">
-                        The rewards page is available on your website and let your customers join and use your rewards
+                        The referral page is available on your website and let your customers join and use your referrals
                         program.
                     </div>
                     <span class="" >
                         <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
-                                      href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>">Go to the reward page</a></span>
+                                      href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>">
+                            Go to the
+                             <?php if(static::$app_name === 'liana'): ?>
+                                 reward
+                             <?php elseif (static::$app_name === 'bamboo'):  ?>
+                                 referral
+                             <?php endif; ?> page
+                        </a>
+                    </span>
                 </div>
                 <div style="display: flex; align-items: center; margin-left: 20px;">
                     <img width="150px" src="<?php echo plugins_url('assets/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"  />
                 </div>
             </div>
+        <?php endif; ?>
 
-            <div class="beans-woo-settings">
-                <div class="beans-woo-settings-title">Settings</div>
-                <form method="post" action="options.php">
-                    <?php
-                    settings_fields("beans-section");
+        <?php if(static::$app_name === 'liana') : ?>
+        <div class="beans-woo-settings">
+            <div class="beans-woo-settings-title">Settings</div>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields("beans-section");
 
-                    do_settings_sections("beans-woo");
+                do_settings_sections("beans-woo");
 
-                    submit_button('Save', 'submit', 'beans-checkout-button', '', ['class' => 'button' ]);
-                    ?>
-                </form>
-            </div>
+                submit_button('Save', 'submit', 'beans-checkout-button', '', ['class' => 'button' ]);
+                ?>
+            </form>
+        </div>
         <?php endif; ?>
 
         <div class="beans-woo-help">
