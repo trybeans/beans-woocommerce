@@ -3,13 +3,13 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.1.5
+ * Version: 3.1.6
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
  * Domain Path: /languages
  * WC requires at least: 3.0
- * WC tested up to: 3.7.*
+ * WC tested up to: 3.8.*
  * @author Beans
  */
 
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '3.1.5');
+define('BEANS_VERSION',                 '3.1.6');
 define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
 define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
 define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
