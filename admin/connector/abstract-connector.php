@@ -129,13 +129,24 @@ abstract class AbstractConnector {
     public static function admin_notice() {
         static::$app_info = Helper::getApps()[static::$app_name];
 
+        $user_id = get_current_user_id();
+        if ( get_user_meta( $user_id,   'beans_'. static::$app_name . '_notice_dismissed' ) ){
+            return;
+        }
+
         if (! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name)) {
-            echo '<div class="notice notice-error is-dismissible" style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
+            echo '<div class="notice notice-error " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
                 __(  static::$app_info['name'] ." is not properly setup.", 'beans-woo' ) .
                 ' <a href="' . admin_url(static::$app_info['link'] ) . '">' .
                 __( 'Set up', 'beans-woo' ) .
-                '</a>' .
+                '</a><a style="float:right; text-decoration: none;" href="?beans_'. static::$app_name .'_notice_dismissed">x</a>' .
                 '</div></div>';
         }
+    }
+
+    public static function notice_dismissed() {
+        $user_id = get_current_user_id();
+        if ( isset( $_GET['beans_'. static::$app_name .'_notice_dismissed'] ) )
+            add_user_meta( $user_id, 'beans_'. static::$app_name .'_notice_dismissed', 'true', true );
     }
 }

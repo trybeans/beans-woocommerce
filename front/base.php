@@ -3,6 +3,8 @@
 
 namespace BeansWoo\Front;
 
+use BeansWoo\Helper;
+
 class Base
 {
     public static function init(){
@@ -11,6 +13,11 @@ class Base
         add_action( 'woocommerce_created_customer',     array(__CLASS__, 'register_save_name_fields') );
 
         add_filter('wp_enqueue_scripts',                    array(__CLASS__, 'enqueue_scripts'), 10, 1);
+
+        if ( current_user_can( 'administrator' ) and is_null(Helper::getConfig('is_admin_registered')) ){
+            do_action('woocommerce_new_customer', get_current_user_id());
+            Helper::setConfig('is_admin_registered', true);
+        }
     }
 
 
