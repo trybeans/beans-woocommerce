@@ -9,6 +9,7 @@ use BeansWoo\Admin\Connector\LianaConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
 use BeansWoo\Admin\Connector\FoxxConnector;
+use BeansWoo\Helper;
 
 class Observer {
 
@@ -16,6 +17,82 @@ class Observer {
 
     public static function init(){
 
+        add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
+
+        if ( ! Helper::isSetupApp('liana') ){
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
+            add_action("admin_init",                    [__CLASS__,        "setting_options"]);
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\LianaConnector', 'notice_dismissed' ) );
+        }
+
+        if ( ! Helper::isSetupApp('bamboo') ){
+
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\BambooConnector', 'notice_dismissed' ) );
+        }
+
+        if ( ! Helper::isSetupApp('foxx') ){
+
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\FoxxConnector', 'admin_notice' ) );
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\FoxxConnector', 'notice_dismissed' ) );
+        }
+
+        if ( ! Helper::isSetupApp('poppy') ){
+
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\PoppyConnector', 'admin_notice' ) );
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\PoppyConnector', 'notice_dismissed' ) );
+        }
+
+        if ( ! Helper::isSetupApp('snow') ){
+
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\SnowConnector', 'notice_dismissed' ) );
+        }
+
+        add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
+    }
+
+    public static function plugin_row_meta( $links, $file ) {
+        if ( $file == BEANS_PLUGIN_FILENAME ) {
+
+            $row_meta = array(
+                'help'    => '<a href="http://help.trybeans.com/" title="Help">Help Center</a>',
+                'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
+            );
+
+            return array_merge( $links, $row_meta );
+        }
+
+        return (array) $links;
+    }
+
+    public static function admin_style(){
+        wp_enqueue_style( 'admin-styles', plugins_url( 'assets/beans-admin.css' ,
+            BEANS_PLUGIN_FILENAME ));
+    }
+
+    public static function setting_options(){
+        add_settings_section("beans-section", "", null, "beans-woo");
+        add_settings_field(
+            "beans-liana-display-redemption-checkout",
+            "Redemption on checkout",
+            array(__CLASS__, "demo_checkbox_display"),
+            "beans-woo", "beans-section"
+        );
+        register_setting("beans-section", "beans-liana-display-redemption-checkout");
+    }
+
+    public static function demo_checkbox_display(){
+        ?>
+        <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
+        <div>
+            <input type="checkbox" id="beans-liana-display-redemption-checkout" name="beans-liana-display-redemption-checkout" value="1" <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?> />
+            <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
+        </div>
+        <?php
+    }
+
+    public static function admin_menu() {
         static::$submenu_pages = [
             [
                 'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
@@ -64,58 +141,6 @@ class Observer {
             ],
 
         ];
-
-        add_action("admin_init", [__CLASS__, "setting_options"]);
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\FoxxConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\PoppyConnector', 'admin_notice' ) );
-        add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
-	    add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
-        add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
-    }
-
-    public static function plugin_row_meta( $links, $file ) {
-        if ( $file == BEANS_PLUGIN_FILENAME ) {
-
-            $row_meta = array(
-                'help'    => '<a href="http://help.trybeans.com/" title="Help">Help Center</a>',
-                'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
-            );
-
-            return array_merge( $links, $row_meta );
-        }
-
-        return (array) $links;
-    }
-
-    public static function admin_style(){
-        wp_enqueue_style( 'admin-styles', plugins_url( 'assets/beans-admin.css' ,
-            BEANS_PLUGIN_FILENAME ));
-    }
-
-    public static function setting_options(){
-        add_settings_section("beans-section", "", null, "beans-woo");
-        add_settings_field(
-            "beans-liana-display-redemption-checkout",
-            "Redemption on checkout",
-            array(__CLASS__, "demo_checkbox_display"),
-            "beans-woo", "beans-section"
-        );
-        register_setting("beans-section", "beans-liana-display-redemption-checkout");
-    }
-
-    public static function demo_checkbox_display(){
-        ?>
-        <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
-        <div>
-            <input type="checkbox" id="beans-liana-display-redemption-checkout" name="beans-liana-display-redemption-checkout" value="1" <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?> />
-            <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
-        </div>
-        <?php
-    }
-
-    public static function admin_menu() {
 
         if ( current_user_can( 'manage_options' ) ) {
         	add_menu_page(

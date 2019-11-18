@@ -87,6 +87,8 @@ The WordPress codex contains instructions on
 == Changelog ==
 
 = 3.1.6 =
+ - Fix referral page displaying issue
+ - Fix reward page displaying issue
  - Compatibility with wordpress 5.3
  - Compatibility with woocommerce 3.8
 

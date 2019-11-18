@@ -235,6 +235,9 @@ class Helper {
         $headers =  array(
             'X-WC-Webhook-Source:'. home_url(),
         );
-        self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
+
+        try{
+            self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
+        }catch (\Beans\Error\BaseError $e) {}
     }
 }
