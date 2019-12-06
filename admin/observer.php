@@ -18,10 +18,10 @@ class Observer {
     public static function init(){
 
         add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
+        add_action("admin_init",                    [__CLASS__,        "setting_options"]);
 
         if ( ! Helper::isSetupApp('liana') ){
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
-            add_action("admin_init",                    [__CLASS__,        "setting_options"]);
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\LianaConnector', 'notice_dismissed' ) );
         }
 
