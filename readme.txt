@@ -86,6 +86,9 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.7 =
+- Fix settings display issue
+
 = 3.1.6 =
  - Fix referral page displaying issue
  - Fix reward page displaying issue
