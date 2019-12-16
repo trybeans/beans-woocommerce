@@ -146,7 +146,10 @@ abstract class AbstractConnector {
 
     public static function notice_dismissed() {
         $user_id = get_current_user_id();
-        if ( isset( $_GET['beans_'. static::$app_name .'_notice_dismissed'] ) )
+        if ( isset( $_GET['beans_'. static::$app_name .'_notice_dismissed'] ) ){
             add_user_meta( $user_id, 'beans_'. static::$app_name .'_notice_dismissed', 'true', true );
+            $location = $_SERVER['HTTP_REFERER'];
+            wp_safe_redirect($location);
+        }
     }
 }
