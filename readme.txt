@@ -86,6 +86,10 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.8 =
+- Fix slow issue
+- Fix redirect issues
+
 = 3.1.7 =
 - Fix settings display issue
 
