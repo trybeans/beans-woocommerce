@@ -158,15 +158,18 @@ class Helper {
     }
 
     public static function getCard($app_name) {
+        if ( isset($_SESSION['beans_card'][$app_name]) ){
+            return $_SESSION['beans_card'][$app_name];
+        }
         if ( ! isset(self::$cards[$app_name]) && self::isSetup() && self::isSetupApp($app_name)) {
             try {
-                self::$cards[$app_name] = self::API()->get( "${app_name}/card/current" );
+                $_SESSION['beans_card'][$app_name] = self::API()->get( "${app_name}/card/current" );
             } catch ( \Beans\Error\BaseError $e ) {
                 self::log( 'Unable to get card: ' . $e->getMessage() );
             }
         }
 
-        return isset(self::$cards[$app_name]) ? self::$cards[$app_name] : null;
+        return isset($_SESSION['beans_card'][$app_name]) ? $_SESSION['beans_card'][$app_name] : null;
     }
 
     public static function getCart() {

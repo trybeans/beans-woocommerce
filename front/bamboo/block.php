@@ -45,7 +45,7 @@ class Block {
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 registerPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 rewardPage: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
-                referralPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
+                aboutPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
             };
             window.Beans3.Bamboo.Radix.init();
         </script>

@@ -5,9 +5,13 @@ defined('ABSPATH') or die;
 use Beans\Error\BaseError;
 use BeansWoo\Helper;
 
-try {
-    $loginkey = Helper::API()->post('core/user/current/loginkey');
-} catch (BaseError  $e) {
+$loginkey = wp_cache_get('beans_loginkey');
+
+if( false == $loginkey ){
+    try {
+        $loginkey= Helper::API()->post('core/user/current/loginkey');
+        wp_cache_set('beans_loginkey', $loginkey, '', 5*60);
+    } catch (BaseError  $e) {}
 }
 
 $app_info = Helper::getApps()[static::$app_name];
