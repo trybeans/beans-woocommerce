@@ -49,7 +49,7 @@ class Helper {
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
             ),
 
-             'foxx' => array(
+            'foxx' => array(
             	'name' => 'Foxx',
 	            'title' => 'Super-targeted automated emails that drive sales',
 	            'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
@@ -61,6 +61,13 @@ class Helper {
                 'title' => 'Turn your customers into advocates of your brand',
                 'description' => 'Let your customers grow your business by referring you to their friends.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
+            ),
+
+            'arrow' => array(
+                'name' => 'Arrow',
+                'title' => 'Know your customer.',
+                'description' => '',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
             ),
         );
     }

@@ -4,6 +4,7 @@ namespace BeansWoo\Admin;
 
 defined('ABSPATH') or die;
 
+use BeansWoo\Admin\Connector\ArrowConnector;
 use BeansWoo\Admin\Connector\BambooConnector;
 use BeansWoo\Admin\Connector\LianaConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
@@ -47,6 +48,12 @@ class Observer {
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\SnowConnector', 'notice_dismissed' ) );
+        }
+
+        if ( ! Helper::isSetupApp('arrow') ){
+
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\ArrowConnector', 'admin_notice' ) );
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\ArrowConnector', 'notice_dismissed' ) );
         }
 
         add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
@@ -138,6 +145,15 @@ class Observer {
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . SnowConnector::$app_name,
                 'capability' => 'manage_options',
                 'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
+            ],
+
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(ArrowConnector::$app_name),
+                'menu_title' => ucfirst(ArrowConnector::$app_name),
+                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . ArrowConnector::$app_name,
+                'capability' => 'manage_options',
+                'callback' => ['\BeansWoo\Admin\Connector\ArrowConnector', 'render_settings_page'],
             ],
 
         ];

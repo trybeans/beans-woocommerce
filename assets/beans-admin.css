@@ -98,6 +98,10 @@ p.beans-admin-check-warning a:hover {
     background-color: #c13342 !important;
 }
 
+.bg-primary-arrow {
+    background-color: #4064AC !important;
+}
+
 .bg-primary:hover {
     cursor: pointer;
     opacity: 1;
