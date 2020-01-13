@@ -7,7 +7,7 @@ use BeansWoo\Helper;
 
 $loginkey = get_transient('beans_loginkey');
 
-if( false == $loginkey ){
+if( ! $loginkey ){
     try {
         $loginkey= Helper::API()->post('core/user/current/loginkey');
         set_transient('beans_loginkey', $loginkey, 3*60);
