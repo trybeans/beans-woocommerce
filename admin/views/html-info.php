@@ -5,12 +5,12 @@ defined('ABSPATH') or die;
 use Beans\Error\BaseError;
 use BeansWoo\Helper;
 
-$loginkey = wp_cache_get('beans_loginkey');
+$loginkey = get_transient('beans_loginkey');
 
 if( false == $loginkey ){
     try {
         $loginkey= Helper::API()->post('core/user/current/loginkey');
-        wp_cache_set('beans_loginkey', $loginkey, '', 5*60);
+        set_transient('beans_loginkey', $loginkey, 3*60);
     } catch (BaseError  $e) {}
 }
 
