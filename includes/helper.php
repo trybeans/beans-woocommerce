@@ -49,7 +49,7 @@ class Helper {
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
             ),
 
-             'foxx' => array(
+            'foxx' => array(
             	'name' => 'Foxx',
 	            'title' => 'Super-targeted automated emails that drive sales',
 	            'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
@@ -61,6 +61,13 @@ class Helper {
                 'title' => 'Turn your customers into advocates of your brand',
                 'description' => 'Let your customers grow your business by referring you to their friends.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
+            ),
+
+            'arrow' => array(
+                'name' => 'Arrow',
+                'title' => 'Know your customer.',
+                'description' => '',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
             ),
         );
     }
@@ -158,18 +165,24 @@ class Helper {
     }
 
     public static function getCard($app_name) {
-        if ( isset($_SESSION['beans_card'][$app_name]) ){
-            return $_SESSION['beans_card'][$app_name];
+        $beans_card = get_transient('beans_card');
+
+        $beans_card = $beans_card ? $beans_card : [];
+
+        if ( isset($beans_card[$app_name]) ){
+            return $beans_card[$app_name];
         }
+
         if ( ! isset(self::$cards[$app_name]) && self::isSetup() && self::isSetupApp($app_name)) {
             try {
-                $_SESSION['beans_card'][$app_name] = self::API()->get( "${app_name}/card/current" );
+                $beans_card[$app_name] = self::API()->get( "${app_name}/card/current" );
+                set_transient('beans_card', $beans_card, 5*60);
             } catch ( \Beans\Error\BaseError $e ) {
                 self::log( 'Unable to get card: ' . $e->getMessage() );
             }
         }
 
-        return isset($_SESSION['beans_card'][$app_name]) ? $_SESSION['beans_card'][$app_name] : null;
+        return isset($beans_card[$app_name]) ? $beans_card[$app_name] : null;
     }
 
     public static function getCart() {
@@ -227,7 +240,7 @@ class Helper {
         ];
 
         $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
-
+        $current_page = explode("?", $current_page)[0];
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
