@@ -45,7 +45,7 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
     <div style="padding:20px;">
         <div class="beans-woo-header">
             <div class="beans-woo-banner">
-                <img width="auto" ; height="30px;"
+                <img width="auto"  height="30px;"
                      src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name; ?>.svg"
                      alt="<?php echo static::$app_name; ?>-logo">
                 <div style="margin: auto;">

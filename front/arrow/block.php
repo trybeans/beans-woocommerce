@@ -13,10 +13,12 @@ class Block {
     public static function init(){
         self::$card = Helper::getCard( self::$app_name );
 
+        add_action("woocommerce_login_form_start",      array(__CLASS__, 'render_button'), 10);
+
         if ( empty( self::$card ) || ! self::$card['is_active'] || ! Helper::isSetupApp(self::$app_name)) {
             return;
         }
-//        print_r(get_option('woocommerce_enable_myaccount_registration'));
+
         add_filter('wp_footer',                                         array(__CLASS__, 'render_head'),     10, 1);
 
         add_filter('wp_footer',                                         array(__CLASS__, 'render_init'),     10, 1);
@@ -28,11 +30,12 @@ class Block {
         */
 
         ?>
-            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/snow/3.1/js/arrow.beans.js?shop=<?php echo self::$card['id'];?>&radix=woocommerce' type="text/javascript"></script>
+            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/arrow/3.1/js/arrow.beans.js?shop=<?php echo self::$card['id'];?>&radix=woocommerce' type="text/javascript"></script>
         <?php
     }
 
     public static function render_init(){
+        if (is_user_logged_in()){ return ; }
         ?>
 
         <script>
@@ -40,14 +43,18 @@ class Block {
             window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
             window.arrow_init_data = {
                 currentPage: "<?php echo Helper::getCurrentPage(); ?>",
-                loginPage: "<?php echo "/my-account" ; ?>",
-                formLoginSelector: "button[class~='woocommerce-form-login__submit']",
-                formRegisterSelector: "button[class~='woocommerce-form-register__submit']",
-                usernameInput: "username",
+                loginPage: "<?php echo str_replace(home_url(), '', get_permalink(get_option('woocommerce_myaccount_page_id')))  ; ?>",
+                registerPage: "<?php echo str_replace(home_url(), '', get_permalink(get_option('woocommerce_myaccount_page_id')))  ; ?>",
             };
 
             window.Beans3.Arrow.Radix.init();
         </script>
+        <?php
+    }
+
+    public static function render_button(){
+        ?>
+        <div class="form-row form-row-first beans-arrow"></div>
         <?php
     }
 
