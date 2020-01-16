@@ -25,7 +25,7 @@ class BeansRestWoocommerce
         $topics = [
           'customer.created',
           'order.created',
-          'product.created'
+//          'product.created'
         ];
         if (in_array($instance->get_topic(), $topics)){
             return false;
