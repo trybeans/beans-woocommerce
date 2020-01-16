@@ -7,6 +7,7 @@ use BeansWoo\Helper;
 
 class BeansRestWoocommerce
 {
+
     public static function init(){
         if (Helper::isSetup()){
 
@@ -16,12 +17,20 @@ class BeansRestWoocommerce
             add_filter('woocommerce_rest_prepare_product_object',     array(__CLASS__, 'add_beans_app_activated'), 90, 1);
 
             add_filter('woocommerce_rest_prepare_system_status',      array(__CLASS__, 'add_site_pages_infos'),    90, 2);
-            add_filter('woocommerce_webhook_deliver_async',           array(__CLASS__, 'async_webhook'),    10);
+            add_filter('woocommerce_webhook_deliver_async',           array(__CLASS__, 'async_webhook'),    10, 3);
         }
     }
 
-    public static function async_webhook(){
-        return false;
+    public static function async_webhook($true, $instance, $arg){
+        $topics = [
+          'customer.created',
+          'order.created',
+          'product.created'
+        ];
+        if (in_array($instance->get_topic(), $topics)){
+            return false;
+        }
+        return true;
     }
 
     public static function add_beans_app_activated($response){
