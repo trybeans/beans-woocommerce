@@ -116,6 +116,7 @@ class Observer {
         $menu = [];
 
         if (! get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
+
             array_push($menu,
                 [
                     'page_title' => ucfirst(UltimateConnector::$app_name),
@@ -198,6 +199,7 @@ class Observer {
             ]);
         }
 
+
         if ( current_user_can( 'manage_options' ) ) {
         	add_menu_page(
         	    'Beans',
@@ -209,6 +211,7 @@ class Observer {
                 56);
 //            print_r(static::$submenu_pages)
             if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
+
 
                 foreach (static::$submenu_pages as $submenu_page){
                     add_submenu_page(

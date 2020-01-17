@@ -110,9 +110,6 @@ $connect = "https://". Helper::getDomain( 'CONNECT' ). "/cms/woocommerce/".stati
 if (static::$app_name == 'ultimate') {
     $connect = "https://". Helper::getDomain( 'CONNECT' ). "/radix/woocommerce/connect";
 }
-//if (static::$app_name == 'ultimate') {
-//   return include "ultimate-connect-html.php";
-//}
 ?>
 
 <div class="beans-admin-container">
@@ -139,6 +136,8 @@ if (static::$app_name == 'ultimate') {
             <form method="get" class="beans-admin-form" id="beans-connect-form"
                   action="<?php echo $connect; ?>">
                 <?php if(static::$app_name != 'ultimate'): ?>
+            <form method="get" class="beans-admin-form"
+                  action="<?php echo $connect; ?>">
                 <p class="wc-setup-actions step" style="justify-content: center; display: flex">
 					<?php if ( $beans_is_supported || $force ): ?>
                         <button type="submit" class="btn bg-primary bg-primary-<?php echo static::$app_name;  ?>
