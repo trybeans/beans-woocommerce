@@ -32,7 +32,7 @@ class Helper {
                 'name' => 'Liana',
                 'title' => 'Make your customers addicted to your shop',
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
-	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
+	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG. '-liana',
             ),
 
             'poppy' => array(
@@ -69,12 +69,19 @@ class Helper {
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
             ),
+
             'lotus' => array(
                 'name' => 'Lotus',
                 'title' => 'Save time managing social media for your shop.',
                 'description' => 'Automatically let customers know about new products and promotions in your shop.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
             ),
+            'ultimate' => array(
+                'name' => 'Ultimate',
+                'title' => 'Know your customer.',
+                'description' => '',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-ultimate',
+            )
         );
     }
 

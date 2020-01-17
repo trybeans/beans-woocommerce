@@ -27,6 +27,9 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
     update_option( 'beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
 
+if ( static::$app_name == 'ultimate' ){
+
+}
 ?>
 
 <?php if (empty($card)): ?>

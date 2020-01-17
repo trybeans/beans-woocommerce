@@ -106,6 +106,10 @@ if($country_code && strpos($country_code, ':') !== false){
 
 $force = isset( $_GET['force_beans'] );
 
+$connect = "https://". Helper::getDomain( 'CONNECT' ). "/cms/woocommerce/".static::$app_name."/connect/";
+if (static::$app_name == 'ultimate') {
+    $connect = "https://". Helper::getDomain( 'CONNECT' ). "/radix/woocommerce/connect";
+}
 ?>
 
 <div class="beans-admin-container">
@@ -125,7 +129,7 @@ $force = isset( $_GET['force_beans'] );
                     BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
             </div>
             <form method="get" class="beans-admin-form"
-                  action="https://<?php echo Helper::getDomain( 'CONNECT' ); ?>/cms/woocommerce/<?php echo static::$app_name; ?>/connect/">
+                  action="<?php echo $connect; ?>">
                 <p class="wc-setup-actions step" style="justify-content: center; display: flex">
 					<?php if ( $beans_is_supported || $force ): ?>
                         <button type="submit" class="btn bg-primary bg-primary-<?php echo static::$app_name;  ?>

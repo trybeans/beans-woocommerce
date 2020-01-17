@@ -102,6 +102,10 @@ p.beans-admin-check-warning a:hover {
     background-color: #4064AC !important;
 }
 
+.bg-primary-ultimate {
+    background-color: #0278D1 !important;
+}
+
 .bg-primary:hover {
     cursor: pointer;
     opacity: 1;

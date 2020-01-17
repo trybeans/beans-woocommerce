@@ -11,6 +11,7 @@ use BeansWoo\Admin\Connector\LotusConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
 use BeansWoo\Admin\Connector\FoxxConnector;
+use BeansWoo\Admin\Connector\UltimateConnector;
 use BeansWoo\Helper;
 
 class Observer {
@@ -107,19 +108,34 @@ class Observer {
     }
 
     public static function admin_menu() {
-        static::$submenu_pages = [
-            [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'page_title' => ucfirst(LianaConnector::$app_name),
-                'menu_title' => ucfirst(LianaConnector::$app_name),
-                'capability' => 'manage_options',
-                'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'callback' => '',
+        $menu = [];
 
-            ],
+        if (get_option('beans_ultimate')) {
+            array_push($menu,
+                [
+                    'page_title' => ucfirst(UltimateConnector::$app_name),
+                    'menu_title' => ucfirst(UltimateConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG. '-'. UltimateConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => '',
+                    'render' => ['\BeansWoo\Admin\Connector\UltimateConnector', 'render_settings_page']
+                ]);
+        }else {
+            array_push($menu,
+                [
+                    'page_title' => ucfirst(LianaConnector::$app_name),
+                    'menu_title' => ucfirst(LianaConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LianaConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => '',
+                    'render' => ['\BeansWoo\Admin\Connector\LianaConnector', 'render_settings_page']
+                ]);
+        }
+        $menu[0]['parent_slug'] = $menu[0]['menu_slug'];
+        static::$submenu_pages = array_merge($menu, [
 
             [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'parent_slug' => $menu[0]['menu_slug'],
                 'page_title' => ucfirst(BambooConnector::$app_name),
                 'menu_title' => ucfirst(BambooConnector::$app_name),
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . BambooConnector::$app_name,
@@ -128,7 +144,7 @@ class Observer {
             ],
 
             [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'parent_slug' => $menu[0]['menu_slug'],
                 'page_title' => ucfirst(FoxxConnector::$app_name),
                 'menu_title' => ucfirst(FoxxConnector::$app_name),
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . FoxxConnector::$app_name,
@@ -137,7 +153,7 @@ class Observer {
             ],
 
             [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'parent_slug' => $menu[0]['menu_slug'],
                 'page_title' => ucfirst(PoppyConnector::$app_name),
                 'menu_title' => ucfirst(PoppyConnector::$app_name),
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . PoppyConnector::$app_name,
@@ -146,7 +162,7 @@ class Observer {
             ],
 
             [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'parent_slug' => $menu[0]['menu_slug'],
                 'page_title' => ucfirst(SnowConnector::$app_name),
                 'menu_title' => ucfirst(SnowConnector::$app_name),
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . SnowConnector::$app_name,
@@ -164,35 +180,37 @@ class Observer {
             ],
 
             [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'parent_slug' => $menu[0]['menu_slug'],
                 'page_title' => ucfirst(ArrowConnector::$app_name),
                 'menu_title' => ucfirst(ArrowConnector::$app_name),
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . ArrowConnector::$app_name,
                 'capability' => 'manage_options',
                 'callback' => ['\BeansWoo\Admin\Connector\ArrowConnector', 'render_settings_page'],
             ],
-
-        ];
+        ]);
 
         if ( current_user_can( 'manage_options' ) ) {
         	add_menu_page(
         	    'Beans',
                 'Beans',
                 'manage_options',
-                BEANS_WOO_BASE_MENU_SLUG,
-		        ['\BeansWoo\Admin\Connector\LianaConnector', 'render_settings_page'],
+                $menu[0]['menu_slug'],
+		        $menu[0]['render'],
 		        plugins_url('/assets/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
                 56);
+//            print_r(static::$submenu_pages)
+            if (!get_option('beans-ultimate')){
 
-        	foreach (static::$submenu_pages as $submenu_page){
-        	   add_submenu_page(
-        	       $submenu_page['parent_slug'],
-                   $submenu_page['page_title'],
-                   $submenu_page['menu_title'],
-                   $submenu_page['capability'],
-                   $submenu_page['menu_slug'],
-                   $submenu_page['callback']
-               ) ;
+                foreach (static::$submenu_pages as $submenu_page){
+                    add_submenu_page(
+                        $submenu_page['parent_slug'],
+                        $submenu_page['page_title'],
+                        $submenu_page['menu_title'],
+                        $submenu_page['capability'],
+                        $submenu_page['menu_slug'],
+                        $submenu_page['callback']
+                    ) ;
+                }
             }
         }
     }
