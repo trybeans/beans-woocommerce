@@ -248,6 +248,10 @@ class Observer {
             else{
                 update_option(Helper::BEANS_ULTIMATE_DISMISSED, false);
             }
+            $apps = Helper::getConfig('apps');
+            foreach ($apps as $app){
+                Helper::resetSetup($app);
+            }
             delete_option(Helper::CONFIG_NAME);
             wp_safe_redirect($location);
         }

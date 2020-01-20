@@ -15,8 +15,12 @@ class Block {
 		    return;
 	    }
 
-        add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
-        add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+	    if(!Helper::isSetupApp('ultimate')){
+
+            add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
+        }
+
+	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
 
         add_filter('wp_footer',                                     array(__CLASS__, 'render_init'),     10, 1);
 

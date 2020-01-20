@@ -15,8 +15,12 @@ class Block {
 		    return;
 	    }
 
-        add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
-        add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+	    if(!Helper::isSetupApp('ultimate')){
+
+            add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
+        }
+
+	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
 
         add_filter('woocommerce_add_to_cart_fragments',             array(__CLASS__, 'render_cart_fragment'), 15, 1 );

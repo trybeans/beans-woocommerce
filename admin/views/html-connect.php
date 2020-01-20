@@ -158,7 +158,7 @@ if (static::$app_name == 'ultimate') {
         </div>
         <p>
             <?php echo static::$app_info['description']; ?>
-            <a href="https://<?php echo Helper::getDomain( 'WWW' ); ?>/<?php echo static::$app_name;  ?>"
+            <a href="https://<?php echo Helper::getDomain( 'WWW' ); ?>/<?php  echo (static::$app_name != 'ultimate') ? static::$app_name : '';  ?>"
                target="_blank">Learn more about <?php echo ucfirst(static::$app_name);  ?></a>
         </p>
 

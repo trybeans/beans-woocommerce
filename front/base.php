@@ -19,6 +19,11 @@ class Base
             do_action('woocommerce_new_customer', get_current_user_id());
             Helper::setConfig('is_admin_account', true);
         }
+
+        if(Helper::isSetupApp('ultimate')){
+            add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
+
+        }
     }
 
 
@@ -65,4 +70,14 @@ class Base
         wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
+    public static function render_head(){
+        $card = Helper::getCard('ultimate');
+        /* Issue with wp_enqueue_script not always loading, preferred using wp_head for a quick fix
+           Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
+        */
+
+        ?>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id=<?php echo $card['id'];  ?>' type="text/javascript"></script>
+        <?php
+    }
 }

@@ -20,7 +20,10 @@ class Block {
 
         add_action("woocommerce_login_form_start",                      array(__CLASS__, 'render_button'), 10);
 
-        add_filter('wp_footer',                                         array(__CLASS__, 'render_head'),     10, 1);
+        if (! Helper::isSetupApp('ultimate')){
+
+            add_filter('wp_head',                                         array(__CLASS__, 'render_head'),     10, 1);
+        }
 
         add_filter('wp_footer',                                         array(__CLASS__, 'render_init'),     10, 1);
 	}
