@@ -176,7 +176,7 @@ class Helper {
         if ( ! isset(self::$cards[$app_name]) && self::isSetup() && self::isSetupApp($app_name)) {
             try {
                 $beans_card[$app_name] = self::API()->get( "${app_name}/card/current" );
-                set_transient('beans_card', $beans_card, 5*60);
+                set_transient('beans_card', $beans_card, 2*60);
             } catch ( \Beans\Error\BaseError $e ) {
                 self::log( 'Unable to get card: ' . $e->getMessage() );
             }
