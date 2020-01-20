@@ -23,7 +23,11 @@ class Observer {
         add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
         add_action("admin_init",                    [__CLASS__,        "setting_options"]);
 
+<<<<<<< HEAD
 //        add_action('admin_notices', array(__CLASS__, 'admin_ultimate_notice'));
+=======
+        add_action('admin_notices', array(__CLASS__, 'admin_ultimate_notice'));
+>>>>>>> integrate ultimate plan
         add_action('admin_init', array(__CLASS__, 'admin_ultimate_dismissed'));
 
 
@@ -56,12 +60,15 @@ class Observer {
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\SnowConnector', 'notice_dismissed' ) );
         }
 
+<<<<<<< HEAD
         if ( ! Helper::isSetupApp('lotus')  && get_option(Helper::BEANS_ULTIMATE_DISMISSED) ){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\LotusConnector', 'notice_dismissed' ) );
         }
 
+=======
+>>>>>>> integrate ultimate plan
         if ( ! Helper::isSetupApp('arrow') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\ArrowConnector', 'admin_notice' ) );
@@ -116,7 +123,10 @@ class Observer {
         $menu = [];
 
         if (! get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> integrate ultimate plan
             array_push($menu,
                 [
                     'page_title' => ucfirst(UltimateConnector::$app_name),
@@ -138,7 +148,10 @@ class Observer {
                 ]);
         }
         $menu[0]['parent_slug'] = $menu[0]['menu_slug'];
+<<<<<<< HEAD
 
+=======
+>>>>>>> integrate ultimate plan
         if ( get_option(Helper::BEANS_ULTIMATE_DISMISSED) ){
 
             static::$submenu_pages = array_merge($menu, [
@@ -181,6 +194,7 @@ class Observer {
 
                 [
                     'parent_slug' => $menu[0]['menu_slug'],
+<<<<<<< HEAD
                     'page_title' => ucfirst(LotusConnector::$app_name),
                     'menu_title' => ucfirst(LotusConnector::$app_name),
                     'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LotusConnector::$app_name,
@@ -190,6 +204,8 @@ class Observer {
 
                 [
                     'parent_slug' => $menu[0]['menu_slug'],
+=======
+>>>>>>> integrate ultimate plan
                     'page_title' => ucfirst(ArrowConnector::$app_name),
                     'menu_title' => ucfirst(ArrowConnector::$app_name),
                     'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . ArrowConnector::$app_name,
@@ -198,7 +214,10 @@ class Observer {
                 ],
             ]);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> integrate ultimate plan
 
         if ( current_user_can( 'manage_options' ) ) {
         	add_menu_page(
@@ -211,7 +230,10 @@ class Observer {
                 56);
 //            print_r(static::$submenu_pages)
             if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
+<<<<<<< HEAD
 
+=======
+>>>>>>> integrate ultimate plan
 
                 foreach (static::$submenu_pages as $submenu_page){
                     add_submenu_page(
@@ -251,10 +273,13 @@ class Observer {
             else{
                 update_option(Helper::BEANS_ULTIMATE_DISMISSED, false);
             }
+<<<<<<< HEAD
             $apps = Helper::getConfig('apps');
             foreach ($apps as $app){
                 Helper::resetSetup($app);
             }
+=======
+>>>>>>> integrate ultimate plan
             delete_option(Helper::CONFIG_NAME);
             wp_safe_redirect($location);
         }
