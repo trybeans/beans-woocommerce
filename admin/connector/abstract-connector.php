@@ -48,7 +48,7 @@ abstract class AbstractConnector {
 
 		if ( isset( $_GET['reset_beans'] ) ) {
 			if ( Helper::resetSetup(static::$app_name) ) {
-			    if (static::$has_install_asset){
+			    if (static::$has_install_asset || static::$app_name == 'ultimate'){
                     static::_uninstallAssets();
                 }
 				return wp_redirect( admin_url( static::$app_info['link'] ) );
@@ -68,6 +68,9 @@ abstract class AbstractConnector {
         }
 
 		if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name) ) {
+		    if ( static::$app_name == 'ultimate' ){
+		        static::updateInstalledApp();
+            }
 			return include( dirname( __FILE__ , 2) . '/views/html-info.php' );
 		}
 

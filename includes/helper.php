@@ -7,6 +7,8 @@ use Beans\Beans;
 class Helper {
     const CONFIG_NAME = 'beans-config-3';
 
+    const BEANS_ULTIMATE_DISMISSED = 'beans_ultimate_dismissed';
+
     const BASE_LINK = 'admin.php?page=';
 
     private static $cards = array();
@@ -78,7 +80,7 @@ class Helper {
             ),
             'ultimate' => array(
                 'name' => 'Ultimate',
-                'title' => 'Know your customer.',
+                'title' => 'Everything you need to sell more',
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-ultimate',
             )

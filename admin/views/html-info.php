@@ -27,9 +27,12 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
     update_option( 'beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
 
-if ( static::$app_name == 'ultimate' ){
+$app_name = static::$app_name;
 
+if (static::$app_name == 'ultimate') {
+    $app_name = "app";
 }
+
 ?>
 
 <?php if (empty($card)): ?>
@@ -57,7 +60,7 @@ if ( static::$app_name == 'ultimate' ){
             </div>
             <div>
                 <a class="button beans-woo-banner-link"
-                   href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo static::$app_name . "." . Helper::getDomain('NAME') ?>"
+                   href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo $app_name . "." . Helper::getDomain('NAME') ?>"
                    target="_blank">
                     Go To <?php echo ucfirst(static::$app_name); ?>
                 </a>
@@ -101,7 +104,7 @@ if ( static::$app_name == 'ultimate' ){
             </div>
         <?php endif; ?>
 
-        <?php if(static::$app_name === 'liana') : ?>
+        <?php if(in_array(static::$app_name , ['liana', 'ultimate'])) : ?>
         <div class="beans-woo-settings">
             <div class="beans-woo-settings-title">Settings</div>
             <form method="post" action="options.php">

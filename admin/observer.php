@@ -23,46 +23,51 @@ class Observer {
         add_action( 'admin_enqueue_scripts',        array(__CLASS__, 'admin_style'));
         add_action("admin_init",                    [__CLASS__,        "setting_options"]);
 
-        if ( ! Helper::isSetupApp('liana') ){
+        add_action('admin_notices', array(__CLASS__, 'admin_ultimate_notice'));
+        add_action('admin_init', array(__CLASS__, 'admin_ultimate_dismissed'));
+
+
+        if ( ! Helper::isSetupApp('liana') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LianaConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\LianaConnector', 'notice_dismissed' ) );
         }
 
-        if ( ! Helper::isSetupApp('bamboo') ){
+        if ( ! Helper::isSetupApp('bamboo') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\BambooConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\BambooConnector', 'notice_dismissed' ) );
         }
 
-        if ( ! Helper::isSetupApp('foxx') ){
+        if ( ! Helper::isSetupApp('foxx') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\FoxxConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\FoxxConnector', 'notice_dismissed' ) );
         }
 
-        if ( ! Helper::isSetupApp('poppy') ){
+        if ( ! Helper::isSetupApp('poppy') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\PoppyConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\PoppyConnector', 'notice_dismissed' ) );
         }
 
-        if ( ! Helper::isSetupApp('snow') ){
+        if ( ! Helper::isSetupApp('snow') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\SnowConnector', 'notice_dismissed' ) );
         }
 
-        if ( ! Helper::isSetupApp('lotus') ){
+        if ( ! Helper::isSetupApp('lotus')  && get_option(Helper::BEANS_ULTIMATE_DISMISSED) ){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\LotusConnector', 'notice_dismissed' ) );
         }
 
-        if ( ! Helper::isSetupApp('arrow') ){
+        if ( ! Helper::isSetupApp('arrow') && get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\ArrowConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\ArrowConnector', 'notice_dismissed' ) );
         }
+
 
         add_action( 'admin_menu',                   array( __CLASS__, 'admin_menu' ));
     }
@@ -110,7 +115,7 @@ class Observer {
     public static function admin_menu() {
         $menu = [];
 
-        if (get_option('beans_ultimate')) {
+        if (! get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
             array_push($menu,
                 [
                     'page_title' => ucfirst(UltimateConnector::$app_name),
@@ -132,62 +137,66 @@ class Observer {
                 ]);
         }
         $menu[0]['parent_slug'] = $menu[0]['menu_slug'];
-        static::$submenu_pages = array_merge($menu, [
 
-            [
-                'parent_slug' => $menu[0]['menu_slug'],
-                'page_title' => ucfirst(BambooConnector::$app_name),
-                'menu_title' => ucfirst(BambooConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . BambooConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'],
-            ],
+        if ( get_option(Helper::BEANS_ULTIMATE_DISMISSED) ){
 
-            [
-                'parent_slug' => $menu[0]['menu_slug'],
-                'page_title' => ucfirst(FoxxConnector::$app_name),
-                'menu_title' => ucfirst(FoxxConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . FoxxConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\FoxxConnector', 'render_settings_page'],
-            ],
+            static::$submenu_pages = array_merge($menu, [
 
-            [
-                'parent_slug' => $menu[0]['menu_slug'],
-                'page_title' => ucfirst(PoppyConnector::$app_name),
-                'menu_title' => ucfirst(PoppyConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . PoppyConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\PoppyConnector', 'render_settings_page'],
-            ],
+                [
+                    'parent_slug' => $menu[0]['menu_slug'],
+                    'page_title' => ucfirst(BambooConnector::$app_name),
+                    'menu_title' => ucfirst(BambooConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . BambooConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => ['\BeansWoo\Admin\Connector\BambooConnector', 'render_settings_page'],
+                ],
 
-            [
-                'parent_slug' => $menu[0]['menu_slug'],
-                'page_title' => ucfirst(SnowConnector::$app_name),
-                'menu_title' => ucfirst(SnowConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . SnowConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
-            ],
+                [
+                    'parent_slug' => $menu[0]['menu_slug'],
+                    'page_title' => ucfirst(FoxxConnector::$app_name),
+                    'menu_title' => ucfirst(FoxxConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . FoxxConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => ['\BeansWoo\Admin\Connector\FoxxConnector', 'render_settings_page'],
+                ],
 
-            [
-                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                'page_title' => ucfirst(LotusConnector::$app_name),
-                'menu_title' => ucfirst(LotusConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LotusConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page'],
-            ],
+                [
+                    'parent_slug' => $menu[0]['menu_slug'],
+                    'page_title' => ucfirst(PoppyConnector::$app_name),
+                    'menu_title' => ucfirst(PoppyConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . PoppyConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => ['\BeansWoo\Admin\Connector\PoppyConnector', 'render_settings_page'],
+                ],
 
-            [
-                'parent_slug' => $menu[0]['menu_slug'],
-                'page_title' => ucfirst(ArrowConnector::$app_name),
-                'menu_title' => ucfirst(ArrowConnector::$app_name),
-                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . ArrowConnector::$app_name,
-                'capability' => 'manage_options',
-                'callback' => ['\BeansWoo\Admin\Connector\ArrowConnector', 'render_settings_page'],
-            ],
-        ]);
+                [
+                    'parent_slug' => $menu[0]['menu_slug'],
+                    'page_title' => ucfirst(SnowConnector::$app_name),
+                    'menu_title' => ucfirst(SnowConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . SnowConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
+                ],
+
+                [
+                    'parent_slug' => $menu[0]['menu_slug'],
+                    'page_title' => ucfirst(LotusConnector::$app_name),
+                    'menu_title' => ucfirst(LotusConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LotusConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => ['\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page'],
+                ],
+
+                [
+                    'parent_slug' => $menu[0]['menu_slug'],
+                    'page_title' => ucfirst(ArrowConnector::$app_name),
+                    'menu_title' => ucfirst(ArrowConnector::$app_name),
+                    'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . ArrowConnector::$app_name,
+                    'capability' => 'manage_options',
+                    'callback' => ['\BeansWoo\Admin\Connector\ArrowConnector', 'render_settings_page'],
+                ],
+            ]);
+        }
 
         if ( current_user_can( 'manage_options' ) ) {
         	add_menu_page(
@@ -199,7 +208,7 @@ class Observer {
 		        plugins_url('/assets/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
                 56);
 //            print_r(static::$submenu_pages)
-            if (!get_option('beans-ultimate')){
+            if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)){
 
                 foreach (static::$submenu_pages as $submenu_page){
                     add_submenu_page(
@@ -214,6 +223,36 @@ class Observer {
             }
         }
     }
+
+    public static function admin_ultimate_notice(){
+        $text = "Use default program";
+
+        if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
+            $text = "Use ultimate program";
+        }
+        echo '<div class="notice notice-error " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
+            __( $text , 'beans-woo' ) .
+            '<a style="float:right; text-decoration: none;" href="?beans_ultimate_notice_dismissed">Revert</a>' .
+            '</div></div>';
+    }
+
+    public static function admin_ultimate_dismissed(){
+        $location = Helper::getApps()['ultimate']['link'];
+
+        if ( isset( $_GET['beans_ultimate_notice_dismissed'] ) ){
+
+            if( ! get_option(Helper::BEANS_ULTIMATE_DISMISSED) ){
+                update_option(Helper::BEANS_ULTIMATE_DISMISSED, true);
+                $location = Helper::getApps()['liana']['link'];
+            }
+            else{
+                update_option(Helper::BEANS_ULTIMATE_DISMISSED, false);
+            }
+            delete_option(Helper::CONFIG_NAME);
+            wp_safe_redirect($location);
+        }
+    }
+
 /**
     private static function synchronise(){
 

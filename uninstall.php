@@ -17,6 +17,7 @@ Helper::resetSetup('liana');
 Helper::resetSetup('bamboo');
 
 delete_option(Helper::CONFIG_NAME);
+delete_option(Helper::BEANS_ULTIMATE_DISMISSED);
 delete_option('beans-liana-display-redemption-checkout');
 try{
     delete_user_meta(get_current_user_id(), 'beans_liana_notice_dismissed');
