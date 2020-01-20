@@ -100,10 +100,6 @@ $GLOBALS['wc_beans'] = wc_beans_instance();
 
 function wc_beans_plugin_activate(){
     Helper::postWebhookStatus('activated');
-    if( ! Helper::isSetup() && ! get_option('beans-ultimate') ){
-        update_option('beans-ultimate', 1);
-    }
-    // delete_option(Helper::CONFIG_NAME);
 }
 
 register_activation_hook(__FILE__, function(){
