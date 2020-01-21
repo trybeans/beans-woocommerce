@@ -110,26 +110,35 @@ $connect = "https://". Helper::getDomain( 'CONNECT' ). "/cms/woocommerce/".stati
 if (static::$app_name == 'ultimate') {
     $connect = "https://". Helper::getDomain( 'CONNECT' ). "/radix/woocommerce/connect";
 }
+//if (static::$app_name == 'ultimate') {
+//   return include "ultimate-connect-html.php";
+//}
 ?>
 
 <div class="beans-admin-container">
     <img class="beans-admin-logo"
          src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name;  ?>.svg"
          alt="<?php echo static::$app_name;  ?>-logo">
-    <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
+    <div class="<?php echo static::$app_name != 'ultimate'? 'welcome-panel beans-admin-content' : 'welcome-panel-ultimate beans-admin-content-ultimate'; ?>" style="max-width: 600px; margin: auto">
+        <?php if(static::$app_name != 'ultimate'): ?>
         <div style="margin-bottom: 50px !important; ">
             <h2 style="text-align: center;"><?php echo static::$app_info['title']; ?></h2>
         </div>
-
+        <?php endif; ?>
         <div>
+            <?php if(static::$app_name != 'ultimate'): ?>
             <div style="margin: auto;">
                 <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.svg",
                     BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
                 <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.png",
                     BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
             </div>
-            <form method="get" class="beans-admin-form"
+            <?php else: include "ultimate-connect-html.php"; ?>
+
+            <?php endif; ?>
+            <form method="get" class="beans-admin-form" id="beans-connect-form"
                   action="<?php echo $connect; ?>">
+                <?php if(static::$app_name != 'ultimate'): ?>
                 <p class="wc-setup-actions step" style="justify-content: center; display: flex">
 					<?php if ( $beans_is_supported || $force ): ?>
                         <button type="submit" class="btn bg-primary bg-primary-<?php echo static::$app_name;  ?>
@@ -143,6 +152,7 @@ if (static::$app_name == 'ultimate') {
                             Get <?php echo ucfirst(static::$app_name);  ?>
                         </button>
                 </p>
+                <?php endif; ?>
                 <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
                 <input type="hidden" name="first_name" value="<?php echo $admin->user_firstname; ?>">
                 <input type="hidden" name="last_name" value="<?php echo $admin->user_lastname; ?>">
@@ -300,6 +310,9 @@ if (static::$app_name == 'ultimate') {
                 </li>
 			<?php endif; ?>
         </ul>
+        <div style="float: right">
+            <a href="?beans_ultimate_notice_dismissed" style="color: red;">Revert</a>
+        </div>
     </div>
     <div style="margin-top: 20px !important;">
         <img src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/beans.svg"
@@ -335,6 +348,9 @@ if (static::$app_name == 'ultimate') {
                 jQuery('#config-status').slideUp('slow');
                 jQuery('#view-config').text('View configuration');
             }
+        });
+        jQuery('#ultimate-submit-button').click(function(){
+            jQuery("#beans-connect-form").submit();
         })
     })
 </script>
