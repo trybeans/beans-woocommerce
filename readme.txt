@@ -86,6 +86,9 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.1.10 =
+- Fix arrow display issues
+
 = 3.1.9 =
 - Integrate Arrow: Login with social media
 - Fix programs pages
