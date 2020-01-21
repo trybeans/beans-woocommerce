@@ -31,7 +31,7 @@ class Block {
         */
 
         ?>
-            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/arrow/3.1/js/arrow.beans.js?shop=<?php echo self::$card['id'];?>&radix=woocommerce' type="text/javascript"></script>
+            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/arrow/3.2/js/arrow.beans.js?shop=<?php echo self::$card['id'];?>&radix=woocommerce' type="text/javascript"></script>
         <?php
     }
 
