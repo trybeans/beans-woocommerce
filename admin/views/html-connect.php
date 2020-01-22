@@ -311,7 +311,13 @@ if (static::$app_name == 'ultimate') {
 			<?php endif; ?>
         </ul>
         <div style="float: right">
-            <a href="?beans_ultimate_notice_dismissed" style="color: red;">Revert</a>
+            <a href="?beans_ultimate_notice_dismissed" style="color: red;">
+                <?php if(get_option(Helper::BEANS_ULTIMATE_DISMISSED)): ?>
+                    Try Beans ultimate
+                <?php else: ?>
+                    Try Beans default program
+                <?php endif; ?>
+            </a>
         </div>
     </div>
     <div style="margin-top: 20px !important;">

@@ -74,8 +74,7 @@
                         </svg>
                     </div>
                 </button>
-                <div style="max-width: 150px; margin-top: 2.5rem; line-height: 1.25; font-weight: 700;">Offer limited to the first 1,000
-                    retailers
+                <div style="max-width: 150px; margin-top: 2.5rem; line-height: 1.25; font-weight: 700;">
                 </div>
             </div>
         </div>
