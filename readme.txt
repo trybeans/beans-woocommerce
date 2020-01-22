@@ -4,7 +4,7 @@ Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.7
 Tested up to: 5.3.2
-Stable tag: 3.1.9
+Stable tag: 3.1.11
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -85,6 +85,10 @@ The WordPress codex contains instructions on
 6. Automatically communicate everything about your rewards program.
 
 == Changelog ==
+
+= 3.1.11 =
+- Integrate Lotus: Save time managing social media for your shop
+- Test compatibility with woocommerce 3.9.0
 
 = 3.1.10 =
 - Fix arrow display issues
