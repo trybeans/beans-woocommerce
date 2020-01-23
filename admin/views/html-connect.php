@@ -110,9 +110,6 @@ $connect = "https://". Helper::getDomain( 'CONNECT' ). "/cms/woocommerce/".stati
 if (static::$app_name == 'ultimate') {
     $connect = "https://". Helper::getDomain( 'CONNECT' ). "/radix/woocommerce/connect";
 }
-//if (static::$app_name == 'ultimate') {
-//   return include "ultimate-connect-html.php";
-//}
 ?>
 
 <div class="beans-admin-container">
