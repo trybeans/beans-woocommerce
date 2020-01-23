@@ -7,6 +7,7 @@ defined('ABSPATH') or die;
 use BeansWoo\Admin\Connector\ArrowConnector;
 use BeansWoo\Admin\Connector\BambooConnector;
 use BeansWoo\Admin\Connector\LianaConnector;
+use BeansWoo\Admin\Connector\LotusConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
 use BeansWoo\Admin\Connector\FoxxConnector;
@@ -48,6 +49,12 @@ class Observer {
 
             add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\SnowConnector', 'admin_notice' ) );
             add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\SnowConnector', 'notice_dismissed' ) );
+        }
+
+        if ( ! Helper::isSetupApp('lotus') ){
+
+            add_action( 'admin_notices',                array('\BeansWoo\Admin\Connector\LotusConnector', 'admin_notice' ) );
+            add_action( 'admin_init',                   array('\BeansWoo\Admin\Connector\LotusConnector', 'notice_dismissed' ) );
         }
 
         if ( ! Helper::isSetupApp('arrow') ){
@@ -145,6 +152,15 @@ class Observer {
                 'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . SnowConnector::$app_name,
                 'capability' => 'manage_options',
                 'callback' => ['\BeansWoo\Admin\Connector\SnowConnector', 'render_settings_page'],
+            ],
+
+            [
+                'parent_slug' => BEANS_WOO_BASE_MENU_SLUG,
+                'page_title' => ucfirst(LotusConnector::$app_name),
+                'menu_title' => ucfirst(LotusConnector::$app_name),
+                'menu_slug' =>  BEANS_WOO_BASE_MENU_SLUG . "-" . LotusConnector::$app_name,
+                'capability' => 'manage_options',
+                'callback' => ['\BeansWoo\Admin\Connector\LotusConnector', 'render_settings_page'],
             ],
 
             [

@@ -69,6 +69,12 @@ class Helper {
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
             ),
+            'lotus' => array(
+                'name' => 'Lotus',
+                'title' => 'Save time managing social media for your shop.',
+                'description' => 'Automatically let customers know about new products and promotions in your shop.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
+            ),
         );
     }
 

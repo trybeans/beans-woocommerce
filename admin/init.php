@@ -15,6 +15,7 @@ include_once ("connector/liana-connector.php");
 include_once ("connector/bamboo-connector.php");
 include_once ("connector/poppy-connector.php");
 include_once ("connector/snow-connector.php");
+include_once ("connector/lotus-connector.php");
 include_once ("connector/foxx-connector.php");
 include_once ("connector/arrow-connector.php");
 
