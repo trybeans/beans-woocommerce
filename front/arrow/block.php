@@ -13,7 +13,6 @@ class Block {
     public static function init(){
         self::$card = Helper::getCard( self::$app_name );
 
-
         if ( empty( self::$card ) || ! self::$card['is_active'] || ! Helper::isSetupApp(self::$app_name)) {
             return;
         }
