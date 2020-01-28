@@ -29,7 +29,7 @@ class Block {
         */
 
         ?>
-            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/poppy/3.1/js/poppy.beans.js?id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/poppy/3.2/js/poppy.beans.js?id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 

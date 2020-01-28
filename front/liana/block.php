@@ -62,7 +62,7 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.2/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 

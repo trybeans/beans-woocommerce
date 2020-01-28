@@ -30,7 +30,7 @@ class Block {
         */
 
         ?>
-            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/snow/3.1/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/snow/3.2/js/snow.beans.js?shop=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 

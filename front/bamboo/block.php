@@ -32,7 +32,7 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/bamboo/3.1/js/bamboo.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/bamboo/3.2/js/bamboo.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 
