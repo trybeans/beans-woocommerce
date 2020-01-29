@@ -19,11 +19,18 @@ abstract class AbstractConnector {
 
 	abstract public static function init();
 
-    protected static function _installAssets() {
+    protected static function _installAssets($app_name = null) {
+        if (static::$has_install_asset == false ){
+            return false;
+        }
+        $name = static::$app_name;
+        if ($app_name){
+            $name = $app_name;
+        }
         // Install Page
-        $page_infos = Helper::getPages()[static::$app_name];
+        $page_infos = Helper::getPages()[$name];
 
-        if ( ! get_post( Helper::getConfig( static::$app_name . '_page' ) ) ) {
+        if ( ! get_post( Helper::getConfig( $name . '_page' ) ) ) {
             require_once( WP_PLUGIN_DIR . '/woocommerce/includes/admin/wc-admin-functions.php' );
             $page_id = wc_create_page(
                     $page_infos['slug'],
@@ -31,7 +38,7 @@ abstract class AbstractConnector {
                     $page_infos['page_name'],
                     $page_infos['shortcode'], 0
             );
-            Helper::setConfig( static::$app_name . '_page', $page_id );
+            Helper::setConfig( $name . '_page', $page_id );
         }
     }
 
@@ -48,7 +55,7 @@ abstract class AbstractConnector {
 
 		if ( isset( $_GET['reset_beans'] ) ) {
 			if ( Helper::resetSetup(static::$app_name) ) {
-			    if (static::$has_install_asset){
+			    if (static::$has_install_asset || static::$app_name == 'ultimate'){
                     static::_uninstallAssets();
                 }
 				return wp_redirect( admin_url( static::$app_info['link'] ) );
@@ -68,6 +75,9 @@ abstract class AbstractConnector {
         }
 
 		if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name) ) {
+		    if ( static::$app_name == 'ultimate' ){
+		        static::updateInstalledApp();
+            }
 			return include( dirname( __FILE__ , 2) . '/views/html-info.php' );
 		}
 

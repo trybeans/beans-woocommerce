@@ -16,8 +16,11 @@ class Block {
         if ( empty( self::$card ) || !self::$card['is_active'] || ! Helper::isSetupApp(self::$app_name)) {
             return;
         }
+        if( !Helper::isSetupApp('ultimate') ){
 
-        add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
+            add_filter('wp_head',                                        array(__CLASS__, 'render_head'),     10, 1);
+        }
+        add_filter('wp_footer',         array(__CLASS__, 'render_init'), 10, 1);
 	}
 
     public static function render_head(){
@@ -26,7 +29,15 @@ class Block {
         */
 
         ?>
-            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/poppy/3.1/js/poppy.beans.js?id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+            <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/poppy/3.2/js/poppy.beans.js?id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <?php
+    }
+
+    public static function render_init(){
+        ?>
+        <script>
+            window.Beans3.Poppy.init();
+        </script>
         <?php
     }
 }

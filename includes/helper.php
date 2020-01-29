@@ -7,6 +7,8 @@ use Beans\Beans;
 class Helper {
     const CONFIG_NAME = 'beans-config-3';
 
+    const BEANS_ULTIMATE_DISMISSED = 'beans_ultimate_dismissed';
+
     const BASE_LINK = 'admin.php?page=';
 
     private static $cards = array();
@@ -32,7 +34,21 @@ class Helper {
                 'name' => 'Liana',
                 'title' => 'Make your customers addicted to your shop',
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
-	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
+	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG. '-liana',
+            ),
+
+            'bamboo' => array(
+                'name' => 'Bamboo',
+                'title' => 'Turn your customers into advocates of your brand',
+                'description' => 'Let your customers grow your business by referring you to their friends.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
+            ),
+
+            'foxx' => array(
+                'name' => 'Foxx',
+                'title' => 'Super-targeted automated emails that drive sales',
+                'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-foxx',
             ),
 
             'poppy' => array(
@@ -49,18 +65,11 @@ class Helper {
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
             ),
 
-            'foxx' => array(
-            	'name' => 'Foxx',
-	            'title' => 'Super-targeted automated emails that drive sales',
-	            'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
-	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-foxx',
-            ),
-
-            'bamboo' => array(
-                'name' => 'Bamboo',
-                'title' => 'Turn your customers into advocates of your brand',
-                'description' => 'Let your customers grow your business by referring you to their friends.',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
+            'lotus' => array(
+                'name' => 'Lotus',
+                'title' => 'Save time managing social media for your shop.',
+                'description' => 'Automatically let customers know about new products and promotions in your shop.',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
             ),
 
             'arrow' => array(
@@ -69,12 +78,13 @@ class Helper {
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
             ),
-            'lotus' => array(
-                'name' => 'Lotus',
-                'title' => 'Save time managing social media for your shop.',
-                'description' => 'Automatically let customers know about new products and promotions in your shop.',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
-            ),
+
+            'ultimate' => array(
+                'name' => 'Ultimate',
+                'title' => 'Everything you need to sell more',
+                'description' => '',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-ultimate',
+            )
         );
     }
 

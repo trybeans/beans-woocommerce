@@ -102,6 +102,10 @@ p.beans-admin-check-warning a:hover {
     background-color: #4064AC !important;
 }
 
+.bg-primary-ultimate {
+    background-color: #0278D1 !important;
+}
+
 .bg-primary:hover {
     cursor: pointer;
     opacity: 1;
@@ -317,4 +321,16 @@ p.beans-admin-check-warning a:hover {
 
 .beans-woo-j:hover, .beans-woo-j:focus {
     color: #ffffff !important;
+}
+
+.beans-admin-content-ultimate {
+    text-align: left;
+    padding: 30px 60px;
+}
+
+.welcome-panel-ultimate{
+    position: relative;
+    overflow: auto;
+    font-size: 13px;
+    line-height: 1.7;
 }
