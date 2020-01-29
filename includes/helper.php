@@ -34,7 +34,7 @@ class Helper {
                 'name' => 'Liana',
                 'title' => 'Make your customers addicted to your shop',
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
-	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG. '-liana',
+	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
             ),
 
             'bamboo' => array(
@@ -83,7 +83,7 @@ class Helper {
                 'name' => 'Ultimate',
                 'title' => 'Everything you need to sell more',
                 'description' => '',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-ultimate',
+                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
             )
         );
     }
