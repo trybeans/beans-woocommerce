@@ -166,7 +166,7 @@ if (static::$app_name == 'ultimate') {
         <p>
             <?php echo static::$app_info['description']; ?>
             <a href="https://<?php echo Helper::getDomain( 'WWW' ); ?>/<?php  echo (static::$app_name != 'ultimate') ? static::$app_name : '';  ?>"
-               target="_blank">Learn more about <?php echo ucfirst(static::$app_name);  ?></a>
+               target="_blank">Learn more about <?php echo static::$app_name != 'ultimate'? ucfirst(static::$app_name): "Beans Ultimate" ;  ?></a>
         </p>
 
         <a href="javascript:void(0)" id="view-config">View configuration</a>
@@ -312,7 +312,7 @@ if (static::$app_name == 'ultimate') {
                 <?php if(get_option(Helper::BEANS_ULTIMATE_DISMISSED)): ?>
                     Try Beans ultimate
                 <?php else: ?>
-                    Try Beans default program
+                    No, I don't want ultimate
                 <?php endif; ?>
             </a>
         </div>

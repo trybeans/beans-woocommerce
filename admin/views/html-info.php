@@ -62,7 +62,7 @@ if (static::$app_name == 'ultimate') {
                 <a class="button beans-woo-banner-link"
                    href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo $app_name . "." . Helper::getDomain('NAME') ?>"
                    target="_blank">
-                    Go To <?php echo ucfirst(static::$app_name); ?>
+                    Go To <?php echo static::$app_name != 'ultimate'? ucfirst(static::$app_name): "Beans Ultimate" ;  ?>
                 </a>
             </div>
         </div>

@@ -26,6 +26,7 @@ use BeansWoo\Admin\Connector\LianaConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
 use BeansWoo\Admin\Connector\FoxxConnector;
+use BeansWoo\Admin\Connector\UltimateConnector;
 
 class Main {
 
@@ -37,6 +38,7 @@ class Main {
         SnowConnector::init();
         FoxxConnector::init();
         ArrowConnector::init();
+        UltimateConnector::init();
         Observer::init();
     }
 }

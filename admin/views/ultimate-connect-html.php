@@ -62,7 +62,7 @@
                 <div style="width: 180px; height: 160px; background-color: white; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); border-radius: .5rem; display: flex; align-items: center; justify-content: center;">
                     <div>
                         <div style="text-transform: uppercase; font-size: 1.5rem; text-align: center; font-weight: 900;">ultimate</div>
-                        <div style="font-size: 54px; text-align: center; font-weight: 700;">$49</div>
+                        <div style="font-size: 54px; text-align: center; font-weight: 700;">$29<span style="font-size: 16px">/month</span></div>
                     </div>
                 </div>
                 <button type="submit" id="ultimate-submit-button" style=" border-width: 0; width: 100%; font-size: 13px; cursor: pointer; color: #fff; background-color: #0278d1; border-color: transparent; text-transform: uppercase; display: flex; justify-content: center; padding-top: .5rem; padding-bottom: .5rem; margin-top: .75rem; border-radius: .25rem; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); font-weight: 900; padding-left: 26px;">Start free trial

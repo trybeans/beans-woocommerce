@@ -16,9 +16,9 @@ class Observer
     public static function init()
     {
 
+        add_action('admin_init', array(__CLASS__, 'admin_ultimate_dismissed'));
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
         add_action("admin_init", [__CLASS__, "setting_options"]);
-        add_action('admin_init', array(__CLASS__, 'admin_ultimate_dismissed'));
 
         if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
 
@@ -29,6 +29,9 @@ class Observer
                     add_action('admin_init', array('\BeansWoo\Admin\Connector\\' . ucfirst($app_name) . 'Connector', 'notice_dismissed'));
                 }
             }
+        }else{
+            add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'admin_notice'));
+            add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'notice_dismissed'));
         }
 
         add_action('admin_menu', array(__CLASS__, 'admin_menu'));
@@ -167,13 +170,18 @@ class Observer
 
     public static function admin_ultimate_dismissed()
     {
-        $location = Helper::getApps()['ultimate']['link'];
+        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
+        $current_page = explode("?page=", $current_page);
+        if ( in_array('beans-woo-ultimate', $current_page) ){
+            $location = Helper::getApps()['liana']['link'];
+        }else {
+            $location = Helper::getApps()['ultimate']['link'];
+        }
 
         if (isset($_GET['beans_ultimate_notice_dismissed'])) {
 
             if (!get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
                 update_option(Helper::BEANS_ULTIMATE_DISMISSED, true);
-                $location = Helper::getApps()['liana']['link'];
             } else {
                 update_option(Helper::BEANS_ULTIMATE_DISMISSED, false);
             }
@@ -186,8 +194,8 @@ class Observer
                 }
                 delete_option(Helper::CONFIG_NAME);
             }
-            
-            wp_safe_redirect($location);
+            print_r($location);
+            return wp_safe_redirect($location);
         }
     }
 

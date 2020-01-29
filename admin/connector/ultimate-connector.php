@@ -29,6 +29,7 @@ class UltimateConnector extends AbstractConnector {
                     }
                 }
             }
+            delete_option(Helper::CONFIG_NAME);
         }
     }
 
