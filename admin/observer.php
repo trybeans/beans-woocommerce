@@ -93,7 +93,7 @@ class Observer
                 [
                     'page_title' => ucfirst(UltimateConnector::$app_name),
                     'menu_title' => ucfirst(UltimateConnector::$app_name),
-                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG . '-' . UltimateConnector::$app_name,
+                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
                     'capability' => 'manage_options',
                     'callback' => '',
                     'render' => ['\BeansWoo\Admin\Connector\UltimateConnector', 'render_settings_page']
@@ -103,7 +103,7 @@ class Observer
                 [
                     'page_title' => ucfirst(LianaConnector::$app_name),
                     'menu_title' => ucfirst(LianaConnector::$app_name),
-                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG . "-" . LianaConnector::$app_name,
+                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
                     'capability' => 'manage_options',
                     'callback' => '',
                     'render' => ['\BeansWoo\Admin\Connector\LianaConnector', 'render_settings_page']
@@ -194,8 +194,7 @@ class Observer
                 }
                 delete_option(Helper::CONFIG_NAME);
             }
-            print_r($location);
-            return wp_safe_redirect($location);
+            return wp_redirect($location);
         }
     }
 
