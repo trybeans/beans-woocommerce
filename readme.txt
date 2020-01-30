@@ -49,7 +49,7 @@ Let your customers grow your business by referring you to their friends. Use Bam
 
 - Get customers to promote your business: A set of predefined rules helps you reward customers for actions that profit your business
 - Optimize for growth: Get a holistic and detailed view of your referral program performance
-- Create the most brand centric experience: Create a beeautiful referral program that matches your brand identity
+- Create the most brand centric experience: Create a beautiful referral program that matches your brand identity
 
 [Learn more about Bamboo](http://bit.ly/316tvFp)
 
@@ -69,7 +69,7 @@ Poppy will let you display the right popup at the right time to the right custom
 = Lotus · Social Media Manager =
 
 Save time managing social media for your shop.
-Lotus will automatically let customers know about new products and promotions in your shop. Usee Lotus, to:
+Lotus will automatically let customers know about new products and promotions in your shop. Use Lotus, to:
 
 - Manage multiple social media accounts: Save time switching from one social media to another
 - Announce important events: Automate posts for everything important happening on your shop
@@ -80,8 +80,7 @@ Lotus will automatically let customers know about new products and promotions in
 
 = Snow · Notification Widget =
 
-Communicate with customers without disrupting their journey. Snow helps you share information
-with online shoppers without requiring the impact of an overlay pop-up. Use Snow, to:
+Communicate with customers without disrupting their journey. Snow helps you share information with online shoppers without requiring the impact of an overlay pop-up. Use Snow, to:
 
 - Create awareness: Communicate secondary information to online shoppers
 - Engage with customers: Get users to take actions that profit your business
