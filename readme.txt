@@ -1,59 +1,109 @@
-=== Beans · Loyalty & Rewards program  ===
+=== Beans · Marketing Apps for Woocommerce  ===
 
 Contributors: nas2lor, yan_dah, corentinalcoy
-Tags: loyalty, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
+Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.7
 Tested up to: 5.3.2
 Stable tag: 3.2
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
-Beans is loyalty and rewards program for Woocommerce. Increase brand loyalty and repeat purchases from existing customers.
+Beans for WooCommerce is a complete suite to create a unified marketing experience for your WooCommerce online shop.
+
 
 == Description ==
 
-Beans is an automated loyalty and rewards program that gets your customers to come back your store and buy from you more often. Beans helps you increase brand loyalty and repeat purchases from existing customers.
+Beans has all the tools you need to build and scale your e-commerce brand.
+It includes a set of apps to help you manage all the marketing for your WooCommerce online store.
+Visit [Beans Marketing Apps](http://bit.ly/36Al6vj) website for complete details.
 
-- 20+ ways to reward your customers
-- Create exclusive time based promotions for loyal customers
-- 50% of fastest growing online shops use Beans
 
-[youtube https://www.youtube.com/watch?v=iiqCC_B9qzY]
+= Foxx · Automated & Marketing Emails =
 
-☞ ☞ ☞ [Online Demo](http://bit.ly/2xOEPaT) ☜ ☜ ☜
+Super-targeted automated emails that drive sales. Foxx helps you reach out to customers
+with highly relevant offers at the moment they are most likely to shop. Use Foxx, to:
 
-= Reward Rules =
+- Sell more with behavioral emails: Email customers with what they want and not what you have
+- Design Gorgeous Emails: Create beautiful professional-looking emails with no technical expertise
+- Track sales, not just click: Know exactly how much revenue you are generating through your email campaigns
 
-Engage your customers and reward them for the things that are strategically important to your business, including loyalty, signup, referral, reviews, special occasions and more.
+[Learn more about Foxx](http://bit.ly/2GwDomz)
 
-= Notifications =
 
-Send customized notifications to your customers so they don’t forget to come back and spend their credit.
+= Liana · Loyalty & Rewards Program =
+
+Make your customers addicted to your shop. Liana helps you get your
+customers to place a second order, a third, a fourth and more. Use Liana, to:
+
+- Reward your customers for profitable action: A set of predefined rules helps you reward customers for actions that profit your business
+- Get customers to actively participate: Send frequent reminders to your customers to get them to actively participate in your rewards scheme
+- Build the most elegant loyalty program experience: Design a custom visual for your rewards program  that matches your brand identity
+
+[Learn more about Liana](http://bit.ly/2RC7WJO)
+
+
+= Bamboo · Referral Program =
+
+Turn your customers into advocates of your brand.
+Let your customers grow your business by referring you to their friends. Use Bamboo, to:
+
+- Get customers to promote your business: A set of predefined rules helps you reward customers for actions that profit your business
+- Optimize for growth: Get a holistic and detailed view of your referral program performance
+- Create the most brand centric experience: Create a beautiful referral program that matches your brand identity
+
+[Learn more about Bamboo](http://bit.ly/316tvFp)
+
+
+= Poppy · Smart Popups =
+
+Get customers to take actions when they are most likely to convert.
+Poppy will let you display the right popup at the right time to the right customer. Use Poppy, to:
+
+- Convert more with behavioral popups: Increase conversion by prompting customers to take actions at the perfect time
+- Define conversion goals: Use our wide range of popups to get customers to complete the right action
+- Design Gorgeous Popups: Create beautiful professional-looking popups with no technical expertise
+
+[Learn more about Poppy](http://bit.ly/2UaAHPs)
+
+
+= Lotus · Social Media Manager =
+
+Save time managing social media for your shop.
+Lotus will automatically let customers know about new products and promotions in your shop. Use Lotus, to:
+
+- Manage multiple social media accounts: Save time switching from one social media to another
+- Announce important events: Automate posts for everything important happening on your shop
+- Measure your performance: Review your analytics to see how your posts are performing
+
+[Learn more about Lotus](http://bit.ly/38Mqdty)
+
+
+= Snow · Notification Widget =
+
+Communicate with customers without disrupting their journey. Snow helps you share information with online shoppers without requiring the impact of an overlay pop-up. Use Snow, to:
+
+- Create awareness: Communicate secondary information to online shoppers
+- Engage with customers: Get users to take actions that profit your business
+- Centralize information: Create a hub where customers can access all need-to-know information
+
+[Learn more about Snow](http://bit.ly/2U6H3iU)
+
 
 = Integrations =
 
-Extend the power of Beans with 10+ integrations, including Juge.me, Shopify Product Review, Referral, Mailchimp and more.
+Do more with Beans by connecting to the tools you use everyday such as:
+Facebook, Twitter, Snapchat, Mailchimp, Klaviyo, Judge.me, ConstantContact,
+Pinterest, Instagram, and more...
 
-= Time based campaigns =
-
-Create urgency among your customers with limited time promotions such as double and triple points campaigns.
-
-== Customers ==
-
-Successful Stores across all ecommerce verticles are using Beans to grow their business and increase their retention
-
-- Apparel: [The Babe Cave](http://bit.ly/2yRSfTm)
-- Beauty and Cosmetics: [Faux Freckles](http://bit.ly/2qouGQo)
-- Baby: [DGB Baby](http://bit.ly/2xWDW00)
 
 == Get Started ==
 
-[Find out about Beans Pricing and Features](http://bit.ly/2wtEJ6Z)
+[Find out about Beans Pricing and Features](http://bit.ly/2RZDJ6p)
 
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 3.0
+- WooCommerce >= 3.5
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers
@@ -73,16 +123,19 @@ The WordPress codex contains instructions on
 
 = How much does Beans cost? =
 
-[Learn more about pricing](http://bit.ly/2wtEJ6Z)
+[Learn more about pricing](http://bit.ly/2UeVAt3)
 
 == Screenshots ==
 
-1. Easy one click redemption for reduced cart abandonment.
-2. Non-intrusive popup widget to encourage new visitors to signup and purchase.
-3. Referral dashboard for customers to track their referral and make sure their friend signup.
-4. Reminders to keep your customers come back.
-5. Customers can easily keep up to date.
-6. Automatically communicate everything about your rewards program.
+1. Liana · Loyalty & rewards program: Make your customers addicted to your shop.
+2. Easily manage customers account
+3. Foxx · Automated & Marketing Emails: Send super-targeted emails that drive sales.
+4. Bamboo · Referral Program: Turn your customers into advocates of your brand.
+5. Poppy · Smart Popups: Convert more customers
+6. Snow · Notification Widget: Communicate with customer without disruption
+7. Lotus · Social Media Manager: Save time managing social media
+8. Easily manage customers account
+
 
 == Changelog ==
 
