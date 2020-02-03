@@ -33,19 +33,16 @@ class BaseError extends \Exception
 class ConnectionError extends BaseError {}
 class ValidationError extends BaseError {}
 class ServerError extends BaseError {}
-class CURLError extends BaseError{}
 
 namespace Beans;
 
 use Beans\Error\ConnectionError;
-use Beans\Error\CurlError;
 use Beans\Error\ServerError;
 use Beans\Error\ValidationError;
-use BeansWoo\Helper;
 
 // Using the check before connect: more user friendly
-//if (!function_exists('curl_init'))
-//    trigger_error('Beans needs the CURL PHP extension.');
+if (!function_exists('curl_init'))
+    return;
 
 //if (!function_exists('json_decode'))
 //    trigger_error('Beans needs the JSON PHP extension.');
@@ -100,10 +97,6 @@ class Beans
     
     public function make_request($path, $data=null, $method=null, $headers=null)
     {
-        if (! Helper::isCURL() ){
-            throw new CURLError();
-        }
-
         $url = $this->endpoint . $path;
 
         if (strpos($path,'://') !== false){
