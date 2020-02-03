@@ -35,6 +35,8 @@ class Observer
         }
 
         add_action('admin_menu', array(__CLASS__, 'admin_menu'));
+        add_action('admin_init', array(__CLASS__, 'admin_is_curl_notice'), 0, 100);
+
     }
 
     public static function plugin_row_meta($links, $file)
@@ -155,17 +157,15 @@ class Observer
         }
     }
 
-    public static function admin_ultimate_notice()
+    public static function admin_is_curl_notice()
     {
-        $text = "Use default program";
+        $text = "cURL is not installed. Please install and activate, otherwise, the Beans program may not work.";
 
-        if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-            $text = "Use ultimate program";
+        if (! Helper::isCURL()) {
+            echo '<div class="notice notice-warning " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
+                __($text, 'beans-woo') .
+                '</div></div>';
         }
-        echo '<div class="notice notice-error " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
-            __($text, 'beans-woo') .
-            '<a style="float:right; text-decoration: none;" href="?beans_ultimate_notice_dismissed">Revert</a>' .
-            '</div></div>';
     }
 
     public static function admin_ultimate_dismissed()
@@ -197,6 +197,7 @@ class Observer
             return wp_redirect($location);
         }
     }
+
 
     /**
      * private static function synchronise(){

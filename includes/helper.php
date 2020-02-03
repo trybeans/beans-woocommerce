@@ -272,4 +272,9 @@ class Helper {
             self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
         }catch (\Beans\Error\BaseError $e) {}
     }
+
+    public static  function isCURL(){
+        return function_exists('curl_version');
+    }
+
 }
