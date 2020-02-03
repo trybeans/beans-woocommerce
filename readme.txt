@@ -139,6 +139,9 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+= 3.2.1 =
+- check if cURL status
+
 = 3.2 =
 - Integrate Beans Ultimate
 
