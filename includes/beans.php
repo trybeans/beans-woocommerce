@@ -40,7 +40,6 @@ use Beans\Error\ConnectionError;
 use Beans\Error\ServerError;
 use Beans\Error\ValidationError;
 
-// Using the check before connect: more user friendly
 if (!function_exists('curl_init'))
     return;
 
