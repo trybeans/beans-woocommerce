@@ -110,7 +110,8 @@ class Block {
             <?php if (Helper::getCart()->cart_contents_count != 0): ?>
             window.Beans3.Liana.storage.cart = {
                 item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
-                total_price: "<?php echo Helper::getCart()->subtotal; ?>",
+                // to avoid the decimal numbers for the points.
+                total_price: "<?php echo Helper::getCart()->subtotal * 100; ?>", // DON'T TOUCH
             };
             <?php endif; ?>
         </script>

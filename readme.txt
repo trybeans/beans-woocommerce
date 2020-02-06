@@ -141,6 +141,7 @@ The WordPress codex contains instructions on
 
 = 3.2.1 =
 - check if cURL status
+- fix total price value
 
 = 3.2 =
 - Integrate Beans Ultimate
