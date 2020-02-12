@@ -59,7 +59,7 @@
                     <span style="margin-left: .5rem; font-weight: 700;" >Inline notifications</span></div>
             </div>
             <div style="z-index: 10; margin-right: 2.5rem; margin-top: 2.5rem; margin-left: .75rem;">
-                <div style="width: 180px; height: 160px; background-color: white; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); border-radius: .5rem; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 180px; height: 160px; background-color: white; box-shadow: 0 5px 15px 0 rgba(0,0,0,.08); border-radius: .5rem; display: flex; align-items: center; justify-content: center;">
                     <div>
                         <div style="text-transform: uppercase; font-size: 1.5rem; text-align: center; font-weight: 900;">ultimate</div>
                         <div style="font-size: 54px; text-align: center; font-weight: 700;">$29<span style="font-size: 16px">/month</span></div>

@@ -138,11 +138,11 @@ if (static::$app_name == 'ultimate') {
                 <?php if(static::$app_name != 'ultimate'): ?>
                 <p class="wc-setup-actions step" style="justify-content: center; display: flex">
 					<?php if ( $beans_is_supported || $force ): ?>
-                        <button type="submit" class="btn bg-primary bg-primary-<?php echo static::$app_name;  ?>
+                        <button type="submit" class="btn beans-bg-primary beans-bg-primary-<?php echo static::$app_name;  ?>
                             shadow-md" value="Connect to <?php echo ucfirst(static::$app_name);  ?>">
                         <?php else: ?>
                         <button type="submit"
-                                class="button button-disabled bg-primary bg-primary-<?php echo static::$app_name;  ?>
+                                class="button button-disabled beans-bg-primary beans-bg-primary-<?php echo static::$app_name;  ?>
                                 shadow-md " value="Connect to <?php echo ucfirst(static::$app_name);  ?>"
                                 disabled>
                             <?php endif; ?>
