@@ -16,7 +16,6 @@ class Observer {
         add_filter( 'wp_logout', array( __CLASS__, 'clearSession' ), 10, 1 );
         add_filter( 'wp_login', array( __CLASS__, 'customerLogin' ), 10, 2 );
         add_filter( 'user_register', array( __CLASS__, 'customerRegister' ), 10, 1 );
-        add_filter( 'profile_update', array( __CLASS__, 'customerRegister' ), 10, 1 );
         add_filter( 'wp_loaded', array( __CLASS__, 'handleRedemptionForm' ), 30, 1 );
         add_filter( 'woocommerce_get_shop_coupon_data', array( __CLASS__, 'getCoupon' ), 10, 2 );
         add_filter( 'woocommerce_checkout_order_processed', array( __CLASS__, 'orderPlaced' ), 10, 1 );
@@ -288,23 +287,24 @@ class Observer {
         $total = $order->get_total() - $order->get_shipping_total();
         $total = sprintf( '%0.2f', $total );
 
-        if ( $new_status == 'processing' || $new_status == 'completed' ) {
-
-            try {
-                $credit = Helper::API()->post( '/liana/credit', array(
-                    'account'     => $account['id'],
-                    'quantity'    => $total,
-                    'rule'        => 'rule:liana:currency_spent',
-                    'uid'         => 'wc_' . $order->get_id() . '_' . $order->order_key,
-                    'description' => 'Customer loyalty rewarded for order #' . $order->get_id(),
-                    'commit'      => true
-                ) );
-            } catch ( \Beans\Error\BaseError $e ) {
-                if ( $e->getCode() != 409 ) {
-                    Helper::log( 'Crediting failed with message: ' . $e->getMessage() );
-                }
-            }
-        } else if ( $new_status == 'cancelled' ) {
+//        if ($new_status == 'completed' ) {
+//
+//            try {
+//                $credit = Helper::API()->post( '/liana/credit', array(
+//                    'account'     => $account['id'],
+//                    'quantity'    => $total,
+//                    'rule'        => 'rule:liana:currency_spent',
+//                    'uid'         => 'wc_' . $order->get_id() . '_' . $order->order_key,
+//                    'description' => 'Customer loyalty rewarded for order #' . $order->get_id(),
+//                    'commit'      => true
+//                ) );
+//            } catch ( \Beans\Error\BaseError $e ) {
+//                if ( $e->getCode() != 409 ) {
+//                    Helper::log( 'Crediting failed with message: ' . $e->getMessage() );
+//                }
+//            }
+//        }
+        if ( $new_status == 'cancelled' ) {
             $order_key = 'wc_' . $order->get_id() . '_' . $order->order_key;
             try {
                 Helper::API()->post( "/liana/debit/$order_key/cancel" );
