@@ -11,12 +11,16 @@ class Block {
 
     public static function init(){
 	    self::$card = Helper::getCard( self::$app_name );
-	    if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp(self::$app_name)) {
+	    if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
 		    return;
 	    }
 
-        add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
-        add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+	    if(!Helper::isSetupApp('ultimate')){
+
+            add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
+        }
+
+	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
 
         add_filter('wp_footer',                                     array(__CLASS__, 'render_init'),     10, 1);
 
@@ -28,7 +32,7 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/bamboo/3.1/js/bamboo.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/bamboo/3.2/js/bamboo.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 
@@ -45,7 +49,7 @@ class Block {
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 registerPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 rewardPage: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
-                referralPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
+                aboutPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
             };
             window.Beans3.Bamboo.Radix.init();
         </script>

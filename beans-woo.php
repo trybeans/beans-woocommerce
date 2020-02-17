@@ -3,13 +3,13 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.1.7
+ * Version: 3.2.1
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
  * Domain Path: /languages
  * WC requires at least: 3.0
- * WC tested up to: 3.8.*
+ * WC tested up to: 3.9.*
  * @author Beans
  */
 
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
     return;
 
-define('BEANS_VERSION',                 '3.1.7');
+define('BEANS_VERSION',                 '3.2.1');
 define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
 define('BEANS_PLUGIN_PATH',             plugin_dir_path(__FILE__));
 define('BEANS_INFO_LOG',                BEANS_PLUGIN_PATH.'log.txt');
@@ -39,6 +39,7 @@ include_once('front/liana/init.php');
 include_once('front/bamboo/init.php');
 include_once('front/poppy/init.php');
 include_once('front/snow/init.php');
+include_once ('front/arrow/init.php');
 include_once('front/base.php');
 
 use BeansWoo\Admin\Main as AdminMain;
@@ -46,6 +47,7 @@ use BeansWoo\Front\Liana\Main as LianaMain;
 use BeansWoo\Front\Bamboo\Main as BambooMain;
 use BeansWoo\Front\Poppy\Main as PoppyMain;
 use BeansWoo\Front\Snow\Main as SnowMain;
+use BeansWoo\Front\Arrow\Main as ArrowMain;
 use BeansWoo\API\BeansRestWoocommerce;
 use BeansWoo\Front\Base as BaseMain;
 
@@ -79,6 +81,7 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             BambooMain::init();
             PoppyMain::init();
             SnowMain::init();
+            ArrowMain::init();
         }
     }
 

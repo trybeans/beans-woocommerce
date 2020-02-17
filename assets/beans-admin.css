@@ -67,7 +67,7 @@ p.beans-admin-check-warning a:hover {
     border: None;
 }
 
-.bg-primary {
+.beans-bg-primary {
     color: white !important;
     text-transform: uppercase;
 }
@@ -77,28 +77,36 @@ p.beans-admin-check-warning a:hover {
 
 }
 
-.bg-primary-bamboo {
+.beans-bg-primary-bamboo {
     background-color: #10a866 !important;
 }
 
-.bg-primary-lotus {
+.beans-bg-primary-lotus {
     background-color: #ee2bac !important;
 
 }
 
-.bg-primary-foxx {
+.beans-bg-primary-foxx {
     background-color: #19899f !important;
 }
 
-.bg-primary-snow {
+.beans-bg-primary-snow {
     background-color: #d67e0a !important;
 }
 
-.bg-primary-poppy {
+.beans-bg-primary-poppy {
     background-color: #c13342 !important;
 }
 
-.bg-primary:hover {
+.beans-bg-primary-arrow {
+    background-color: #4064AC !important;
+}
+
+.beans-bg-primary-ultimate {
+    background-color: #0278D1 !important;
+}
+
+.beans-bg-primary:hover {
     cursor: pointer;
     opacity: 1;
 }
@@ -313,4 +321,16 @@ p.beans-admin-check-warning a:hover {
 
 .beans-woo-j:hover, .beans-woo-j:focus {
     color: #ffffff !important;
+}
+
+.beans-admin-content-ultimate {
+    text-align: left;
+    padding: 30px 60px;
+}
+
+.welcome-panel-ultimate{
+    position: relative;
+    overflow: auto;
+    font-size: 13px;
+    line-height: 1.7;
 }

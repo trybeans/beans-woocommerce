@@ -14,14 +14,19 @@ include_once( "connector/abstract-connector.php" );
 include_once ("connector/liana-connector.php");
 include_once ("connector/bamboo-connector.php");
 include_once ("connector/poppy-connector.php");
+include_once ("connector/ultimate-connector.php");
 include_once ("connector/snow-connector.php");
+include_once ("connector/lotus-connector.php");
 include_once ("connector/foxx-connector.php");
+include_once ("connector/arrow-connector.php");
 
+use BeansWoo\Admin\Connector\ArrowConnector;
 use BeansWoo\Admin\Connector\BambooConnector;
 use BeansWoo\Admin\Connector\LianaConnector;
 use BeansWoo\Admin\Connector\PoppyConnector;
 use BeansWoo\Admin\Connector\SnowConnector;
 use BeansWoo\Admin\Connector\FoxxConnector;
+use BeansWoo\Admin\Connector\UltimateConnector;
 
 class Main {
 
@@ -32,7 +37,8 @@ class Main {
     	PoppyConnector::init();
         SnowConnector::init();
         FoxxConnector::init();
-
+        ArrowConnector::init();
+        UltimateConnector::init();
         Observer::init();
     }
 }

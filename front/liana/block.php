@@ -11,12 +11,16 @@ class Block {
 
     public static function init(){
 	    self::$card = Helper::getCard( self::$app_name );
-	    if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp(self::$app_name)) {
+	    if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
 		    return;
 	    }
 
-        add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
-        add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+	    if(!Helper::isSetupApp('ultimate')){
+
+            add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
+        }
+
+	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
 
         add_filter('woocommerce_add_to_cart_fragments',             array(__CLASS__, 'render_cart_fragment'), 15, 1 );
@@ -58,7 +62,7 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.1/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.2/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
         <?php
     }
 
@@ -106,7 +110,8 @@ class Block {
             <?php if (Helper::getCart()->cart_contents_count != 0): ?>
             window.Beans3.Liana.storage.cart = {
                 item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
-                total_price: "<?php echo Helper::getCart()->subtotal; ?>",
+                // to avoid the decimal numbers for the points.
+                total_price: "<?php echo Helper::getCart()->subtotal * 100; ?>", // DON'T TOUCH
             };
             <?php endif; ?>
         </script>

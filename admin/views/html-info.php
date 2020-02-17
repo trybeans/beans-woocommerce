@@ -5,9 +5,13 @@ defined('ABSPATH') or die;
 use Beans\Error\BaseError;
 use BeansWoo\Helper;
 
-try {
-    $loginkey = Helper::API()->post('core/user/current/loginkey');
-} catch (BaseError  $e) {
+$loginkey = get_transient('beans_loginkey');
+
+if( ! $loginkey ){
+    try {
+        $loginkey= Helper::API()->post('core/user/current/loginkey');
+        set_transient('beans_loginkey', $loginkey, 3*60);
+    } catch (BaseError  $e) {}
 }
 
 $app_info = Helper::getApps()[static::$app_name];
@@ -21,6 +25,12 @@ if (!empty($app_info['instance'])) {
 if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) ){
     $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
     update_option( 'beans-liana-display-redemption-checkout', $is_redeem_checkout);
+}
+
+$app_name = static::$app_name;
+
+if (static::$app_name == 'ultimate') {
+    $app_name = "app";
 }
 
 ?>
@@ -41,7 +51,7 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
     <div style="padding:20px;">
         <div class="beans-woo-header">
             <div class="beans-woo-banner">
-                <img width="auto" ; height="30px;"
+                <img width="auto"  height="30px;"
                      src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name; ?>.svg"
                      alt="<?php echo static::$app_name; ?>-logo">
                 <div style="margin: auto;">
@@ -50,9 +60,9 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
             </div>
             <div>
                 <a class="button beans-woo-banner-link"
-                   href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo static::$app_name . "." . Helper::getDomain('NAME') ?>"
+                   href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://<?php echo $app_name . "." . Helper::getDomain('NAME') ?>"
                    target="_blank">
-                    Go To <?php echo ucfirst(static::$app_name); ?>
+                    Go To <?php echo static::$app_name != 'ultimate'? ucfirst(static::$app_name): "Beans Ultimate" ;  ?>
                 </a>
             </div>
         </div>
@@ -94,7 +104,7 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
             </div>
         <?php endif; ?>
 
-        <?php if(static::$app_name === 'liana') : ?>
+        <?php if(in_array(static::$app_name , ['liana', 'ultimate'])) : ?>
         <div class="beans-woo-settings">
             <div class="beans-woo-settings-title">Settings</div>
             <form method="post" action="options.php">
