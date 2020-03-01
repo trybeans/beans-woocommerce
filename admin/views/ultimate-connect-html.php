@@ -1,71 +1,28 @@
-<div>
-    <div style="background-color:white; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); width: 600px; height: 389px; position: relative">
-        <div style="right: 0px; z-index: 1; position: absolute">
-            <svg width="373" height="390" viewBox="0 0 373 390" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M272.023 0.280273L372.5 0.281418V389.281H0.476074C119.251 280.057 186.319 203.181 272.023 0.280273Z"
-                    fill="#FEC20A"></path>
-            </svg>
-        </div>
-        <div style="display: flex; padding: 3rem 2rem;">
-            <div>
-                <div style="font-size: 27px; max-width: 260px; font-weight: 400; line-height: 1.25; margin-bottom: 1.5rem;">Everything you need
-                    to sell more
-                </div>
-                <div style="display: flex; align-items: center; margin-top: .5rem; margin-bottom: .5rem;">
-                    <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M17.0976 2.52573C17.0976 1.60172 16.3416 0.845703 15.4176 0.845703H1.97739C1.05338 0.845703 0.297363 1.60172 0.297363 2.52573V12.6059C0.297363 13.5299 1.05338 14.2859 1.97739 14.2859H15.4176C16.3416 14.2859 17.0976 13.5299 17.0976 12.6059V2.52573ZM15.4176 2.52573L8.6975 6.7258L1.97739 2.52573H15.4176ZM15.4176 12.6059H1.97739V4.20576L8.6975 8.40582L15.4176 4.20576V12.6059Z"
-                            fill="#273043"></path>
-                    </svg>
-                    <span style="margin-left: .5rem; font-weight: 700;" >Automated Emails</span></div>
-                <div style="display: flex; align-items: center; margin-top: .5rem; margin-bottom: .5rem;">
-                    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M16.867 0.441406C17.3896 0.441406 17.8132 0.865065 17.8132 1.38767V9.60844C17.8132 10.1311 17.3896 10.5547 16.867 10.5547H13.4758V15.3966C13.4758 15.9192 13.0521 16.3428 12.5295 16.3428H1.42552C0.902906 16.3428 0.479248 15.9192 0.479248 15.3966V7.17579C0.479248 6.65318 0.902907 6.22952 1.42552 6.22952H4.81671V1.38767C4.81671 0.865065 5.24037 0.441406 5.76298 0.441406H16.867ZM13.4758 9.10768H16.3674V3.33546H6.26254V6.22952H12.5295C13.0521 6.22952 13.4758 6.65318 13.4758 7.17579V9.10768ZM1.92507 14.8958H12.0299V9.10768H1.92507V14.8958Z"
-                            fill="#273043"></path>
-                    </svg>
-                    <span style="margin-left: .5rem; font-weight: 700;" >Popups</span></div>
-                <div style="display: flex; align-items: center; margin-top: .5rem; margin-bottom: .5rem;">
-                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M9.36246 0.233398C6.61452 0.233398 4.3794 2.46852 4.3794 5.21646C4.3794 6.68665 5.01944 8.00992 6.03445 8.92233C5.10459 9.27804 4.23116 9.78239 3.45396 10.4216C1.81833 11.767 0.680962 13.6435 0.251421 15.7066C0.105283 16.4085 0.280598 17.1305 0.732201 17.686C1.18172 18.2388 1.84926 18.5562 2.56192 18.5562H8.55075C9.07197 18.5562 9.49474 18.1336 9.49474 17.6122C9.49474 17.0908 9.07197 16.6682 8.55075 16.6682H2.56192C2.36765 16.6682 2.252 16.5624 2.19694 16.4948C2.10541 16.3822 2.06969 16.236 2.09977 16.0914C2.79887 12.7335 5.76205 10.2789 9.18339 10.196C9.24171 10.1981 9.30146 10.1995 9.36246 10.1995C9.41878 10.1995 9.47438 10.1983 9.52924 10.1964C10.7339 10.2235 11.9182 10.5429 12.9641 11.125C13.4196 11.3785 13.9945 11.2148 14.248 10.7592C14.5015 10.3036 14.3378 9.72875 13.8822 9.47522C13.4989 9.26193 13.1011 9.07674 12.6924 8.92049C13.7062 8.00814 14.3455 6.6857 14.3455 5.21646C14.3455 2.46851 12.1103 0.233398 9.36246 0.233398ZM6.26739 5.21646C6.26739 3.51008 7.65596 2.12139 9.36246 2.12139C11.0688 2.12139 12.4575 3.51008 12.4575 5.21646C12.4575 6.86853 11.1558 8.22282 9.52441 8.30733C9.47074 8.30631 9.41675 8.30568 9.36246 8.30568C9.30863 8.30568 9.25536 8.30644 9.20348 8.30734C7.57069 8.22452 6.26739 6.86954 6.26739 5.21646Z"
-                              fill="#273043"></path>
-                        <path
-                            d="M17.5677 12.9074L16.4172 11.7611C16.0873 11.4324 15.5556 11.4356 15.2295 11.7677C14.9032 12.1 14.9065 12.6358 15.2361 12.9644L15.5692 13.2963H13.1726C11.6761 13.2963 10.4591 14.5225 10.4591 16.0303C10.4591 16.7589 10.7373 17.445 11.243 17.9602C11.7517 18.4786 12.4325 18.7643 13.1575 18.7643C13.6212 18.7643 13.9973 18.3855 13.9973 17.9182C13.9973 17.4508 13.6212 17.072 13.1575 17.072C12.5984 17.072 12.1387 16.607 12.1387 16.0303C12.1387 15.4561 12.6026 14.9886 13.1726 14.9886H15.6282L15.2344 15.3832C14.9056 15.7127 14.9041 16.2484 15.2312 16.5798C15.3953 16.7459 15.6113 16.8293 15.8267 16.8293C16.0404 16.8293 16.255 16.7472 16.4189 16.583L17.5711 15.4285C17.9068 15.0921 18.0921 14.6436 18.0914 14.1672C18.0907 13.6909 17.9043 13.2428 17.5677 12.9074Z"
-                            fill="#273043"></path>
-                    </svg>
-                    <span style="margin-left: .5rem; font-weight: 700;" >Referral Program</span></div>
-                <div style="display: flex; align-items: center; margin-top: .5rem; margin-bottom: .5rem;">
-                    <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18.005 6.68389C18.005 5.97373 17.4293 5.39804 16.7192 5.39804H13.6845C14.1346 4.9388 14.4046 4.29587 14.4046 3.56109C14.4046 1.99968 13.2345 0.805664 11.7043 0.805664C10.1741 0.805664 9.00398 1.99968 9.00398 3.56109C9.00398 1.99968 7.83384 0.805664 6.30366 0.805664C4.77348 0.805664 3.60335 1.99968 3.60335 3.56109C3.60335 4.29587 3.87338 4.9388 4.32343 5.39804H1.28879C0.578628 5.39804 0.00292969 5.97373 0.00292969 6.68389V10.0088C0.00292969 10.5059 0.40592 10.9089 0.903034 10.9089V18.2567C0.903034 19.267 1.71313 20.0936 2.70324 20.0936H15.3047C16.2948 20.0936 17.1049 19.267 17.1049 18.2567V10.9089C17.602 10.9089 18.005 10.5059 18.005 10.0088V6.68389ZM16.2048 9.07193H9.90408V7.23498H16.2048V9.07193ZM11.7043 2.64261C12.2444 2.64261 12.6044 3.01 12.6044 3.56109C12.6044 4.11217 12.2444 4.47956 11.7043 4.47956C11.1642 4.47956 10.8042 4.11217 10.8042 3.56109C10.8042 3.01 11.1642 2.64261 11.7043 2.64261ZM6.30366 2.64261C6.84373 2.64261 7.20377 3.01 7.20377 3.56109C7.20377 4.11217 6.84373 4.47956 6.30366 4.47956C5.7636 4.47956 5.40356 4.11217 5.40356 3.56109C5.40356 3.01 5.7636 2.64261 6.30366 2.64261ZM1.80314 7.23498H8.10387V9.07193H1.80314V7.23498ZM2.70324 10.9089H8.10387V18.2567H2.70324V10.9089ZM15.3047 18.2567H9.90408V10.9089H15.3047V18.2567Z"
-                            fill="#273043"></path>
-                    </svg>
-                    <span style="margin-left: .5rem; font-weight: 700;" >Loyalty Program</span></div>
-                <div style="display: flex; align-items: center; margin-top: .5rem; margin-bottom: .5rem;">
-                    <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M10.8821 0.798464C11.6799 0.49394 12.552 0.441798 13.3805 0.649088C13.9939 0.802585 14.5615 1.09285 15.0424 1.49481C15.5623 1.29224 16.0563 1.02705 16.5134 0.70466C16.8357 0.477303 17.2652 0.473728 17.5913 0.695688C17.9173 0.917648 18.0715 1.31858 17.9782 1.70182C17.7307 2.71815 17.2421 3.65735 16.5568 4.44138C16.5629 4.53131 16.5661 4.62145 16.5664 4.71168L16.5664 4.71481C16.5664 9.18198 14.4115 12.4804 11.2993 14.1369C8.21022 15.7811 4.27297 15.7577 0.774415 13.8141C0.391355 13.6013 0.204519 13.1533 0.322848 12.7314C0.441177 12.3094 0.833714 12.0239 1.27157 12.0414C2.30785 12.0826 3.33494 11.9062 4.28885 11.5304C3.36464 10.8976 2.67485 10.1663 2.17662 9.37963C1.42905 8.19925 1.14855 6.95117 1.0979 5.83675C1.04743 4.72646 1.22372 3.72949 1.40804 3.01678C1.50077 2.65823 1.5971 2.36564 1.6717 2.15928C1.70906 2.05596 1.74113 1.9738 1.76482 1.91534C1.77667 1.88609 1.78643 1.86273 1.79373 1.84556L1.80279 1.82449L1.80585 1.8175L1.80699 1.8149L1.80746 1.81383C1.80767 1.81336 1.80787 1.81291 2.67258 2.19723L1.80787 1.81291C1.94632 1.50139 2.24163 1.28843 2.58093 1.25541C2.92022 1.22239 3.25105 1.37442 3.44697 1.6534C4.08402 2.56052 4.93552 3.29601 5.92563 3.79437C6.64159 4.15473 7.41395 4.38301 8.20574 4.47094C8.24612 3.7145 8.49204 2.98141 8.91948 2.35176C9.39913 1.6452 10.0842 1.10299 10.8821 0.798464ZM3.10322 4.11862C3.01702 4.60187 2.96167 5.16098 2.98848 5.75081C3.02774 6.61448 3.24177 7.52434 3.77547 8.36702C4.30536 9.20369 5.18631 10.0315 6.65345 10.6835C6.96743 10.8231 7.18109 11.1219 7.21165 11.4641C7.24221 11.8063 7.08487 12.1382 6.80059 12.3312C6.21662 12.7276 5.59309 13.054 4.94282 13.3067C6.89744 13.6299 8.81285 13.3164 10.4101 12.4663C12.8722 11.1558 14.6733 8.52056 14.6739 4.71664C14.6734 4.57529 14.6597 4.43429 14.6332 4.29545C14.5807 4.02095 14.6525 3.73931 14.8255 3.52443C14.5471 3.53187 14.2745 3.41596 14.0861 3.19944C13.7801 2.84759 13.3735 2.59821 12.9211 2.48503C12.4688 2.37184 11.9926 2.40031 11.5569 2.56659C11.1213 2.73286 10.7472 3.02892 10.4853 3.41472C10.2234 3.80052 10.0863 4.25745 10.0926 4.72371L10.0927 4.73639H10.0926V5.4557C10.0926 5.96876 9.68379 6.38835 9.1709 6.40165C7.75081 6.43847 6.34366 6.12352 5.07476 5.48484C4.3544 5.12226 3.69129 4.66173 3.10322 4.11862Z"
-                              fill="#273043"></path>
-                    </svg>
-                    <span style="margin-left: .5rem; font-weight: 700;" >Social Media Manager</span></div>
-                <div style="display: flex; align-items: center; margin-top: .5rem; margin-bottom: .5rem;">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M13.5456 7.19928V15.3561H2.19039V4.00089H10.3472C10.2781 3.69619 10.2337 3.38109 10.2337 3.05462C10.2337 2.72816 10.2781 2.41305 10.3472 2.10836H2.19039C1.1476 2.10836 0.297852 2.96 0.297852 4.00089V15.3561C0.297852 16.397 1.14949 17.2486 2.19039 17.2486H13.5456C14.5865 17.2486 15.4381 16.397 15.4381 15.3561V7.19928C15.1334 7.26835 14.8183 7.31283 14.4919 7.31283C14.1654 7.31283 13.8503 7.26835 13.5456 7.19928ZM14.4919 0.21582C14.1191 0.21582 13.7499 0.289248 13.4055 0.431911C13.0611 0.574575 12.7481 0.783679 12.4845 1.04729C12.2209 1.31089 12.0118 1.62384 11.8692 1.96826C11.7265 2.31268 11.6531 2.68183 11.6531 3.05462C11.6531 3.42742 11.7265 3.79657 11.8692 4.14099C12.0118 4.48541 12.2209 4.79835 12.4845 5.06196C12.7481 5.32557 13.0611 5.53467 13.4055 5.67734C13.7499 5.82 14.1191 5.89343 14.4919 5.89343C15.2448 5.89343 15.9668 5.59434 16.4992 5.06196C17.0316 4.52958 17.3307 3.80752 17.3307 3.05462C17.3307 2.30173 17.0316 1.57967 16.4992 1.04729C15.9668 0.514908 15.2448 0.21582 14.4919 0.21582Z"
-                            fill="#273043"></path>
-                    </svg>
-                    <span style="margin-left: .5rem; font-weight: 700;" >Inline notifications</span></div>
+<?php
+
+defined('ABSPATH') or die;
+
+use BeansWoo\Helper;
+?>
+
+<img class="beans-admin-logo" id="beans-app-img"
+     src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name;  ?>.svg"
+     alt="<?php echo static::$app_name;  ?>-logo">
+<div class="welcome-panel-ultimate beans-admin-content-ultimate" style="max-width: 600px; margin: auto">
+
+    <div>
+        <div style="background-color:white; padding-bottom: 60px; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); width: 600px; height: auto; position: relative">
+            <div style="text-align: center; padding: 5px;">
+                <h1 id="beans-welcome-text">Welcome to Beans</h1>
+                <h2 id="beans-app-title"></h2>
+                <p id="beans-p-description">Create a unified marketing experience for your online shop.</p>
             </div>
-            <div style="z-index: 10; margin-right: 2.5rem; margin-top: 2.5rem; margin-left: .75rem;">
-                <div style="width: 180px; height: 160px; background-color: white; box-shadow: 0 5px 15px 0 rgba(0,0,0,.08); border-radius: .5rem; display: flex; align-items: center; justify-content: center;">
-                    <div>
-                        <div style="text-transform: uppercase; font-size: 1.5rem; text-align: center; font-weight: 900;">ultimate</div>
-                        <div style="font-size: 54px; text-align: center; font-weight: 700;">$29<span style="font-size: 16px">/month</span></div>
-                    </div>
-                </div>
-                <button type="submit" id="ultimate-submit-button" style=" border-width: 0; width: 100%; font-size: 13px; cursor: pointer; color: #fff; background-color: #0278d1; border-color: transparent; text-transform: uppercase; display: flex; justify-content: center; padding-top: .5rem; padding-bottom: .5rem; margin-top: .75rem; border-radius: .25rem; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); font-weight: 900; padding-left: 26px;">Start free trial
+            <div style="display: flex; width: 100%">
+                <img id="beans-app-hero" src="<?php echo plugins_url('/assets/ultimate-hero-image.svg',
+                    BEANS_PLUGIN_FILENAME) ?>" alt="" width="96.5%">
+            </div>
+            <div style="height: auto">
+                <button class="beans-bg-primary-ultimate" id="beans-step" data-step="0"  style="margin-right: 30px; float:right; border-width: 0; font-size: 13px; cursor: pointer; color: #fff; border-color: transparent; text-transform: uppercase; display: flex; justify-content: center; padding-top: .5rem; padding-bottom: .5rem; margin-top: .75rem; border-radius: .25rem; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); font-weight: 900;">next
                     <div style=" margin-left: .5rem; margin-top: 2px;">
                         <svg width="8" height="11" viewBox="0 0 8 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -74,9 +31,94 @@
                         </svg>
                     </div>
                 </button>
-                <div style="max-width: 150px; margin-top: 2.5rem; line-height: 1.25; font-weight: 700;">
-                </div>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        jQuery(function ($) {
+            const info = [
+                {
+                    hero: "<?php echo plugins_url('/assets/liana-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-liana.svg",
+                    title: "<?php echo Helper::getApps()['liana']['title']; ?>",
+                    bg: "beans-bg-primary-liana",
+                },
+                {
+                    hero: "<?php echo plugins_url('/assets/bamboo-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-bamboo.svg",
+                    title: "<?php echo Helper::getApps()['bamboo']['title']; ?>",
+                    bg: "beans-bg-primary-bamboo",
+                },
+                {
+                    hero: "<?php echo plugins_url('/assets/foxx-hero-image.png',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-foxx.svg",
+                    title: "<?php echo Helper::getApps()['foxx']['title']; ?>",
+                    bg: "beans-bg-primary-foxx",
+                },
+
+                {
+                    hero: "<?php echo plugins_url('/assets/poppy-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-poppy.svg",
+                    title: "<?php echo Helper::getApps()['poppy']['title']; ?>",
+                    bg: "beans-bg-primary-poppy",
+                },
+                {
+                    hero: "<?php echo plugins_url('/assets/snow-hero-image.png',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-snow.svg",
+                    title: "<?php echo Helper::getApps()['snow']['title']; ?>",
+                    bg: "beans-bg-primary-snow",
+                },
+
+                {
+                    hero: "<?php echo plugins_url('/assets/lotus-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-lotus.svg",
+                    title: "<?php echo Helper::getApps()['lotus']['title']; ?>",
+                    bg: "beans-bg-primary-lotus",
+                },
+                {
+                    hero: "<?php echo plugins_url('/assets/arrow-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-arrow.svg",
+                    title: "<?php echo Helper::getApps()['arrow']['title']; ?>",
+                    bg: "beans-bg-primary-arrow",
+                },
+                {
+                    hero: "<?php echo plugins_url('/assets/ultimate-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-ultimate.svg",
+                    title: "<?php echo Helper::getApps()['ultimate']['title']; ?>",
+                    bg: "beans-bg-primary-ultimate",
+                },
+
+            ];
+            $("#beans-step").on('click', function(){
+                let step = $(this).attr("data-step");
+                if($(this).text() === "connect") {
+                    $("#beans-connect-form").submit();
+                }
+
+                let next_step = parseInt(step) + 1;
+                if ( next_step === info.length ){
+                    $(this).text("connect");
+                    $(this).attr("id", "ultimate-submit-button");
+                    $(this).attr("type", "submit");
+                }
+                const data = info[step];
+                if ( ! data ) return "";
+                $("#beans-welcome-text").hide();
+                $("#beans-p-description").hide();
+
+                $("#beans-app-img").attr("src", data.banner);
+                $("#beans-app-title").text(data.title);
+                $("#beans-app-hero").attr( "src", data.hero);
+                $(this).attr("class", data.bg);
+                $(this).attr("data-step", next_step);
+            })
+        });
+    </script>
