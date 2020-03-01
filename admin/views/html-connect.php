@@ -311,7 +311,6 @@ if (static::$app_name == 'ultimate') {
                 <?php if(get_option(Helper::BEANS_ULTIMATE_DISMISSED)): ?>
                     Try Beans ultimate
                 <?php else: ?>
-                    No, I don't want ultimate
                 <?php endif; ?>
             </a>
         </div>
