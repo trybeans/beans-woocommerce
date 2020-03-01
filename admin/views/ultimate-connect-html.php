@@ -88,6 +88,13 @@ use BeansWoo\Helper;
                     title: "<?php echo Helper::getApps()['arrow']['title']; ?>",
                     bg: "beans-bg-primary-arrow",
                 },
+                {
+                    hero: "<?php echo plugins_url('/assets/ultimate-hero-image.svg',
+                        BEANS_PLUGIN_FILENAME) ?>",
+                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-ultimate.svg",
+                    title: "<?php echo Helper::getApps()['ultimate']['title']; ?>",
+                    bg: "beans-bg-primary-ultimate",
+                },
 
             ];
             $("#beans-step").on('click', function(){
