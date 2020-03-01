@@ -113,11 +113,12 @@ if (static::$app_name == 'ultimate') {
 ?>
 
 <div class="beans-admin-container">
+    <?php if(static::$app_name == 'ultimate'): include "ultimate-connect-html.php"; ?>
+    <?php else: ?>
     <img class="beans-admin-logo"
          src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name;  ?>.svg"
          alt="<?php echo static::$app_name;  ?>-logo">
     <div class="<?php echo static::$app_name != 'ultimate'? 'welcome-panel beans-admin-content' : 'welcome-panel-ultimate beans-admin-content-ultimate'; ?>" style="max-width: 600px; margin: auto">
-        <?php if(static::$app_name != 'ultimate'): ?>
         <div style="margin-bottom: 50px !important; ">
             <h2 style="text-align: center;"><?php echo static::$app_info['title']; ?></h2>
         </div>
@@ -130,8 +131,6 @@ if (static::$app_name == 'ultimate') {
                 <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.png",
                     BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
             </div>
-            <?php else: include "ultimate-connect-html.php"; ?>
-
             <?php endif; ?>
             <form method="get" class="beans-admin-form" id="beans-connect-form"
                   action="<?php echo $connect; ?>">
@@ -317,10 +316,10 @@ if (static::$app_name == 'ultimate') {
             </a>
         </div>
     </div>
-    <div style="margin-top: 20px !important;">
-        <img src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/beans.svg"
-             alt="Beans" width="5%">
-    </div>
+<!--    <div style="margin-top: 20px !important;">-->
+<!--        <img src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/beans.svg"-->
+<!--             alt="Beans" width="5%">-->
+<!--    </div>-->
 </div>
 <script>
     jQuery(function () {
@@ -352,8 +351,5 @@ if (static::$app_name == 'ultimate') {
                 jQuery('#view-config').text('View configuration');
             }
         });
-        jQuery('#ultimate-submit-button').click(function(){
-            jQuery("#beans-connect-form").submit();
-        })
     })
 </script>
