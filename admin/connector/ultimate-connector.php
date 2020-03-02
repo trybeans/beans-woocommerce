@@ -29,8 +29,8 @@ class UltimateConnector extends AbstractConnector {
                     }
                 }
             }
-            delete_option(Helper::CONFIG_NAME);
         }
+        delete_option(Helper::CONFIG_NAME);
     }
 
     protected static function updateInstalledApp(){
