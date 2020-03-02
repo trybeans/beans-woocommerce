@@ -334,3 +334,20 @@ p.beans-admin-check-warning a:hover {
     font-size: 13px;
     line-height: 1.7;
 }
+
+.app-image {
+    padding: 5px;
+}
+.app-image > div {
+    background-color: #F7F7F7;
+    width: 150px;
+    padding: 5px;
+    border-radius: 25px;
+    margin-top: 20px;
+}
+
+#beans-app-title {
+    font-size: 16px;
+    margin: 0 0;
+    margin-bottom: 23px;
+}
