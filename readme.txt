@@ -18,18 +18,6 @@ It includes a set of apps to help you manage all the marketing for your WooComme
 Visit [Beans Marketing Apps](http://bit.ly/36Al6vj) website for complete details.
 
 
-= Foxx · Automated & Marketing Emails =
-
-Super-targeted automated emails that drive sales. Foxx helps you reach out to customers
-with highly relevant offers at the moment they are most likely to shop. Use Foxx, to:
-
-- Sell more with behavioral emails: Email customers with what they want and not what you have
-- Design Gorgeous Emails: Create beautiful professional-looking emails with no technical expertise
-- Track sales, not just click: Know exactly how much revenue you are generating through your email campaigns
-
-[Learn more about Foxx](http://bit.ly/2GwDomz)
-
-
 = Liana · Loyalty & Rewards Program =
 
 Make your customers addicted to your shop. Liana helps you get your
@@ -64,6 +52,18 @@ Poppy will let you display the right popup at the right time to the right custom
 - Design Gorgeous Popups: Create beautiful professional-looking popups with no technical expertise
 
 [Learn more about Poppy](http://bit.ly/2UaAHPs)
+
+
+= Foxx · Automated & Marketing Emails =
+
+Super-targeted automated emails that drive sales. Foxx helps you reach out to customers
+with highly relevant offers at the moment they are most likely to shop. Use Foxx, to:
+
+- Sell more with behavioral emails: Email customers with what they want and not what you have
+- Design Gorgeous Emails: Create beautiful professional-looking emails with no technical expertise
+- Track sales, not just click: Know exactly how much revenue you are generating through your email campaigns
+
+[Learn more about Foxx](http://bit.ly/2GwDomz)
 
 
 = Lotus · Social Media Manager =
@@ -138,6 +138,9 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+= 3.2.2 =
+- Fix Liana process
 
 = 3.2.1 =
 - check if cURL status

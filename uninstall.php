@@ -25,6 +25,8 @@ try{
     delete_user_meta(get_current_user_id(), 'beans_poppy_notice_dismissed');
     delete_user_meta(get_current_user_id(), 'beans_bamboo_notice_dismissed');
     delete_user_meta(get_current_user_id(), 'beans_foxx_notice_dismissed');
+    delete_user_meta(get_current_user_id(), 'beans_arrow_notice_dismissed');
+    delete_user_meta(get_current_user_id(), 'beans_ultimate_notice_dismissed');
 } catch (\Exception $e){}
 
 Helper::postWebhookStatus('uninstalled');

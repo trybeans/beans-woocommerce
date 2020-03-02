@@ -67,46 +67,46 @@ p.beans-admin-check-warning a:hover {
     border: None;
 }
 
-.bg-primary {
+.beans-bg-primary {
     color: white !important;
     text-transform: uppercase;
 }
 
-.bg-primary-liana {
+.beans-bg-primary-liana {
     background-color: #6674ce !important;
 
 }
 
-.bg-primary-bamboo {
+.beans-bg-primary-bamboo {
     background-color: #10a866 !important;
 }
 
-.bg-primary-lotus {
+.beans-bg-primary-lotus {
     background-color: #ee2bac !important;
 
 }
 
-.bg-primary-foxx {
+.beans-bg-primary-foxx {
     background-color: #19899f !important;
 }
 
-.bg-primary-snow {
+.beans-bg-primary-snow {
     background-color: #d67e0a !important;
 }
 
-.bg-primary-poppy {
+.beans-bg-primary-poppy {
     background-color: #c13342 !important;
 }
 
-.bg-primary-arrow {
+.beans-bg-primary-arrow {
     background-color: #4064AC !important;
 }
 
-.bg-primary-ultimate {
+.beans-bg-primary-ultimate {
     background-color: #0278D1 !important;
 }
 
-.bg-primary:hover {
+.beans-bg-primary:hover {
     cursor: pointer;
     opacity: 1;
 }
