@@ -141,6 +141,7 @@ The WordPress codex contains instructions on
 
 = 3.2.2 =
 - Fix Liana process
+- Add beans ultimate onboarding
 
 = 3.2.1 =
 - check if cURL status

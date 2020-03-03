@@ -35,6 +35,7 @@ class Helper {
                 'title' => 'Make your customers addicted to your shop',
                 'description' =>'Get your customers to place a second order, a third, a forth and more.',
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
+                'role' => 'Loyalty Program',
             ),
 
             'bamboo' => array(
@@ -42,6 +43,7 @@ class Helper {
                 'title' => 'Turn your customers into advocates of your brand',
                 'description' => 'Let your customers grow your business by referring you to their friends.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
+                'role' => 'Referral Program',
             ),
 
             'foxx' => array(
@@ -49,6 +51,7 @@ class Helper {
                 'title' => 'Super-targeted automated emails that drive sales',
                 'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-foxx',
+                'role' => 'Email Automation',
             ),
 
             'poppy' => array(
@@ -56,6 +59,7 @@ class Helper {
                 'title' => 'Get customers to take actions when they are most likely to convert',
                 'description' => 'Display the right popup at the right time to the right customer.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-poppy',
+                'role' => 'Smart Popups'
             ),
 
             'snow' => array(
@@ -63,6 +67,7 @@ class Helper {
 	            'title' => 'Communicate with customers without disrupting their journey',
 	            'description' => 'Automatically let customers know about new products and promotions in your shop.',
 	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
+                'role' => 'Notification Widget'
             ),
 
             'lotus' => array(
@@ -70,6 +75,7 @@ class Helper {
                 'title' => 'Save time managing social media for your shop.',
                 'description' => 'Automatically let customers know about new products and promotions in your shop.',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
+                'role' => 'Social Media Automation',
             ),
 
             'arrow' => array(
@@ -77,13 +83,15 @@ class Helper {
                 'title' => 'Know your customer.',
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
+                'role' => 'Social Connect',
             ),
 
             'ultimate' => array(
                 'name' => 'Ultimate',
-                'title' => 'Everything you need to sell more',
+                'title' => 'Get everything you need to sell more',
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
+                'role' => '',
             )
         );
     }
