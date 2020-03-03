@@ -88,7 +88,7 @@ class Helper {
 
             'ultimate' => array(
                 'name' => 'Ultimate',
-                'title' => 'Get everything you need to sell more',
+                'title' => 'Connect your shop to get started',
                 'description' => '',
                 'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
                 'role' => '',
