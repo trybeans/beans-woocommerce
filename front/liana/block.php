@@ -15,11 +15,6 @@ class Block {
 		    return;
 	    }
 
-	    if(!Helper::isSetupApp('ultimate')){
-
-            add_filter('wp_head',                                       array(__CLASS__, 'render_head'),     10, 1);
-        }
-
 	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
 
@@ -56,15 +51,6 @@ class Block {
          return $fragments;
     }
 
-    public static function render_head(){
-        /* Issue with wp_enqueue_script not always loading, preferred using wp_head for a quick fix
-           Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
-        */
-
-        ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.2/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
-        <?php
-    }
 
     public static function render_cart(){
         $cart_subtotal  = Helper::getCart()->cart_contents_total;

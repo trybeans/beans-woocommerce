@@ -19,15 +19,13 @@ abstract class AbstractConnector {
 
 	abstract public static function init();
 
-    protected static function _installAssets($app_name = null) {
+    protected static function _installAssets($app_name) {
         if (static::$has_install_asset == false ){
             return false;
         }
-        $name = static::$app_name;
-        if ($app_name){
-            $name = $app_name;
-        }
         // Install Page
+        $name = $app_name;
+
         $page_infos = Helper::getPages()[$name];
 
         if ( ! get_post( Helper::getConfig( $name . '_page' ) ) ) {
@@ -55,29 +53,15 @@ abstract class AbstractConnector {
 
 		if ( isset( $_GET['reset_beans'] ) ) {
 			if ( Helper::resetSetup(static::$app_name) ) {
-			    if (static::$has_install_asset || static::$app_name == 'ultimate'){
-                    static::_uninstallAssets();
-                }
+			    static::_uninstallAssets();
 				return wp_redirect( admin_url( static::$app_info['link'] ) );
 			}
 		}
 
 		self::_render_notices();
 
-		if (Helper::isSetup()){
-		    if (static::$app_name == 'liana'){
-		        $page = Helper::getConfig('page');
-     		        if ( ! is_null($page)){
-     		            Helper::setConfig('page', null);
-     		            return wp_redirect(admin_url( static::$app_info['link']. "&reset_beans=1" ));
-		        }
-            }
-        }
-
 		if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name) ) {
-		    if ( static::$app_name == 'ultimate' ){
-		        static::updateInstalledApp();
-            }
+		    static::updateInstalledApp();
 			return include( dirname( __FILE__ , 2) . '/views/html-info.php' );
 		}
 

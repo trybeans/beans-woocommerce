@@ -17,19 +17,6 @@ class UltimateConnector extends AbstractConnector {
 
     protected static function _uninstallAssets()
     {
-        $card = Helper::getCard(static::$app_name);
-        if ($card){
-            foreach ($card['apps'] as $app => $status){
-                $app = strtolower($app);
-                if( $status['is_installed'] ){
-                    if ( class_exists(__NAMESPACE__. '\\'.ucfirst($app). 'Connector')
-                        && Helper::isSetupApp($app)){
-                        Helper::resetSetup($app);
-                        call_user_func([__NAMESPACE__. '\\'.ucfirst($app). 'Connector', '_uninstallAssets']);
-                    }
-                }
-            }
-        }
         delete_option(Helper::CONFIG_NAME);
     }
 
@@ -40,11 +27,10 @@ class UltimateConnector extends AbstractConnector {
             foreach ($card['apps'] as $app => $status){
                 $app = strtolower($app);
                 if( $status['is_installed'] ){
-                    if ( class_exists(__NAMESPACE__. '\\'.ucfirst($app). 'Connector')
-                        && ! Helper::isSetupApp($app)){
-                        call_user_func([__NAMESPACE__. '\\'.ucfirst($app). 'Connector', '_installAssets'], $app);
-                        Helper::setAppInstalled($app);
+                    if(in_array($app, ['bamboo', 'liana'])) {
+                        static::_installAssets($app);
                     }
+                    Helper::setAppInstalled($app);
                 }
             }
         }

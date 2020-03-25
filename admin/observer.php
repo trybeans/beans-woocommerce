@@ -11,8 +11,6 @@ use BeansWoo\Helper;
 class Observer
 {
 
-    public static $submenu_pages = [];
-
     public static function init()
     {
 
@@ -20,19 +18,8 @@ class Observer
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
         add_action("admin_init", [__CLASS__, "setting_options"]);
 
-        if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-
-            foreach (Helper::getApps() as $app_name => $info) {
-
-                if (!Helper::isSetupApp($app_name) && $app_name != 'ultimate') {
-                    add_action('admin_notices', array('\BeansWoo\Admin\Connector\\' . ucfirst($app_name) . 'Connector', 'admin_notice'));
-                    add_action('admin_init', array('\BeansWoo\Admin\Connector\\' . ucfirst($app_name) . 'Connector', 'notice_dismissed'));
-                }
-            }
-        }else{
-            add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'admin_notice'));
-            add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'notice_dismissed'));
-        }
+        add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'admin_notice'));
+        add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'notice_dismissed'));
 
         add_action('admin_menu', array(__CLASS__, 'admin_menu'));
         add_action('admin_init', array(__CLASS__, 'admin_is_curl_notice'), 0, 100);
@@ -87,50 +74,16 @@ class Observer
 
     public static function admin_menu()
     {
-        $menu = [];
-
-        if (!get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-
-            array_push($menu,
-                [
-                    'page_title' => ucfirst(UltimateConnector::$app_name),
-                    'menu_title' => ucfirst(UltimateConnector::$app_name),
-                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                    'capability' => 'manage_options',
-                    'callback' => '',
-                    'render' => ['\BeansWoo\Admin\Connector\UltimateConnector', 'render_settings_page']
-                ]);
-        } else {
-            array_push($menu,
-                [
-                    'page_title' => ucfirst(LianaConnector::$app_name),
-                    'menu_title' => ucfirst(LianaConnector::$app_name),
-                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
-                    'capability' => 'manage_options',
-                    'callback' => '',
-                    'render' => ['\BeansWoo\Admin\Connector\LianaConnector', 'render_settings_page']
-                ]);
-        }
+        $menu = array([
+            'page_title' => ucfirst(UltimateConnector::$app_name),
+            'menu_title' => ucfirst(UltimateConnector::$app_name),
+            'menu_slug' => BEANS_WOO_BASE_MENU_SLUG,
+            'capability' => 'manage_options',
+            'callback' => '',
+            'render' => ['\BeansWoo\Admin\Connector\UltimateConnector', 'render_settings_page']
+        ]);
 
         $menu[0]['parent_slug'] = $menu[0]['menu_slug'];
-
-        static::$submenu_pages[] = $menu[0];
-
-        if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-            foreach (Helper::getApps() as $app_name => $app_info) {
-                if (in_array($app_name, ['ultimate', 'liana'])) {
-                    continue;
-                }
-                static::$submenu_pages[] = [
-                    'parent_slug' => $menu[0]['menu_slug'],
-                    'page_title' => ucfirst($app_name),
-                    'menu_title' => ucfirst($app_name),
-                    'menu_slug' => BEANS_WOO_BASE_MENU_SLUG . "-" . $app_name,
-                    'capability' => 'manage_options',
-                    'callback' => ['\BeansWoo\Admin\Connector\\' . ucfirst($app_name) . 'Connector', 'render_settings_page'],
-                ];
-            }
-        }
 
         if (current_user_can('manage_options')) {
             add_menu_page(
@@ -141,19 +94,6 @@ class Observer
                 $menu[0]['render'],
                 plugins_url('/assets/img/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
                 56);
-            if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-
-                foreach (static::$submenu_pages as $submenu_page) {
-                    add_submenu_page(
-                        $submenu_page['parent_slug'],
-                        $submenu_page['page_title'],
-                        $submenu_page['menu_title'],
-                        $submenu_page['capability'],
-                        $submenu_page['menu_slug'],
-                        $submenu_page['callback']
-                    );
-                }
-            }
         }
     }
 
@@ -161,40 +101,10 @@ class Observer
     {
         $text = "cURL is not installed. Please install and activate, otherwise, the Beans program may not work.";
 
-        if (! Helper::isCURL()) {
+        if (!Helper::isCURL()) {
             echo '<div class="notice notice-warning " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
                 __($text, 'beans-woo') .
                 '</div></div>';
-        }
-    }
-
-    public static function admin_ultimate_dismissed()
-    {
-        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
-        $current_page = explode("?page=", $current_page);
-        if ( in_array('beans-woo-ultimate', $current_page) ){
-            $location = Helper::getApps()['liana']['link'];
-        }else {
-            $location = Helper::getApps()['ultimate']['link'];
-        }
-
-        if (isset($_GET['beans_ultimate_notice_dismissed'])) {
-
-            if (!get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-                update_option(Helper::BEANS_ULTIMATE_DISMISSED, true);
-            } else {
-                update_option(Helper::BEANS_ULTIMATE_DISMISSED, false);
-            }
-
-            $apps = Helper::getConfig('apps');
-
-            if (isset($apps['ultimate']) && !is_null($apps['ultimate'])) {
-                foreach ($apps as $app) {
-                    Helper::resetSetup($app);
-                }
-                delete_option(Helper::CONFIG_NAME);
-            }
-            return wp_redirect($location);
         }
     }
 
