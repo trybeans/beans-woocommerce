@@ -91,7 +91,7 @@ class Block {
         <div></div>
         <script>
             window.liana_init_data = {
-                currentPage: '<?php echo self::getCurrentPage(); ?>',
+                currentPage: '<?php echo Helper::getCurrentPage(); ?>',
                 accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
                 loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
                 aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
@@ -116,20 +116,6 @@ class Block {
             <?php endif; ?>
         </script>
         <?php
-    }
-
-    public static function getCurrentPage(){
-        $pages = [
-            get_permalink(get_option('woocommerce_myaccount_page_id')) => 'login',
-            get_permalink(get_option('woocommerce_cart_page_id')) => 'cart',
-            get_permalink(get_option('woocommerce_shop_page_id')) => 'product',
-            get_permalink(get_option('woocommerce_checkout_page_id')) => 'cart',
-            get_permalink(Helper::getConfig(static::$app_name . '_page')) => 'reward',
-        ];
-
-        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
-
-        return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
     public static function render_page($content, $vars=null){
