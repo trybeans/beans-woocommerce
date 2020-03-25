@@ -70,10 +70,6 @@ abstract class AbstractConnector {
 
 
 	protected static function _processSetup() {
-        if (static::$has_install_asset){
-
-	        static::_installAssets();
-        }
 
 		Helper::log( print_r( $_GET, true ) );
 

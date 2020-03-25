@@ -14,7 +14,6 @@ class Observer
     public static function init()
     {
 
-        add_action('admin_init', array(__CLASS__, 'admin_ultimate_dismissed'));
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
         add_action("admin_init", [__CLASS__, "setting_options"]);
 
