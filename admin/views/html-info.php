@@ -66,35 +66,42 @@ if (static::$app_name == 'ultimate') {
                 </a>
             </div>
         </div>
-        <?php if (static::$app_name === 'liana' || static::$app_name === 'bamboo' ): ?>
+        <?php if (Helper::isSetupApp('liana')): ?>
             <div class="beans-woo-reward">
                 <div>
                     <div class="beans-woo-reward-title">
-                        <?php if(static::$app_name === 'liana'): ?>
                         Reward page
-                        <?php elseif (static::$app_name === 'bamboo'):  ?>
-                        Referral page
-                        <?php endif; ?>
                     </div>
                     <div class="beans-woo-reward-description">
-                        <?php if(static::$app_name === 'liana'): ?>
                             The reward page is available on your website and let your customers join and use your rewards
                             program.
-                        <?php elseif (static::$app_name === 'bamboo'):  ?>
-                            The referral page is available on your website and let your customers join and use your referrals
-                            program.
-                        <?php endif; ?>
-
                     </div>
                     <span class="" >
                         <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
-                                      href="<?php echo get_permalink(Helper::getConfig(static::$app_name . '_page')); ?>">
-                            Go to the
-                             <?php if(static::$app_name === 'liana'): ?>
-                                 reward
-                             <?php elseif (static::$app_name === 'bamboo'):  ?>
-                                 referral
-                             <?php endif; ?> page
+                                      href="<?php echo get_permalink(Helper::getConfig('liana_page')); ?>">
+                            Go to the reward page
+                        </a>
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; margin-left: 20px;">
+                    <img width="150px" src="<?php echo plugins_url('assets/img/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"  />
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php if (Helper::isSetupApp('bamboo') ): ?>
+            <div class="beans-woo-reward">
+                <div>
+                    <div class="beans-woo-reward-title">
+                            Referral page
+                    </div>
+                    <div class="beans-woo-reward-description">
+                            The referral page is available on your website and let your customers join and use your referrals
+                            program.
+                    </div>
+                    <span class="" >
+                        <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
+                           href="<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>">
+                            Go to the referral page
                         </a>
                     </span>
                 </div>
@@ -104,7 +111,7 @@ if (static::$app_name == 'ultimate') {
             </div>
         <?php endif; ?>
 
-        <?php if(in_array(static::$app_name , ['liana', 'ultimate'])) : ?>
+        <?php if((Helper::isSetupApp('liana'))) : ?>
         <div class="beans-woo-settings">
             <div class="beans-woo-settings-title">Settings</div>
             <form method="post" action="options.php">

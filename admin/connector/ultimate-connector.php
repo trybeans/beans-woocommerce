@@ -9,7 +9,7 @@ defined('ABSPATH') or die;
 class UltimateConnector extends AbstractConnector {
 
 	static public $app_name = 'ultimate';
-    static public $has_install_asset = false;
+    static public $has_install_asset = true;
 
 	public static function init() {
 

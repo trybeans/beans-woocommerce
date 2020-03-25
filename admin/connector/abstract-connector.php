@@ -38,6 +38,7 @@ abstract class AbstractConnector {
             );
             Helper::setConfig( $name . '_page', $page_id );
         }
+        return true;
     }
 
 	abstract protected static function _uninstallAssets();
