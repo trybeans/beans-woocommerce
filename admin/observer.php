@@ -16,7 +16,6 @@ class Observer
     public static function init()
     {
 
-        add_action('admin_init', array(__CLASS__, 'admin_ultimate_dismissed'));
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
         add_action("admin_init", [__CLASS__, "setting_options"]);
 
@@ -167,37 +166,6 @@ class Observer
                 '</div></div>';
         }
     }
-
-    public static function admin_ultimate_dismissed()
-    {
-        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
-        $current_page = explode("?page=", $current_page);
-        if ( in_array('beans-woo-ultimate', $current_page) ){
-            $location = Helper::getApps()['liana']['link'];
-        }else {
-            $location = Helper::getApps()['ultimate']['link'];
-        }
-
-        if (isset($_GET['beans_ultimate_notice_dismissed'])) {
-
-            if (!get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
-                update_option(Helper::BEANS_ULTIMATE_DISMISSED, true);
-            } else {
-                update_option(Helper::BEANS_ULTIMATE_DISMISSED, false);
-            }
-
-            $apps = Helper::getConfig('apps');
-
-            if (isset($apps['ultimate']) && !is_null($apps['ultimate'])) {
-                foreach ($apps as $app) {
-                    Helper::resetSetup($app);
-                }
-                delete_option(Helper::CONFIG_NAME);
-            }
-            return wp_redirect($location);
-        }
-    }
-
 
     /**
      * private static function synchronise(){
