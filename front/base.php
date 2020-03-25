@@ -67,7 +67,7 @@ class Base
     }
 
     public static function enqueue_scripts(){
-        wp_enqueue_style( 'beans-style', plugins_url( 'assets/beans.css' , BEANS_PLUGIN_FILENAME ));
+        wp_enqueue_style( 'beans-style', plugins_url( 'assets/css/beans.css' , BEANS_PLUGIN_FILENAME ));
     }
 
     public static function render_head(){
