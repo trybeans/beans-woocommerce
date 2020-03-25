@@ -56,7 +56,7 @@ class Observer
 
     public static function admin_style()
     {
-        wp_enqueue_style('admin-styles', plugins_url('assets/beans-admin.css',
+        wp_enqueue_style('admin-styles', plugins_url('assets/css/beans-admin.css',
             BEANS_PLUGIN_FILENAME));
     }
 
@@ -139,7 +139,7 @@ class Observer
                 'manage_options',
                 $menu[0]['menu_slug'],
                 $menu[0]['render'],
-                plugins_url('/assets/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
+                plugins_url('/assets/img/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
                 56);
             if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
 

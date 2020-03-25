@@ -99,7 +99,7 @@ if (static::$app_name == 'ultimate') {
                     </span>
                 </div>
                 <div style="display: flex; align-items: center; margin-left: 20px;">
-                    <img width="150px" src="<?php echo plugins_url('assets/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"  />
+                    <img width="150px" src="<?php echo plugins_url('assets/img/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"  />
                 </div>
             </div>
         <?php endif; ?>
@@ -126,7 +126,7 @@ if (static::$app_name == 'ultimate') {
                     <a target="_blank" href="https://web.facebook.com/groups/1220975858059106/">
                         <span>
                             <img
-                                    src="<?php echo plugins_url('assets/facebook.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                                    src="<?php echo plugins_url('assets/img/facebook.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
                         </span>Join Facebook Group
                     </a>
                 </span>
@@ -134,20 +134,20 @@ if (static::$app_name == 'ultimate') {
                     <a target="_blank" href="https://twitter.com/beanshq">
                         <span>
                             <img
-                                    src="<?php echo plugins_url('assets/twitter.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                                    src="<?php echo plugins_url('assets/img/twitter.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
                         </span>Follow us on Twitter
                     </a>
                 </span>
                 <span class="beans-woo-help-action">
                     <a target="_blank" href="http://help.trybeans.com/">
-                        <span><img src="<?php echo plugins_url('assets/help-center.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                        <span><img src="<?php echo plugins_url('assets/img/help-center.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
                         </span>Go to Help Center
                     </a>
                 </span>
                 <span class="beans-woo-help-action">
                     <a href="mailto:hello@trybeans.com">
                         <span>
-                            <img src="<?php echo plugins_url('assets/email-support.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                            <img src="<?php echo plugins_url('assets/img/email-support.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
                         </span>Contact Support
                     </a>
                 </span>
@@ -156,7 +156,7 @@ if (static::$app_name == 'ultimate') {
 
         <div class="beans-woo-review">
             <div style="display: flex; align-items: center;">
-                <img src="<?php echo plugins_url('assets/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
+                <img src="<?php echo plugins_url('assets/img/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
             </div>
             <div>
                 <div class="beans-woo-review-title">

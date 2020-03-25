@@ -28,7 +28,7 @@ use BeansWoo\Helper;
                 </div>
                 <div style="display: flex; width: 100%; justify-content: center">
                     <div style="text-align: center">
-                        <img id="beans-app-hero" src="<?php echo plugins_url('/assets/ultimate-hero-image.svg',
+                        <img id="beans-app-hero" src="<?php echo plugins_url('/assets/img/ultimate-hero-image.svg',
                             BEANS_PLUGIN_FILENAME) ?>" alt="" width="auto" height="280px">
                     </div>
                 </div>
@@ -65,21 +65,21 @@ use BeansWoo\Helper;
         jQuery(function ($) {
             const info = [
                 {
-                    hero: "<?php echo plugins_url('/assets/liana-hero-image.svg',
+                    hero: "<?php echo plugins_url('/assets/img/liana-hero-image.svg',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-liana.svg",
                     title: "<?php echo Helper::getApps()['liana']['title']; ?>",
                     role: "<?php echo Helper::getApps()['liana']['role']; ?>",
                 },
                 {
-                    hero: "<?php echo plugins_url('/assets/bamboo-hero-image.svg',
+                    hero: "<?php echo plugins_url('/assets/img/bamboo-hero-image.svg',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-bamboo.svg",
                     title: "<?php echo Helper::getApps()['bamboo']['title']; ?>",
                     role: "<?php echo Helper::getApps()['bamboo']['role']; ?>",
                 },
                 {
-                    hero: "<?php echo plugins_url('/assets/foxx-hero-image.png',
+                    hero: "<?php echo plugins_url('/assets/img/foxx-hero-image.png',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-foxx.svg",
                     title: "<?php echo Helper::getApps()['foxx']['title']; ?>",
@@ -87,14 +87,14 @@ use BeansWoo\Helper;
                 },
 
                 {
-                    hero: "<?php echo plugins_url('/assets/poppy-hero-image.svg',
+                    hero: "<?php echo plugins_url('/assets/img/poppy-hero-image.svg',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-poppy.svg",
                     title: "<?php echo Helper::getApps()['poppy']['title']; ?>",
                     role: "<?php echo Helper::getApps()['poppy']['role']; ?>",
                 },
                 {
-                    hero: "<?php echo plugins_url('/assets/snow-hero-image.png',
+                    hero: "<?php echo plugins_url('/assets/img/snow-hero-image.png',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-snow.svg",
                     title: "<?php echo Helper::getApps()['snow']['title']; ?>",
@@ -102,21 +102,21 @@ use BeansWoo\Helper;
                 },
 
                 {
-                    hero: "<?php echo plugins_url('/assets/lotus-hero-image.svg',
+                    hero: "<?php echo plugins_url('/assets/img/lotus-hero-image.svg',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-lotus.svg",
                     title: "<?php echo Helper::getApps()['lotus']['title']; ?>",
                     role: "<?php echo Helper::getApps()['lotus']['role']; ?>",
                 },
                 {
-                    hero: "<?php echo plugins_url('/assets/arrow-hero-image.svg',
+                    hero: "<?php echo plugins_url('/assets/img/arrow-hero-image.svg',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-arrow.svg",
                     title: "<?php echo Helper::getApps()['arrow']['title']; ?>",
                     role: "<?php echo Helper::getApps()['arrow']['role']; ?>",
                 },
                 {
-                    hero: "<?php echo plugins_url('/assets/ultimate-hero-image.svg',
+                    hero: "<?php echo plugins_url('/assets/img/ultimate-hero-image.svg',
                         BEANS_PLUGIN_FILENAME) ?>",
                     banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-ultimate.svg",
                     title: "<?php echo Helper::getApps()['ultimate']['title']; ?>",

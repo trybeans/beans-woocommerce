@@ -140,8 +140,8 @@ The WordPress codex contains instructions on
 == Changelog ==
 
 = 3.2.3 =
-- Test compatibility with woocommerce 4.0
-
+- Test compatibility with woocommerce 4.0.1
+-
 = 3.2.2 =
 - Fix Liana process
 - Add beans ultimate onboarding

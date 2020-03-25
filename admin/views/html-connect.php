@@ -113,7 +113,7 @@ if (static::$app_name == 'ultimate') {
 ?>
 
 <div class="beans-admin-container">
-    <?php if(static::$app_name == 'ultimate'): include "ultimate-connect-html.php"; ?>
+    <?php if(static::$app_name == 'ultimate'): include "html-ultimate-connect.php"; ?>
     <?php else: ?>
     <img class="beans-admin-logo"
          src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-<?php echo static::$app_name;  ?>.svg"
@@ -126,9 +126,9 @@ if (static::$app_name == 'ultimate') {
         <div>
             <?php if(static::$app_name != 'ultimate'): ?>
             <div style="margin: auto;">
-                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.svg",
+                <img src="<?php echo plugins_url('/assets/img/' . static::$app_name . "-hero-image.svg",
                     BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
-                <img src="<?php echo plugins_url('/assets/' . static::$app_name . "-hero-image.png",
+                <img src="<?php echo plugins_url('/assets/img/' . static::$app_name . "-hero-image.png",
                     BEANS_PLUGIN_FILENAME) ?>"  alt="" width="95%" onerror="this.style.display='none'">
             </div>
             <?php endif; ?>
