@@ -15,7 +15,7 @@ class Observer
     {
 
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
-        add_action("admin_init", [__CLASS__, "setting_options"]);
+        add_action("admin_init", array(__CLASS__, "setting_options"));
 
         add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'admin_notice'));
         add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'notice_dismissed'));
@@ -52,16 +52,15 @@ class Observer
         add_settings_field(
             "beans-liana-display-redemption-checkout",
             "Redemption on checkout",
-            array(__CLASS__, "demo_checkbox_display"),
+            array(__CLASS__, "redemption_button_checkbox_display"),
             "beans-woo", "beans-section"
         );
         register_setting("beans-section", "beans-liana-display-redemption-checkout");
     }
 
-    public static function demo_checkbox_display()
+    public static function redemption_button_checkbox_display()
     {
         ?>
-        <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
         <div>
             <input type="checkbox" id="beans-liana-display-redemption-checkout"
                    name="beans-liana-display-redemption-checkout"
@@ -91,7 +90,7 @@ class Observer
                 'manage_options',
                 $menu[0]['menu_slug'],
                 $menu[0]['render'],
-                plugins_url('/assets/img/beans_wordpressIcon.svg', BEANS_PLUGIN_FILENAME),
+                plugins_url('/assets/img/beans-wordpress-icon.svg', BEANS_PLUGIN_FILENAME),
                 56);
         }
     }

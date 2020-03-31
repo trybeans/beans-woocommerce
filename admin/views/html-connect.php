@@ -116,7 +116,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
 ?>
 
 <div class="beans-admin-container">
-    <?php include "html-ultimate-connect.php"; ?>
+    <?php include "html-ultimate-onboarding.php"; ?>
     <form method="get" class="beans-admin-form" id="beans-connect-form" action="<?php echo $connect; ?>">
         <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
         <input type="hidden" name="first_name" value="<?php echo $admin->user_firstname; ?>">

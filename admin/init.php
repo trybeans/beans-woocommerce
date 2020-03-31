@@ -10,7 +10,6 @@ define( 'BEANS_WOO_API_AUTH_ENDPOINT', get_site_url().'/wc-auth/v1/authorize/' )
 
 include_once( "observer.php" );
 
-include_once( "connector/abstract-connector.php" );
 include_once ("connector/ultimate-connector.php");
 
 use BeansWoo\Admin\Connector\UltimateConnector;
