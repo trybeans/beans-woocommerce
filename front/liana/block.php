@@ -14,16 +14,10 @@ class Block {
         self::$card = Helper::getCard( 'ultimate' );
 
         if (! isset(self::$card[self::$app_name])){
-            return ;
+            self::$card = self::$card[self::$app_name];
         }
 
-        self::$card = self::$card[self::$app_name];
-
-        if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
-		    return;
-	    }
-
-	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+        add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
         add_filter('woocommerce_after_cart_totals',                 array(__CLASS__, 'render_cart'),     10, 1);
 
         add_filter('woocommerce_add_to_cart_fragments',             array(__CLASS__, 'render_cart_fragment'), 15, 1 );

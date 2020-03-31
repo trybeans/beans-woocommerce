@@ -13,15 +13,8 @@ class Block {
         self::$card = Helper::getCard( 'ultimate' );
 
         if (! isset(self::$card[self::$app_name])){
-            return ;
+            self::$card = self::$card[self::$app_name];
         }
-
-        self::$card = self::$card[self::$app_name];
-
-
-        if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
-		    return;
-	    }
 
 	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
 
