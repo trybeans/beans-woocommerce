@@ -10,8 +10,16 @@ class Block {
     static $card;
 
     public static function init(){
-	    self::$card = Helper::getCard( self::$app_name );
-	    if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
+        self::$card = Helper::getCard( 'ultimate' );
+
+        if (! isset(self::$card[self::$app_name])){
+            return ;
+        }
+
+        self::$card = self::$card[self::$app_name];
+
+
+        if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
 		    return;
 	    }
 

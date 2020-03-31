@@ -141,7 +141,8 @@ The WordPress codex contains instructions on
 
 = 3.2.3 =
 - Test compatibility with woocommerce 4.0.1
--
+- Integrate ultimate version
+
 = 3.2.2 =
 - Fix Liana process
 - Add beans ultimate onboarding

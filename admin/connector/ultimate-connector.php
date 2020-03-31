@@ -12,7 +12,10 @@ class UltimateConnector{
     static public $messages = array();
 
     static public $app_name = 'ultimate';
+    static public $app_info = array();
     static public $has_install_asset = true;
+
+    public static function init(){}
 
     protected static function _installAssets($app_name) {
         if (static::$has_install_asset == false ){
