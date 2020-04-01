@@ -37,19 +37,15 @@ include_once ('api/api-beans-rest-woocommerce.php');
 
 include_once('front/liana/init.php');
 include_once('front/bamboo/init.php');
-include_once('front/poppy/init.php');
-include_once('front/snow/init.php');
-include_once ('front/arrow/init.php');
 include_once('front/base.php');
+include_once('front/ultimate.php');
 
 use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\Front\Liana\Main as LianaMain;
 use BeansWoo\Front\Bamboo\Main as BambooMain;
-use BeansWoo\Front\Poppy\Main as PoppyMain;
-use BeansWoo\Front\Snow\Main as SnowMain;
-use BeansWoo\Front\Arrow\Main as ArrowMain;
 use BeansWoo\API\BeansRestWoocommerce;
 use BeansWoo\Front\Base as BaseMain;
+use BeansWoo\Front\Ultimate as BaseUltimate;
 
 if ( ! class_exists( 'WC_Beans' ) ) :
     class WC_Beans{
@@ -76,12 +72,9 @@ if ( ! class_exists( 'WC_Beans' ) ) :
 
             BeansRestWoocommerce::init();
             BaseMain::init();
-
-            LianaMain::init();
             BambooMain::init();
-            PoppyMain::init();
-            SnowMain::init();
-            ArrowMain::init();
+            LianaMain::init();
+            BaseUltimate::init();
         }
     }
 

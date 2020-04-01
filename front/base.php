@@ -9,6 +9,7 @@ class Base
 {
     public static function init()
     {
+        add_filter('wp_head',                 array(__CLASS__, 'base_common_config'));
         add_filter('woocommerce_registration_errors', array(__CLASS__, 'register_validate_name_fields'), 10, 3);
         add_action('woocommerce_register_form_start', array(__CLASS__, 'render_register'));
         add_action('woocommerce_created_customer', array(__CLASS__, 'register_save_name_fields'));
@@ -20,8 +21,6 @@ class Base
             do_action('woocommerce_new_customer', get_current_user_id());
             Helper::setConfig('is_admin_account', true);
         }
-
-        add_filter('wp_head', array(__CLASS__, 'render_head'), 10, 1);
 
     }
 
@@ -73,16 +72,16 @@ class Base
         wp_enqueue_style('beans-style', plugins_url('assets/css/beans.css', BEANS_PLUGIN_FILENAME));
     }
 
-    public static function render_head()
+    public static function base_common_config()
     {
-        $card = Helper::getCard('ultimate');
-        /* Issue with wp_enqueue_script not always loading, preferred using wp_head for a quick fix
-           Also the Beans script does not have any dependency so there is no that much drawback on using wp_head
-        */
-
         ?>
-        <script src='https://<?php echo Helper::getDomain("STATIC"); ?>/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id=<?php echo $card['id']; ?>'
-                type="text/javascript"></script>
+        <script>
+            window.beans_cjs_id = "<?php echo is_user_logged_in() ? wp_get_current_user()->ID : ''; ?>";
+            window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
+            window.beans_currentPage = "<?php echo Helper::getCurrentPage(); ?>";
+            window.beans_loginPage = "<?php echo str_replace(home_url(), '', get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>";
+            window.beans_registerPage = "<?php echo str_replace(home_url(), '', get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>";
+        </script>
         <?php
     }
 }
