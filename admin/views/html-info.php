@@ -133,7 +133,7 @@ if (static::$app_name == 'ultimate') {
                     <a target="_blank" href="https://web.facebook.com/groups/1220975858059106/">
                         <span>
                             <img
-                                    src="<?php echo plugins_url('assets/admin/img/connector/facebook.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                                    src="<?php echo plugins_url('assets/img/admin/connector/facebook.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
                         </span>Join Facebook Group
                     </a>
                 </span>

@@ -43,14 +43,15 @@ class Ultimate
             window.bamboo_init_data = {
                 currentPage: window.beans_currentPage,
                 loginPage: window.beans_loginPage,
-                registerPage: beans_registerPage,
+                registerPage: window.beans_registerPage,
                 rewardPage: "<?php echo get_permalink(Helper::getConfig('liana_page')); ?>",
                 aboutPage: "<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>",
             };
             window.Beans3.Bamboo.Radix.init();
         </script>
         <?php
-        }/* END BAMBOO */
+        }
+        /* END BAMBOO */
 
         /* START ARROW */
         if (! is_user_logged_in()) {
@@ -87,7 +88,7 @@ class Ultimate
                 window.liana_init_data = {
                     currentPage: window.beans_currentPage,
                     loginPage: window.beans_loginPage,
-                    registerPage: beans_registerPage,
+                    registerPage: window.beans_registerPage,
                     accountToken: "<?php  echo isset($token['key']) ? $token['key'] : ''; ?>",
                     aboutPage: "<?php echo get_permalink(Helper::getConfig('liana_page')); ?>",
                     cartPage: "<?php echo get_permalink(get_option('woocommerce_checkout_page_id')); ?>",
@@ -102,6 +103,7 @@ class Ultimate
                     delete window.liana_init_data.debit;
                 }
                 window.Beans3.Liana.Radix.init();
+
                 <?php if (Helper::getCart()->cart_contents_count != 0): ?>
                 window.Beans3.Liana.storage.cart = {
                     item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
