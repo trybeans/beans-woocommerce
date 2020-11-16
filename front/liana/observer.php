@@ -6,11 +6,21 @@ use BeansWoo\Helper;
 
 class Observer {
     public static $card;
+    public static $display;
+    public static $i18n_strings;
+
+
     public static function init() {
 
         self::$card = Helper::getCard( 'liana' );
         if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp('liana')) {
             return;
+        }
+
+        self::$display = Helper::getBeansObject('liana', 'display');
+
+        if (isset(self::$display['redemption'])){
+            self::$i18n_strings = self::$display['i18n_strings'];
         }
 
         add_filter( 'wp_logout', array( __CLASS__, 'clearSession' ), 10, 1 );
@@ -185,14 +195,22 @@ class Observer {
             isset($card['redemption']['max_percentage']) ) {
             $min_beans = $card['redemption']['min_beans'];
             if ($account['beans']  < $min_beans){
-                wc_add_notice( "Minimum discount allowed is $min_beans ".$card['beans_name'], 'notice' );
+                wc_add_notice( Helper::replace_tags(
+                    self::$i18n_strings['redemption']['minimum_redemption'],
+                    array(
+                        'beans_name' => $min_beans. " ". $card['beans_name'],
+                    )) , 'notice' );
                 return;
             }
 
             $percent_discount = $card['redemption']['max_percentage'];
             if ( $percent_discount > 0 && $percent_discount <= 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
-                wc_add_notice( "Maximum discount allowed for this order is $percent_discount%", 'notice' );
+                wc_add_notice( Helper::replace_tags(
+                    self::$i18n_strings['redemption']['minimum_redemption'],
+                    array(
+                        'beans_name' => $percent_discount,
+                    )), 'notice' );
             }
         }
 
