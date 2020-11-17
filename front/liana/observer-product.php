@@ -82,7 +82,7 @@ class ProductObserver
     public static function addToCartValidation($result, $product_id)
     {
         if (!is_user_logged_in()) {
-            wc_add_notice(self::$i18n_strings['join']['join_rewards'], 'error');
+            wc_add_notice(self::$i18n_strings['join']['join_rewards'], 'error'); # todo update with right translation
             $result = false;
         } else if (is_user_logged_in() && isset($_SESSION['liana_account']) && in_array($product_id, self::$pay_with_point_product_ids)) {
             $product = wc_get_product($product_id);
@@ -93,7 +93,7 @@ class ProductObserver
 
             if ($min_beans > $account['beans']) {
                 wc_add_notice( Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_minimum_points'],
+                    self::$i18n_strings['redemption']['condition_minimum_points'], # todo update with right translation
                     array(
                         'quantity' => $min_beans,
                         "beans_name" => self::$display['beans_name'],
