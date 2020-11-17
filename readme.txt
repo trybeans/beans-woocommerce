@@ -3,7 +3,7 @@
 Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 4.7
-Tested up to: 5.3.2
+Tested up to: 5.5.3
 Stable tag: 3.2.3
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
@@ -140,8 +140,8 @@ The WordPress codex contains instructions on
 == Changelog ==
 
 = 3.2.3 =
-- Test compatibility with woocommerce 4.0.1
--
+- Test compatibility with woocommerce 4.7.0
+
 = 3.2.2 =
 - Fix Liana process
 - Add beans ultimate onboarding
