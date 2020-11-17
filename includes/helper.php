@@ -310,7 +310,7 @@ class Helper {
         return function_exists('curl_version');
     }
 
-    public static function replace_tags($string, $tags, $force_lower = false){
+    public static function replaceTags($string, $tags, $force_lower = false){
         return preg_replace_callback('/\\{([^{}]+)\\}/',
             function($matches) use ($force_lower, $tags)
             {

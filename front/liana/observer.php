@@ -195,7 +195,7 @@ class Observer {
             isset($card['redemption']['max_percentage']) ) {
             $min_beans = $card['redemption']['min_beans'];
             if ($account['beans']  < $min_beans){
-                wc_add_notice( Helper::replace_tags(
+                wc_add_notice( Helper::replaceTags(
                     self::$i18n_strings['redemption']['condition_minimum_points'],
                     array(
                         'quantity' => $min_beans,
@@ -207,7 +207,7 @@ class Observer {
             $percent_discount = $card['redemption']['max_percentage'];
             if ( $percent_discount > 0 && $percent_discount <= 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
-                wc_add_notice( Helper::replace_tags(
+                wc_add_notice( Helper::replaceTags(
                     self::$i18n_strings['redemption']['condition_maximum_discount'],
                     array(
                         'max_discount' => $percent_discount,
