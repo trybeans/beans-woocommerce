@@ -103,15 +103,16 @@ class ProductObserver
         $product_ids = array();
         foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
             if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids)) {
-                $product_ids[] = $cart_item['product_id'];
+                $product_ids[$cart_item_key] = $cart_item['product_id'];
                 $amount += $cart_item['data']->get_price() * $cart_item['quantity'];
             }
         }
 
+        $account = $_SESSION['liana_account'];
+
         if (count($product_ids) != 0 && !$cart->has_discount(BEANS_LIANA_COUPON_UID)) {
             Observer::cancelRedemption();
             Observer::updateSession();
-            $account = $_SESSION['liana_account'];
             if ($amount > $account['beans']) {
                 # todo update translation after merging 3.2.3/update-translation
                 wc_add_notice(__('You don\'t have enough ' . self::$display["beans_name"], 'woocommerce'), 'error');
@@ -123,6 +124,12 @@ class ProductObserver
             );
 
             $cart->apply_coupon(BEANS_LIANA_COUPON_UID);
+        }
+        if (count($product_ids) != 0 && $cart->has_discount(BEANS_LIANA_COUPON_UID) && $amount > $account['beans']){
+            $cart->remove_coupon(BEANS_LIANA_COUPON_UID);
+            foreach ($product_ids as $cart_item_key => $pay_with_point_product_id){
+                $cart->remove_cart_item($cart_item_key);
+            }
         }
     }
 }
