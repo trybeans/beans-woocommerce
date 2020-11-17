@@ -13,12 +13,7 @@ class Observer {
 
         self::$display = $display;
         self::$redemption = $display['redemption'];
-
-        self::$display = Helper::getBeansObject('liana', 'display');
-
-        if (isset(self::$display['redemption'])){
-            self::$i18n_strings = self::$display['i18n_strings'];
-        }
+        self::$i18n_strings = self::$display['i18n_strings'];
 
         add_filter( 'wp_logout', array( __CLASS__, 'clearSession' ), 10, 1 );
         add_filter( 'wp_login', array( __CLASS__, 'customerLogin' ), 10, 2 );
