@@ -118,12 +118,26 @@ class ProductObserver
                 $amount += $cart_item['data']->get_price() * $cart_item['quantity'];
             }
         }
+        $beans_amount = $amount * self::$display['beans_rate'];
+
+        $account = $_SESSION['liana_account'];
+
+        if (count($product_ids) != 0 && $beans_amount > $account['beans']){
+            if ($cart->has_discount(BEANS_LIANA_COUPON_UID)){
+                $cart->remove_coupon(BEANS_LIANA_COUPON_UID);
+            }
+
+            foreach ($product_ids as $cart_item_key => $pay_with_point_product_id){
+                $cart->remove_cart_item($cart_item_key);
+            }
+            return ;
+        }
 
         if (count($product_ids) != 0 && !$cart->has_discount(BEANS_LIANA_COUPON_UID)) {
             Observer::cancelRedemption();
             Observer::updateSession();
             $account = $_SESSION['liana_account'];
-            if ($amount > $account['beans']) {
+            if ($beans_amount > $account['beans']) {
                 wc_add_notice( Helper::replaceTags(
                     self::$i18n_strings['reward_product']['not_enough_points'],
                     array(
