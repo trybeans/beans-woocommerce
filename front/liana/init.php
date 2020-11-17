@@ -20,8 +20,8 @@ class Main {
             return;
         }
 
-        Observer::init(self::$display);
-        ProductObserver::init(self::$display);
-        Block::init(self::$display);
+        Observer::init($display);
+        ProductObserver::init($display);
+        Block::init($display);
     }
 }
