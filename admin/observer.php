@@ -18,6 +18,7 @@ class Observer
 
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
         add_action("admin_init", [__CLASS__, "setting_options"]);
+        add_action('admin_notices', array(__CLASS__, 'deprecation_notice'));
 
         if (get_option(Helper::BEANS_ULTIMATE_DISMISSED)) {
 
@@ -164,6 +165,17 @@ class Observer
             echo '<div class="notice notice-warning " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: ' .
                 __($text, 'beans-woo') .
                 '</div></div>';
+        }
+    }
+
+    public static function deprecation_notice(){
+        if (Helper::isSetup() && ! Helper::isSetupApp('ultimate')){
+            $link = admin_url(Helper::getApps()['ultimate']['link'] . '&reset_beans=1&force=1');
+            $text = "Upgrade now to Beans Ultimate to benefit from the latest features and bug fixes.
+                     Future versions of the plugin will only support Beans Ultimate. ";
+            echo '<div class="notice notice-warning" style="margin-left: auto"><div style="margin: 10px auto;">'
+                . __($text, 'beans-woo') .
+                ' <a href='.$link.'>Upgrade</a> </div></div>';
         }
     }
 
