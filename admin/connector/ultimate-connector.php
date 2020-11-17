@@ -49,4 +49,12 @@ class UltimateConnector extends AbstractConnector {
             }
         }
     }
+
+    public static function installDefaultAssets(){
+        $appNames = ['liana', 'bamboo'];
+
+        foreach ($appNames as $appName){
+            static::_installAssets($appName);
+        }
+    }
 }
