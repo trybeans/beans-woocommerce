@@ -82,7 +82,7 @@ class ProductObserver
     public static function addToCartValidation($result, $product_id)
     {
         if (!is_user_logged_in()) {
-            wc_add_notice(self::$i18n_strings['join']['join_rewards'], 'error'); # todo update with right translation
+            wc_add_notice(self::$i18n_strings['reward_product']['join_and_get'], 'error');
             $result = false;
         } else if (is_user_logged_in() && isset($_SESSION['liana_account']) && in_array($product_id, self::$pay_with_point_product_ids)) {
             $product = wc_get_product($product_id);
@@ -93,9 +93,8 @@ class ProductObserver
 
             if ($min_beans > $account['beans']) {
                 wc_add_notice( Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_minimum_points'], # todo update with right translation
+                    self::$i18n_strings['reward_product']['not_enough_points'],
                     array(
-                        'quantity' => $min_beans,
                         "beans_name" => self::$display['beans_name'],
                     )) , 'notice' );
                 $result = false;
@@ -126,9 +125,8 @@ class ProductObserver
             $account = $_SESSION['liana_account'];
             if ($amount > $account['beans']) {
                 wc_add_notice( Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_minimum_points'], # todo update with right translation
+                    self::$i18n_strings['reward_product']['not_enough_points'],
                     array(
-                        'quantity' => $amount,
                         "beans_name" => self::$display['beans_name'],
                     )) , 'notice' );
                 return;
