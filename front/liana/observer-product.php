@@ -81,7 +81,7 @@ class ProductObserver
 
     public static function addToCartValidation($result, $product_id)
     {
-        if (!is_user_logged_in()) {
+        if (!is_user_logged_in() && in_array($product_id, self::$pay_with_point_product_ids)) {
             wc_add_notice(self::$i18n_strings['reward_product']['join_and_get'], 'error');
             $result = false;
         } else if (is_user_logged_in() && isset($_SESSION['liana_account']) && in_array($product_id, self::$pay_with_point_product_ids)) {
