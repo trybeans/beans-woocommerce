@@ -7,13 +7,10 @@ use BeansWoo\Helper;
 class Block {
 
     public static $app_name = 'liana';
-    static $card;
+    static $display;
 
-    public static function init(){
-	    self::$card = Helper::getCard( self::$app_name );
-	    if ( empty( self::$card ) || !Helper::isSetupApp(self::$app_name)) {
-		    return;
-	    }
+    public static function init($display){
+        self::$display = $display;
 
 	    if(!Helper::isSetupApp('ultimate')){
 
@@ -62,7 +59,7 @@ class Block {
         */
 
         ?>
-        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.2/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$card['id'];  ?>' type="text/javascript"></script>
+        <script src= 'https://<?php echo Helper::getDomain("STATIC"); ?>/lib/liana/3.2/js/liana.beans.js?radix=woocommerce&id=<?php echo self::$display['card'];  ?>' type="text/javascript"></script>
         <?php
     }
 

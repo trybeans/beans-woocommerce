@@ -141,6 +141,7 @@ The WordPress codex contains instructions on
 
 = 3.2.3 =
 - Test compatibility with woocommerce 4.7.0
+- Add Pay with point feature
 
 = 3.2.2 =
 - Fix Liana process

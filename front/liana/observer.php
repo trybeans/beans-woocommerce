@@ -5,17 +5,14 @@ namespace BeansWoo\Front\Liana;
 use BeansWoo\Helper;
 
 class Observer {
-    public static $card;
     public static $display;
+    public static $redemption;
     public static $i18n_strings;
 
+    public static function init($display) {
 
-    public static function init() {
-
-        self::$card = Helper::getCard( 'liana' );
-        if ( empty( self::$card ) || ! self::$card['is_active'] || !Helper::isSetupApp('liana')) {
-            return;
-        }
+        self::$display = $display;
+        self::$redemption = $display['redemption'];
 
         self::$display = Helper::getBeansObject('liana', 'display');
 
@@ -188,23 +185,22 @@ class Observer {
         $account = $_SESSION['liana_account'];
 
         $cart = Helper::getCart();
-        $card = Helper::getCard( 'liana' );
 
         $max_amount = $cart->subtotal;
-        if ( isset( $card['redemption'] ) && isset( $card['redemption']['min_beans'] ) &&
-            isset($card['redemption']['max_percentage']) ) {
-            $min_beans = $card['redemption']['min_beans'];
+        if ( isset( self::$redemption ) && isset( self::$redemption['min_beans'] ) &&
+            isset( self::$redemption['max_percentage']) ) {
+            $min_beans =  self::$redemption['min_beans'];
             if ($account['beans']  < $min_beans){
                 wc_add_notice( Helper::replaceTags(
                     self::$i18n_strings['redemption']['condition_minimum_points'],
                     array(
                         'quantity' => $min_beans,
-                        "beans_name" => $card['beans_name'],
+                        "beans_name" => self::$display['beans_name'],
                     )) , 'notice' );
                 return;
             }
 
-            $percent_discount = $card['redemption']['max_percentage'];
+            $percent_discount =  self::$redemption['max_percentage'];
             if ( $percent_discount > 0 && $percent_discount <= 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
                 wc_add_notice( Helper::replaceTags(
@@ -219,7 +215,7 @@ class Observer {
         $amount = sprintf( '%0.2f', $amount );
 
         $_SESSION['liana_debit'] = array(
-            'beans' => $amount * $card['beans_rate'],
+            'beans' => $amount * self::$display['beans_rate'],
             'value' => $amount
         );
         $cart->add_discount( BEANS_LIANA_COUPON_UID );

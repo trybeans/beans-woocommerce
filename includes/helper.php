@@ -231,7 +231,7 @@ class Helper {
             }
         }
 
-        return isset($beans_object[$appName]) ? $beans_object[$appName] : null;
+        return isset($beans_object[$object]) ? $beans_object[$object] : null;
     }
 
     public static function getCart() {
