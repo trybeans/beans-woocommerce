@@ -12,7 +12,7 @@ class UltimateConnector extends AbstractConnector {
     static public $has_install_asset = false;
 
 	public static function init() {
-
+        add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
 	}
 
     protected static function _uninstallAssets()
