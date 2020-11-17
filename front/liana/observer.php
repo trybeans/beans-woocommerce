@@ -196,9 +196,10 @@ class Observer {
             $min_beans = $card['redemption']['min_beans'];
             if ($account['beans']  < $min_beans){
                 wc_add_notice( Helper::replace_tags(
-                    self::$i18n_strings['redemption']['minimum_redemption'],
+                    self::$i18n_strings['redemption']['condition_minimum_points'],
                     array(
-                        'beans_name' => $min_beans. " ". $card['beans_name'],
+                        'quantity' => $min_beans,
+                        "beans_name" => $card['beans_name'],
                     )) , 'notice' );
                 return;
             }
@@ -207,9 +208,9 @@ class Observer {
             if ( $percent_discount > 0 && $percent_discount <= 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
                 wc_add_notice( Helper::replace_tags(
-                    self::$i18n_strings['redemption']['minimum_redemption'],
+                    self::$i18n_strings['redemption']['condition_maximum_discount'],
                     array(
-                        'beans_name' => $percent_discount,
+                        'max_discount' => $percent_discount,
                     )), 'notice' );
             }
         }
