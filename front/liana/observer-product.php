@@ -65,6 +65,10 @@ class ProductObserver
         $product_in_cart_ids = array();
         $product_with_points = array();
 
+        if (is_null(WC()->cart)){
+            return $is_purchasable;
+        }
+
         foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
             $product_in_cart_ids[] = $cart_item['product_id'];
             if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids)) {
@@ -136,6 +140,12 @@ class ProductObserver
         if (count($product_ids) != 0 && !$cart->has_discount(BEANS_LIANA_COUPON_UID)) {
             Observer::cancelRedemption();
             Observer::updateSession();
+
+            # force quantity to be always equal to 1 for `pay wit point product`
+            foreach ($product_ids as $cart_item_key => $pay_with_point_product_id){
+                $cart->set_quantity($cart_item_key, 1);
+            }
+
             $account = $_SESSION['liana_account'];
             if ($beans_amount > $account['beans']) {
                 wc_add_notice( Helper::replaceTags(
