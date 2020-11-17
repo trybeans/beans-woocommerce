@@ -199,7 +199,7 @@ class Observer {
         $amount = sprintf( '%0.2f', $amount );
 
         $_SESSION['liana_debit'] = array(
-            'beans' => $amount * $display['beans_rate'],
+            'beans' => $amount * self::$display['beans_rate'],
             'value' => $amount
         );
         $cart->add_discount( BEANS_LIANA_COUPON_UID );
