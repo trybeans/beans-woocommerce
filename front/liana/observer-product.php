@@ -125,8 +125,12 @@ class ProductObserver
             Observer::updateSession();
             $account = $_SESSION['liana_account'];
             if ($amount > $account['beans']) {
-                # todo update translation after merging 3.2.3/update-translation
-                wc_add_notice(__('You don\'t have enough ' . self::$display["beans_name"], 'woocommerce'), 'error');
+                wc_add_notice( Helper::replaceTags(
+                    self::$i18n_strings['redemption']['condition_minimum_points'], # todo update with right translation
+                    array(
+                        'quantity' => $amount,
+                        "beans_name" => self::$display['beans_name'],
+                    )) , 'notice' );
                 return;
             }
             $_SESSION['liana_debit'] = array(
