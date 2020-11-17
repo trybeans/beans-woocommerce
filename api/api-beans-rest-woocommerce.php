@@ -18,7 +18,7 @@ class BeansRestWoocommerce
 
             add_filter('woocommerce_webhook_deliver_async',           array(__CLASS__, 'async_webhook'),    10, 3);
         }
-        add_filter('woocommerce_rest_prepare_system_status',          array(__CLASS__, 'addSitePagesInfos'),    90, 2);
+        add_filter('woocommerce_rest_prepare_system_status',          array(__CLASS__, 'add_site_pages_infos'),    90, 2);
 
     }
 
