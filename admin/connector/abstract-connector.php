@@ -20,10 +20,13 @@ abstract class AbstractConnector {
 	abstract public static function init();
 
     protected static function _installAssets($app_name = null) {
-        if (!in_array($app_name, ['liana', 'bamboo'])){
+        if (static::$has_install_asset == false ){
             return false;
         }
-        $name = $app_name;
+        $name = static::$app_name;
+        if ($app_name){
+            $name = $app_name;
+        }
         // Install Page
         $page_infos = Helper::getPages()[$name];
 
@@ -54,11 +57,6 @@ abstract class AbstractConnector {
 			if ( Helper::resetSetup(static::$app_name) ) {
 			    if (static::$has_install_asset || static::$app_name == 'ultimate'){
                     static::_uninstallAssets();
-                }
-			    # todo remove after the next release
-			    if ($_GET['force']){
-                    delete_option(Helper::CONFIG_NAME);
-                    delete_option(Helper::BEANS_ULTIMATE_DISMISSED);
                 }
 				return wp_redirect( admin_url( static::$app_info['link'] ) );
 			}
