@@ -19,7 +19,7 @@ class ProductObserver
         self::$display = $display;
         self::$redemption = $display['redemption'];
 
-        if (empty($redemption['reward_exclusive_product_cms_ids'])) {
+        if (empty(self::$redemption['reward_exclusive_product_cms_ids'])) {
             return;
         }
         self::$pay_with_point_product_ids = array_map(function ($value) {
