@@ -310,4 +310,14 @@ class Helper {
         return function_exists('curl_version');
     }
 
+    public static function replaceTags($string, $tags, $force_lower = false){
+        return preg_replace_callback('/\\{([^{}]+)\\}/',
+            function($matches) use ($force_lower, $tags)
+            {
+                $key = $force_lower ? strtolower($matches[1]) : $matches[1];
+                return array_key_exists($key, $tags) ? $tags[$key] : '';
+            }
+            , $string
+        );
+    }
 }
