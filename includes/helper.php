@@ -3,6 +3,7 @@
 namespace BeansWoo;
 
 use Beans\Beans;
+use Beans\Error\BaseError;
 
 class Helper {
     const CONFIG_NAME = 'beans-config-3';
@@ -188,6 +189,7 @@ class Helper {
         return true;
     }
 
+    # todo: remove
     public static function getCard($app_name) {
         $beans_card = get_transient('beans_card');
 
@@ -207,6 +209,29 @@ class Helper {
         }
 
         return isset($beans_card[$app_name]) ? $beans_card[$app_name] : null;
+    }
+
+    public static function getBeansObject($appName, $objectName) {
+        $object = $appName."_".$objectName;
+
+        $beans_object = get_transient("beans_$object");
+
+        $beans_object = $beans_object ? $beans_object : array();
+
+        if ( isset($beans_object[$object]) ){
+            return $beans_object[$object];
+        }
+
+        if ( self::isSetup() && self::isSetupApp($appName)) {
+            try {
+                $beans_object[$object] = self::API()->get( "${appName}/${objectName}/current" );
+                set_transient("beans_$object", $beans_object, 10);
+            } catch ( BaseError $e ) {
+                self::log( 'Unable to get card: ' . $e->getMessage() );
+            }
+        }
+
+        return isset($beans_object[$appName]) ? $beans_object[$appName] : null;
     }
 
     public static function getCart() {
