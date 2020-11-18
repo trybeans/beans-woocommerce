@@ -196,13 +196,15 @@ class Observer {
             }
 
             $percent_discount =  self::$redemption['max_percentage'];
-            if ( $percent_discount > 0 && $percent_discount <= 100) {
+            if ( $percent_discount < 100) {
                 $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
-                wc_add_notice( Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_maximum_discount'],
-                    array(
-                        'max_discount' => $percent_discount,
-                    )), 'notice' );
+                if($max_amount < $account['beans_value']){
+                    wc_add_notice( Helper::replaceTags(
+                        self::$i18n_strings['redemption']['condition_maximum_discount'],
+                        array(
+                            'max_discount' => $percent_discount,
+                        )), 'notice' );
+                }
             }
         }
 
