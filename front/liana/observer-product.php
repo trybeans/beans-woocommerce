@@ -33,7 +33,7 @@ class ProductObserver
         add_filter('woocommerce_is_purchasable', array(__CLASS__, 'isPurchasableProduct'), 99, 2);
         add_filter('woocommerce_is_sold_individually', array(__CLASS__, 'isSoldIndividuallyProduct'), 99, 2);
         add_filter('woocommerce_product_single_add_to_cart_text', array(__CLASS__, 'addToCartButtonText'), 99, 2);
-        add_filter('woocommerce_add_to_cart_validation', array(__CLASS__, 'addToCartValidation'), 99, 2);
+        add_filter('woocommerce_add_to_cart_validation', array(__CLASS__, 'addToCartValidation'), 99, 5);
     }
 
     public static function addToCartButtonText($button_text, $product)
@@ -44,7 +44,7 @@ class ProductObserver
                 Helper::replaceTags(
                     self::$i18n_strings['button']['pay_with'],
                     array(
-                        'beans_name' => $product->get_price() * self::$display['beans_rate'] . " " . self::$display['beans_name']
+                        'beans_name' => self::$display['beans_name']
                     )
                 ), "woocommerce");
         }
@@ -53,7 +53,12 @@ class ProductObserver
 
     public static function isSoldIndividuallyProduct($is_sol_individually, $product)
     {
-        if (in_array($product->get_id(), self::$pay_with_point_product_ids)) {
+        $product_id = (int)$product->get_parent_id();
+        if ((int)$product_id === 0){
+            $product_id = (int)$product->get_id();
+        }
+
+        if (in_array($product_id, self::$pay_with_point_product_ids)) {
             $is_sol_individually = true;
         }
         return $is_sol_individually;
@@ -61,10 +66,12 @@ class ProductObserver
 
     public static function isPurchasableProduct($is_purchasable, $product)
     {
-        $product_id = $product->get_id();
-        $product_in_cart_ids = array();
         $product_with_points = array();
 
+        $current_product_id = (int)$product->get_parent_id();
+        if ((int)$current_product_id === 0){
+            $current_product_id = (int)$product->get_id();
+        }
         if (is_null(WC()->cart)){
             return $is_purchasable;
         }
@@ -76,20 +83,26 @@ class ProductObserver
             }
         }
 
-        if (in_array($product_id, self::$pay_with_point_product_ids) && !in_array($product_id, $product_in_cart_ids) && count($product_with_points) != 0) {
+        if (in_array($current_product_id, self::$pay_with_point_product_ids) && count($product_with_points) != 0) {
             $is_purchasable = false;
         }
 
         return $is_purchasable;
     }
 
-    public static function addToCartValidation($result, $product_id)
+    public static function addToCartValidation($result, $product_id, $quantity, $variation_id = 0, $variations = null)
     {
         if (!is_user_logged_in() && in_array($product_id, self::$pay_with_point_product_ids)) {
             wc_add_notice(self::$i18n_strings['reward_product']['join_and_get'], 'error');
             $result = false;
         } else if (is_user_logged_in() && isset($_SESSION['liana_account']) && in_array($product_id, self::$pay_with_point_product_ids)) {
-            $product = wc_get_product($product_id);
+            if ((int)$variation_id === 0){
+                $product = wc_get_product($product_id);
+            }
+            else {
+                $product = new \WC_Product_Variation($variation_id);
+            }
+
             Observer::updateSession();
             $account = $_SESSION['liana_account'];
 
@@ -118,7 +131,7 @@ class ProductObserver
         $product_ids = array();
         foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
             if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids)) {
-                $product_ids[] = $cart_item['product_id'];
+                $product_ids[$cart_item_key] = $cart_item['product_id'];
                 $amount += $cart_item['data']->get_price() * $cart_item['quantity'];
             }
         }
