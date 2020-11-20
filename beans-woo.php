@@ -46,7 +46,7 @@ if ( ! class_exists( 'WC_Beans' ) ) :
 
 
         function __construct(){
-            add_filter('init',              array(__CLASS__, 'init'),         10, 1);
+            add_action('init',              array(__CLASS__, 'init'),         10, 1);
         }
 
         public static function instance() {
@@ -62,9 +62,9 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             }
 
             AdminMain::init();
+            FrontMain::init();
 
             BeansRestWoocommerce::init();
-            FrontMain::init();
 
         }
     }
