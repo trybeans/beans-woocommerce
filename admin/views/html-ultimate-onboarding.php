@@ -3,12 +3,15 @@
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
+
+$base_banner_url = 'https://'.Helper::getDomain('STATIC'). '/static-v3/connect/img/app/';
+$base_asset_path = '/assets/img/admin/onboarding';
 ?>
 
 
 <img class="beans-admin-logo"
-     src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-ultimate.svg"
-     alt="<?php echo static::$app_name;  ?>-logo">
+     src="<?php echo $base_banner_url; ?>logo-full-ultimate.svg"
+     alt="ultimate-logo">
 <div class="welcome-panel-ultimate beans-admin-content-ultimate" style="max-width: 600px; margin: auto">
     <div>
         <div style="background-color:white; padding-top: 10px; padding-bottom: 60px;
@@ -18,8 +21,8 @@ use BeansWoo\Helper;
                 <div style="display: none; text-align: center;" id="app-image"  class="app-image">
                     <div>
                         <img width="100px" height="30px" id="beans-app-img"
-                             src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-liana.svg"
-                             alt="<?php echo static::$app_name;  ?>-logo">
+                             src="<?php echo $base_banner_url; ?>logo-full-liana.svg"
+                             alt="beans-app-logo">
                     </div>
                 </div>
                 <div style="text-align: center;">
@@ -28,7 +31,7 @@ use BeansWoo\Helper;
                 </div>
                 <div style="display: flex; width: 100%; justify-content: center">
                     <div style="text-align: center">
-                        <img id="beans-app-hero" src="<?php echo plugins_url('/assets/img/ultimate-hero-image.svg',
+                        <img id="beans-app-hero" src="<?php echo plugins_url($base_asset_path.'/ultimate-hero.svg',
                             BEANS_PLUGIN_FILENAME) ?>" alt="" width="auto" height="280px">
                     </div>
                 </div>
@@ -46,83 +49,44 @@ use BeansWoo\Helper;
                 <div id="beans-ultimate-connect" style="display: none">
                     <p class="wc-setup-actions step" style="justify-content: center; display: flex" id="beans-ultimate-submit-button">
                         <?php if ( $beans_is_supported || $force ): ?>
-                        <button type="submit" class="btn beans-bg-primary beans-bg-primary-<?php echo static::$app_name;  ?>
-                            shadow-md" value="Connect to <?php echo ucfirst(static::$app_name);  ?>">
+                        <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
+                            shadow-md" value="Connect to Beans Ultimate">
                             <?php else: ?>
                             <button type="submit"
-                                    class="button button-disabled beans-bg-primary beans-bg-primary-<?php echo static::$app_name;  ?>
-                                shadow-md " value="Connect to <?php echo ucfirst(static::$app_name);  ?>"
+                                    class="button button-disabled beans-bg-primary beans-bg-primary-ultimate
+                                shadow-md " value="Connect to Beans Ultimate"
                                     disabled>
                                 <?php endif; ?>
                                 Connect
-                            </button>
+                        </button>
                     </p>
                 </div>
             </div>
         </div>
     </div>
     <script>
+
         jQuery(function ($) {
-            const info = [
-                {
-                    hero: "<?php echo plugins_url('/assets/img/liana-hero-image.svg',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-liana.svg",
-                    title: "<?php echo Helper::getApps()['liana']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['liana']['role']; ?>",
-                },
-                {
-                    hero: "<?php echo plugins_url('/assets/img/bamboo-hero-image.svg',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-bamboo.svg",
-                    title: "<?php echo Helper::getApps()['bamboo']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['bamboo']['role']; ?>",
-                },
-                {
-                    hero: "<?php echo plugins_url('/assets/img/foxx-hero-image.png',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-foxx.svg",
-                    title: "<?php echo Helper::getApps()['foxx']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['foxx']['role']; ?>",
-                },
+            let info = [];
+            <?php
+                $apps = ['liana', 'bamboo', 'foxx', 'poppy', 'snow', 'lotus', 'arrow', 'ultimate'];
+                foreach ($apps as $app){
+                    if (in_array($app, ['snow', 'foxx'])){
+                        $heroImage =  $app .'-hero.png';
+                    }else{
+                        $heroImage = $app .'-hero.svg';
+                    }
+                ?>
+                    info.push({
+                    hero: "<?php echo plugins_url($base_asset_path.'/'.$heroImage, BEANS_PLUGIN_FILENAME); ?>",
+                    banner: "<?php echo $base_banner_url. 'logo-full-'. $app .'.svg'; ?>",
+                    title: "<?php echo Helper::getApps()[$app]['title']; ?>",
+                    role: "<?php echo Helper::getApps()[$app]['role']; ?>",
+                });
+            <?php
+                }
+            ?>
 
-                {
-                    hero: "<?php echo plugins_url('/assets/img/poppy-hero-image.svg',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-poppy.svg",
-                    title: "<?php echo Helper::getApps()['poppy']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['poppy']['role']; ?>",
-                },
-                {
-                    hero: "<?php echo plugins_url('/assets/img/snow-hero-image.png',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-snow.svg",
-                    title: "<?php echo Helper::getApps()['snow']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['snow']['role']; ?>",
-                },
-
-                {
-                    hero: "<?php echo plugins_url('/assets/img/lotus-hero-image.svg',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-lotus.svg",
-                    title: "<?php echo Helper::getApps()['lotus']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['lotus']['role']; ?>",
-                },
-                {
-                    hero: "<?php echo plugins_url('/assets/img/arrow-hero-image.svg',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-arrow.svg",
-                    title: "<?php echo Helper::getApps()['arrow']['title']; ?>",
-                    role: "<?php echo Helper::getApps()['arrow']['role']; ?>",
-                },
-                {
-                    hero: "<?php echo plugins_url('/assets/img/ultimate-hero-image.svg',
-                        BEANS_PLUGIN_FILENAME) ?>",
-                    banner: "https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-ultimate.svg",
-                    title: "<?php echo Helper::getApps()['ultimate']['title']; ?>",
-                },
-
-            ];
             $("#beans-step").on('click', function(){
                 let step = $(this).attr("data-step");
                 if($(this).text() === "connect") {
@@ -158,3 +122,4 @@ use BeansWoo\Helper;
         });
 
     </script>
+</div>

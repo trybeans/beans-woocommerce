@@ -1,0 +1,123 @@
+<?php
+
+
+namespace BeansWoo\Front;
+
+use BeansWoo\Front\Liana\Observer;
+use BeansWoo\Helper;
+
+
+class Block
+{
+    static $card;
+
+    public static function init()
+    {
+        add_action('wp_head', array(__CLASS__, 'render_head'), 10, 1);
+
+        add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'), 10, 1);
+
+        if (current_user_can('administrator') and is_null(Helper::getConfig('is_admin_account')) ) {
+            do_action('woocommerce_new_customer', get_current_user_id());  // force customer webhook for admin
+            Helper::setConfig('is_admin_account', true);
+        }
+
+        add_action('wp_footer', array(__CLASS__, 'render_footer'), 10, 1);
+
+    }
+
+    public static function render_head()
+    {
+        ?>
+        <script>
+            window.beans_cjs_id = "<?php echo is_user_logged_in() ? wp_get_current_user()->ID : ''; ?>";
+            window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
+            window.beans_current_page = "<?php echo Helper::getCurrentPage(); ?>";
+            window.beans_login_page = "<?php echo str_replace(home_url(), '', get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>";
+            window.beans_register_page = "<?php echo str_replace(home_url(), '', get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>";
+            window.beans_reward_page = "<?php echo get_permalink(Helper::getConfig('liana_page')); ?>";
+            window.beans_referral_page = "<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>";
+        </script>
+        <?php
+    }
+
+
+    public static function enqueue_scripts()
+    {
+        wp_enqueue_script(
+            'beans-ultimate-js',
+            'https://'. Helper::getDomain("STATIC").
+            '/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card_id'),
+            array(),
+            time(),
+            false
+        );
+
+        wp_enqueue_style('beans-style', plugins_url('assets/css/beans.css', BEANS_PLUGIN_FILENAME));
+    }
+
+    public static function render_footer()
+    {
+        $token = array();
+        $debit = array();
+
+        if (is_user_logged_in() and !isset($_SESSION["liana_account"])) {
+            Observer::customerRegister(get_current_user_id());
+        }
+
+        if (isset($_SESSION['liana_token'])) $token = $_SESSION['liana_token'];
+        if (isset($_SESSION['liana_debit'])) $debit = $_SESSION['liana_debit'];
+
+        ?>
+
+        <script>
+            window.bamboo_init_data = {
+                currentPage: window.beans_current_page,
+                loginPage: window.beans_login_page,
+                registerPage: window.beans_register_page,
+                rewardPage: window.beans_reward_page,
+                aboutPage: window.beans_referral_page,
+            };
+
+            window.arrow_init_data = {
+                currentPage: window.beans_current_page,
+                loginPage: window.beans_login_page,
+                registerPage: window.beans_register_page,
+            };
+
+            window.liana_init_data = {
+                currentPage: window.beans_current_page,
+                loginPage: window.beans_login_page,
+                registerPage: window.beans_register_page,
+                accountToken: "<?php  echo isset($token['key']) ? $token['key'] : ''; ?>",
+                aboutPage: window.beans_reward_page,
+                cartPage: "<?php echo get_permalink(get_option('woocommerce_checkout_page_id')); ?>",
+                debit: {
+                    <?php
+                    Helper::getAccountData($debit, 'beans', 0);
+                    Helper::getAccountData($debit, 'message', '');
+                    echo "uid: '" . BEANS_LIANA_COUPON_UID . "'";?>
+                },
+            };
+
+            if (window.liana_init_data.debit.beans === "") {
+                delete window.liana_init_data.debit;
+            }
+
+            <?php if (Helper::getCart()->cart_contents_count != 0): ?>
+            window.Beans3.Liana.storage.cart = {
+                item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
+                // to avoid the decimal numbers for the points.
+                total_price: "<?php echo Helper::getCart()->subtotal * 100; ?>", // DON'T TOUCH
+            };
+            <?php endif; ?>
+
+            window.Beans3.Liana.Radix.init();
+            window.Beans3.Bamboo.Radix.init();
+            window.Beans3.Poppy.Radix.init();
+            window.Beans3.Snow.Radix.init();
+            window.Beans3.Arrow.Radix.init();
+        </script>
+        <?php
+    }
+}

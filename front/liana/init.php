@@ -22,6 +22,6 @@ class Main {
 
         Observer::init($display);
         ProductObserver::init($display);
-        Block::init($display);
+        Block::init();
     }
 }

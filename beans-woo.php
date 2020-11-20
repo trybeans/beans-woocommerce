@@ -32,24 +32,13 @@ include_once( 'includes/beans.php' );
 include_once( 'includes/helper.php' );
 
 include_once( 'admin/init.php' );
+include_once ('front/init.php');
 
 include_once ('api/api-beans-rest-woocommerce.php');
 
-include_once('front/liana/init.php');
-include_once('front/bamboo/init.php');
-include_once('front/poppy/init.php');
-include_once('front/snow/init.php');
-include_once ('front/arrow/init.php');
-include_once('front/base.php');
-
 use BeansWoo\Admin\Main as AdminMain;
-use BeansWoo\Front\Liana\Main as LianaMain;
-use BeansWoo\Front\Bamboo\Main as BambooMain;
-use BeansWoo\Front\Poppy\Main as PoppyMain;
-use BeansWoo\Front\Snow\Main as SnowMain;
-use BeansWoo\Front\Arrow\Main as ArrowMain;
+use BeansWoo\Front\Main as FrontMain;
 use BeansWoo\API\BeansRestWoocommerce;
-use BeansWoo\Front\Base as BaseMain;
 
 if ( ! class_exists( 'WC_Beans' ) ) :
     class WC_Beans{
@@ -75,13 +64,8 @@ if ( ! class_exists( 'WC_Beans' ) ) :
             AdminMain::init();
 
             BeansRestWoocommerce::init();
-            BaseMain::init();
+            FrontMain::init();
 
-            LianaMain::init();
-            BambooMain::init();
-            PoppyMain::init();
-            SnowMain::init();
-            ArrowMain::init();
         }
     }
 

@@ -2,15 +2,13 @@
 
 namespace BeansWoo;
 
+defined('ABSPATH') or die;
+
 use Beans\Beans;
 use Beans\Error\BaseError;
 
 class Helper {
     const CONFIG_NAME = 'beans-config-3';
-
-    const BEANS_ULTIMATE_DISMISSED = 'beans_ultimate_dismissed';
-
-    const BASE_LINK = 'admin.php?page=';
 
     private static $cards = array();
     public static $key = null;
@@ -32,66 +30,42 @@ class Helper {
     public static function getApps() {
         return array(
             'liana' => array(
-                'name' => 'Liana',
                 'title' => 'Make your customers addicted to your shop',
-                'description' =>'Get your customers to place a second order, a third, a forth and more.',
-	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
                 'role' => 'Loyalty Program',
             ),
 
             'bamboo' => array(
-                'name' => 'Bamboo',
                 'title' => 'Turn your customers into advocates of your brand',
-                'description' => 'Let your customers grow your business by referring you to their friends.',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-bamboo',
                 'role' => 'Referral Program',
             ),
 
             'foxx' => array(
-                'name' => 'Foxx',
                 'title' => 'Super-targeted automated emails that drive sales',
-                'description' => 'Reach out to customers with highly relevant offers at the moment they are most likely to shop.',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-foxx',
                 'role' => 'Email Automation',
             ),
 
             'poppy' => array(
-                'name' => 'Poppy',
                 'title' => 'Get customers to take actions when they are most likely to convert',
-                'description' => 'Display the right popup at the right time to the right customer.',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-poppy',
                 'role' => 'Smart Popups'
             ),
 
             'snow' => array(
-            	'name' => 'Snow',
 	            'title' => 'Communicate with customers without disrupting their journey',
-	            'description' => 'Automatically let customers know about new products and promotions in your shop.',
-	            'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-snow',
                 'role' => 'Notification Widget'
             ),
 
             'lotus' => array(
-                'name' => 'Lotus',
                 'title' => 'Save time managing social media for your shop.',
-                'description' => 'Automatically let customers know about new products and promotions in your shop.',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-lotus',
                 'role' => 'Social Media Automation',
             ),
 
             'arrow' => array(
-                'name' => 'Arrow',
                 'title' => 'Know your customer.',
-                'description' => '',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG . '-arrow',
                 'role' => 'Social Connect',
             ),
 
             'ultimate' => array(
-                'name' => 'Ultimate',
                 'title' => 'Connect your shop to get started',
-                'description' => '',
-                'link' => self::BASE_LINK . BEANS_WOO_BASE_MENU_SLUG,
                 'role' => '',
             )
         );
@@ -132,9 +106,7 @@ class Helper {
     }
 
     public static function isSetup() {
-        return Helper::getConfig( 'key' ) &&
-               Helper::getConfig( 'card' ) &&
-               Helper::getConfig( 'secret' );
+        return Helper::getConfig( 'key' ) && Helper::getConfig( 'card' ) && Helper::getConfig( 'secret' );
     }
 
     public static function resetSetup($app_name) {
@@ -154,7 +126,7 @@ class Helper {
 			self::setConfig( 'key', null );
 			self::setConfig( 'card', null );
 			self::setConfig( 'secret', null );
-			self::setConfig('apps', []);
+			self::setConfig('apps', array());
 			self::$cards = array();
 		}
 
@@ -164,7 +136,7 @@ class Helper {
     public static function isSetupApp( $app_name){
         $apps = self::getConfig('apps');
         if(! $apps){
-            $apps = [];
+            $apps = array();
         }
         return in_array($app_name, $apps);
     }
@@ -187,28 +159,6 @@ class Helper {
         }
 
         return true;
-    }
-
-    # todo: remove
-    public static function getCard($app_name) {
-        $beans_card = get_transient('beans_card');
-
-        $beans_card = $beans_card ? $beans_card : [];
-
-        if ( isset($beans_card[$app_name]) ){
-            return $beans_card[$app_name];
-        }
-
-        if ( ! isset(self::$cards[$app_name]) && self::isSetup() && self::isSetupApp($app_name)) {
-            try {
-                $beans_card[$app_name] = self::API()->get( "${app_name}/card/current" );
-                set_transient('beans_card', $beans_card, 2*60);
-            } catch ( \Beans\Error\BaseError $e ) {
-                self::log( 'Unable to get card: ' . $e->getMessage() );
-            }
-        }
-
-        return isset($beans_card[$app_name]) ? $beans_card[$app_name] : null;
     }
 
     public static function getBeansObject($appName, $objectName) {
@@ -244,7 +194,7 @@ class Helper {
         return $woocommerce->cart;
     }
 
-	public static function setAppInstalled($app_name){
+	public static function setInstalledApp($app_name){
 		$config         = get_option( self::CONFIG_NAME );
 		if (isset($config['apps'])){
 			if( !in_array($app_name, $config['apps']) ){
@@ -303,7 +253,7 @@ class Helper {
 
         try{
             self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
-        }catch (\Beans\Error\BaseError $e) {}
+        }catch (BaseError $e) {}
     }
 
     public static  function isCURL(){
