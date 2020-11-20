@@ -3,6 +3,8 @@
 
 namespace BeansWoo\Front;
 
+defined('ABSPATH') or die;
+
 use BeansWoo\Front\Liana\Observer;
 use BeansWoo\Helper;
 

@@ -1,9 +1,8 @@
 <?php
 namespace BeansWoo\Front;
 
+defined('ABSPATH') or die;
 
-if ( ! defined( 'ABSPATH' ) )
-    exit;
 include_once('block.php');
 include_once('liana/init.php');
 include_once('bamboo/init.php');
