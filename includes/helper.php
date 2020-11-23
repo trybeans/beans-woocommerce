@@ -230,10 +230,10 @@ class Helper {
 
     public static function getCurrentPage(){
         $pages = [
-            get_permalink(get_option('woocommerce_myaccount_page_id')) => 'login',
-            get_permalink(get_option('woocommerce_cart_page_id')) => 'cart',
-            get_permalink(get_option('woocommerce_shop_page_id')) => 'product',
-            get_permalink(get_option('woocommerce_checkout_page_id')) => 'cart',
+            wc_get_cart_url() => 'cart',
+            wc_get_checkout_url() => 'checkout',
+            wc_get_page_permalink('shop') => 'product',
+            wc_get_page_permalink( 'myaccount' ) => 'login',
             get_permalink(Helper::getConfig('liana_page')) => 'reward',
             get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
         ];
