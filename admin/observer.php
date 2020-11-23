@@ -85,7 +85,7 @@ class Observer
 
     public static function plugin_settings_links($links) {
         $row_meta = array(
-            'help' => '<a href="http://help.trybeans.com/" title="Help">Help Center</a>',
+            'help' => '<a href="http://help.trybeans.com/" target="_blank" title="Help">Help Center</a>',
             'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
             'settings' => '<a href='.BEANS_WOO_MENU_LINK.'>Settings</a>'
         );
