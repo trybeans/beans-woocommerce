@@ -20,10 +20,10 @@ class UltimateConnector {
 
         self::$app_info = Helper::getApps()[self::$app_name];
 
-        add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
+        add_action('admin_init', array(__CLASS__, 'install_default_assets'));
     }
 
-    protected static function _installAssets($app_name = null) {
+    protected static function _install_assets($app_name = null) {
         if (!in_array($app_name, ['liana', 'bamboo'])){
             return false;
         }
@@ -47,14 +47,14 @@ class UltimateConnector {
     public static function render_settings_page() {
 
         if ( isset( $_GET['card'] ) && isset( $_GET['token'] ) ) {
-            if ( static::_process_setup() ) {
+            if ( self::_process_setup() ) {
                 return wp_redirect( BEANS_WOO_MENU_LINK  );
             }
         }
 
         if ( isset( $_GET['reset_beans'] ) ) {
             if ( Helper::resetSetup(self::$app_name) ) {
-                self::_uninstallAssets();
+                self::_uninstall_assets();
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }
@@ -68,7 +68,6 @@ class UltimateConnector {
 
         return include( dirname( __FILE__,2) . '/views/html-connect.php' );
     }
-
 
     protected static function _process_setup() {
         Helper::log( print_r( $_GET, true ) );
@@ -90,7 +89,7 @@ class UltimateConnector {
         Helper::setConfig( 'key', $integration_key['id'] );
         Helper::setConfig( 'card', $integration_key['card']['id'] );
         Helper::setConfig( 'secret', $integration_key['secret'] );
-        Helper::setInstalledApp(static::$app_name);
+        Helper::setInstalledApp(self::$app_name);
         return true;
     }
 
@@ -141,7 +140,7 @@ class UltimateConnector {
         }
     }
 
-    protected static function _uninstallAssets()
+    protected static function _uninstall_assets()
     {
         delete_option(Helper::CONFIG_NAME);
     }
@@ -153,20 +152,19 @@ class UltimateConnector {
                 $app = strtolower($app);
                 if( $status['is_installed'] ){
                     if(in_array($app, ['bamboo', 'liana'])) {
-                        self::_installAssets($app);
+                        self::_install_assets($app);
                     }
                     Helper::setInstalledApp($app);
                 }
             }
-            Helper::setConfig('card_id', self::$card['id']);
         }
     }
 
-    public static function installDefaultAssets(){
+    public static function install_default_assets(){
         $app_names = ['liana', 'bamboo'];
 
         foreach ($app_names as $app_name){
-            self::_installAssets($app_name);
+            self::_install_assets($app_name);
         }
     }
 }

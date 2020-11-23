@@ -18,6 +18,10 @@ use BeansWoo\Admin\Connector\UltimateConnector;
 class Main {
 
     public static function init() {
+        if (! is_admin()){
+            return;
+        }
+
     	UltimateConnector::init();
         Observer::init();
     }

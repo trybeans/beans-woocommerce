@@ -49,7 +49,7 @@ class Block
         wp_enqueue_script(
             'beans-ultimate-js',
             'https://'. Helper::getDomain("STATIC").
-            '/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card_id'),
+            '/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card'),
             array(),
             time(),
             false
