@@ -44,10 +44,10 @@ class Block {
     }
 
     public static function render_cart(){
-        $cartSubtotal  = Helper::getCart()->cart_contents_total;
+        $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
-        <div id="beans-cart-redeem-button" class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cartSubtotal; ?>"></div>
+        <div id="beans-cart-redeem-button" class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
         <?php
     }
 
