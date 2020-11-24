@@ -2,21 +2,14 @@
 
 namespace BeansWoo\Front\Bamboo;
 
-use BeansWoo\Helper;
-
 class Block {
 
     public static function init(){
-	    add_filter('the_content',                                   array(__CLASS__, 'render_page'),     10, 1);
+	    add_shortcode('beans_referral_page',                 array(__CLASS__, 'render_page'));
     }
-
-    public static function render_page($content, $vars=null){
-        if (strpos($content,'[beans_referral_page]') !== false && Helper::isSetupApp('bamboo')) {
-            ob_start();
-            include(dirname(__FILE__) . '/html-page.php');
-            $page = ob_get_clean();
-            $content = str_replace('[beans_referral_page]', $page, $content);
-        }
-        return $content;
+    public static function render_page(){
+        ob_start();
+        include(dirname(__FILE__) . '/html-page.php');
+        return ob_get_clean();
     }
 }
