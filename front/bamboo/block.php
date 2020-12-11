@@ -46,8 +46,8 @@ class Block {
             window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
             window.bamboo_init_data = {
                 currentPage: "<?php echo Helper::getCurrentPage(); ?>",
-                loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
-                registerPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                loginPage: "<?php echo wc_get_page_permalink( 'myaccount' ); ?>",
+                registerPage: "<?php echo wc_get_page_permalink( 'myaccount' ); ?>",
                 rewardPage: "<?php echo get_permalink( Helper::getConfig('liana_page') ); ?>",
                 aboutPage: "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
             };

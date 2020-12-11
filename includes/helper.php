@@ -2,6 +2,8 @@
 
 namespace BeansWoo;
 
+defined('ABSPATH') or die;
+
 use Beans\Beans;
 use Beans\Error\BaseError;
 
@@ -154,7 +156,7 @@ class Helper {
 			self::setConfig( 'key', null );
 			self::setConfig( 'card', null );
 			self::setConfig( 'secret', null );
-			self::setConfig('apps', []);
+			self::setConfig('apps', array());
 			self::$cards = array();
 		}
 
@@ -164,7 +166,7 @@ class Helper {
     public static function isSetupApp( $app_name){
         $apps = self::getConfig('apps');
         if(! $apps){
-            $apps = [];
+            $apps = array();
         }
         return in_array($app_name, $apps);
     }
@@ -280,10 +282,10 @@ class Helper {
 
     public static function getCurrentPage(){
         $pages = [
-            get_permalink(get_option('woocommerce_myaccount_page_id')) => 'login',
-            get_permalink(get_option('woocommerce_cart_page_id')) => 'cart',
-            get_permalink(get_option('woocommerce_shop_page_id')) => 'product',
-            get_permalink(get_option('woocommerce_checkout_page_id')) => 'cart',
+            wc_get_cart_url() => 'cart',
+            wc_get_checkout_url() => 'checkout',
+            wc_get_page_permalink('shop') => 'product',
+            wc_get_page_permalink( 'myaccount' ) => 'login',
             get_permalink(Helper::getConfig('liana_page')) => 'reward',
             get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
         ];
@@ -303,7 +305,7 @@ class Helper {
 
         try{
             self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
-        }catch (\Beans\Error\BaseError $e) {}
+        }catch (BaseError $e) {}
     }
 
     public static  function isCURL(){
