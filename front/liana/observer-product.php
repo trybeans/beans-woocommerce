@@ -31,6 +31,7 @@ class ProductObserver
         }, self::$redemption['reward_exclusive_product_cms_ids']);
 
         add_action('wp_loaded', array(__CLASS__, 'applyPayWithPointRedemption'), 99, 1);
+        add_action('woocommerce_remove_cart_item', array(__CLASS__, 'removeProductFromCart'), 99, 2);
 
         add_filter('woocommerce_is_purchasable', array(__CLASS__, 'isPurchasableProduct'), 99, 2);
         add_filter('woocommerce_is_sold_individually', array(__CLASS__, 'isSoldIndividuallyProduct'), 99, 2);
@@ -194,4 +195,13 @@ class ProductObserver
         return $price_html;
     }
 
+    public static function removeProductFromCart($cart_item_key, $cart){
+        $cart_item = $cart->get_cart()[$cart_item_key];
+
+        if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids) && $cart->has_discount(BEANS_LIANA_COUPON_UID)) {
+            $cart->remove_coupon(BEANS_LIANA_COUPON_UID);
+            Observer::cancelRedemption();
+            Observer::updateSession();
+        }
+    }
 }
