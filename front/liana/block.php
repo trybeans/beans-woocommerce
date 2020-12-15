@@ -90,9 +90,9 @@ class Block {
             window.liana_init_data = {
                 currentPage: '<?php echo Helper::getCurrentPage(); ?>',
                 accountToken: "<?php  echo isset($token['key'])? $token['key'] : ''; ?>",
-                loginPage: "<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>",
+                loginPage: "<?php echo wc_get_page_permalink( 'myaccount' ); ?>",
                 aboutPage:  "<?php echo get_permalink( Helper::getConfig(static::$app_name . '_page') ); ?>",
-                cartPage: "<?php echo get_permalink(get_option('woocommerce_checkout_page_id')); ?>",
+                cartPage: "<?php echo wc_get_cart_url(); ?>",
                 debit: {
                     <?php
                         Helper::getAccountData($debit, 'beans', 0);
