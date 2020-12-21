@@ -20,7 +20,7 @@ if ( isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout']) )
 }
 
 $app_name = static::$app_name;
-$base_asset_path = 'assets/img/admin/connector';
+$base_asset_path = 'assets/img/connector';
 
 ?>
 
