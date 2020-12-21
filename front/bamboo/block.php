@@ -2,6 +2,8 @@
 
 namespace BeansWoo\Front\Bamboo;
 
+defined('ABSPATH') or die;
+
 use BeansWoo\Helper;
 
 class Block {

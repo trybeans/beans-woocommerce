@@ -3,6 +3,8 @@
 
 namespace BeansWoo\API;
 
+defined('ABSPATH') or die;
+
 use BeansWoo\Helper;
 
 class BeansRestWoocommerce
