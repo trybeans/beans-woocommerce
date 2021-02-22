@@ -24,7 +24,8 @@ class Helper {
             'API'     => 'api-3.trybeans.com',
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
-            'STATIC' => 'trybeans.s3.amazonaws.com'
+            'STATIC' => 'trybeans.s3.amazonaws.com',
+            'HOOK' => 'hook.radix.trybeans.com',
         );
         $val     = getenv( $key );
 
@@ -99,13 +100,13 @@ class Helper {
         );
     }
 
-    public static function API() {
+    public static function API($domain='API') {
         if ( ! self::$key ) {
             self::$key = self::getConfig( 'secret' );
         }
         $beans = new Beans(self::$key);
 
-        $beans->endpoint = 'https://' . self::getDomain( 'API' ) . '/v3/';
+        $beans->endpoint = 'https://' . self::getDomain( $domain ) . '/v3/';
 
         return $beans;
     }
@@ -295,7 +296,7 @@ class Helper {
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
-    public static function postWebhookStatus($status){
+    public static function pluginStatus($status){
         $args = [
           'status' => $status
         ];
@@ -304,7 +305,7 @@ class Helper {
         );
 
         try{
-            self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
+            self::API('HOOK')->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
         }catch (BaseError $e) {}
     }
 

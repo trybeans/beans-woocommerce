@@ -29,4 +29,4 @@ try{
     delete_user_meta(get_current_user_id(), 'beans_ultimate_notice_dismissed');
 } catch (\Exception $e){}
 
-Helper::postWebhookStatus('uninstalled');
+Helper::pluginStatus('uninstalled');
