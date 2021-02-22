@@ -2,6 +2,8 @@
 
 namespace BeansWoo\Front\Bamboo;
 
+defined('ABSPATH') or die;
+
 class Block {
 
     public static function init(){
