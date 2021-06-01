@@ -148,6 +148,9 @@ class UltimateConnector {
     }
 
     public static function update_installed_app(){
+        if (empty(self::$card)){
+            return ;
+        }
         foreach (self::$card['apps'] as $app => $status){
             $app = strtolower($app);
             if( $status['is_installed'] ){
