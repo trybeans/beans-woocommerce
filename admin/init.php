@@ -19,7 +19,7 @@ class Main {
 
     public static function init() {
         UltimateConnector::init();
-        UltimateConnector::update_installed_app();
+        UltimateConnector::update_installed_apps();
 
         if (! is_admin()){
             return;
