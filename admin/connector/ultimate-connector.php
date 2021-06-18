@@ -62,7 +62,7 @@ class UltimateConnector {
         self::_render_notices();
 
         if ( Helper::isSetup() && Helper::isSetupApp(static::$app_name) ) {
-            self::update_installed_app();
+            self::update_installed_apps();
             return include( dirname( __FILE__ , 2) . '/views/html-info.php' );
         }
 
@@ -147,10 +147,9 @@ class UltimateConnector {
         delete_option(Helper::CONFIG_NAME);
     }
 
-    public static function update_installed_app(){
-        if (empty(self::$card)){
-            return ;
-        }
+    public static function update_installed_apps(){
+        if (! is_array(self::$card)) return;
+
         foreach (self::$card['apps'] as $app => $status){
             $app = strtolower($app);
             if( $status['is_installed'] ){

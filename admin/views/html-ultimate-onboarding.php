@@ -4,7 +4,7 @@ defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
 
-$base_banner_url = 'https://'.Helper::getDomain('STATIC'). '/static-v3/connect/img/app/';
+$base_banner_url = 'https://'.Helper::getDomain('CDN'). '/static-v3/connect/img/app/';
 $base_asset_path = '/assets/img/admin/onboarding';
 ?>
 
