@@ -122,12 +122,18 @@ class UltimateConnector {
         }
 
         if (! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name)) {
-            echo '<div class="notice notice-error " style="margin-left: auto"><div style="margin: 10px auto;"> Beans: '
-                . __(  "Beans Ultimate is not properly setup.", 'beans-woo' ) .
-                ' <a href="'. BEANS_WOO_MENU_LINK . '">' . __( 'Set up', 'beans-woo' ) . '</a>
-                 <a style="float:right; text-decoration: none;" href="?beans_'. static::$app_name .'_notice_dismissed">
-                    x
-                 </a>' . '</div></div>';
+            ?>
+                <div class="notice notice-error" style="margin-left: auto">
+                    <div style="margin: 10px auto;">
+                        Beans: <?php echo __("Beans Ultimate is not properly setup", 'beans-woo'); ?>
+                        <a href="<?php echo BEANS_WOO_MENU_LINK; ?>"><?php echo __('Set up', 'beans-woo') ?></a>
+                        <a href="?beans_<?php echo static::$app_name?>._notice_dismissed"
+                           style="float:right; text-decoration: none">
+                            x
+                        </a>
+                    </div>
+                </div>
+            <?php
         }
     }
 
