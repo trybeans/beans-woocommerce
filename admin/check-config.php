@@ -5,7 +5,7 @@ namespace BeansWoo\Admin;
 defined('ABSPATH') or die;
 
 
-class ConnectConfig
+class CheckConfig
 {
     const WOOCOMMERCE_API_VERSION = 'V2';
 
@@ -49,9 +49,9 @@ class ConnectConfig
 
         self::$wp_permalink_is_supported = !is_null(get_option('permalink_structure'));
 
-        self::$beans_is_supported = self::$woo_is_supported && self::$wp_is_supported && self::$php_is_supported &&
-            self::$curl_is_supported && self::$json_is_supported && self::$permalink_is_supported &&
-            self::$wp_permalink_is_supported;
+        self::$beans_is_supported = self::$woo_is_supported && self::$wp_is_supported
+            && self::$php_is_supported && self::$curl_is_supported && self::$json_is_supported
+            && self::$permalink_is_supported && self::$wp_permalink_is_supported;
 
         self::$woo_api_uri_is_up = self::$beans_is_supported ? self::check_woo_api_uri(
             self::$woo_api_uri_http_status, self::$woo_api_uri_content_type

@@ -20,8 +20,9 @@ if ( ! defined( 'ABSPATH' ) )
     exit;
 
 // Check if WooCommerce is active
-if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
-    return;
+if ( ! in_array( 'woocommerce/woocommerce.php',
+    apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )
+) return;
 
 define('BEANS_VERSION',                 '3.2.4');
 define('BEANS_PLUGIN_FILENAME',         plugin_basename(__FILE__));
@@ -62,7 +63,6 @@ if ( ! class_exists( 'WC_Beans' ) ) :
 
             AdminMain::init();
             FrontMain::init();
-
             APIMain::init();
 
         }

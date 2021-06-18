@@ -18,7 +18,7 @@ class Observer
         add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'notice_dismissed'));
 
         add_action('admin_menu', array(__CLASS__, 'admin_menu'));
-        add_action('admin_init', array(__CLASS__, 'admin_is_curl_notice'), 0, 100);
+        add_action('admin_init', array(__CLASS__, 'admin_is_curl_notice'), 0, 99);
 
     }
 

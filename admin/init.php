@@ -10,9 +10,9 @@ define( 'BEANS_WOO_API_AUTH_ENDPOINT', get_site_url().'/wc-auth/v1/authorize/' )
 define( 'BEANS_WOO_MENU_LINK',  admin_url('?page=' .BEANS_WOO_BASE_MENU_SLUG ) );
 
 include_once( "observer.php" );
-include_once("views/connect-config.php");
 
 include_once ("connector/ultimate-connector.php");
+include_once("check-config.php");
 
 use BeansWoo\Admin\Connector\UltimateConnector;
 
