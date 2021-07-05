@@ -47,7 +47,12 @@ class Block {
         $cart_subtotal  = Helper::getCart()->cart_contents_total;
 
         ?>
-        <div id="beans-cart-redeem-button" class="beans-cart" beans-btn-class="checkout-button button" beans-cart_total="<?php echo $cart_subtotal; ?>"></div>
+        <div
+                id="beans-cart-redeem-button"
+                class="beans-cart"
+                beans-btn-class="checkout-button button"
+                beans-cart_total="<?php echo $cart_subtotal; ?>">
+        </div>
         <?php
     }
 

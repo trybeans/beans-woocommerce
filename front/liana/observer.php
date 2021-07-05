@@ -25,7 +25,6 @@ class Observer {
         add_filter( 'woocommerce_get_shop_coupon_data', array( __CLASS__, 'get_coupon' ), 10, 2 );
 
         add_action( 'woocommerce_checkout_order_processed', array( __CLASS__, 'order_placed' ), 10, 1 );
-        add_action( 'woocommerce_order_status_changed', array( __CLASS__, 'order_paid' ), 10, 3 );
     }
 
     public static function clear_session() {
@@ -96,7 +95,6 @@ class Observer {
 
     public static function handle_redemption_form() {
 
-
         if ( ! isset( $_POST['beans_action'] ) ) {
             return;
         }
@@ -137,34 +135,31 @@ class Observer {
             return $coupon;
         }
 
-//        $quantity = $_SESSION['liana_debit']['beans'];
-        $amount = $_SESSION['liana_debit']['value'];
-
-        $coupon_data = array();
-
-        $coupon_data['id']                         = true;
-        $coupon_data['individual_use']             = false;
-        $coupon_data['product_ids']                = array();
-        $coupon_data['exclude_product_ids']        = array();
-        $coupon_data['usage_limit']                = null;
-        $coupon_data['usage_limit_per_user']       = null;
-        $coupon_data['limit_usage_to_x_items']     = null;
-        $coupon_data['usage_count']                = null;
-        $coupon_data['apply_before_tax']           = null;
-        $coupon_data['discount_cart_tax']          = null;
-        $coupon_data['free_shipping']              = false;
-        $coupon_data['product_categories']         = array();
-        $coupon_data['exclude_product_categories'] = array();
-        $coupon_data['exclude_sale_items']         = false;
-        $coupon_data['minimum_amount']             = null;
-        $coupon_data['maximum_amount']             = null;
-        $coupon_data['customer_email']             = null;
-
-        $coupon_data['type']          = 'fixed_cart';
-        $coupon_data['discount_type'] = 'fixed_cart';
-        $coupon_data['amount']        = $amount;
-        $coupon_data['coupon_amount'] = $amount;
-        $coupon_data['expiry_date']   = strtotime( '+1 day', time() );
+        $coupon_data = array(
+            'id'                          => 0,
+            'amount'                      => $_SESSION['liana_debit']['value'],
+            'date_created'                => strtotime( '-1 hour', time() ),
+            'date_modified'               => time(),
+            'date_expires'                =>  strtotime( '+1 day', time() ),
+            'discount_type'               => 'fixed_cart',
+            'description'                 => '',
+            'usage_count'                 => 0,
+            'individual_use'              => false,
+            'product_ids'                 => array(),
+            'excluded_product_ids'        => array(),
+            'usage_limit'                 => 1,
+            'usage_limit_per_user'        => 1,
+            'limit_usage_to_x_items'      => null,
+            'free_shipping'               => false,
+            'product_categories'          => array(),
+            'excluded_product_categories' => array(),
+            'exclude_sale_items'          => false,
+            'minimum_amount'              => '',
+            'maximum_amount'              => '',
+            'email_restrictions'          => array(),
+            'used_by'                     => array(),
+            'virtual'                     => true,
+        );
 
         $_SESSION['liana_coupon'] = $coupon_data;
 
@@ -238,81 +233,39 @@ class Observer {
             $account = $_SESSION['liana_account'];
         }
 
-        $coupon_codes = $order->get_coupon_codes();
-
-        foreach ( $coupon_codes as $code ) {
-
-            if ( $code === BEANS_LIANA_COUPON_UID ) {
-
-                if ( ! $account ) {
-                    throw new \Exception( 'Trying to redeem beans without beans account.' );
-                }
-
-                $coupon = new \WC_Coupon( $code );
-                $amount     = (double) $coupon->get_amount();
-                $amount     = sprintf( '%0.2f', $amount );
-                $amount_str = sprintf( get_woocommerce_price_format(), get_woocommerce_currency_symbol(), $amount );
-
-                $data = array(
-                    'quantity'    => $amount,
-                    'rule'        => strtoupper( get_woocommerce_currency() ),
-                    'account'     => $account['id'],
-                    'description' => "Debited for a $amount_str discount",
-                    'uid'         => 'wc_' . $order->get_id() . '_' . $order->get_order_key(),
-                    'commit'      => true
-                );
-
-                try {
-                    $debit = Helper::API()->post( '/liana/debit', $data );
-                } catch ( \Beans\Error\BaseError $e ) {
-                    if ( $e->getCode() != 409 ) {
-                        Helper::log( 'Debiting failed: ' . $e->getMessage() );
-                        throw new \Exception( 'Beans debit failed: ' . $e->getMessage() );
-                    }
-                }
-
-            }
-        }
-
-        self::cancel_redemption();
-        self::update_session();
-    }
-
-    public static function order_paid($order_id, $old_status, $new_status ) {
-        $order   = new \WC_Order( $order_id );
-        $account = null;
-        $email = $order->get_billing_email();
-        $first_name = $order->get_billing_first_name();
-        $last_name = $order->get_billing_last_name();
-        try {
-            $account = Helper::API()->get( '/liana/account/' . $email );
-        } catch ( \Beans\Error\ValidationError $e ) {
-            if ( $e->getCode() == 404 && $order->customer_user ) {
-                $account = self::create_beans_account( $email, $first_name, $last_name );
-            } else {
-                Helper::log( 'Looking for Beans account for crediting failed with message: ' . $e->getMessage() );
-            }
-        } catch ( \Beans\Error\BaseError $e ) {
-            Helper::log( 'Looking for Beans account for crediting failed with message: ' . $e->getMessage() );
+        if (! in_array(BEANS_LIANA_COUPON_UID, $order->get_coupon_codes())){
+            return ;
         }
 
         if ( ! $account ) {
-            return;
+            wc_add_notice('Trying to redeem beans without beans account.', 'error');
+            return ;
         }
 
-        if ( $new_status == 'cancelled' ) {
-            $order_key = 'wc_' . $order->get_id() . '_' . $order->order_key;
-            try {
-                Helper::API()->post( "/liana/debit/$order_key/cancel" );
-            } catch ( \Beans\Error\BaseError $e ) {
-                Helper::log( 'Cancelling debit failed with message: ' . $e->getMessage() );
-            }
-            try {
-                Helper::API()->post( "/liana/credit/$order_key/cancel" );
-            } catch ( \Beans\Error\BaseError $e ) {
-                Helper::log( 'Cancelling credit failed with message: ' . $e->getMessage() );
+        $coupon = new \WC_Coupon( BEANS_LIANA_COUPON_UID );
+        $amount     = (double) $coupon->get_amount();
+        $amount     = sprintf( '%0.2f', $amount );
+        $amount_str =  sprintf( get_woocommerce_price_format(), get_woocommerce_currency_symbol(), $amount );
+
+        $data = array(
+            'quantity'    => $amount,
+            'rule'        => strtoupper( get_woocommerce_currency() ),
+            'account'     => $account['id'],
+            'description' => "Debited for a $amount_str discount",
+            'uid'         => 'wc_' . $order->get_id() . '_' . $order->get_order_key(),
+            'commit'      => true
+        );
+
+        try {
+            $debit = Helper::API()->post( '/liana/debit', $data );
+        } catch ( \Beans\Error\BaseError $e ) {
+            if ( $e->getCode() != 409 ) {
+                Helper::log( 'Debiting failed: ' . $e->getMessage() );
+                wc_add_notice('Beans debit failed: ' . $e->getMessage(), 'error');
+                return ;
             }
         }
+        self::cancel_redemption();
         self::update_session();
     }
 
