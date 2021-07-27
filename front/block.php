@@ -54,7 +54,7 @@ class Block
         wp_enqueue_script(
             'beans-ultimate-js',
             'https://'. Helper::getDomain("CDN").
-            '/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card'),
+            '/lib/ultimate/3.3/js/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card'),
             array(),
             time(),
             false
