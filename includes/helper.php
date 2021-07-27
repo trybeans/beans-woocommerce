@@ -25,7 +25,7 @@ class Helper {
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
             'STATIC' => 'trybeans.s3.amazonaws.com',
-            'HOOK' => 'hook.radix.trybeans.com',
+            'HOOK' => 'hooks.radix.trybeans.com',
         );
         $val     = getenv( $key );
 
