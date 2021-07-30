@@ -224,7 +224,7 @@ class Helper {
     public static function getCurrentPage(){
         $pages = [
             wc_get_cart_url() => 'cart',
-            wc_get_checkout_url() => 'cart',
+            wc_get_checkout_url() => 'cart',  # DON'T TOUCH: This helps to show the redeem button on the checkout page
             wc_get_page_permalink('shop') => 'product',
             wc_get_page_permalink( 'myaccount' ) => 'login',
             get_permalink(Helper::getConfig('liana_page')) => 'reward',
@@ -265,7 +265,9 @@ class Helper {
     }
 
     public static function removeTransients() {
-        delete_transient('beans_ultimate_card');
         delete_transient('beans_liana_display');
+        delete_transient('beans_liana_display');
+        # This will help to remove old transients.
+        delete_transient('beans_card');  # todo; remove
     }
 }

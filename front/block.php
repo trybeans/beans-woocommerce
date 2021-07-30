@@ -45,6 +45,7 @@ class Block
 
             window.beans_cjs_id = "<?php echo is_user_logged_in() ? wp_get_current_user()->ID : ''; ?>";
             window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
+            window.beans_plugin_version = "<?php echo BEANS_VERSION; ?>";
         </script>
         <?php
     }
