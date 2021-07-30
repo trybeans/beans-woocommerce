@@ -7,8 +7,6 @@ defined('ABSPATH') or die;
 
 class CheckConfig
 {
-    const WOOCOMMERCE_API_VERSION = 'V2';
-
     static public $wp_version_supported = '5.0';
     static public $woo_version_supported = '3.9';
     static public $php_version_supported = '5.6.0';
