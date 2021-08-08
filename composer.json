@@ -1,0 +1,15 @@
+{
+    "name": "trybeans/beans-woocommerce",
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org",
+            "only": [
+                "wpackagist-plugin/*",
+                "wpackagist-theme/*"
+            ]
+        }
+    ],
+    "require-dev": {
+    }
+}
