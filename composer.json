@@ -18,9 +18,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.1.0",
-            "wordpress": "5.5.0",
-            "woocommerce": "4.1.0"
+            "php": "7.1.0"
         }
     },
     "repositories":[
@@ -34,14 +32,28 @@
         }
     ],
     "require-dev": {
+        "composer/installers": "^1.11",
+        "johnpbloch/wordpress": "~5.5.0",
+        "wpackagist-plugin/woocommerce": "~4.1.0"
     },
     "scripts": {
-        "lint": [],
-        "test": []
+        "lint": [
+            ""
+        ],
+        "test": [
+            ""
+        ]
     },
     "scripts-descriptions": {
         "lint": "Run all linters!",
         "test": "Run all tests!"
-    }
-    
+    },
+    "extra": {
+        "wordpress-install-dir": "wp",
+        "installer-paths": {
+            "wp/wp-content/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ]
+        }
+    }   
 }
