@@ -9,7 +9,6 @@ defined('ABSPATH') or die;
 class UltimateConnector {
 
 	static public $app_name = 'ultimate';
-	static public $app_info;
 	static public $card ;
 
     static public $errors = array();
@@ -17,8 +16,6 @@ class UltimateConnector {
 
     public static function init(){
         self::$card = Helper::getBeansObject(self::$app_name, 'card');
-
-        self::$app_info = Helper::getApps()[self::$app_name];
 
         add_action('admin_init', array(__CLASS__, 'install_default_assets'));
     }
@@ -53,8 +50,7 @@ class UltimateConnector {
         }
 
         if ( isset( $_GET['reset_beans'] ) ) {
-            if ( Helper::resetSetup(self::$app_name) ) {
-                self::_uninstall_assets();
+            if ( Helper::resetSetup() ) {
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }
@@ -146,11 +142,6 @@ class UltimateConnector {
             $location = $_SERVER['HTTP_REFERER'];
             wp_safe_redirect($location);
         }
-    }
-
-    protected static function _uninstall_assets()
-    {
-        delete_option(Helper::CONFIG_NAME);
     }
 
     public static function update_installed_apps(){

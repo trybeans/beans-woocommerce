@@ -45,6 +45,7 @@ class Block
 
             window.beans_cjs_id = "<?php echo is_user_logged_in() ? wp_get_current_user()->ID : ''; ?>";
             window.beans_cjs_email = "<?php echo is_user_logged_in() ? wp_get_current_user()->user_email : ''; ?>";
+            window.beans_plugin_version = "<?php echo BEANS_VERSION; ?>";
         </script>
         <?php
     }
@@ -54,7 +55,7 @@ class Block
         wp_enqueue_script(
             'beans-ultimate-js',
             'https://'. Helper::getDomain("CDN").
-            '/lib/ultimate/3.2/js/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card'),
+            '/lib/ultimate/3.3/woocommerce/ultimate.beans.js?radix=woocommerce&id='.Helper::getConfig('card'),
             array(),
             time(),
             false
@@ -112,11 +113,11 @@ class Block
             }
 
             <?php if (Helper::getCart()->cart_contents_count != 0): ?>
-            window.Beans3.Liana.storage.cart = {
-                item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
-                // to avoid the decimal numbers for the points.
-                total_price: "<?php echo Helper::getCart()->subtotal * 100; ?>", // DON'T TOUCH
-            };
+                window.Beans3.Liana.storage.cart = {
+                    item_count: "<?php echo Helper::getCart()->cart_contents_count; ?>",
+                    // to avoid the decimal numbers for the points.
+                    total_price: "<?php echo Helper::getCart()->subtotal * 100; ?>", // DON'T TOUCH
+                };
             <?php endif; ?>
 
             window.Beans3.Liana.Radix.init();

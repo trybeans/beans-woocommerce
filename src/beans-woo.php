@@ -91,6 +91,7 @@ register_activation_hook(__FILE__, function(){
 
 
 function wc_beans_plugin_deactivate(){
+    Helper::removeTransients();
     Helper::postWebhookStatus('deactivated');
 }
 

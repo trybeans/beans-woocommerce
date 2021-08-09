@@ -82,7 +82,6 @@ class ProductObserver
         }
 
         foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-            $product_in_cart_ids[] = $cart_item['product_id'];
             if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids)) {
                 $product_with_points[] = $cart_item['product_id'];
             }

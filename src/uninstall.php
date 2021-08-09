@@ -8,10 +8,7 @@ defined('WP_UNINSTALL_PLUGIN') or die;
 include_once ('includes/beans.php');
 include_once ( 'includes/helper.php' );
 
-Helper::resetSetup('liana');
-Helper::resetSetup('bamboo');
-
-delete_option(Helper::CONFIG_NAME);
+Helper::resetSetup();
 delete_option('beans-liana-display-redemption-checkout');
 
 try{

@@ -17,7 +17,7 @@ class Helper {
         $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
             'NAME' => 'trybeans.com',
-            'API'     => 'api-3.trybeans.com',
+            'API'     => 'api.trybeans.com',
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
             'CDN' => 'cdn.trybeans.com',
@@ -109,27 +109,16 @@ class Helper {
         return Helper::getConfig( 'key' ) && Helper::getConfig( 'card' ) && Helper::getConfig( 'secret' );
     }
 
-    public static function resetSetup($app_name) {
-    	$apps_installed = self::getConfig('apps');
-
-    	if( in_array($app_name, $apps_installed) ){
-    		unset($apps_installed[ $app_name ]);
-            $app_page = self::getConfig($app_name . '_page');
+    public static function resetSetup() {
+        foreach (['liana', 'bamboo'] as $app_name){
+            $app_page = self::getConfig( $app_name."_page");
             if (!is_null($app_page)){
-				wp_delete_post($app_page, true);
-				self::setConfig($app_name . '_page', null);
-			}
-            self::setConfig('apps', $apps_installed);
-    	}
-
-    	if (empty($apps_installed)){
-			self::setConfig( 'key', null );
-			self::setConfig( 'card', null );
-			self::setConfig( 'secret', null );
-			self::setConfig('apps', array());
-			self::$cards = array();
-		}
-
+                wp_delete_post($app_page, true);
+            }
+        }
+        self::removeTransients();
+        self::$cards = array();
+        delete_option(Helper::CONFIG_NAME);
         return true;
     }
 
@@ -175,7 +164,7 @@ class Helper {
         if ( self::isSetup() && self::isSetupApp($appName)) {
             try {
                 $beans_object[$object] = self::API()->get( "${appName}/${objectName}/current" );
-                set_transient("beans_$object", $beans_object, 10);
+                set_transient("beans_$object", $beans_object, 2*60);
             } catch ( BaseError $e ) {
                 self::log( 'Unable to get card: ' . $e->getMessage() );
             }
@@ -235,7 +224,7 @@ class Helper {
     public static function getCurrentPage(){
         $pages = [
             wc_get_cart_url() => 'cart',
-            wc_get_checkout_url() => 'cart',
+            wc_get_checkout_url() => 'cart',  # DON'T TOUCH: This helps to show the redeem button on the checkout page
             wc_get_page_permalink('shop') => 'product',
             wc_get_page_permalink( 'myaccount' ) => 'login',
             get_permalink(Helper::getConfig('liana_page')) => 'reward',
@@ -273,5 +262,12 @@ class Helper {
             }
             , $string
         );
+    }
+
+    public static function removeTransients() {
+        delete_transient('beans_liana_display');
+        delete_transient('beans_liana_display');
+        # This will help to remove old transients.
+        delete_transient('beans_card');  # todo; remove
     }
 }

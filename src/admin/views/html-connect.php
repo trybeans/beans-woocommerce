@@ -133,7 +133,7 @@ $connect = "https://". Helper::getDomain( 'CONNECT' ). "/radix/woocommerce/conne
             <?php if (!is_null(CheckConfig::$woo_api_uri_is_up)): ?>
                 <li>
                     <p>
-                        <strong>WooCommerce API <?php echo CheckConfig::WOOCOMMERCE_API_VERSION; ?> URI
+                        <strong>WooCommerce API V3 URI
                             Test</strong>: <?php get_supported_tag(CheckConfig::$woo_api_uri_is_up); ?>
                     </p>
                     <?php if (!CheckConfig::$woo_api_uri_is_up): ?>

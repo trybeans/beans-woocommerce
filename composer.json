@@ -1,0 +1,59 @@
+{
+    "name": "trybeans/beans-woocommerce",
+    "description": "Beans plugin for WooCommerce",
+    "type": "wordpress-plugin",
+    "homepage": "https://wordpress.org/plugins/beans-woocommerce-loyalty-rewards/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Beans Team",
+            "email": "dev@trybeans.com",
+            "homepage": "https://www.trybeans.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "hello@trybeans.com",
+        "docs": "https://help.trybeans.com/"
+    },
+    "config": {
+        "platform": {
+            "php": "7.1.0"
+        }
+    },
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org",
+            "only": [
+                "wpackagist-plugin/*",
+                "wpackagist-theme/*"
+            ]
+        }
+    ],
+    "require-dev": {
+        "composer/installers": "^1.11",
+        "johnpbloch/wordpress": "~5.5.0",
+        "wpackagist-plugin/woocommerce": "~4.1.0"
+    },
+    "scripts": {
+        "lint": [
+            ""
+        ],
+        "test": [
+            ""
+        ]
+    },
+    "scripts-descriptions": {
+        "lint": "Run all linters!",
+        "test": "Run all tests!"
+    },
+    "extra": {
+        "wordpress-install-dir": "wp",
+        "installer-paths": {
+            "wp/wp-content/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ]
+        }
+    }   
+}
