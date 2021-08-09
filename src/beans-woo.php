@@ -82,7 +82,7 @@ $GLOBALS['wc_beans'] = wc_beans_instance();
 
 
 function wc_beans_plugin_activate(){
-    Helper::postWebhookStatus('activated');
+    Helper::pluginStatus('activated');
 }
 
 register_activation_hook(__FILE__, function(){
@@ -92,7 +92,7 @@ register_activation_hook(__FILE__, function(){
 
 function wc_beans_plugin_deactivate(){
     Helper::removeTransients();
-    Helper::postWebhookStatus('deactivated');
+    Helper::pluginStatus('deactivated');
 }
 
 register_deactivation_hook(__FILE__, function (){
