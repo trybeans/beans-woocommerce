@@ -10,7 +10,6 @@ use Beans\Error\BaseError;
 class Helper {
     const CONFIG_NAME = 'beans-config-3';
 
-    private static $cards = array();
     public static $key = null;
 
     public static function getDomain( $sub ) {
@@ -117,7 +116,6 @@ class Helper {
             }
         }
         self::removeTransients();
-        self::$cards = array();
         delete_option(Helper::CONFIG_NAME);
         return true;
     }

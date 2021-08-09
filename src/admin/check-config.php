@@ -7,8 +7,8 @@ defined('ABSPATH') or die;
 
 class CheckConfig
 {
-    static public $wp_version_supported = '5.0';
-    static public $woo_version_supported = '3.9';
+    static public $wp_version_supported = '5.2';
+    static public $woo_version_supported = '4.0';
     static public $php_version_supported = '5.6.0';
 
     static public $woo_version;
