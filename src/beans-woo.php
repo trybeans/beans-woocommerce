@@ -50,8 +50,7 @@ use BeansWoo\Front\Main as FrontMain;
 if (! class_exists('WC_Beans')) :
     class WC_Beans
     {
-        protected static $_instance = null;
-
+        protected static $instance = null;
 
         function __construct()
         {
@@ -60,10 +59,10 @@ if (! class_exists('WC_Beans')) :
 
         public static function instance()
         {
-            if (is_null(self::$_instance)) {
-                self::$_instance = new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
             }
-            return self::$_instance;
+            return self::$instance;
         }
 
         public static function init()

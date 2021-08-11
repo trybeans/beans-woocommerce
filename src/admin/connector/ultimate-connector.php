@@ -22,7 +22,7 @@ class UltimateConnector
         add_action('admin_init', array(__CLASS__, 'install_default_assets'));
     }
 
-    protected static function _install_assets($app_name = null)
+    protected static function install_assets($app_name = null)
     {
         if (!in_array($app_name, ['liana', 'bamboo'])) {
             return false;
@@ -49,7 +49,7 @@ class UltimateConnector
     {
 
         if (isset($_GET['card']) && isset($_GET['token'])) {
-            if (self::_process_setup()) {
+            if (self::process_setup()) {
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }
@@ -60,7 +60,7 @@ class UltimateConnector
             }
         }
 
-        self::_render_notices();
+        self::render_notices();
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
             self::update_installed_apps();
@@ -70,7 +70,7 @@ class UltimateConnector
         return include(dirname(__FILE__, 2) . '/views/html-connect.php');
     }
 
-    protected static function _process_setup()
+    protected static function process_setup()
     {
         Helper::log(print_r($_GET, true));
 
@@ -95,7 +95,7 @@ class UltimateConnector
         return true;
     }
 
-    public static function _render_notices()
+    public static function render_notices()
     {
         if (self::$errors || self::$messages) {
             ?>
@@ -165,7 +165,7 @@ class UltimateConnector
         foreach (self::$card['apps'] as $app => $status) {
             $app = strtolower($app);
             if ($status['is_installed']) {
-                self::_install_assets($app);
+                self::install_assets($app);
                 Helper::setInstalledApp($app);
             }
         }
@@ -173,7 +173,7 @@ class UltimateConnector
 
     public static function install_default_assets()
     {
-        self::_install_assets('liana');
-        self::_install_assets('bamboo');
+        self::install_assets('liana');
+        self::install_assets('bamboo');
     }
 }
