@@ -95,8 +95,13 @@ class ProductObserver
         return $is_purchasable;
     }
 
-    public static function add_to_cart_validation($result, $product_id, $quantity, $variation_id = 0, $variations = null)
-    {
+    public static function add_to_cart_validation(
+        $result,
+        $product_id,
+        $quantity,
+        $variation_id = 0,
+        $variations = null
+    ) {
         if (!is_user_logged_in() && in_array($product_id, self::$pay_with_point_product_ids)) {
             wc_add_notice(self::$i18n_strings['reward_product']['join_and_get'], 'error');
             $result = false;
@@ -205,7 +210,8 @@ class ProductObserver
         return $price_html;
     }
 
-    public static function remove_product_from_cart($cart_item_key, $cart){
+    public static function remove_product_from_cart($cart_item_key, $cart)
+    {
         $cart_item = $cart->get_cart()[$cart_item_key];
 
         if (

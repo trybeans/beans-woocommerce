@@ -159,7 +159,9 @@ class Block
     {
         ?>
         <p class="form-row form-row-first">
-            <label for="reg_first_name"><?php _e('First name', 'woocommerce'); ?><span class="required">*</span></label>
+            <label for="reg_first_name"><?php _e('First name', 'woocommerce'); ?>
+                <span class="required">*</span>
+            </label>
             <input type="text" class="input-text" name="first_name" id="reg_first_name"
                    value="<?php if (! empty($_POST['first_name'])) {
                         esc_attr_e($_POST['first_name']);
@@ -167,7 +169,9 @@ class Block
         </p>
 
         <p class="form-row form-row-last">
-            <label for="reg_last_name"><?php _e('Last name', 'woocommerce'); ?><span class="required">*</span></label>
+            <label for="reg_last_name"><?php _e('Last name', 'woocommerce'); ?>
+                <span class="required">*</span>
+            </label>
             <input type="text" class="input-text" name="last_name" id="reg_last_name"
                    value="<?php if (! empty($_POST['last_name'])) {
                         esc_attr_e($_POST['last_name']);

@@ -91,7 +91,10 @@ class Observer
             $_SESSION['liana_account'] = $account;
             if ($account) {
                 try {
-                    $_SESSION['liana_token'] = Helper::API()->post('/liana/auth/consumer_token', array('account' => $account['id']));
+                    $_SESSION['liana_token'] = Helper::API()->post(
+                        '/liana/auth/consumer_token',
+                        array('account' => $account['id'])
+                    );
                 } catch (\Beans\Error\BaseError $e) {
                     Helper::log('Getting Auth Token Failed: ' . $e->getMessage());
                 }
