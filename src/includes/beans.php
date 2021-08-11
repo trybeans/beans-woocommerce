@@ -1,4 +1,5 @@
 <?PHP
+
 /**
 * Copyright 2017 Beans
 *
@@ -21,25 +22,33 @@ defined('ABSPATH') or die;
 
 class BaseError extends \Exception
 {
-    public function __construct($error=array())
+    public function __construct($error = array())
     {
-        if (!is_array($error)){
+        if (!is_array($error)) {
             $error = array(
                 'message' => $error
             );
         }
-        if(!isset($error['code']))
+        if (!isset($error['code'])) {
             $error['code'] = -1;
-        if(!isset($error['message']))
+        }
+        if (!isset($error['message'])) {
             $error['message'] = '';
+        }
 
         parent::__construct($error['message'], $error['code']);
     }
 }
 
-class ConnectionError extends BaseError {}
-class ValidationError extends BaseError {}
-class ServerError extends BaseError {}
+class ConnectionError extends BaseError
+{
+}
+class ValidationError extends BaseError
+{
+}
+class ServerError extends BaseError
+{
+}
 
 namespace Beans;
 
@@ -47,8 +56,9 @@ use Beans\Error\ConnectionError;
 use Beans\Error\ServerError;
 use Beans\Error\ValidationError;
 
-if (!function_exists('curl_init'))
+if (!function_exists('curl_init')) {
     return;
+}
 
 //if (!function_exists('json_decode'))
 //    trigger_error('Beans needs the JSON PHP extension.');
@@ -70,50 +80,50 @@ class Beans
     {
         $this->secret = $secret;
     }
-    
-    public function get($path, $arg=null, $headers=null)
-    {       
+
+    public function get($path, $arg = null, $headers = null)
+    {
         return $this->make_request($path, $arg, 'GET', $headers);
     }
 
     public function get_next_page()
     {
-        return $this->_next_page? $this->get($this->_next_page, null) : array();
+        return $this->_next_page ? $this->get($this->_next_page, null) : array();
     }
 
     public function get_previous_page()
     {
-        return $this->_previous_page? $this->get($this->_previous_page, null) : array();
+        return $this->_previous_page ? $this->get($this->_previous_page, null) : array();
     }
-    
-    public function post($path, $arg=null, $headers=null)
-    {       
+
+    public function post($path, $arg = null, $headers = null)
+    {
         return $this->make_request($path, $arg, 'POST', $headers);
     }
 
-    public function put($path, $arg=null, $headers=null)
+    public function put($path, $arg = null, $headers = null)
     {
         return $this->make_request($path, $arg, 'PUT', $headers);
     }
-        
-    public function delete($path, $arg=null, $headers=null)
-    {       
+
+    public function delete($path, $arg = null, $headers = null)
+    {
         return $this->make_request($path, $arg, 'DELETE', $headers);
     }
-    
-    public function make_request($path, $data=null, $method=null, $headers=null)
+
+    public function make_request($path, $data = null, $method = null, $headers = null)
     {
         $url = $this->endpoint . $path;
 
-        if (strpos($path,'://') !== false){
+        if (strpos($path, '://') !== false) {
             $url = $path;
         }
 
-        if($method === 'GET' && !empty($data)){
+        if ($method === 'GET' && !empty($data)) {
             $url .= '?' . http_build_query($data);
         }
 
-        $data_string = json_encode( $data ? $data : array() );
+        $data_string = json_encode($data ? $data : array());
 
         $ua = array(
             'bindings_version'  => self::VERSION,
@@ -122,20 +132,19 @@ class Beans
             'publisher'         => 'Beans',
         );
 
-        if (!is_null($headers)){
-           $headers = array_merge( array(
+        if (!is_null($headers)) {
+            $headers = array_merge(array(
                 'Accept: application/json',
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data_string),
-                'X-Beans-Client-User-Agent: '. json_encode($ua),
+                'X-Beans-Client-User-Agent: ' . json_encode($ua),
             ), $headers);
-        }
-        else{
+        } else {
             $headers = array(
                 'Accept: application/json',
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data_string),
-                'X-Beans-Client-User-Agent: '. json_encode($ua),
+                'X-Beans-Client-User-Agent: ' . json_encode($ua),
             );
         }
         // Set Request Options
@@ -150,11 +159,11 @@ class Beans
             CURLOPT_TIMEOUT        => 80,
             CURLOPT_HTTPHEADER     => $headers,
         );
-        if($this->secret){
+        if ($this->secret) {
             $curlConfig[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
             $curlConfig[CURLOPT_USERPWD] = $this->secret;
         }
-        
+
         //Make HTTP request
         $ch = $this->_getCurlHandle();
         curl_setopt_array($ch, $curlConfig);
@@ -174,35 +183,37 @@ class Beans
         }
 
         # Handle 202, 203, 204 responses
-        if($http_status<300 && !$response){
+        if ($http_status < 300 && !$response) {
             return true;
         }
 
         // Check for HTTP error
-        if($content_type != 'application/json'){
+        if ($content_type != 'application/json') {
             $error = array(
                 'code' => $http_status,
                 'message' => "Beans HTTP Error: $http_status",
             );
-            if($http_status >= 500)
+            if ($http_status >= 500) {
                 throw new ServerError($error);
+            }
             throw new ValidationError($error);
         }
-        
+
         // Load response
-        $response = json_decode($response, TRUE);
+        $response = json_decode($response, true);
 
         // Check for Beans error
-        if(isset($response['error'])){
-            if(isset($response['error']['code']) and $response['error']['code'] >= 500)
+        if (isset($response['error'])) {
+            if (isset($response['error']['code']) and $response['error']['code'] >= 500) {
                 throw new ServerError($response['error']);
+            }
             throw new ValidationError($response['error']);
         }
 
         $result = $response;
 
         // support pagination
-        if(isset($result['data']) && isset($result['object']) && $result['object'] == 'list'){
+        if (isset($result['data']) && isset($result['object']) && $result['object'] == 'list') {
             $this->_next_page = $result['next'];
             $this->_previous_page = $result['previous'];
             $result = $result['data'];
@@ -211,7 +222,7 @@ class Beans
         return $result;
     }
 
-    protected function _getCurlHandle() 
+    protected function _getCurlHandle()
     {
         if (!$this->_curl_handle) {
             $this->_curl_handle = curl_init();
@@ -220,7 +231,7 @@ class Beans
         return $this->_curl_handle;
     }
 
-    public function __destruct() 
+    public function __destruct()
     {
         if ($this->_curl_handle) {
             curl_close($this->_curl_handle);

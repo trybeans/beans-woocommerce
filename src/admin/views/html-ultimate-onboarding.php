@@ -4,7 +4,7 @@ defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
 
-$base_banner_url = 'https://'.Helper::getDomain('CDN'). '/static-v3/connect/img/app/';
+$base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 $base_asset_path = '/assets/img/admin/onboarding';
 ?>
 
@@ -29,8 +29,10 @@ $base_asset_path = '/assets/img/admin/onboarding';
                 </div>
                 <div style="display: flex; width: 100%; justify-content: center">
                     <div style="text-align: center">
-                        <img id="beans-app-hero" src="<?php echo plugins_url($base_asset_path.'/ultimate-hero.svg',
-                            BEANS_PLUGIN_FILENAME) ?>" alt="" width="auto" height="280px">
+                        <img id="beans-app-hero" src="<?php echo plugins_url(
+                            $base_asset_path . '/ultimate-hero.svg',
+                            BEANS_PLUGIN_FILENAME
+                        ) ?>" alt="" width="auto" height="280px">
                     </div>
                 </div>
                 <div style="height: auto">
@@ -47,15 +49,15 @@ $base_asset_path = '/assets/img/admin/onboarding';
                 </div>
                 <div id="beans-ultimate-connect" style="display: none">
                     <p class="wc-setup-actions step" style="justify-content: center; display: flex" id="beans-ultimate-submit-button">
-                        <?php if ( \BeansWoo\Admin\CheckConfig::$beans_is_supported || $force ): ?>
+                        <?php if (\BeansWoo\Admin\CheckConfig::$beans_is_supported || $force) : ?>
                         <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
                             shadow-md" value="Connect to Beans Ultimate">
-                            <?php else: ?>
+                        <?php else : ?>
                             <button type="submit"
                                     class="button button-disabled beans-bg-primary beans-bg-primary-ultimate
                                 shadow-md " value="Connect to Beans Ultimate"
                                     disabled>
-                                <?php endif; ?>
+                        <?php endif; ?>
                                 Connect
                         </button>
                     </p>
@@ -69,21 +71,21 @@ $base_asset_path = '/assets/img/admin/onboarding';
             let info = [];
             <?php
                 $apps = ['liana', 'bamboo', 'foxx', 'poppy', 'snow', 'lotus', 'arrow', 'ultimate'];
-                foreach ($apps as $app){
-                    if (in_array($app, ['snow', 'foxx'])){
-                        $heroImage =  $app .'-hero.png';
-                    }else{
-                        $heroImage = $app .'-hero.svg';
-                    }
+            foreach ($apps as $app) {
+                if (in_array($app, ['snow', 'foxx'])) {
+                    $heroImage =  $app . '-hero.png';
+                } else {
+                    $heroImage = $app . '-hero.svg';
+                }
                 ?>
                     info.push({
-                    hero: "<?php echo plugins_url($base_asset_path.'/'.$heroImage, BEANS_PLUGIN_FILENAME); ?>",
-                    banner: "<?php echo $base_banner_url. 'logo-full-'. $app .'.svg'; ?>",
+                    hero: "<?php echo plugins_url($base_asset_path . '/' . $heroImage, BEANS_PLUGIN_FILENAME); ?>",
+                    banner: "<?php echo $base_banner_url . 'logo-full-' . $app . '.svg'; ?>",
                     title: "<?php echo Helper::getApps()[$app]['title']; ?>",
                     role: "<?php echo Helper::getApps()[$app]['role']; ?>",
                 });
-            <?php
-                }
+                <?php
+            }
             ?>
 
             $("#beans-step").on('click', function(){

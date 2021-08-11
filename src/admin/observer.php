@@ -19,14 +19,13 @@ class Observer
 
         add_action('admin_menu', array(__CLASS__, 'admin_menu'));
         add_action('admin_init', array(__CLASS__, 'admin_is_curl_notice'), 0, 99);
-
     }
 
     public static function admin_style()
     {
         wp_enqueue_style(
-                'admin-styles',
-                plugins_url('assets/css/beans-admin.css', BEANS_PLUGIN_FILENAME)
+            'admin-styles',
+            plugins_url('assets/css/beans-admin.css', BEANS_PLUGIN_FILENAME)
         );
     }
 
@@ -37,7 +36,8 @@ class Observer
             "beans-liana-display-redemption-checkout",
             "Redemption on checkout",
             array(__CLASS__, "display_redeem_checkbox_setting"),
-            "beans-woo", "beans-section"
+            "beans-woo",
+            "beans-section"
         );
         register_setting("beans-section", "beans-liana-display-redemption-checkout");
     }
@@ -76,8 +76,8 @@ class Observer
     public static function admin_is_curl_notice()
     {
         $text = __(
-                "cURL is not installed. Please install and activate, otherwise, the Beans program may not work.",
-                'beans-woo'
+            "cURL is not installed. Please install and activate, otherwise, the Beans program may not work.",
+            'beans-woo'
         );
         if (! Helper::isCURL()) {
             ?>
@@ -87,5 +87,4 @@ class Observer
             <?php
         }
     }
-
 }

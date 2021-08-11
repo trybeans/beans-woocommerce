@@ -1,4 +1,5 @@
 <?php
+
 use BeansWoo\Helper;
 
 defined('ABSPATH') or die;

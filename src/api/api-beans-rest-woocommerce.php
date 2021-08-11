@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BeansWoo\API;
 
 defined('ABSPATH') or die;
@@ -20,7 +19,6 @@ class BeansRestWoocommerce
             add_filter('woocommerce_rest_prepare_product_object', array(__CLASS__, 'add_beans_app_activated'), 90, 1);
             add_filter('woocommerce_rest_prepare_shop_order_object', array(__CLASS__, 'add_beans_app_activated'), 90, 1);
         }
-
     }
 
     public static function async_webhook($true, $instance, $arg)
@@ -88,14 +86,17 @@ class BeansRestWoocommerce
         $response->data['pages'] = array_merge($response->data['pages'], self::get_beans_pages(), array(
                 array(
                     'page_name' => 'Thank you',
-                    'path' => str_replace(home_url(), '',
+                    'path' => str_replace(
+                        home_url(),
+                        '',
                         wc_get_endpoint_url(
-                            get_option('woocommerce_checkout_order_received_endpoint'), '', wc_get_checkout_url()
+                            get_option('woocommerce_checkout_order_received_endpoint'),
+                            '',
+                            wc_get_checkout_url()
                         )
                     ),
                     'type' => 'thank_you'
-                ))
-        );
+                )));
 
         return $response;
     }
@@ -105,7 +106,6 @@ class BeansRestWoocommerce
         $pages_output = [];
 
         foreach (Helper::getPages() as $app_name => $values) {
-
             $page_id = $values['page_id'];
             $page_exists = false;
             $page_visible = false;
@@ -122,8 +122,8 @@ class BeansRestWoocommerce
                 'page_id' => $page_id,
                 'page_set' => $page_set,
                 'type' => $values['type'],
-                'shortcode_present' => True,
-                'shortcode_required' => True,
+                'shortcode_present' => true,
+                'shortcode_required' => true,
                 'page_exists' => $page_exists,
                 'page_visible' => $page_visible,
                 'page_name' => $values['page_name'],

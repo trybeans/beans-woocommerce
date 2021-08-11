@@ -7,26 +7,26 @@ defined('ABSPATH') or die;
 
 class CheckConfig
 {
-    static public $wp_version_supported = '5.0';
-    static public $woo_version_supported = '3.9';
-    static public $php_version_supported = '5.6.0';
+    public static $wp_version_supported = '5.0';
+    public static $woo_version_supported = '3.9';
+    public static $php_version_supported = '5.6.0';
 
-    static public $woo_version;
-    static public $php_version;
-    static public $woo_is_supported;
-    static public $wp_is_supported;
-    static public $php_is_supported;
-    static public $curl_is_supported;
-    static public $json_is_supported;
-    static public $beans_is_supported;
-    static public $woo_api_uri_is_up;
-    static public $woo_api_auth_is_up;
-    static public $permalink_is_supported;
-    static public $wp_permalink_is_supported;
-    static public $woo_api_uri_http_status = null;
-    static public $woo_api_uri_content_type = null;
-    static public $woo_api_auth_http_status = null;
-    static public $woo_api_auth_content_type = null;
+    public static $woo_version;
+    public static $php_version;
+    public static $woo_is_supported;
+    public static $wp_is_supported;
+    public static $php_is_supported;
+    public static $curl_is_supported;
+    public static $json_is_supported;
+    public static $beans_is_supported;
+    public static $woo_api_uri_is_up;
+    public static $woo_api_auth_is_up;
+    public static $permalink_is_supported;
+    public static $wp_permalink_is_supported;
+    public static $woo_api_uri_http_status = null;
+    public static $woo_api_uri_content_type = null;
+    public static $woo_api_auth_http_status = null;
+    public static $woo_api_auth_content_type = null;
 
     public static function init()
     {
@@ -52,17 +52,18 @@ class CheckConfig
             && self::$permalink_is_supported && self::$wp_permalink_is_supported;
 
         self::$woo_api_uri_is_up = self::$beans_is_supported ? self::check_woo_api_uri(
-            self::$woo_api_uri_http_status, self::$woo_api_uri_content_type
+            self::$woo_api_uri_http_status,
+            self::$woo_api_uri_content_type
         ) : null;
 
         self::$beans_is_supported = self::$woo_api_uri_is_up;
 
         self::$woo_api_auth_is_up = self::$beans_is_supported ? self::check_woo_api_auth(
-            self::$woo_api_auth_http_status, self::$woo_api_auth_content_type
+            self::$woo_api_auth_http_status,
+            self::$woo_api_auth_content_type
         ) : null;
 
         self::$beans_is_supported = self::$woo_api_auth_is_up;
-
     }
 
     protected static function plugin_version($plugin_name)

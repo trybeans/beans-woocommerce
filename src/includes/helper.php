@@ -7,13 +7,15 @@ defined('ABSPATH') or die;
 use Beans\Beans;
 use Beans\Error\BaseError;
 
-class Helper {
+class Helper
+{
     const CONFIG_NAME = 'beans-config-3';
 
     private static $cards = array();
     public static $key = null;
 
-    public static function getDomain( $sub ) {
+    public static function getDomain($sub)
+    {
         $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
             'NAME' => 'trybeans.com',
@@ -22,12 +24,13 @@ class Helper {
             'WWW'     => 'www.trybeans.com',
             'CDN' => 'cdn.trybeans.com',
         );
-        $val     = getenv( $key );
+        $val     = getenv($key);
 
-        return empty( $val ) ? $domains[ $sub ] : getenv( $key );
+        return empty($val) ? $domains[ $sub ] : getenv($key);
     }
 
-    public static function getApps() {
+    public static function getApps()
+    {
         return array(
             'liana' => array(
                 'title' => 'Make your customers addicted to your shop',
@@ -50,7 +53,7 @@ class Helper {
             ),
 
             'snow' => array(
-	            'title' => 'Communicate with customers without disrupting their journey',
+                'title' => 'Communicate with customers without disrupting their journey',
                 'role' => 'Notification Widget'
             ),
 
@@ -71,48 +74,54 @@ class Helper {
         );
     }
 
-    public static function API() {
-        if ( ! self::$key ) {
-            self::$key = self::getConfig( 'secret' );
+    public static function API()
+    {
+        if (! self::$key) {
+            self::$key = self::getConfig('secret');
         }
         $beans = new Beans(self::$key);
 
-        $beans->endpoint = 'https://' . self::getDomain( 'API' ) . '/v3/';
+        $beans->endpoint = 'https://' . self::getDomain('API') . '/v3/';
 
         return $beans;
     }
 
-    public static function getAccountData( $account, $k, $default = null ) {
-        if ( isset( $account[ $k ] ) ) {
+    public static function getAccountData($account, $k, $default = null)
+    {
+        if (isset($account[ $k ])) {
             echo "$k:'" . $account[ $k ] . "',";
-        } else if ( $default !== null ) {
+        } elseif ($default !== null) {
             echo "$k: '',";
         }
     }
 
-    public static function getConfig( $key ) {
-        $config = get_option( self::CONFIG_NAME );
-        if ( isset( $config[ $key ] ) ) {
+    public static function getConfig($key)
+    {
+        $config = get_option(self::CONFIG_NAME);
+        if (isset($config[ $key ])) {
             return $config[ $key ];
         }
 
         return null;
     }
 
-    public static function setConfig( $key, $value ) {
-        $config         = get_option( self::CONFIG_NAME );
+    public static function setConfig($key, $value)
+    {
+        $config         = get_option(self::CONFIG_NAME);
         $config[ $key ] = $value;
-        update_option( self::CONFIG_NAME, $config );
+        update_option(self::CONFIG_NAME, $config);
     }
 
-    public static function isSetup() {
-        return Helper::getConfig( 'key' ) && Helper::getConfig( 'card' ) && Helper::getConfig( 'secret' );
+    public static function isSetup()
+    {
+        return Helper::getConfig('key') && Helper::getConfig('card') && Helper::getConfig('secret');
     }
 
-    public static function resetSetup() {
-        foreach (['liana', 'bamboo'] as $app_name){
-            $app_page = self::getConfig( $app_name."_page");
-            if (!is_null($app_page)){
+    public static function resetSetup()
+    {
+        foreach (['liana', 'bamboo'] as $app_name) {
+            $app_page = self::getConfig($app_name . "_page");
+            if (!is_null($app_page)) {
                 wp_delete_post($app_page, true);
             }
         }
@@ -122,84 +131,90 @@ class Helper {
         return true;
     }
 
-    public static function isSetupApp( $app_name){
+    public static function isSetupApp($app_name)
+    {
         $apps = self::getConfig('apps');
-        if(! $apps){
+        if (! $apps) {
             $apps = array();
         }
         return in_array($app_name, $apps);
     }
 
-    public static function log( $info ) {
-        if ( file_exists( BEANS_INFO_LOG ) && filesize( BEANS_INFO_LOG ) > 100000 ) {
-            unlink( BEANS_INFO_LOG );
+    public static function log($info)
+    {
+        if (file_exists(BEANS_INFO_LOG) && filesize(BEANS_INFO_LOG) > 100000) {
+            unlink(BEANS_INFO_LOG);
         }
 
-        if ( ! is_writable( BEANS_INFO_LOG ) ) {
+        if (! is_writable(BEANS_INFO_LOG)) {
             return false;
         }
 
-        $log = date( 'Y-m-d H:i:s.uP' ) . " => " . $info . PHP_EOL;
+        $log = date('Y-m-d H:i:s.uP') . " => " . $info . PHP_EOL;
 
         try {
-            file_put_contents( BEANS_INFO_LOG, $log, FILE_APPEND );
-        } catch ( \Exception $e ) {
+            file_put_contents(BEANS_INFO_LOG, $log, FILE_APPEND);
+        } catch (\Exception $e) {
             return false;
         }
 
         return true;
     }
 
-    public static function getBeansObject($appName, $objectName) {
-        $object = $appName."_".$objectName;
+    public static function getBeansObject($appName, $objectName)
+    {
+        $object = $appName . "_" . $objectName;
 
         $beans_object = get_transient("beans_$object");
 
         $beans_object = $beans_object ? $beans_object : array();
 
-        if ( isset($beans_object[$object]) ){
+        if (isset($beans_object[$object])) {
             return $beans_object[$object];
         }
 
-        if ( self::isSetup() && self::isSetupApp($appName)) {
+        if (self::isSetup() && self::isSetupApp($appName)) {
             try {
-                $beans_object[$object] = self::API()->get( "${appName}/${objectName}/current" );
-                set_transient("beans_$object", $beans_object, 2*60);
-            } catch ( BaseError $e ) {
-                self::log( 'Unable to get card: ' . $e->getMessage() );
+                $beans_object[$object] = self::API()->get("${appName}/${objectName}/current");
+                set_transient("beans_$object", $beans_object, 2 * 60);
+            } catch (BaseError $e) {
+                self::log('Unable to get card: ' . $e->getMessage());
             }
         }
 
         return isset($beans_object[$object]) ? $beans_object[$object] : null;
     }
 
-    public static function getCart() {
+    public static function getCart()
+    {
         global $woocommerce;
 
-        if ( ! empty( $woocommerce->cart ) && empty( $woocommerce->cart->cart_contents ) ) {
+        if (! empty($woocommerce->cart) && empty($woocommerce->cart->cart_contents)) {
             $woocommerce->cart->calculate_totals();
         }
 
         return $woocommerce->cart;
     }
 
-	public static function setInstalledApp($app_name){
-        if (self::isSetupApp($app_name)){
+    public static function setInstalledApp($app_name)
+    {
+        if (self::isSetupApp($app_name)) {
             return ;
         }
 
-		$config         = get_option( self::CONFIG_NAME );
-		if (isset($config['apps'])){
-			if( !in_array($app_name, $config['apps']) ){
-				$config['apps'][ $app_name] =  $app_name;
-			}
-		}else{
-			$config['apps'] = array($app_name => $app_name, );
-		}
-		update_option( self::CONFIG_NAME, $config );
-	}
+        $config         = get_option(self::CONFIG_NAME);
+        if (isset($config['apps'])) {
+            if (!in_array($app_name, $config['apps'])) {
+                $config['apps'][ $app_name] =  $app_name;
+            }
+        } else {
+            $config['apps'] = array($app_name => $app_name, );
+        }
+        update_option(self::CONFIG_NAME, $config);
+    }
 
-	public static function getPages(){
+    public static function getPages()
+    {
         return [
             'liana' => [
                 'shortcode' => '[beans_page]',
@@ -221,12 +236,13 @@ class Helper {
         ];
     }
 
-    public static function getCurrentPage(){
+    public static function getCurrentPage()
+    {
         $pages = [
             wc_get_cart_url() => 'cart',
             wc_get_checkout_url() => 'cart',  # DON'T TOUCH: This helps to show the redeem button on the checkout page
             wc_get_page_permalink('shop') => 'product',
-            wc_get_page_permalink( 'myaccount' ) => 'login',
+            wc_get_page_permalink('myaccount') => 'login',
             get_permalink(Helper::getConfig('liana_page')) => 'reward',
             get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
         ];
@@ -236,35 +252,40 @@ class Helper {
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
-    public static function postWebhookStatus($status){
+    public static function postWebhookStatus($status)
+    {
         $args = [
           'status' => $status
         ];
         $headers =  array(
-            'X-WC-Webhook-Source:'. home_url(),
+            'X-WC-Webhook-Source:' . home_url(),
         );
 
-        try{
+        try {
             self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
-        }catch (BaseError $e) {}
+        } catch (BaseError $e) {
+        }
     }
 
-    public static  function isCURL(){
+    public static function isCURL()
+    {
         return function_exists('curl_version');
     }
 
-    public static function replaceTags($string, $tags, $force_lower = false){
-        return preg_replace_callback('/\\{([^{}]+)\\}/',
-            function($matches) use ($force_lower, $tags)
-            {
+    public static function replaceTags($string, $tags, $force_lower = false)
+    {
+        return preg_replace_callback(
+            '/\\{([^{}]+)\\}/',
+            function ($matches) use ($force_lower, $tags) {
                 $key = $force_lower ? strtolower($matches[1]) : $matches[1];
                 return array_key_exists($key, $tags) ? $tags[$key] : '';
-            }
-            , $string
+            },
+            $string
         );
     }
 
-    public static function removeTransients() {
+    public static function removeTransients()
+    {
         delete_transient('beans_liana_display');
         delete_transient('beans_liana_display');
         # This will help to remove old transients.
