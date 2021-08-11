@@ -40,7 +40,8 @@
     },
     "scripts": {
         "lint": [
-            "./vendor/bin/phpstan analyze --memory-limit=100 src"
+            "./vendor/bin/phpcs",
+            "./vendor/bin/phpstan analyze --memory-limit=100"
         ],
         "test": [
             ""
