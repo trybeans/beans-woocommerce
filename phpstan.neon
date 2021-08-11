@@ -1,0 +1,8 @@
+parameters:
+	level: 0
+	scanDirectories:
+		- wp/wp-includes
+		- wp/wp-admin
+		- wp/wp-content/plugins/woocommerce
+	paths:
+		- src

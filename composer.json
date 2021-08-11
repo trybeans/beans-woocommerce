@@ -32,13 +32,14 @@
         }
     ],
     "require-dev": {
-        "composer/installers": "^1.11",
+        "composer/installers": "^1.11.0",
         "johnpbloch/wordpress": "~5.5.0",
-        "wpackagist-plugin/woocommerce": "~4.1.0"
+        "wpackagist-plugin/woocommerce": "~4.1.0",
+        "phpstan/phpstan": "^0.12.94"
     },
     "scripts": {
         "lint": [
-            ""
+            "./vendor/bin/phpstan analyze --memory-limit=100 src"
         ],
         "test": [
             ""
@@ -55,5 +56,5 @@
                 "type:wordpress-plugin"
             ]
         }
-    }   
+    }
 }

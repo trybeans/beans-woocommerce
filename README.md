@@ -15,3 +15,8 @@ If you are having trouble to find out more about it here: https://getcomposer.or
 ./composer update
 ```
 
+3. Running Linters 
+
+```shell script
+./composer run-script lint      
+```
