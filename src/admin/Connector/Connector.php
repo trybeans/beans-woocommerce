@@ -1,7 +1,8 @@
 <?php
 
-namespace BeansWoo\Admin\Connector;
+namespace BeansWoo\Admin;
 
+use Beans\BeansError;
 use BeansWoo\Helper;
 
 class Connector
@@ -62,10 +63,10 @@ class Connector
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
             self::updateInstalledApps();
-            return include(dirname(__FILE__).'/connector-settings.html.php');
+            return include(dirname(__FILE__) . '/connector-settings.html.php');
         }
 
-        return include(dirname(__FILE__).'/connector-connect.html.php');
+        return include(dirname(__FILE__) . '/connector-connect.html.php');
     }
 
     protected static function processSetup()
@@ -79,7 +80,7 @@ class Connector
 
         try {
             $integration_key = Helper::API()->get('/core/auth/integration_key/' . $token);
-        } catch (\Beans\Error\BaseError  $e) {
+        } catch (BeansError  $e) {
             self::$errors[] = 'Connecting to Beans failed with message: ' . $e->getMessage();
             Helper::log('Connecting failed: ' . $e->getMessage());
 

@@ -2,228 +2,176 @@
 
 defined('ABSPATH') or die;
 
+use Beans\BeansError;
+use BeansWoo\Admin\Connector;
 use BeansWoo\Helper;
-use BeansWoo\Admin\Configurator\CheckConfig;
 
-CheckConfig::init();
-global $wp_version;
+$loginkey = get_transient('beans_loginkey');
 
-function getSupportedTag($vs_is_supported)
-{
-    if ($vs_is_supported) {
-        echo "&nbsp;&nbsp;<span>&#x2705</span>";
-    } else {
-        echo "&nbsp;&nbsp;<span>&#x274C</span>";
-    }
-}
-
-$admin = wp_get_current_user();
-
-$country_code = get_option('woocommerce_default_country');
-if ($country_code && strpos($country_code, ':') !== false) {
+if ( ! $loginkey) {
     try {
-        $country_parts = explode(':', $country_code);
-        $country_code = $country_parts[0];
-    } catch (\Exception $e) {
+        $loginkey = Helper::API()->post('core/user/current/loginkey');
+        set_transient('beans_loginkey', $loginkey, 3 * 60);
+    } catch (BeansError  $e) {
     }
 }
 
-$force = isset($_GET['force_beans']);
+if (isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout'])) {
+    $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
+    update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
+}
+$app_name        = Connector::$app_name;
+$base_asset_path = 'assets/img/connector';
 
-$connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
 ?>
 
-<div class="beans-admin-container">
-    <?php include "connector-connect.html.php"; ?>
-    <p>
-        A complete suite to create a unified marketing experience for your online shop
-        <a href="https://<?php echo Helper::getDomain('WWW');?>"  target="_blank">Learn more about Beans Ultimate</a>
+<?php if (empty(Connector::$card)) : ?>
+  <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
+    <p class="beans-admin-check-warning">
+      Unable to connect to Beans. Unable to retrieve information about your account status.
+      Please:
+      <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for assistance.
+      Attach a screenshot of this page to your email.
     </p>
-</div>
+  </div>
+<?php else : ?>
+  <div style="max-width: 700px; margin: auto; margin-top: 30px;">
 
-<div class="beans-admin-container" style="text-align: left !important;">
-    <div style="display: flex; flex-direction: column; align-items: start; justify-content: start; width: fit-content;
-                text-align: left">
-        <a href="javascript:void(0)" id="view-config">View configuration</a>
-        <ul class="wc-wizard-features" style="display: None" id="config-status">
-            <h3> Configuration Checking </h3>
-            <li>
-                <p class="">
-                    Beans leverages <a href="https://docs.woocommerce.com/document/woocommerce-rest-api/"
-                                       target="_blank">WooCommerce
-                        REST API</a>
-                    to supercharge your online store with powerful features .
-                </p>
-            </li>
-            <li>
-                <p>
-                    <strong>WooCommerce Version</strong>: <?php echo CheckConfig::$woo_version;
-                    getSupportedTag(CheckConfig::$woo_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$woo_is_supported) : ?>
-                    <p class="beans-admin-check-warning">
-                        Please update your WooCommerce plugin:
-                        <a href="https://docs.woocommerce.com/document/how-to-update-woocommerce/" target="_blank">
-                            How to update WooCommerce
-                        </a>
-                    </p>
-                <?php endif; ?>
-            </li>
-            <li>
-                <p>
-                    <strong>Wordpress Version</strong>: <?php echo $wp_version;
-                    getSupportedTag(CheckConfig::$wp_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$wp_is_supported) : ?>
-                    <p class="beans-admin-check-warning">
-                        Please upgrade your Wordpress:
-                        <a href="https://codex.wordpress.org/Upgrading_WordPress" target="_blank">
-                            Upgrading Wordpress
-                        </a>
-                    </p>
-                <?php endif; ?>
-            </li>
-            <li>
-                <p>
-                    <strong>PHP Version</strong>: <?php echo CheckConfig::$php_version;
-                    getSupportedTag(CheckConfig::$php_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$php_is_supported) : ?>
-                    <p class="beans-admin-check-warning">
-                        Contact your web host to update your PHP:
-                        <a href="https://wordpress.org/support/update-php/" target="_blank">Learn more on PHP Update</a>
-                    </p>
-                <?php endif; ?>
-            </li>
-            <li>
-                <p>
-                    <strong>CURL Supported</strong>: <?php getSupportedTag(CheckConfig::$curl_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$curl_is_supported) : ?>
-                    <p class="beans-admin-check-warning">Contact your web host to enable CURL support.</p>
-                <?php endif; ?>
-            </li>
-            <li>
-                <p>
-                    <strong>JSON Supported</strong>: <?php getSupportedTag(CheckConfig::$json_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$json_is_supported) : ?>
-                    <p class="beans-admin-check-warning">Contact your web host to enable JSON support.</p>
-                <?php endif; ?>
-            </li>
-            <li>
-                <p>
-                    <strong>Permalink Enabled</strong>: <?php getSupportedTag(CheckConfig::$permalink_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$permalink_is_supported) : ?>
-                    <p class="beans-admin-check-warning">
-                        Please enable Permalinks:
-                        <a href="https://codex.wordpress.org/Settings_Permalinks_Screen" target="_blank">
-                            How to enable Permalink
-                        </a>
-                    </p>
-                <?php endif; ?>
-            </li>
-            <li>
-                <p>
-                    <strong>WordPress Permalink Enabled</strong>:
-                    <?php getSupportedTag(CheckConfig::$wp_permalink_is_supported); ?>
-                </p>
-                <?php if (!CheckConfig::$wp_permalink_is_supported) : ?>
-                    <p class="beans-admin-check-warning">
-                        Please enable pretty permalink:
-                        <a href="https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
-                           target="_blank">
-                            How to enable pretty permalink
-                        </a>
-                    </p>
-                <?php endif; ?>
-            </li>
-            <?php if (!is_null(CheckConfig::$woo_api_uri_is_up)) : ?>
-                <li>
-                    <p>
-                        <strong>WooCommerce API V3 URI
-                            Test</strong>: <?php getSupportedTag(CheckConfig::$woo_api_uri_is_up); ?>
-                    </p>
-                    <?php if (!CheckConfig::$woo_api_uri_is_up) : ?>
-                        <p class="beans-admin-check-warning">
-                            Unable to connect to the API using endpoint: <br/>
-                            <?php echo getenv("BEANS_WOO_API_ENDPOINT"); ?> <br/>
-                            HTTP Status: <?php echo CheckConfig::$woo_api_uri_http_status ?> <br/>
-                            Content Type: <?php echo CheckConfig::$woo_api_uri_content_type ?> <br/>
-                            Please:
-                            <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for
-                            assistance.
-                            Attach a screenshot of this page to your email.
-                        </p>
-                    <?php endif; ?>
-                </li>
-            <?php endif; ?>
-            <?php if (!is_null(CheckConfig::$woo_api_auth_is_up)) : ?>
-                <li>
-                    <p>
-                        <strong>
-                            WooCommerce API V2 Authentication
-                            Test</strong>: <?php getSupportedTag(CheckConfig::$woo_api_auth_is_up); ?>
-                    </p>
-                    <?php if (!CheckConfig::$woo_api_auth_is_up) : ?>
-                        <p class="beans-admin-check-warning">
-                            Unable to connect to the API using authentication endpoint: <br/>
-                            <?php echo BEANS_WOO_API_AUTH_ENDPOINT; ?> <br/>
-                            HTTP Status: <?php echo CheckConfig::$woo_api_auth_http_status; ?> <br/>
-                            Content Type: <?php echo CheckConfig::$woo_api_auth_content_type; ?> <br/>
-                            Please:
-                            <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for
-                            assistance.
-                            Attach a screenshot of this page to your email.
-                        </p>
-                    <?php endif; ?>
-                </li>
-            <?php endif; ?>
-        </ul>
+    <div style="padding:20px;">
+      <div class="beans-woo-header">
+        <div class="beans-woo-banner">
+          <img width="auto" height="30px;"
+               src="https://trybeans.s3.amazonaws.com/static-v3/connect/img/app/logo-full-ultimate.svg"
+               alt="ultimate-logo">
+          <div style="margin: auto;">
+            <span class="beans-woo-banner-text"> <span style="color: #10a866">✔</span>️ Connected</span>
+          </div>
+        </div>
+        <div>
+          <a class="button beans-woo-banner-link"
+             href="https://<?php echo Helper::getDomain('CONNECT')."/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo Helper::getDomain('NAME') ?>"
+             target="_blank">
+            Go To Beans Ultimate
+          </a>
+        </div>
+      </div>
+        <?php if (Helper::isSetupApp('liana')) : ?>
+          <div class="beans-woo-reward">
+            <div>
+              <div class="beans-woo-reward-title">
+                Reward page
+              </div>
+              <div class="beans-woo-reward-description">
+                The reward page is available on your website and let your customers join and use your reward
+                program.
+              </div>
+              <span class="">
+                <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
+                   href="<?php echo get_permalink(Helper::getConfig('liana_page')); ?>">
+                    Go to the reward page
+                </a>
+              </span>
+            </div>
+            <div style="display: flex; align-items: center; margin-left: 20px;">
+              <img width="150px" src="<?php echo plugins_url($base_asset_path.'/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
+            </div>
+          </div>
+        <?php endif; ?>
+        <?php if (Helper::isSetupApp('bamboo')) : ?>
+          <div class="beans-woo-reward">
+            <div>
+              <div class="beans-woo-reward-title">Referral page</div>
+              <div class="beans-woo-reward-description">
+                The referral page is available on your website and let your customers join
+                and use your referral program.
+              </div>
+              <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
+                 href="<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>">
+                Go to the referral page
+              </a>
+            </div>
+            <div style="display: flex; align-items: center; margin-left: 20px;">
+              <img width="150px"
+                   src="<?php echo plugins_url($base_asset_path.'/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
+            </div>
+          </div>
+        <?php endif; ?>
+
+        <?php if ((Helper::isSetupApp('liana'))) : ?>
+          <div class="beans-woo-settings">
+            <div class="beans-woo-settings-title">Settings</div>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields("beans-section");
+
+                do_settings_sections("beans-woo");
+
+                submit_button('Save', 'submit', 'beans-checkout-button', '', ['class' => 'button']);
+                ?>
+            </form>
+          </div>
+        <?php endif; ?>
+
+      <div class="beans-woo-help">
+        <div class="beans-woo-help-title">Need help?</div>
+        <div style="display: flex;">
+          <span class="beans-woo-help-action">
+            <a target="_blank" href="https://web.facebook.com/groups/1220975858059106/">
+              <span>
+                <img src="<?php echo plugins_url($base_asset_path.'/facebook.svg', BEANS_PLUGIN_FILENAME); ?>"
+                     width="18px" height="18px"/>
+              </span>
+              Join Facebook Group
+            </a>
+          </span>
+          <span class="beans-woo-help-action">
+            <a target="_blank" href="https://twitter.com/beanshq">
+              <span>
+                <img src="<?php echo plugins_url($base_asset_path.'/twitter.svg', BEANS_PLUGIN_FILENAME); ?>"
+                     width="18px" height="18px"/>
+              </span>
+              Follow us on Twitter
+            </a>
+          </span>
+          <div class="beans-woo-help-action">
+            <a target="_blank" href="http://help.trybeans.com/">
+              <img src="<?php echo plugins_url($base_asset_path.'/help-center.svg',
+                  BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+              Go to Help Center
+            </a>
+          </div>
+          <div class="beans-woo-help-action">
+            <a href="mailto:hello@trybeans.com">
+              <img src="<?php echo plugins_url($base_asset_path.
+                  '/email-support.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+              Contact Support
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="beans-woo-review">
+        <div style="display: flex; align-items: center;">
+          <img src="<?php echo plugins_url($base_asset_path.'/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
+        </div>
+        <div>
+          <div class="beans-woo-review-title">
+            Review Beans
+          </div>
+          <div class="beans-woo-x">
+            If you find Beans helpful, please take 30 seconds of your time to review it in the app store.
+          </div>
+          <span>
+            <a class="beans-woo-j"
+               href='https://wordpress.org/support/plugin/beans-woocommerce-loyalty-rewards/reviews/'
+               target="_blank">Review Beans</a>
+          </span>
+        </div>
+      </div>
     </div>
+  </div>
+<?php endif; ?>
+<div style='max-width: 700px; margin: auto;'>
+  <a style="color: #d70000; float: right; margin-right: 20px;"
+     href='<?php echo BEANS_WOO_MENU_LINK.'&reset_beans=1'; ?>'>Reset Settings Now</a>
 </div>
-
-<form method="get" class="beans-admin-form" id="beans-connect-form" action="<?php echo $connect; ?>">
-    <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
-    <input type="hidden" name="first_name" value="<?php echo $admin->user_firstname; ?>">
-    <input type="hidden" name="last_name" value="<?php echo $admin->user_lastname; ?>">
-    <input type="hidden" name="country" value="<?php echo $country_code; ?>">
-    <input type="hidden" name="company_name" value="<?php echo get_bloginfo('name'); ?>">
-    <input type="hidden" name="currency" value="<?php echo strtoupper(get_woocommerce_currency()); ?>">
-    <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
-    <input type="hidden" name="api_uri" value="<?php echo BEANS_WOO_API_ENDPOINT; ?>">
-    <input type="hidden" name="api_auth_uri" value="<?php echo BEANS_WOO_API_AUTH_ENDPOINT ?>">
-    <input type="hidden" name="redirect" value="<?php echo BEANS_WOO_MENU_LINK; ?>">
-</form>
-<script>
-    jQuery(function () {
-
-        const woo_is_supported = "<?php echo CheckConfig::$woo_is_supported; ?>";
-        const wp_is_supported = "<?php echo CheckConfig::$wp_is_supported; ?>";
-        const php_is_supported = "<?php echo CheckConfig::$php_is_supported; ?>";
-        const curl_is_supported = "<?php echo CheckConfig::$curl_is_supported; ?>";
-        const json_is_supported = "<?php echo CheckConfig::$json_is_supported; ?>";
-        const permalink_is_supported = "<?php echo CheckConfig::$permalink_is_supported; ?>";
-        const wp_permalink_is_supported = "<?php echo CheckConfig::$wp_permalink_is_supported; ?>";
-        const woo_api_uri_is_up = "<?php echo CheckConfig::$woo_api_uri_is_up; ?>";
-        const woo_api_auth_is_up = "<?php echo CheckConfig::$woo_api_auth_is_up; ?>";
-
-        if (woo_is_supported !== '1' || wp_is_supported !== '1' || php_is_supported !== '1'
-            || php_is_supported !== '1' || curl_is_supported !== '1' || json_is_supported !== '1'
-            || permalink_is_supported !== '1' || wp_permalink_is_supported !== '1'
-            || woo_api_auth_is_up !== '1' || woo_api_uri_is_up !== '1') {
-            jQuery('#view-config').text('View less');
-            jQuery('#config-status').slideDown('slow');
-        }
-        jQuery('#view-config').click(function () {
-            if (jQuery("#config-status").is(':hidden')) {
-                jQuery('#config-status').slideDown('slow');
-                jQuery('#view-config').text('View less');
-            } else {
-                jQuery('#config-status').slideUp('slow');
-                jQuery('#view-config').text('View configuration');
-            }
-        });
-    })
-</script>

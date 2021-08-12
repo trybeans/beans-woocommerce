@@ -1,10 +1,10 @@
 <?php
 
-namespace BeansWoo\StoreFront\Liana\Page;
+namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
-class Block
+class LianaPage
 {
 
     public static function init()

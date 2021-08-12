@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\StoreFront\Arrow\Login;
+namespace BeansWoo\StoreFront;
 
 defined('ABSPATH') or die;
 
