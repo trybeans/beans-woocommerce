@@ -15,5 +15,4 @@
         <exclude name="PSR2.Classes.PropertyDeclaration"/>
         <exclude name="Squiz.Classes.ValidClassName"/>
     </rule>
-<!--    <rule ref="WordPress-Core"/>-->
 </ruleset>
