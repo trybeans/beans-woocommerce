@@ -19,13 +19,12 @@ if (isset($_POST['beans-liana-display-redemption-checkout'])) {
     $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
     update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
-
-$app_name = \BeansWoo\Admin\Connector\UltimateConnector::$app_name;
+$app_name = \BeansWoo\Admin\Connector\Connector::$app_name;
 $base_asset_url = BEANS_PLUGIN_URL . 'assets/img/connector';
 
 ?>
 
-<?php if (empty(\BeansWoo\Admin\Connector\UltimateConnector::$card)) : ?>
+<?php if (empty(\BeansWoo\Admin\Connector\Connector::$card)) : ?>
 <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
     <p class="beans-admin-check-warning">
         Unable to connect to Beans. Unable to retrieve information about your account status.
@@ -49,7 +48,8 @@ $base_asset_url = BEANS_PLUGIN_URL . 'assets/img/connector';
             </div>
             <div>
                 <a class="button beans-woo-banner-link"
-                   href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo  Helper::getDomain('NAME') ?>"
+                   href="https://<?php echo Helper::getDomain('CONNECT') .
+                       "/auth/login/${loginkey['key']}";?>?next=https://app.<?php echo  Helper::getDomain('NAME')?>"
                    target="_blank">
                     Go To Beans Ultimate
                 </a>
@@ -158,7 +158,9 @@ $base_asset_url = BEANS_PLUGIN_URL . 'assets/img/connector';
                     If you find Beans helpful, please take 30 seconds of your time to review it in the app store.
                 </div>
                 <span>
-                    <a class="beans-woo-j" href='https://wordpress.org/support/plugin/beans-woocommerce-loyalty-rewards/reviews/' target="_blank">Review Beans</a>
+                    <a class="beans-woo-j"
+                       href='https://wordpress.org/support/plugin/beans-woocommerce-loyalty-rewards/reviews/'
+                       target="_blank">Review Beans</a>
                 </span>
             </div>
         </div>
@@ -166,5 +168,6 @@ $base_asset_url = BEANS_PLUGIN_URL . 'assets/img/connector';
 </div>
 <?php endif; ?>
 <div style='max-width: 700px; margin: auto;'>
-    <a style="color: #d70000; float: right; margin-right: 20px;" href='<?php echo BEANS_WOO_MENU_LINK . '&reset_beans=1'; ?>'>Reset Settings Now</a>
+    <a style="color: #d70000; float: right; margin-right: 20px;"
+       href='<?php echo BEANS_WOO_MENU_LINK . '&reset_beans=1'; ?>'>Reset Settings Now</a>
 </div>
