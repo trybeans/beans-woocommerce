@@ -3,9 +3,9 @@
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
-use BeansWoo\Admin\CheckConfig;
+use BeansWoo\Admin\Inspector;
 
-CheckConfig::init();
+Inspector::init();
 global $wp_version;
 
 function getSupportedTag($vs_is_supported)
@@ -57,10 +57,10 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>WooCommerce Version</strong>: <?php echo CheckConfig::$woo_version;
-                    getSupportedTag(CheckConfig::$woo_is_supported); ?>
+                    <strong>WooCommerce Version</strong>: <?php echo Inspector::$woo_version;
+                    getSupportedTag(Inspector::$woo_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$woo_is_supported) : ?>
+                <?php if (!Inspector::$woo_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Please update your WooCommerce plugin:
                         <a href="https://docs.woocommerce.com/document/how-to-update-woocommerce/" target="_blank">
@@ -72,9 +72,9 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <li>
                 <p>
                     <strong>Wordpress Version</strong>: <?php echo $wp_version;
-                    getSupportedTag(CheckConfig::$wp_is_supported); ?>
+                    getSupportedTag(Inspector::$wp_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$wp_is_supported) : ?>
+                <?php if (!Inspector::$wp_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Please upgrade your Wordpress:
                         <a href="https://codex.wordpress.org/Upgrading_WordPress" target="_blank">
@@ -85,10 +85,10 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>PHP Version</strong>: <?php echo CheckConfig::$php_version;
-                    getSupportedTag(CheckConfig::$php_is_supported); ?>
+                    <strong>PHP Version</strong>: <?php echo Inspector::$php_version;
+                    getSupportedTag(Inspector::$php_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$php_is_supported) : ?>
+                <?php if (!Inspector::$php_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Contact your web host to update your PHP:
                         <a href="https://wordpress.org/support/update-php/" target="_blank">Learn more on PHP Update</a>
@@ -97,25 +97,25 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>CURL Supported</strong>: <?php getSupportedTag(CheckConfig::$curl_is_supported); ?>
+                    <strong>CURL Supported</strong>: <?php getSupportedTag(Inspector::$curl_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$curl_is_supported) : ?>
+                <?php if (!Inspector::$curl_is_supported) : ?>
                     <p class="beans-admin-check-warning">Contact your web host to enable CURL support.</p>
                 <?php endif; ?>
             </li>
             <li>
                 <p>
-                    <strong>JSON Supported</strong>: <?php getSupportedTag(CheckConfig::$json_is_supported); ?>
+                    <strong>JSON Supported</strong>: <?php getSupportedTag(Inspector::$json_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$json_is_supported) : ?>
+                <?php if (!Inspector::$json_is_supported) : ?>
                     <p class="beans-admin-check-warning">Contact your web host to enable JSON support.</p>
                 <?php endif; ?>
             </li>
             <li>
                 <p>
-                    <strong>Permalink Enabled</strong>: <?php getSupportedTag(CheckConfig::$permalink_is_supported); ?>
+                    <strong>Permalink Enabled</strong>: <?php getSupportedTag(Inspector::$permalink_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$permalink_is_supported) : ?>
+                <?php if (!Inspector::$permalink_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Please enable Permalinks:
                         <a href="https://codex.wordpress.org/Settings_Permalinks_Screen" target="_blank">
@@ -127,9 +127,9 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <li>
                 <p>
                     <strong>WordPress Permalink Enabled</strong>:
-                    <?php getSupportedTag(CheckConfig::$wp_permalink_is_supported); ?>
+                    <?php getSupportedTag(Inspector::$wp_permalink_is_supported); ?>
                 </p>
-                <?php if (!CheckConfig::$wp_permalink_is_supported) : ?>
+                <?php if (!Inspector::$wp_permalink_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Please enable pretty permalink:
                         <a href="https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
@@ -139,18 +139,18 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
                     </p>
                 <?php endif; ?>
             </li>
-            <?php if (!is_null(CheckConfig::$woo_api_uri_is_up)) : ?>
+            <?php if (!is_null(Inspector::$woo_api_uri_is_up)) : ?>
                 <li>
                     <p>
                         <strong>WooCommerce API V3 URI
-                            Test</strong>: <?php getSupportedTag(CheckConfig::$woo_api_uri_is_up); ?>
+                            Test</strong>: <?php getSupportedTag(Inspector::$woo_api_uri_is_up); ?>
                     </p>
-                    <?php if (!CheckConfig::$woo_api_uri_is_up) : ?>
+                    <?php if (!Inspector::$woo_api_uri_is_up) : ?>
                         <p class="beans-admin-check-warning">
                             Unable to connect to the API using endpoint: <br/>
                             <?php echo getenv("BEANS_WOO_API_ENDPOINT"); ?> <br/>
-                            HTTP Status: <?php echo CheckConfig::$woo_api_uri_http_status ?> <br/>
-                            Content Type: <?php echo CheckConfig::$woo_api_uri_content_type ?> <br/>
+                            HTTP Status: <?php echo Inspector::$woo_api_uri_http_status ?> <br/>
+                            Content Type: <?php echo Inspector::$woo_api_uri_content_type ?> <br/>
                             Please:
                             <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for
                             assistance.
@@ -159,19 +159,19 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
                     <?php endif; ?>
                 </li>
             <?php endif; ?>
-            <?php if (!is_null(CheckConfig::$woo_api_auth_is_up)) : ?>
+            <?php if (!is_null(Inspector::$woo_api_auth_is_up)) : ?>
                 <li>
                     <p>
                         <strong>
                             WooCommerce API V2 Authentication
-                            Test</strong>: <?php getSupportedTag(CheckConfig::$woo_api_auth_is_up); ?>
+                            Test</strong>: <?php getSupportedTag(Inspector::$woo_api_auth_is_up); ?>
                     </p>
-                    <?php if (!CheckConfig::$woo_api_auth_is_up) : ?>
+                    <?php if (!Inspector::$woo_api_auth_is_up) : ?>
                         <p class="beans-admin-check-warning">
                             Unable to connect to the API using authentication endpoint: <br/>
                             <?php echo BEANS_WOO_API_AUTH_ENDPOINT; ?> <br/>
-                            HTTP Status: <?php echo CheckConfig::$woo_api_auth_http_status; ?> <br/>
-                            Content Type: <?php echo CheckConfig::$woo_api_auth_content_type; ?> <br/>
+                            HTTP Status: <?php echo Inspector::$woo_api_auth_http_status; ?> <br/>
+                            Content Type: <?php echo Inspector::$woo_api_auth_content_type; ?> <br/>
                             Please:
                             <a href="mailto:hello@trybeans.com" target="_blank">Contact the Beans Team</a> for
                             assistance.
@@ -199,15 +199,15 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
 <script>
     jQuery(function () {
 
-        const woo_is_supported = "<?php echo CheckConfig::$woo_is_supported; ?>";
-        const wp_is_supported = "<?php echo CheckConfig::$wp_is_supported; ?>";
-        const php_is_supported = "<?php echo CheckConfig::$php_is_supported; ?>";
-        const curl_is_supported = "<?php echo CheckConfig::$curl_is_supported; ?>";
-        const json_is_supported = "<?php echo CheckConfig::$json_is_supported; ?>";
-        const permalink_is_supported = "<?php echo CheckConfig::$permalink_is_supported; ?>";
-        const wp_permalink_is_supported = "<?php echo CheckConfig::$wp_permalink_is_supported; ?>";
-        const woo_api_uri_is_up = "<?php echo CheckConfig::$woo_api_uri_is_up; ?>";
-        const woo_api_auth_is_up = "<?php echo CheckConfig::$woo_api_auth_is_up; ?>";
+        const woo_is_supported = "<?php echo Inspector::$woo_is_supported; ?>";
+        const wp_is_supported = "<?php echo Inspector::$wp_is_supported; ?>";
+        const php_is_supported = "<?php echo Inspector::$php_is_supported; ?>";
+        const curl_is_supported = "<?php echo Inspector::$curl_is_supported; ?>";
+        const json_is_supported = "<?php echo Inspector::$json_is_supported; ?>";
+        const permalink_is_supported = "<?php echo Inspector::$permalink_is_supported; ?>";
+        const wp_permalink_is_supported = "<?php echo Inspector::$wp_permalink_is_supported; ?>";
+        const woo_api_uri_is_up = "<?php echo Inspector::$woo_api_uri_is_up; ?>";
+        const woo_api_auth_is_up = "<?php echo Inspector::$woo_api_auth_is_up; ?>";
 
         if (woo_is_supported !== '1' || wp_is_supported !== '1' || php_is_supported !== '1'
             || php_is_supported !== '1' || curl_is_supported !== '1' || json_is_supported !== '1'

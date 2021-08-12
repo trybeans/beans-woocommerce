@@ -57,7 +57,7 @@ $base_asset_path = '/assets/img/admin/onboarding';
                 <div id="beans-ultimate-connect" style="display: none">
                     <p class="wc-setup-actions step" style="justify-content: center; display: flex"
                        id="beans-ultimate-submit-button">
-                        <?php if (\BeansWoo\Admin\CheckConfig::$beans_is_supported || $force) : ?>
+                        <?php if (\BeansWoo\Admin\Inspector::$beans_is_supported || $force) : ?>
                         <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
                             shadow-md" value="Connect to Beans Ultimate">
                         <?php else : ?>
