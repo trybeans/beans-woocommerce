@@ -10,8 +10,6 @@ include_once('observer.php');
 include_once('observer-product.php');
 include_once('block.php');
 
-define('BEANS_LIANA_COUPON_UID', 'redeem_points');
-
 
 class Main
 {

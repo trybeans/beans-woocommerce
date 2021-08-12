@@ -25,7 +25,7 @@ class Observer
     {
         wp_enqueue_style(
             'admin-styles',
-            plugins_url('assets/css/beans-admin.css', BEANS_PLUGIN_FILENAME)
+            BEANS_PLUGIN_URL . 'assets/css/beans-admin.css'
         );
     }
 
@@ -67,7 +67,7 @@ class Observer
                 'manage_options',
                 BEANS_WOO_BASE_MENU_SLUG,
                 array('\BeansWoo\Admin\Connector\UltimateConnector', 'render_settings_page'),
-                plugins_url('/assets/img/beans-wordpress-icon.svg', BEANS_PLUGIN_FILENAME),
+                BEANS_PLUGIN_URL . 'assets/img/beans-wordpress-icon.svg',
                 56
             );
         }

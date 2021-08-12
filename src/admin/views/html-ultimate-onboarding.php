@@ -5,7 +5,7 @@ defined('ABSPATH') or die;
 use BeansWoo\Helper;
 
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
-$base_asset_path = '/assets/img/admin/onboarding';
+$base_asset_url = BEANS_PLUGIN_URL . '/assets/img/admin/onboarding';
 ?>
 
 
@@ -29,10 +29,8 @@ $base_asset_path = '/assets/img/admin/onboarding';
                 </div>
                 <div style="display: flex; width: 100%; justify-content: center">
                     <div style="text-align: center">
-                        <img id="beans-app-hero" src="<?php echo plugins_url(
-                            $base_asset_path . '/ultimate-hero.svg',
-                            BEANS_PLUGIN_FILENAME
-                        ) ?>" alt="" width="auto" height="280px">
+                        <img id="beans-app-hero" src="<?php echo $base_asset_url . '/ultimate-hero.svg'?>"
+                             alt="" width="auto" height="280px">
                     </div>
                 </div>
                 <div style="height: auto">
@@ -49,7 +47,7 @@ $base_asset_path = '/assets/img/admin/onboarding';
                 </div>
                 <div id="beans-ultimate-connect" style="display: none">
                     <p class="wc-setup-actions step" style="justify-content: center; display: flex" id="beans-ultimate-submit-button">
-                        <?php if (\BeansWoo\Admin\CheckConfig::$beans_is_supported || $force) : ?>
+                        <?php if (\BeansWoo\Admin\CheckConfig::$beans_is_supported || isset($_GET['force_beans'])) : ?>
                         <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
                             shadow-md" value="Connect to Beans Ultimate">
                         <?php else : ?>
@@ -79,7 +77,7 @@ $base_asset_path = '/assets/img/admin/onboarding';
                 }
                 ?>
                     info.push({
-                    hero: "<?php echo plugins_url($base_asset_path . '/' . $heroImage, BEANS_PLUGIN_FILENAME); ?>",
+                    hero: "<?php echo $base_asset_url . '/' . $heroImage ?>",
                     banner: "<?php echo $base_banner_url . 'logo-full-' . $app . '.svg'; ?>",
                     title: "<?php echo Helper::getApps()[$app]['title']; ?>",
                     role: "<?php echo Helper::getApps()[$app]['role']; ?>",

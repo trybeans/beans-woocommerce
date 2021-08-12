@@ -15,17 +15,17 @@ if (! $loginkey) {
     }
 }
 
-if (isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout'])) {
+if (isset($_POST['beans-liana-display-redemption-checkout'])) {
     $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
     update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
 
-$app_name = static::$app_name;
-$base_asset_path = 'assets/img/connector';
+$app_name = \BeansWoo\Admin\Connector\UltimateConnector::$app_name;
+$base_asset_url = BEANS_PLUGIN_URL . 'assets/img/connector';
 
 ?>
 
-<?php if (empty(static::$card)) : ?>
+<?php if (empty(\BeansWoo\Admin\Connector\UltimateConnector::$card)) : ?>
 <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
     <p class="beans-admin-check-warning">
         Unable to connect to Beans. Unable to retrieve information about your account status.
@@ -73,7 +73,7 @@ $base_asset_path = 'assets/img/connector';
                     </span>
                 </div>
                 <div style="display: flex; align-items: center; margin-left: 20px;">
-                    <img width="150px" src="<?php echo plugins_url($base_asset_path . '/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"  />
+                    <img width="150px" src="<?php echo $base_asset_url . '/reward-page.svg' ?>"  />
                 </div>
             </div>
         <?php endif; ?>
@@ -93,7 +93,7 @@ $base_asset_path = 'assets/img/connector';
                     </span>
                 </div>
                 <div style="display: flex; align-items: center; margin-left: 20px;">
-                    <img width="150px" src="<?php echo plugins_url($base_asset_path . '/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"  />
+                    <img width="150px" src="<?php echo $base_asset_url . '/reward-page.svg' ?>"  />
                 </div>
             </div>
         <?php endif; ?>
@@ -119,27 +119,27 @@ $base_asset_path = 'assets/img/connector';
                 <span class="beans-woo-help-action">
                     <a target="_blank" href="https://web.facebook.com/groups/1220975858059106/">
                         <span>
-                            <img src="<?php echo plugins_url($base_asset_path . '/facebook.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                            <img src="<?php echo $base_asset_url . '/facebook.svg' ?>" width="18px" height="18px"/>
                         </span>Join Facebook Group
                     </a>
                 </span>
                 <span class="beans-woo-help-action">
                     <a target="_blank" href="https://twitter.com/beanshq">
                         <span>
-                            <img src="<?php echo plugins_url($base_asset_path . '/twitter.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                            <img src="<?php echo $base_asset_url . '/twitter.svg' ?>" width="18px" height="18px"/>
                         </span>Follow us on Twitter
                     </a>
                 </span>
                 <span class="beans-woo-help-action">
                     <a target="_blank" href="http://help.trybeans.com/">
-                        <span><img src="<?php echo plugins_url($base_asset_path . '/help-center.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                        <span><img src="<?php echo $base_asset_url . '/help-center.svg' ?>" width="18px" height="18px"/>
                         </span>Go to Help Center
                     </a>
                 </span>
                 <span class="beans-woo-help-action">
                     <a href="mailto:hello@trybeans.com">
                         <span>
-                            <img src="<?php echo plugins_url($base_asset_path . '/email-support.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+                            <img src="<?php echo $base_asset_url . '/email-support.svg' ?>" width="18px" height="18px"/>
                         </span>Contact Support
                     </a>
                 </span>
@@ -148,7 +148,7 @@ $base_asset_path = 'assets/img/connector';
 
         <div class="beans-woo-review">
             <div style="display: flex; align-items: center;">
-                <img src="<?php echo plugins_url($base_asset_path . '/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
+                <img src="<?php echo $base_asset_url . '/beans-review-logo.png' ?>"/>
             </div>
             <div>
                 <div class="beans-woo-review-title">

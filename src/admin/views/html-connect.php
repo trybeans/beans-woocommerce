@@ -28,8 +28,6 @@ if ($country_code && strpos($country_code, ':') !== false) {
     }
 }
 
-$force = isset($_GET['force_beans']);
-
 $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
 ?>
 
