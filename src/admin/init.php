@@ -13,8 +13,6 @@ include_once("Observer/Observer.php");
 include_once("Connector/Connector.php");
 include_once("Configurator/Configurator.php");
 
-use BeansWoo\Admin\Connector;
-
 class Main
 {
 
@@ -24,7 +22,7 @@ class Main
             return;
         }
 
-        Connector::init();
-        Observer::init();
+        Connector\Connector::init();
+        Observer\Observer::init();
     }
 }

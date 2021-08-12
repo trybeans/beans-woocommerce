@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Admin;
+namespace BeansWoo\Admin\Connector;
 
 use BeansWoo\Helper;
 
@@ -62,10 +62,10 @@ class Connector
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
             self::updateInstalledApps();
-            return include(dirname(__FILE__, 2) . '/views/html-info.php');
+            return include(dirname(__FILE__, 2) . '/Configurator/configurator-html.php');
         }
 
-        return include(dirname(__FILE__, 2) . '/views/html-connect.php');
+        return include(dirname(__FILE__) . '/connector-settings-html.php');
     }
 
     protected static function _processSetup()

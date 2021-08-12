@@ -1,10 +1,6 @@
 <?php
 
-namespace BeansWoo\Front;
-
-use BeansWoo\Front\Liana\Observer;
-use BeansWoo\Helper;
-
+namespace BeansWoo\StoreFront\Base\Registration;
 
 class Block
 {

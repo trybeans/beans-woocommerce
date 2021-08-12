@@ -7,8 +7,8 @@ defined('ABSPATH') or die;
 // if uninstall not called from WordPress exit
 defined('WP_UNINSTALL_PLUGIN') or die;
 
-include_once('includes/beans.php');
-include_once('includes/helper.php');
+include_once('includes/Beans.php');
+include_once('includes/Helper.php');
 
 Helper::resetSetup();
 delete_option('beans-liana-display-redemption-checkout');
