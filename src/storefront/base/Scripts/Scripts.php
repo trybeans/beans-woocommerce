@@ -1,12 +1,9 @@
 <?php
 
-namespace BeansWoo\Front;
+namespace BeansWoo\StoreFront\Base\Scripts;
 
-defined('ABSPATH') or die;
-
-use BeansWoo\Front\Liana\Observer;
 use BeansWoo\Helper;
-
+use BeansWoo\StoreFront\Liana\Observer\LianaObserver;
 
 class Block
 {
@@ -14,18 +11,14 @@ class Block
     {
         add_action('wp_head', array(__CLASS__, 'renderHead'), 10, 1);
 
-        add_action('woocommerce_register_form_start', array(__CLASS__, 'renderRegister'));
-        add_action('woocommerce_created_customer', array(__CLASS__, 'registerSaveNameFields'));
-        add_filter('woocommerce_registration_errors', array(__CLASS__, 'registerValidateNameFields'), 10, 3);
-
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
+
+        add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
 
         if (current_user_can('administrator') and is_null(Helper::getConfig('isAdmin_account'))) {
             do_action('woocommerce_new_customer', get_current_user_id());  // force customer webhook for admin
             Helper::setConfig('is_admin_account', true);
         }
-
-        add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
     }
 
     public static function renderHead()
@@ -68,7 +61,7 @@ class Block
         $debit = array();
 
         if (is_user_logged_in() and !isset($_SESSION["liana_account"])) {
-            Observer::customerRegister(get_current_user_id());
+            LianaObserver::customerRegister(get_current_user_id());
         }
 
         if (isset($_SESSION['liana_token'])) {
@@ -128,51 +121,6 @@ class Block
             window.Beans3.Snow.Radix.init();
             window.Beans3.Arrow.Radix.init();
         </script>
-        <?php
-    }
-
-    public static function registerValidateNameFields($errors, $username, $email)
-    {
-        if (isset($_POST['first_name']) && empty($_POST['first_name'])) {
-            $errors->add('first_name_error', __('<strong>Error</strong>: First name is required!', 'woocommerce'));
-        }
-        if (isset($_POST['last_name']) && empty($_POST['last_name'])) {
-            $errors->add('last_name_error', __('<strong>Error</strong>: Last name is required!.', 'woocommerce'));
-        }
-        return $errors;
-    }
-
-
-    public static function registerSaveNameFields($customer_id)
-    {
-        if (isset($_POST['first_name'])) {
-            update_user_meta($customer_id, 'billing_first_name', sanitize_text_field($_POST['first_name']));
-            update_user_meta($customer_id, 'first_name', sanitize_text_field($_POST['first_name']));
-        }
-        if (isset($_POST['last_name'])) {
-            update_user_meta($customer_id, 'billing_last_name', sanitize_text_field($_POST['last_name']));
-            update_user_meta($customer_id, 'last_name', sanitize_text_field($_POST['last_name']));
-        }
-    }
-
-    public static function renderRegister()
-    {
-        ?>
-        <p class="form-row form-row-first">
-            <label for="reg_first_name"><?php _e('First name', 'woocommerce'); ?><span class="required">*</span></label>
-            <input type="text" class="input-text" name="first_name" id="reg_first_name"
-                   value="<?php if (! empty($_POST['first_name'])) {
-                        esc_attr_e($_POST['first_name']);
-                          } ?>" />
-        </p>
-
-        <p class="form-row form-row-last">
-            <label for="reg_last_name"><?php _e('Last name', 'woocommerce'); ?><span class="required">*</span></label>
-            <input type="text" class="input-text" name="last_name" id="reg_last_name"
-                   value="<?php if (! empty($_POST['last_name'])) {
-                        esc_attr_e($_POST['last_name']);
-                          } ?>" />
-        </p>
         <?php
     }
 }

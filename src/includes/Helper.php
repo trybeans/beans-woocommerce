@@ -2,7 +2,6 @@
 
 namespace BeansWoo;
 
-defined('ABSPATH') or die;
 
 use Beans\Beans;
 use Beans\Error\BaseError;
@@ -18,11 +17,11 @@ class Helper
     {
         $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
-            'NAME' => 'trybeans.com',
+            'NAME'    => 'trybeans.com',
             'API'     => 'api.trybeans.com',
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
-            'CDN' => 'cdn.trybeans.com',
+            'CDN'     => 'cdn.trybeans.com',
         );
         $val     = getenv($key);
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace BeansWoo\Front\Liana;
+namespace BeansWoo\StoreFront\Liana\Observer;
 
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
 
-class Observer
+class LianaObserver
 {
     public static $display;
     public static $redemption;
