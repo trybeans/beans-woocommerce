@@ -1,7 +1,8 @@
 <?php
 
-namespace BeansWoo\Admin\Connector;
+namespace BeansWoo\Admin;
 
+use Beans\BeansError;
 use BeansWoo\Helper;
 
 class Connector
@@ -20,7 +21,7 @@ class Connector
         add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
     }
 
-    protected static function _installAssets($app_name = null)
+    protected static function installAssets($app_name = null)
     {
         if (!in_array($app_name, ['liana', 'bamboo'])) {
             return false;
@@ -47,7 +48,7 @@ class Connector
     {
 
         if (isset($_GET['card']) && isset($_GET['token'])) {
-            if (self::_processSetup()) {
+            if (self::processSetup()) {
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }
@@ -58,17 +59,17 @@ class Connector
             }
         }
 
-        self::_renderNotices();
+        self::renderNotices();
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
             self::updateInstalledApps();
-            return include(dirname(__FILE__).'/connector-settings.html.php');
+            return include(dirname(__FILE__) . '/connector-settings.html.php');
         }
 
-        return include(dirname(__FILE__).'/connector-connect.html.php');
+        return include(dirname(__FILE__) . '/connector-connect.html.php');
     }
 
-    protected static function _processSetup()
+    protected static function processSetup()
     {
         Helper::log(print_r($_GET, true));
 
@@ -79,7 +80,7 @@ class Connector
 
         try {
             $integration_key = Helper::API()->get('/core/auth/integration_key/' . $token);
-        } catch (\Beans\Error\BaseError  $e) {
+        } catch (BeansError  $e) {
             self::$errors[] = 'Connecting to Beans failed with message: ' . $e->getMessage();
             Helper::log('Connecting failed: ' . $e->getMessage());
 
@@ -93,7 +94,7 @@ class Connector
         return true;
     }
 
-    public static function _renderNotices()
+    public static function renderNotices()
     {
         if (self::$errors || self::$messages) {
             ?>
@@ -163,7 +164,7 @@ class Connector
         foreach (self::$card['apps'] as $app => $status) {
             $app = strtolower($app);
             if ($status['is_installed']) {
-                self::_installAssets($app);
+                self::installAssets($app);
                 Helper::setInstalledApp($app);
             }
         }
@@ -171,7 +172,7 @@ class Connector
 
     public static function installDefaultAssets()
     {
-        self::_installAssets('liana');
-        self::_installAssets('bamboo');
+        self::installAssets('liana');
+        self::installAssets('bamboo');
     }
 }

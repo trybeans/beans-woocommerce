@@ -31,6 +31,10 @@
             ]
         }
     ],
+    "require": {
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
     "require-dev": {
         "composer/installers": "^1.11.0",
         "johnpbloch/wordpress": "~5.5.0",
@@ -38,7 +42,8 @@
         "phpstan/phpstan": "^0.12.94",
         "squizlabs/php_codesniffer": "^3.6.0",
         "wp-coding-standards/wpcs": "^2.3.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+        "szepeviktor/phpstan-wordpress": "^0.7.7"
     },
     "scripts": {
         "lint": [

@@ -1,8 +1,13 @@
 parameters:
-	level: 0
+	level: 4
 	scanDirectories:
 		- wp/wp-includes
 		- wp/wp-admin
 		- wp/wp-content/plugins/woocommerce
 	paths:
 		- src
+	bootstrapFiles:
+		- src/config.php
+		- wordpress-constants.php
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon

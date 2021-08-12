@@ -17,7 +17,7 @@
 namespace BeansWoo;
 
 // Exit if accessed directly
-defined('ABSPATH') || exit;
+defined('ABSPATH') or exit;
 
 // Check if WooCommerce is active
 $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
@@ -41,7 +41,7 @@ if (! class_exists('WC_Beans')) :
 
     class WC_Beans
     {
-        protected static $_instance = null;
+        protected static $instance = null;
 
         protected function __construct()
         {
@@ -50,10 +50,10 @@ if (! class_exists('WC_Beans')) :
 
         public static function instance()
         {
-            if (is_null(self::$_instance)) {
-                self::$_instance = new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
             }
-            return self::$_instance;
+            return self::$instance;
         }
 
         public static function init()

@@ -1,8 +1,8 @@
 <?php
 
-namespace BeansWoo\StoreFront\Base\Registration;
+namespace BeansWoo\StoreFront;
 
-class Block
+class Registration
 {
     public static function init()
     {

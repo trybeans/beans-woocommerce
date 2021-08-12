@@ -2,11 +2,9 @@
 
 namespace BeansWoo\Server;
 
-defined('ABSPATH') or die;
-
 use BeansWoo\Helper;
 
-class BeansRestWoocommerce
+class Hooks
 {
 
     public static function init()

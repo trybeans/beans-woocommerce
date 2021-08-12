@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\StoreFront\Liana\Observer;
+namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
@@ -74,7 +74,7 @@ class LianaProductObserver
         if ((int)$current_product_id === 0) {
             $current_product_id = (int)$product->get_id();
         }
-        if (is_null(WC()->cart)) {
+        if (WC()->cart->get_cart_contents_count() == 0) {
             return $is_purchasable;
         }
 

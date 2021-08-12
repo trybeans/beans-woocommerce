@@ -1,11 +1,10 @@
 <?php
 
-namespace BeansWoo\StoreFront\Base\Scripts;
+namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
-use BeansWoo\StoreFront\Liana\Observer\LianaObserver;
 
-class Block
+class Scripts
 {
     public static function init()
     {
