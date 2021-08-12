@@ -17,7 +17,7 @@
 namespace BeansWoo;
 
 // Exit if accessed directly
-defined('ABSPATH') || exit;
+defined('ABSPATH') or exit;
 
 // Check if WooCommerce is active
 $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));

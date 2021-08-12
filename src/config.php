@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') || exit;
+defined('ABSPATH') or exit;
 
 
 if (!defined('BEANS_VERSION')) {

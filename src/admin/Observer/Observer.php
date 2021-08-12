@@ -16,6 +16,11 @@ class Observer
         add_action('admin_init', array('\BeansWoo\Admin\Connector', 'noticeDismissed'));
 
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
+
+        if (current_user_can('administrator') and is_null(Helper::getConfig('is_admin_account'))) {
+            do_action('woocommerce_new_customer', get_current_user_id());  // force customer webhook for admin
+            Helper::setConfig('is_admin_account', true);
+        }
     }
 
     public static function loadAdminStyle()
