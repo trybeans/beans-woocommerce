@@ -157,8 +157,8 @@ class LianaProductObserver
         }
 
         if (count($product_ids) != 0 && !$cart->has_discount(BEANS_LIANA_COUPON_UID)) {
-            Observer::cancelRedemption();
-            Observer::updateSession();
+            LianaObserver::cancelRedemption();
+            LianaObserver::updateSession();
 
             # force quantity to be always equal to 1 for `pay wit point product`
             foreach ($product_ids as $cart_item_key => $pay_with_point_product_id) {
@@ -210,8 +210,8 @@ class LianaProductObserver
             && $cart->has_discount(BEANS_LIANA_COUPON_UID)
         ) {
             $cart->remove_coupon(BEANS_LIANA_COUPON_UID);
-            Observer::cancelRedemption();
-            Observer::updateSession();
+            LianaObserver::cancelRedemption();
+            LianaObserver::updateSession();
         }
     }
 }

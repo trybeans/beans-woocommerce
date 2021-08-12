@@ -13,8 +13,8 @@ $base_asset_url = BEANS_PLUGIN_URL . '/assets/img/admin/onboarding';
 <div class="welcome-panel-ultimate beans-admin-content-ultimate" style="max-width: 600px; margin: auto">
     <div>
         <div style="background-color:white; padding-top: 10px; padding-bottom: 60px;
-        box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); width: 600px; height: auto; position: relative;
-        min-height: 400px;">
+                    box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); width: 600px;
+                    height: auto; position: relative; min-height: 400px;">
             <div id="beans-core" >
                 <div style="display: none; text-align: center;" id="app-image"  class="app-image">
                     <div>
@@ -34,9 +34,16 @@ $base_asset_url = BEANS_PLUGIN_URL . '/assets/img/admin/onboarding';
                     </div>
                 </div>
                 <div style="height: auto">
-                    <button class="beans-bg-primary-ultimate" id="beans-step" data-step="0"  style="margin-right: 30px; float:right; border-width: 0; font-size: 13px; cursor: pointer; color: #fff; border-color: transparent; text-transform: uppercase; display: flex; justify-content: center; padding-top: .5rem; padding-bottom: .5rem; margin-top: .75rem; border-radius: .25rem; box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); font-weight: 900;">next
+                    <button class="beans-bg-primary-ultimate" id="beans-step" data-step="0"
+                            style="margin-right: 30px; float:right; border-width: 0; font-size: 13px; cursor: pointer;
+                                color: #fff; border-color: transparent; text-transform: uppercase; display: flex;
+                                justify-content: center; padding-top: .5rem; padding-bottom: .5rem; margin-top: .75rem;
+                                border-radius: .25rem;
+                                box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08);
+                                font-weight: 900;">next
                         <div style=" margin-left: .5rem; margin-top: 2px;">
-                            <svg width="8" height="11" viewBox="0 0 8 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="8" height="11" viewBox="0 0 8 11" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                       d="M1.69525 0.113281L7.0838 5.50183L1.69525 10.8904L0.292725
                                       9.48785L4.27875 5.50183L0.292725 1.51581L1.69525 0.113281Z" fill="white">
@@ -47,7 +54,7 @@ $base_asset_url = BEANS_PLUGIN_URL . '/assets/img/admin/onboarding';
                 </div>
                 <div id="beans-ultimate-connect" style="display: none">
                     <p class="wc-setup-actions step" style="justify-content: center; display: flex" id="beans-ultimate-submit-button">
-                        <?php if (\BeansWoo\Admin\CheckConfig::$beans_is_supported || isset($_GET['force_beans'])) : ?>
+                        <?php if (\BeansWoo\Admin\Configurator\CheckConfig::$beans_is_supported || isset($_GET['force_beans'])) : ?>
                         <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
                             shadow-md" value="Connect to Beans Ultimate">
                         <?php else : ?>

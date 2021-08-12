@@ -43,7 +43,8 @@ class Observer
     public static function displayRedeemCheckboxSettings()
     {
         ?>
-        <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
+        <!-- Here we are comparing stored value with 1. Stored value is 1 if user
+        checks the checkbox otherwise empty string. -->
         <div>
             <input type="checkbox"
                    id="beans-liana-display-redemption-checkout"
