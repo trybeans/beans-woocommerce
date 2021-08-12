@@ -64,7 +64,7 @@ class Observer
                 'Beans',
                 'manage_options',
                 BEANS_WOO_BASE_MENU_SLUG,
-                array('\BeansWoo\Admin\Connector\UltimateConnector', 'renderSettingsPage'),
+                array('\BeansWoo\Admin\Connector\Connector', 'renderSettingsPage'),
                 plugins_url('/assets/img/beans-wordpress-icon.svg', BEANS_PLUGIN_FILENAME),
                 56
             );
