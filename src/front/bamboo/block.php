@@ -9,10 +9,10 @@ class Block
 
     public static function init()
     {
-        add_filter('the_content', array(__CLASS__, 'render_page'), 10, 1);
+        add_filter('the_content', array(__CLASS__, 'renderPage'), 10, 1);
     }
 
-    public static function render_page($content, $vars = null)
+    public static function renderPage($content, $vars = null)
     {
         if (strpos($content, '[beans_referral_page]') !== false) {
             ob_start();

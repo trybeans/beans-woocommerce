@@ -9,10 +9,10 @@ class Block
 
     public static function init()
     {
-        add_action("woocommerce_login_form_start", array(__CLASS__, 'render_button_container'), 10);
+        add_action("woocommerce_login_form_start", array(__CLASS__, 'renderButtonContainer'), 10);
     }
 
-    public static function render_button_container()
+    public static function renderButtonContainer()
     {
         ?>
         <div class="beans-arrow"></div>

@@ -12,23 +12,23 @@ class Block
 {
     public static function init()
     {
-        add_action('wp_head', array(__CLASS__, 'render_head'), 10, 1);
+        add_action('wp_head', array(__CLASS__, 'renderHead'), 10, 1);
 
-        add_action('woocommerce_register_form_start', array(__CLASS__, 'render_register'));
-        add_action('woocommerce_created_customer', array(__CLASS__, 'register_save_name_fields'));
-        add_filter('woocommerce_registration_errors', array(__CLASS__, 'register_validate_name_fields'), 10, 3);
+        add_action('woocommerce_register_form_start', array(__CLASS__, 'renderRegister'));
+        add_action('woocommerce_created_customer', array(__CLASS__, 'registerSaveNameFields'));
+        add_filter('woocommerce_registration_errors', array(__CLASS__, 'registerValidateNameFields'), 10, 3);
 
-        add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'), 10, 1);
+        add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
 
-        if (current_user_can('administrator') and is_null(Helper::getConfig('is_admin_account'))) {
+        if (current_user_can('administrator') and is_null(Helper::getConfig('isAdmin_account'))) {
             do_action('woocommerce_new_customer', get_current_user_id());  // force customer webhook for admin
             Helper::setConfig('is_admin_account', true);
         }
 
-        add_action('wp_footer', array(__CLASS__, 'render_footer'), 10, 1);
+        add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
     }
 
-    public static function render_head()
+    public static function renderHead()
     {
         ?>
         <script>
@@ -48,7 +48,7 @@ class Block
         <?php
     }
 
-    public static function enqueue_scripts()
+    public static function enqueueScripts()
     {
         wp_enqueue_script(
             'beans-ultimate-js',
@@ -62,13 +62,13 @@ class Block
         wp_enqueue_style('beans-style', plugins_url('assets/css/beans-storefront.css', BEANS_PLUGIN_FILENAME));
     }
 
-    public static function render_footer()
+    public static function renderFooter()
     {
         $token = array();
         $debit = array();
 
         if (is_user_logged_in() and !isset($_SESSION["liana_account"])) {
-            Observer::customer_register(get_current_user_id());
+            Observer::customerRegister(get_current_user_id());
         }
 
         if (isset($_SESSION['liana_token'])) {
@@ -131,7 +131,7 @@ class Block
         <?php
     }
 
-    public static function register_validate_name_fields($errors, $username, $email)
+    public static function registerValidateNameFields($errors, $username, $email)
     {
         if (isset($_POST['first_name']) && empty($_POST['first_name'])) {
             $errors->add('first_name_error', __('<strong>Error</strong>: First name is required!', 'woocommerce'));
@@ -143,7 +143,7 @@ class Block
     }
 
 
-    public static function register_save_name_fields($customer_id)
+    public static function registerSaveNameFields($customer_id)
     {
         if (isset($_POST['first_name'])) {
             update_user_meta($customer_id, 'billing_first_name', sanitize_text_field($_POST['first_name']));
@@ -155,7 +155,7 @@ class Block
         }
     }
 
-    public static function render_register()
+    public static function renderRegister()
     {
         ?>
         <p class="form-row form-row-first">

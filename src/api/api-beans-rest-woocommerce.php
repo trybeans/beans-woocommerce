@@ -11,22 +11,17 @@ class BeansRestWoocommerce
 
     public static function init()
     {
-        add_filter('woocommerce_rest_prepare_system_status', array(__CLASS__, 'add_site_pages_infos'), 90, 2);
+        add_filter('woocommerce_rest_prepare_system_status', array(__CLASS__, 'addSitePagesInfos'), 90, 2);
 
         if (Helper::isSetup()) {
-            add_filter('woocommerce_webhook_deliver_async', array(__CLASS__, 'async_webhook'), 10, 3);
-            add_filter('woocommerce_rest_prepare_customer', array(__CLASS__, 'add_beans_app_activated'), 90, 1);
-            add_filter('woocommerce_rest_prepare_product_object', array(__CLASS__, 'add_beans_app_activated'), 90, 1);
-            add_filter(
-                'woocommerce_rest_prepare_shop_order_object',
-                array(__CLASS__, 'add_beans_app_activated'),
-                90,
-                1
-            );
+            add_filter('woocommerce_webhook_deliver_async', array(__CLASS__, 'setWebhookDeliverMode'), 10, 3);
+            add_filter('woocommerce_rest_prepare_customer', array(__CLASS__, 'addBeansAppActivated'), 90, 1);
+            add_filter('woocommerce_rest_prepare_product_object', array(__CLASS__, 'addBeansAppActivated'), 90, 1);
+            add_filter('woocommerce_rest_prepare_shop_order_object', array(__CLASS__, 'addBeansAppActivated'), 90, 1);
         }
     }
 
-    public static function async_webhook($true, $instance, $arg)
+    public static function setWebhookDeliverMode($true, $instance, $arg)
     {
         $topics = [
             'order.created',
@@ -38,7 +33,7 @@ class BeansRestWoocommerce
         return true;
     }
 
-    public static function add_beans_app_activated($response)
+    public static function addBeansAppActivated($response)
     {
         $apps = Helper::getApps();
         $installed_apps = [];
@@ -53,7 +48,7 @@ class BeansRestWoocommerce
         return $response;
     }
 
-    public static function add_site_pages_infos($response, $system_status)
+    public static function addSitePagesInfos($response, $system_status)
     {
         $pages = [
             get_option('woocommerce_myaccount_page_id') => array(
@@ -88,7 +83,7 @@ class BeansRestWoocommerce
             }
         }
 
-        $response->data['pages'] = array_merge($response->data['pages'], self::get_beans_pages(), array(
+        $response->data['pages'] = array_merge($response->data['pages'], self::getBeansPages(), array(
                 array(
                     'page_name' => 'Thank you',
                     'path' => str_replace(
@@ -106,7 +101,7 @@ class BeansRestWoocommerce
         return $response;
     }
 
-    public static function get_beans_pages()
+    public static function getBeansPages()
     {
         $pages_output = [];
 
