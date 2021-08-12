@@ -3,6 +3,7 @@
 namespace BeansWoo\StoreFront\Base\Scripts;
 
 use BeansWoo\Helper;
+use BeansWoo\StoreFront\Liana\Observer\LianaObserver;
 
 class Block
 {
@@ -55,7 +56,7 @@ class Block
         $debit = array();
 
         if (is_user_logged_in() and !isset($_SESSION["liana_account"])) {
-            Observer::customerRegister(get_current_user_id());
+            LianaObserver::customerRegister(get_current_user_id());
         }
 
         if (isset($_SESSION['liana_token'])) {

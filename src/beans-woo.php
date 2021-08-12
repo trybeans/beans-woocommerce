@@ -14,46 +14,36 @@
  * @author Beans
  */
 
-// Exit if accessed directly
 namespace BeansWoo;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+// Exit if accessed directly
+defined('ABSPATH') || exit;
 
 // Check if WooCommerce is active
-if (
-    ! in_array(
-        'woocommerce/woocommerce.php',
-        apply_filters('active_plugins', get_option('active_plugins'))
-    )
-) {
+$active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+if (!in_array('woocommerce/woocommerce.php', $active_plugins)) {
     return;
 }
 
-define('BEANS_VERSION', '3.2.4');
-define('BEANS_PLUGIN_FILENAME', plugin_basename(__FILE__));
-define('BEANS_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('BEANS_INFO_LOG', BEANS_PLUGIN_PATH . 'log.txt');
+require_once 'config.php';
+require_once 'includes/Beans.php';
+require_once 'includes/Helper.php';
 
-include_once('includes/Beans.php');
-include_once('includes/Helper.php');
-
-include_once('server/init.php');
-include_once('admin/init.php');
-include_once('storefront/init.php');
+require_once 'server/init.php';
+require_once 'admin/init.php';
+require_once 'storefront/init.php';
 
 use BeansWoo\Server\Main as ServerMain;
 use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\StoreFront\Main as StoreFrontMain;
 
 if (! class_exists('WC_Beans')) :
+
     class WC_Beans
     {
         protected static $_instance = null;
 
-
-        function __construct()
+        protected function __construct()
         {
             add_action('init', array(__CLASS__, 'init'), 10, 1);
         }
@@ -84,30 +74,9 @@ endif;
 /**
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
-function wcBeansInstance()
+function WC_getBeansInstance()
 {
      return WC_Beans::instance();
 }
 
-$GLOBALS['wc_beans'] = wcBeansInstance();
-
-
-function wcBeansPluginActivate()
-{
-    Helper::postWebhookStatus('activated');
-}
-
-register_activation_hook(__FILE__, function () {
-    wcBeansPluginActivate();
-});
-
-
-function wcBeansPluginDeactivate()
-{
-    Helper::removeTransients();
-    Helper::postWebhookStatus('deactivated');
-}
-
-register_deactivation_hook(__FILE__, function () {
-    wcBeansPluginDeactivate();
-});
+$GLOBALS['wc_beans'] = WC_getBeansInstance();
