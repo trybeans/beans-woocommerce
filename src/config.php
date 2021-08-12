@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') || exit;
+defined('ABSPATH') or exit;
 
 define('BEANS_VERSION', '3.2.4');
 define('BEANS_PLUGIN_FILENAME', plugin_basename(__FILE__));
