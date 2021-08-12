@@ -1,9 +1,6 @@
 <?php
 
-namespace BeansWoo\Admin;
-
-defined('ABSPATH') or die;
-
+namespace BeansWoo\Admin\Configurator;
 
 class CheckConfig
 {

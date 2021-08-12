@@ -3,11 +3,11 @@
     <file>src</file>
     <rule ref="PEAR.NamingConventions.ValidClassName"/>
 <!--    <rule ref="PEAR.NamingConventions.ValidFunctionName"/>-->
-    <rule ref="PEAR.NamingConventions.ValidVariableName"/>
+<!--    <rule ref="PEAR.NamingConventions.ValidVariableName"/>-->
 
 <!--    <rule ref="WordPress.NamingConventions.ValidFunctionName"/>-->
 <!--    <rule ref="WordPress.NamingConventions.ValidHookName"/>-->
-<!--    <rule ref="WordPress.NamingConventions.ValidVariableName"/>-->
+    <rule ref="WordPress.NamingConventions.ValidVariableName"/>
 
     <rule ref="PSR12">
 <!--        <exclude name="PSR1.Methods.CamelCapsMethodName"/>-->

@@ -3,7 +3,7 @@
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
-use BeansWoo\Admin\CheckConfig;
+use BeansWoo\Admin\Configurator\CheckConfig;
 
 CheckConfig::init();
 global $wp_version;
@@ -34,7 +34,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
 ?>
 
 <div class="beans-admin-container">
-    <?php include "html-ultimate-onboarding.php"; ?>
+    <?php include "connector-connect.html.php"; ?>
     <p>
         A complete suite to create a unified marketing experience for your online shop
         <a href="https://<?php echo Helper::getDomain('WWW');?>"  target="_blank">Learn more about Beans Ultimate</a>
