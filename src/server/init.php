@@ -13,7 +13,7 @@ class Main
 
     public static function init()
     {
-        BeansRestWoocommerce::init();
+        Hooks::init();
 
         register_activation_hook(__FILE__, function () {
             Helper::postWebhookStatus('activated');
