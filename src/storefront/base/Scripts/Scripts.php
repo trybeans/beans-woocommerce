@@ -51,7 +51,7 @@ class Scripts
             false
         );
 
-        wp_enqueue_style('beans-style', BEANS_PLUGIN_URL . 'assets/css/beans-storefront.css');
+        wp_enqueue_style('beans-style', plugins_url('assets/css/beans-storefront.css', BEANS_PLUGIN_FILENAME));
     }
 
     public static function renderFooter()
