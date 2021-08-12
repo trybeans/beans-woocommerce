@@ -1,21 +1,23 @@
 <?PHP
 
+// phpcs:disable PSR1.Classes.ClassDeclaration
+
 /**
-* Copyright 2017 Beans
-*
-* Licensed under the Apache License, Version 2.0 (the "License"); you may
-* not use this file except in compliance with the License. You may obtain
-* a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations
-* under the License.
-*
-*/
+ * Copyright 2017 Beans
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ *
+ */
 
 namespace Beans;
 
@@ -31,10 +33,9 @@ if (!function_exists('curl_init')) {
 
 class Beans
 {
-
     public $endpoint = 'https://api.trybeans.com/v3/';
 
-    const VERSION = '3.3.0';
+    private const VERSION = '3.3.0';
 
     private $_secret = '';
     private $_next_page = '';
@@ -91,10 +92,10 @@ class Beans
         $data_string = json_encode($data ? $data : array());
 
         $ua = array(
-            'bindings_version'  => self::VERSION,
-            'lang'              => 'PHP',
-            'lang_version'      => phpversion(),
-            'publisher'         => 'Beans',
+            'bindings_version' => self::VERSION,
+            'lang'             => 'PHP',
+            'lang_version'     => phpversion(),
+            'publisher'        => 'Beans',
         );
 
         if (!is_null($headers)) {
@@ -126,22 +127,22 @@ class Beans
         );
         if ($this->_secret) {
             $curlConfig[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-            $curlConfig[CURLOPT_USERPWD] = $this->_secret;
+            $curlConfig[CURLOPT_USERPWD]  = $this->_secret;
         }
 
         //Make HTTP request
         $ch = $this->getCurlHandle();
         curl_setopt_array($ch, $curlConfig);
-        $response = curl_exec($ch);
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $response     = curl_exec($ch);
+        $http_status  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 
         // Check for connection error
         if (!$http_status) {
             $err_code = curl_errno($ch);
-            $err_msg = curl_error($ch);
-            $error = array(
-                'code' => $err_code,
+            $err_msg  = curl_error($ch);
+            $error    = array(
+                'code'    => $err_code,
                 'message' => "Beans cURL Error $err_code: $err_msg",
             );
             throw new Beans503Error($error);
@@ -155,7 +156,7 @@ class Beans
         // Check for HTTP error
         if ($content_type != 'application/json') {
             $error = array(
-                'code' => $http_status,
+                'code'    => $http_status,
                 'message' => "Beans HTTP Error: $http_status",
             );
             if ($http_status >= 500) {
@@ -179,9 +180,9 @@ class Beans
 
         // support pagination
         if (isset($result['data']) && isset($result['object']) && $result['object'] == 'list') {
-            $this->_next_page = $result['next'];
+            $this->_next_page     = $result['next'];
             $this->_previous_page = $result['previous'];
-            $result = $result['data'];
+            $result               = $result['data'];
         }
 
         return $result;
@@ -210,7 +211,7 @@ class BeansError extends \Exception
     {
         if (!is_array($error)) {
             $error = array(
-                'message' => $error
+                'message' => $error,
             );
         }
         if (!isset($error['code'])) {
@@ -227,9 +228,11 @@ class BeansError extends \Exception
 class Beans503Error extends BeansError
 {
 }
+
 class Beans400Error extends BeansError
 {
 }
+
 class Beans500Error extends BeansError
 {
 }

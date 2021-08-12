@@ -45,7 +45,8 @@ $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GE
                                 font-weight: 900;">next
             <div style=" margin-left: .5rem; margin-top: 2px;">
               <svg width="8" height="11" viewBox="0 0 8 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.69525 0.113281L7.0838 5.50183L1.69525 10.8904L0.2927259.48785L4.27875 5.50183L0.292725 1.51581L1.69525 0.113281Z" fill="white">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="white"
+                    d="M1.69525 0.113281L7.0838 5.50183L1.69525 10.8904L0.2927259.48785L4.27875 5.50183L0.292725 1.51581L1.69525 0.113281Z">
                 </path>
               </svg>
             </div>

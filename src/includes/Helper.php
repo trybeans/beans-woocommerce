@@ -6,7 +6,7 @@ use Beans;
 
 class Helper
 {
-    const CONFIG_NAME = 'beans-config-3';
+    private const CONFIG_NAME = 'beans-config-3';
 
     public static $key = null;
 
