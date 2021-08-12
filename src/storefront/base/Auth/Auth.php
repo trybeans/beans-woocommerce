@@ -4,7 +4,7 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
-class Scripts
+class Auth
 {
 
     public static function init()
