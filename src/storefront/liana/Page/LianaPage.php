@@ -2,8 +2,6 @@
 
 namespace BeansWoo\StoreFront;
 
-use BeansWoo\Helper;
-
 class LianaPage
 {
 
