@@ -2,10 +2,6 @@
 
 namespace BeansWoo;
 
-
-use Beans\Beans;
-use Beans\Error\BaseError;
-
 class Helper
 {
     const CONFIG_NAME = 'beans-config-3';
@@ -78,7 +74,7 @@ class Helper
         if (! self::$key) {
             self::$key = self::getConfig('secret');
         }
-        $beans = new Beans(self::$key);
+        $beans = new \Beans\Beans(self::$key);
 
         $beans->endpoint = 'https://' . self::getDomain('API') . '/v3/';
 
@@ -176,7 +172,7 @@ class Helper
             try {
                 $beans_object[$object] = self::API()->get("${appName}/${objectName}/current");
                 set_transient("beans_$object", $beans_object, 2 * 60);
-            } catch (BaseError $e) {
+            } catch (\Beans\BeansError $e) {
                 self::log('Unable to get card: ' . $e->getMessage());
             }
         }
@@ -262,7 +258,7 @@ class Helper
 
         try {
             self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
-        } catch (BaseError $e) {
+        } catch (\Beans\BeansError $e) {
         }
     }
 

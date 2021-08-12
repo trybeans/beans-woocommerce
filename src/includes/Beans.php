@@ -14,47 +14,12 @@
 * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 * License for the specific language governing permissions and limitations
 * under the License.
+*
 */
-
-namespace Beans\Error;
-
-defined('ABSPATH') or die;
-
-class BaseError extends \Exception
-{
-    public function __construct($error = array())
-    {
-        if (!is_array($error)) {
-            $error = array(
-                'message' => $error
-            );
-        }
-        if (!isset($error['code'])) {
-            $error['code'] = -1;
-        }
-        if (!isset($error['message'])) {
-            $error['message'] = '';
-        }
-
-        parent::__construct($error['message'], $error['code']);
-    }
-}
-
-class ConnectionError extends BaseError
-{
-}
-class ValidationError extends BaseError
-{
-}
-class ServerError extends BaseError
-{
-}
 
 namespace Beans;
 
-use Beans\Error\ConnectionError;
-use Beans\Error\ServerError;
-use Beans\Error\ValidationError;
+defined('ABSPATH') or die;
 
 if (!function_exists('curl_init')) {
     return;
@@ -179,7 +144,7 @@ class Beans
                 'code' => $err_code,
                 'message' => "Beans cURL Error $err_code: $err_msg",
             );
-            throw new ConnectionError($error);
+            throw new Beans503Error($error);
         }
 
         # Handle 202, 203, 204 responses
@@ -194,9 +159,9 @@ class Beans
                 'message' => "Beans HTTP Error: $http_status",
             );
             if ($http_status >= 500) {
-                throw new ServerError($error);
+                throw new Beans500Error($error);
             }
-            throw new ValidationError($error);
+            throw new Beans400Error($error);
         }
 
         // Load response
@@ -205,9 +170,9 @@ class Beans
         // Check for Beans error
         if (isset($response['error'])) {
             if (isset($response['error']['code']) and $response['error']['code'] >= 500) {
-                throw new ServerError($response['error']);
+                throw new Beans500Error($response['error']);
             }
-            throw new ValidationError($response['error']);
+            throw new Beans400Error($response['error']);
         }
 
         $result = $response;
@@ -237,4 +202,34 @@ class Beans
             curl_close($this->_curl_handle);
         }
     }
+}
+
+class BeansError extends \Exception
+{
+    public function __construct($error = array())
+    {
+        if (!is_array($error)) {
+            $error = array(
+                'message' => $error
+            );
+        }
+        if (!isset($error['code'])) {
+            $error['code'] = -1;
+        }
+        if (!isset($error['message'])) {
+            $error['message'] = '';
+        }
+
+        parent::__construct($error['message'], $error['code']);
+    }
+}
+
+class Beans503Error extends BeansError
+{
+}
+class Beans400Error extends BeansError
+{
+}
+class Beans500Error extends BeansError
+{
 }
