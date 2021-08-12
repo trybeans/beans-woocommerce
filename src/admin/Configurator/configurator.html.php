@@ -19,13 +19,12 @@ if (isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout'])) {
     $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
     update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
-
-$app_name = static::$app_name;
+$app_name = \BeansWoo\Admin\Connector\Connector::$app_name;
 $base_asset_path = 'assets/img/connector';
 
 ?>
 
-<?php if (empty(static::$card)) : ?>
+<?php if (empty(\BeansWoo\Admin\Connector\Connector::$card)) : ?>
 <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
     <p class="beans-admin-check-warning">
         Unable to connect to Beans. Unable to retrieve information about your account status.
