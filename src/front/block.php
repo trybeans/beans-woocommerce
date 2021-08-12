@@ -59,7 +59,7 @@ class Block
             false
         );
 
-        wp_enqueue_style('beans-style', plugins_url('assets/css/beans.css', BEANS_PLUGIN_FILENAME));
+        wp_enqueue_style('beans-style', plugins_url('assets/css/beans-storefront.css', BEANS_PLUGIN_FILENAME));
     }
 
     public static function render_footer()
