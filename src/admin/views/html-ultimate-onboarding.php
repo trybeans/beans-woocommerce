@@ -13,8 +13,8 @@ $base_asset_path = '/assets/img/admin/onboarding';
 <div class="welcome-panel-ultimate beans-admin-content-ultimate" style="max-width: 600px; margin: auto">
     <div>
         <div style="background-color:white; padding-top: 10px; padding-bottom: 60px;
-        box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); width: 600px; height: auto; position: relative;
-        min-height: 400px;">
+                    box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08); width: 600px;
+                    height: auto; position: relative; min-height: 400px;">
             <div id="beans-core" >
                 <div style="display: none; text-align: center;" id="app-image"  class="app-image">
                     <div>
