@@ -47,8 +47,8 @@ use BeansWoo\API\Main as APIMain;
 use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\Front\Main as FrontMain;
 
-if (! class_exists('WCBeans')) :
-    class WCBeans
+if (! class_exists('WC_Beans')) :
+    class WC_Beans
     {
         protected static $_instance = null;
 
@@ -86,7 +86,7 @@ endif;
  */
 function wc_beans_instance()
 {
-     return WCBeans::instance();
+     return WC_Beans::instance();
 }
 
 $GLOBALS['wc_beans'] = wc_beans_instance();
