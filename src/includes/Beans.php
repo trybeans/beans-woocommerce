@@ -21,8 +21,6 @@
 
 namespace Beans;
 
-defined('ABSPATH') or die;
-
 if (!function_exists('curl_init')) {
     return;
 }
