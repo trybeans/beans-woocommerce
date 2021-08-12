@@ -116,7 +116,7 @@ class Beans
         // Set Request Options
         // DO NOT: do not add CURLOPT_FOLLOWLOCATION, CURLOPT_MAXREDIRS without proper testing..
         // Theses options has been the cause of bugs in the past...
-        $curlConfig = array(
+        $curl_config = array(
             CURLOPT_URL            => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST  => $method,
@@ -126,13 +126,13 @@ class Beans
             CURLOPT_HTTPHEADER     => $headers,
         );
         if ($this->_secret) {
-            $curlConfig[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-            $curlConfig[CURLOPT_USERPWD]  = $this->_secret;
+            $curl_config[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+            $curl_config[CURLOPT_USERPWD]  = $this->_secret;
         }
 
         //Make HTTP request
         $ch = $this->getCurlHandle();
-        curl_setopt_array($ch, $curlConfig);
+        curl_setopt_array($ch, $curl_config);
         $response     = curl_exec($ch);
         $http_status  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);

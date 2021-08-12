@@ -156,9 +156,9 @@ class Helper
         return true;
     }
 
-    public static function getBeansObject($appName, $objectName)
+    public static function getBeansObject($app_name, $object_name)
     {
-        $object = $appName . "_" . $objectName;
+        $object = $app_name . "_" . $object_name;
 
         $beans_object = get_transient("beans_$object");
 
@@ -168,9 +168,9 @@ class Helper
             return $beans_object[$object];
         }
 
-        if (self::isSetup() && self::isSetupApp($appName)) {
+        if (self::isSetup() && self::isSetupApp($app_name)) {
             try {
-                $beans_object[$object] = self::API()->get("${appName}/${objectName}/current");
+                $beans_object[$object] = self::API()->get("${app_name}/${object_name}/current");
                 set_transient("beans_$object", $beans_object, 2 * 60);
             } catch (Beans\BeansError $e) {
                 self::log('Unable to get card: ' . $e->getMessage());
