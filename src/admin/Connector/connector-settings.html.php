@@ -8,7 +8,7 @@ use BeansWoo\Helper;
 
 $loginkey = get_transient('beans_loginkey');
 
-if (! $loginkey) {
+if (!$loginkey) {
     try {
         $loginkey = Helper::API()->post('core/user/current/loginkey');
         set_transient('beans_loginkey', $loginkey, 3 * 60);
@@ -20,7 +20,7 @@ if (isset($_POST) && isset($_POST['beans-liana-display-redemption-checkout'])) {
     $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
     update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
-$app_name        = Connector::$app_name;
+$app_name       = Connector::$app_name;
 $base_asset_url = plugins_url('assets/img/connector', BEANS_PLUGIN_FILENAME);
 
 ?>
