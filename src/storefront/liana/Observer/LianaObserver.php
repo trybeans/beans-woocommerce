@@ -1,8 +1,6 @@
 <?php
 
-namespace BeansWoo\StoreFront\Liana\Observer;
-
-defined('ABSPATH') or die;
+namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 

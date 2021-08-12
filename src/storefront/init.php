@@ -16,7 +16,6 @@ require_once "liana/Observer/LianaProductObserver.php";
 require_once "liana/Cart/LianaCart.php";
 require_once "liana/Page/LianaPage.php";
 
-define('BEANS_LIANA_COUPON_UID', 'redeem_points');
 
 use BeansWoo\Helper;
 
@@ -25,22 +24,22 @@ class Main
 {
     public static function init()
     {
-        Base\Scripts\Block::init();
-        Base\Registration\Block::init();
+        Scripts::init();
+        Registration::init();
 
-        Arrow\Login\ArrowLogin::init();
+        ArrowLogin::init();
 
-        Bamboo\Page\Block::init();
+        BambooPage::init();
 
-        Liana\Page\Block::init();
-        Liana\Cart\Block::init();
+        LianaPage::init();
+        LianaCart::init();
 
         $display = Helper::getBeansObject('liana', 'display');
         if (empty($display) || ! $display['is_active']) {
             return;
         }
 
-        Liana\Observer\LianaObserver::init($display);
-        Liana\Observer\LianaProductObserver::init($display);
+        LianaObserver::init($display);
+        LianaProductObserver::init($display);
     }
 }

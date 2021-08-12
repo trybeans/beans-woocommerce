@@ -3,7 +3,7 @@
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
-use BeansWoo\Admin\Configurator\CheckConfig;
+use BeansWoo\Admin\CheckConfig;
 
 CheckConfig::init();
 global $wp_version;

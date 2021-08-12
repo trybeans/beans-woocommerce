@@ -1,10 +1,8 @@
 <?php
 
-namespace BeansWoo\StoreFront\Bamboo\Page;
+namespace BeansWoo\StoreFront;
 
-defined('ABSPATH') or die;
-
-class Block
+class BambooPage
 {
 
     public static function init()

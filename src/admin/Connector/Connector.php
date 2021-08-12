@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Admin\Connector;
+namespace BeansWoo\Admin;
 
 use BeansWoo\Helper;
 

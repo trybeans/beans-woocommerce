@@ -67,9 +67,9 @@ if (!function_exists('curl_init')) {
 class Beans
 {
 
-    public $endpoint = 'https://api-3.trybeans.com/v3/';
+    public $endpoint = 'https://api.trybeans.com/v3/';
 
-    const VERSION = '3.0.0';
+    const VERSION = '3.3.0';
 
     private $secret = '';
     private $_next_page = '';
