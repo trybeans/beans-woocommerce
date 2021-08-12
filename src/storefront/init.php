@@ -4,7 +4,7 @@ namespace BeansWoo\Front;
 
 defined('ABSPATH') or die;
 
-include_once('block.php');
+include_once('Block.php');
 include_once('liana/init.php');
 include_once('bamboo/init.php');
 include_once('arrow/init.php');

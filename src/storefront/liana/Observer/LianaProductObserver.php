@@ -2,13 +2,11 @@
 
 namespace BeansWoo\Front\Liana;
 
-defined('ABSPATH') or die;
-
 use BeansWoo\Helper;
 
-include_once('observer.php');
+include_once('LianaObserver.php');
 
-class ProductObserver
+class LianaProductObserver
 {
     public static $display;
     public static $redemption;

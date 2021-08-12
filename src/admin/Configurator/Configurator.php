@@ -2,8 +2,6 @@
 
 namespace BeansWoo\Admin;
 
-defined('ABSPATH') or die;
-
 
 class CheckConfig
 {

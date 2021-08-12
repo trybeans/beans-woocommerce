@@ -2,7 +2,6 @@
 
 namespace BeansWoo;
 
-defined('ABSPATH') or die;
 
 use Beans\Beans;
 use Beans\Error\BaseError;

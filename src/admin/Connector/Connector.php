@@ -1,12 +1,10 @@
 <?php
 
-namespace BeansWoo\Admin\Connector;
+namespace BeansWoo\Admin;
 
 use BeansWoo\Helper;
 
-defined('ABSPATH') or die;
-
-class UltimateConnector
+class Connector
 {
 
     public static $app_name = 'ultimate';
@@ -18,7 +16,7 @@ class UltimateConnector
     public static function init()
     {
         self::$card = Helper::getBeansObject(self::$app_name, 'card');
-
+        self::updateInstalledApps();
         add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
     }
 

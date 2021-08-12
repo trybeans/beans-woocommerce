@@ -12,7 +12,6 @@ class Block
     public static function init()
     {
 
-        add_filter('the_content', array(__CLASS__, 'renderPage'), 10, 1);
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 1);
 
         add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
@@ -60,14 +59,4 @@ class Block
         <?php
     }
 
-    public static function renderPage($content, $vars = null)
-    {
-        if (strpos($content, '[beans_page]') !== false && Helper::isSetupApp('liana')) {
-            ob_start();
-            include(dirname(__FILE__) . '/html-page.php');
-            $page = ob_get_clean();
-            $content = str_replace('[beans_page]', $page, $content);
-        }
-        return $content;
-    }
 }

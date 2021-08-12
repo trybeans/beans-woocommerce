@@ -4,7 +4,7 @@ namespace BeansWoo\Front\Arrow;
 
 defined('ABSPATH') or die;
 
-class Block
+class ArrowLogin
 {
 
     public static function init()
