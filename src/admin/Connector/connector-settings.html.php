@@ -49,7 +49,8 @@ $base_asset_path = 'assets/img/connector';
         </div>
         <div>
           <a class="button beans-woo-banner-link"
-             href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo Helper::getDomain('NAME') ?>"
+             href="https://<?php echo Helper::getDomain('CONNECT') .
+                 "/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo Helper::getDomain('NAME') ?>"
              target="_blank">
             Go To Beans Ultimate
           </a>
@@ -73,7 +74,8 @@ $base_asset_path = 'assets/img/connector';
               </span>
             </div>
             <div style="display: flex; align-items: center; margin-left: 20px;">
-              <img width="150px" src="<?php echo plugins_url($base_asset_path . '/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
+              <img width="150px" src="<?php echo plugins_url($base_asset_path .
+                  '/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
             </div>
           </div>
         <?php endif; ?>
@@ -135,10 +137,8 @@ $base_asset_path = 'assets/img/connector';
           </span>
           <div class="beans-woo-help-action">
             <a target="_blank" href="http://help.trybeans.com/">
-              <img src="<?php echo plugins_url(
-                  $base_asset_path . '/help-center.svg',
-                  BEANS_PLUGIN_FILENAME
-                        ); ?>" width="18px" height="18px"/>
+              <img src="<?php echo plugins_url($base_asset_path .
+                  '/help-center.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
               Go to Help Center
             </a>
           </div>
@@ -154,7 +154,8 @@ $base_asset_path = 'assets/img/connector';
 
       <div class="beans-woo-review">
         <div style="display: flex; align-items: center;">
-          <img src="<?php echo plugins_url($base_asset_path . '/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
+          <img src="<?php echo plugins_url($base_asset_path .
+              '/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
         </div>
         <div>
           <div class="beans-woo-review-title">
