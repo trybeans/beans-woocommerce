@@ -34,13 +34,13 @@ if (
 include_once('includes/beans.php');
 include_once('includes/helper.php');
 
-include_once('api/init.php');
+include_once('server/init.php');
 include_once('admin/init.php');
-include_once('front/init.php');
+include_once('storefront/init.php');
 
-use BeansWoo\API\Main as APIMain;
+use BeansWoo\Server\Main as ServerMain;
 use BeansWoo\Admin\Main as AdminMain;
-use BeansWoo\Front\Main as FrontMain;
+use BeansWoo\StoreFront\Main as StoreFrontMain;
 
 if (! class_exists('WC_Beans')) :
     class WC_Beans
@@ -69,8 +69,8 @@ if (! class_exists('WC_Beans')) :
             }
 
             AdminMain::init();
-            FrontMain::init();
-            APIMain::init();
+            StoreFrontMain::init();
+            ServerMain::init();
         }
     }
 

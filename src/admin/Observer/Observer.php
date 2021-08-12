@@ -1,8 +1,6 @@
 <?php
 
-namespace BeansWoo\Admin;
-
-defined('ABSPATH') or die;
+namespace BeansWoo\Admin\Observer;
 
 use BeansWoo\Helper;
 
@@ -14,8 +12,8 @@ class Observer
         add_action('admin_enqueue_scripts', array(__CLASS__, 'loadAdminStyle'));
         add_action("admin_init", array(__CLASS__, "registerSettingOptions"));
 
-        add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'adminNotice'));
-        add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'noticeDismissed'));
+        add_action('admin_notices', array('\BeansWoo\Admin\Connector\Connector', 'adminNotice'));
+        add_action('admin_init', array('\BeansWoo\Admin\Connector\Connector', 'noticeDismissed'));
 
         add_action('admin_menu', array(__CLASS__, 'registerAdminMenu'));
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
@@ -66,7 +64,7 @@ class Observer
                 'Beans',
                 'manage_options',
                 BEANS_WOO_BASE_MENU_SLUG,
-                array('\BeansWoo\Admin\Connector\UltimateConnector', 'renderSettingsPage'),
+                array('\BeansWoo\Admin\Connector\Connector', 'renderSettingsPage'),
                 BEANS_PLUGIN_URL . 'assets/img/beans-wordpress-icon.svg',
                 56
             );
