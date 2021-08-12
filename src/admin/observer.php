@@ -11,17 +11,17 @@ class Observer
     public static function init()
     {
 
-        add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_style'));
-        add_action("admin_init", array(__CLASS__, "setting_options"));
+        add_action('admin_enqueue_scripts', array(__CLASS__, 'loadAdminStyle'));
+        add_action("admin_init", array(__CLASS__, "registerSettingOptions"));
 
-        add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'admin_notice'));
-        add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'notice_dismissed'));
+        add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'adminNotice'));
+        add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'noticeDismissed'));
 
-        add_action('admin_menu', array(__CLASS__, 'admin_menu'));
-        add_action('admin_init', array(__CLASS__, 'admin_is_curl_notice'), 0, 99);
+        add_action('admin_menu', array(__CLASS__, 'registerAdminMenu'));
+        add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
     }
 
-    public static function admin_style()
+    public static function loadAdminStyle()
     {
         wp_enqueue_style(
             'admin-styles',
@@ -29,20 +29,20 @@ class Observer
         );
     }
 
-    public static function setting_options()
+    public static function registerSettingOptions()
     {
         add_settings_section("beans-section", "", null, "beans-woo");
         add_settings_field(
             "beans-liana-display-redemption-checkout",
             "Redemption on checkout",
-            array(__CLASS__, "display_redeem_checkbox_setting"),
+            array(__CLASS__, "displayRedeemCheckboxSettings"),
             "beans-woo",
             "beans-section"
         );
         register_setting("beans-section", "beans-liana-display-redemption-checkout");
     }
 
-    public static function display_redeem_checkbox_setting()
+    public static function displayRedeemCheckboxSettings()
     {
         ?>
         <!-- Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. -->
@@ -58,7 +58,7 @@ class Observer
         <?php
     }
 
-    public static function admin_menu()
+    public static function registerAdminMenu()
     {
         if (current_user_can('manage_options')) {
             add_menu_page(
@@ -66,14 +66,14 @@ class Observer
                 'Beans',
                 'manage_options',
                 BEANS_WOO_BASE_MENU_SLUG,
-                array('\BeansWoo\Admin\Connector\UltimateConnector', 'render_settings_page'),
+                array('\BeansWoo\Admin\Connector\UltimateConnector', 'renderSettingsPage'),
                 plugins_url('/assets/img/beans-wordpress-icon.svg', BEANS_PLUGIN_FILENAME),
                 56
             );
         }
     }
 
-    public static function admin_is_curl_notice()
+    public static function checkCURLStatus()
     {
         $text = __(
             "cURL is not installed. Please install and activate, otherwise, the Beans program may not work.",

@@ -83,30 +83,30 @@ endif;
 /**
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
-function wc_beans_instance()
+function wcBeansInstance()
 {
      return WC_Beans::instance();
 }
 
-$GLOBALS['wc_beans'] = wc_beans_instance();
+$GLOBALS['wc_beans'] = wcBeansInstance();
 
 
-function wc_beans_plugin_activate()
+function wcBeansPluginActivate()
 {
     Helper::postWebhookStatus('activated');
 }
 
 register_activation_hook(__FILE__, function () {
-    wc_beans_plugin_activate();
+    wcBeansPluginActivate();
 });
 
 
-function wc_beans_plugin_deactivate()
+function wcBeansPluginDeactivate()
 {
     Helper::removeTransients();
     Helper::postWebhookStatus('deactivated');
 }
 
 register_deactivation_hook(__FILE__, function () {
-    wc_beans_plugin_deactivate();
+    wcBeansPluginDeactivate();
 });

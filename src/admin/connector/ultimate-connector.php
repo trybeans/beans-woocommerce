@@ -19,10 +19,10 @@ class UltimateConnector
     {
         self::$card = Helper::getBeansObject(self::$app_name, 'card');
 
-        add_action('admin_init', array(__CLASS__, 'install_default_assets'));
+        add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
     }
 
-    protected static function install_assets($app_name = null)
+    protected static function installAssets($app_name = null)
     {
         if (!in_array($app_name, ['liana', 'bamboo'])) {
             return false;
@@ -45,11 +45,11 @@ class UltimateConnector
         return true;
     }
 
-    public static function render_settings_page()
+    public static function renderSettingsPage()
     {
 
         if (isset($_GET['card']) && isset($_GET['token'])) {
-            if (self::process_setup()) {
+            if (self::processSetup()) {
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }
@@ -60,17 +60,17 @@ class UltimateConnector
             }
         }
 
-        self::render_notices();
+        self::renderNotices();
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
-            self::update_installed_apps();
+            self::updateInstalledApps();
             return include(dirname(__FILE__, 2) . '/views/html-info.php');
         }
 
         return include(dirname(__FILE__, 2) . '/views/html-connect.php');
     }
 
-    protected static function process_setup()
+    protected static function processSetup()
     {
         Helper::log(print_r($_GET, true));
 
@@ -95,7 +95,7 @@ class UltimateConnector
         return true;
     }
 
-    public static function render_notices()
+    public static function renderNotices()
     {
         if (self::$errors || self::$messages) {
             ?>
@@ -118,7 +118,7 @@ class UltimateConnector
         }
     }
 
-    public static function admin_notice()
+    public static function adminNotice()
     {
         $user_id = get_current_user_id();
         if (get_user_meta($user_id, 'beans_' . static::$app_name . '_notice_dismissed')) {
@@ -141,7 +141,7 @@ class UltimateConnector
         }
     }
 
-    public static function notice_dismissed()
+    public static function noticeDismissed()
     {
         $user_id = get_current_user_id();
         if (isset($_GET['beans_' . static::$app_name . '_notice_dismissed'])) {
@@ -156,7 +156,7 @@ class UltimateConnector
         }
     }
 
-    public static function update_installed_apps()
+    public static function updateInstalledApps()
     {
         if (! is_array(self::$card)) {
             return;
@@ -165,15 +165,15 @@ class UltimateConnector
         foreach (self::$card['apps'] as $app => $status) {
             $app = strtolower($app);
             if ($status['is_installed']) {
-                self::install_assets($app);
+                self::installAssets($app);
                 Helper::setInstalledApp($app);
             }
         }
     }
 
-    public static function install_default_assets()
+    public static function installDefaultAssets()
     {
-        self::install_assets('liana');
-        self::install_assets('bamboo');
+        self::installAssets('liana');
+        self::installAssets('bamboo');
     }
 }
