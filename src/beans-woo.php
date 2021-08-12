@@ -14,25 +14,20 @@
  * @author Beans
  */
 
-// Exit if accessed directly
 namespace BeansWoo;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+// Exit if accessed directly
+defined('ABSPATH') || exit;
 
 // Check if WooCommerce is active
-if (
-    ! in_array(
-        'woocommerce/woocommerce.php',
-        apply_filters('active_plugins', get_option('active_plugins'))
-    )
-) {
+$active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+if (!in_array('woocommerce/woocommerce.php', $active_plugins)) {
     return;
 }
 
-include_once('includes/beans.php');
-include_once('includes/helper.php');
+include_once('config.php');
+include_once('includes/Beans.php');
+include_once('includes/Helper.php');
 
 include_once('server/init.php');
 include_once('admin/init.php');
@@ -43,6 +38,7 @@ use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\StoreFront\Main as StoreFrontMain;
 
 if (! class_exists('WC_Beans')) :
+
     class WC_Beans
     {
         protected static $_instance = null;
