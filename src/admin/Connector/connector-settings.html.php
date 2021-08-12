@@ -42,7 +42,8 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
 </div>
 
 <div class="beans-admin-container" style="text-align: left !important;">
-    <div style="display: flex; flex-direction: column; align-items: start; justify-content: start; width: fit-content; text-align: left">
+    <div style="display: flex; flex-direction: column; align-items: start; justify-content: start; width: fit-content;
+                text-align: left">
         <a href="javascript:void(0)" id="view-config">View configuration</a>
         <ul class="wc-wizard-features" style="display: None" id="config-status">
             <h3> Configuration Checking </h3>
@@ -76,7 +77,9 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
                 <?php if (!CheckConfig::$wp_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Please upgrade your Wordpress:
-                        <a href="https://codex.wordpress.org/Upgrading_WordPress" target="_blank">Upgrading Wordpress</a>
+                        <a href="https://codex.wordpress.org/Upgrading_WordPress" target="_blank">
+                            Upgrading Wordpress
+                        </a>
                     </p>
                 <?php endif; ?>
             </li>
@@ -123,12 +126,14 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>WordPress Permalink Enabled</strong>: <?php getSupportedTag(CheckConfig::$wp_permalink_is_supported); ?>
+                    <strong>WordPress Permalink Enabled</strong>:
+                    <?php getSupportedTag(CheckConfig::$wp_permalink_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$wp_permalink_is_supported) : ?>
                     <p class="beans-admin-check-warning">
                         Please enable pretty permalink:
-                        <a href="https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure" target="_blank">
+                        <a href="https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
+                           target="_blank">
                             How to enable pretty permalink
                         </a>
                     </p>
