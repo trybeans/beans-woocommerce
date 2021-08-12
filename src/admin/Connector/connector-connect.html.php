@@ -5,7 +5,7 @@ defined('ABSPATH') or die;
 use BeansWoo\Helper;
 
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
-$base_asset_path = '/assets/img/admin/onboarding';
+$base_asset_url = plugins_url('/assets/img/admin', BEANS_PLUGIN_FILENAME);
 
 $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GET['force_beans']);
 
@@ -32,11 +32,9 @@ $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GE
         </div>
         <div style="display: flex; width: 100%; justify-content: center">
           <div style="text-align: center">
-            <img id="beans-app-hero"
-                 src="<?php echo plugins_url(
-                     $base_asset_path . '/ultimate-hero.svg',
-                     BEANS_PLUGIN_FILENAME
-                 ) ?>" alt="" width="auto" height="280px">
+            <img id="beans-app-hero" alt="" width="auto" height="280px"
+                 src="<?php echo $base_asset_url . '/onboarding/ultimate-hero.svg' ?>"
+            />
           </div>
         </div>
         <div style="height: auto">
@@ -90,7 +88,7 @@ $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GE
         }
         ?>
         info.push({
-            hero: "<?php echo plugins_url($base_asset_path . '/' . $hero_image, BEANS_PLUGIN_FILENAME); ?>",
+            hero: "<?php echo $base_asset_url . '/onboarding/' . $hero_image ?>",
             banner: "<?php echo $base_banner_url . 'logo-full-' . $app . '.svg'; ?>",
             title: "<?php echo Helper::getApps()[$app]['title']; ?>",
             role: "<?php echo Helper::getApps()[$app]['role']; ?>",
