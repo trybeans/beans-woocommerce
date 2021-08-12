@@ -5,9 +5,51 @@ defined('ABSPATH') or die;
 use BeansWoo\Helper;
 
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
-$base_asset_url = plugins_url('/assets/img/admin', BEANS_PLUGIN_FILENAME);
+$base_asset_url  = plugins_url('/assets/img/admin', BEANS_PLUGIN_FILENAME);
 
 $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GET['force_beans']);
+
+$beans_app_list = array(
+    'liana' => array(
+        'title' => 'Make your customers addicted to your shop',
+        'role'  => 'Loyalty Program',
+    ),
+
+    'bamboo' => array(
+        'title' => 'Turn your customers into advocates of your brand',
+        'role'  => 'Referral Program',
+    ),
+
+    'foxx' => array(
+        'title' => 'Super-targeted automated emails that drive sales',
+        'role'  => 'Email Automation',
+    ),
+
+    'poppy' => array(
+        'title' => 'Get customers to take actions when they are most likely to convert',
+        'role'  => 'Smart Popups',
+    ),
+
+    'snow' => array(
+        'title' => 'Communicate with customers without disrupting their journey',
+        'role'  => 'Notification Widget',
+    ),
+
+    'lotus' => array(
+        'title' => 'Save time managing social media for your shop.',
+        'role'  => 'Social Media Automation',
+    ),
+
+    'arrow' => array(
+        'title' => 'Know your customer.',
+        'role'  => 'Social Connect',
+    ),
+
+    'ultimate' => array(
+        'title' => 'Connect your shop to get started',
+        'role'  => '',
+    ),
+);
 
 ?>
 
@@ -76,60 +118,60 @@ $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GE
   </div>
   <script>
 
-  jQuery(function ($) {
-    let info = [];
-    <?php
-    $apps = ['liana', 'bamboo', 'foxx', 'poppy', 'snow', 'lotus', 'arrow', 'ultimate'];
-    foreach ($apps as $app) {
-        if (in_array($app, ['snow', 'foxx'])) {
-            $hero_image = $app . '-hero.png';
-        } else {
-            $hero_image = $app . '-hero.svg';
-        }
-        ?>
-        info.push({
-            hero: "<?php echo $base_asset_url . '/onboarding/' . $hero_image ?>",
-            banner: "<?php echo $base_banner_url . 'logo-full-' . $app . '.svg'; ?>",
-            title: "<?php echo Helper::getApps()[$app]['title']; ?>",
-            role: "<?php echo Helper::getApps()[$app]['role']; ?>",
-        });
-        <?php
-    }
-    ?>
+      jQuery(function ($) {
+          let info = [];
+            <?php
+            $apps = ['liana', 'bamboo', 'foxx', 'poppy', 'snow', 'lotus', 'arrow', 'ultimate'];
+            foreach ($apps as $app) {
+                if (in_array($app, ['snow', 'foxx'])) {
+                    $hero_image = $app . '-hero.png';
+                } else {
+                    $hero_image = $app . '-hero.svg';
+                }
+                ?>
+                  info.push({
+                      hero: "<?php echo $base_asset_url . '/onboarding/' . $hero_image ?>",
+                      banner: "<?php echo $base_banner_url . 'logo-full-' . $app . '.svg'; ?>",
+                      title: "<?php echo $beans_app_list[$app]['title']; ?>",
+                      role: "<?php echo $beans_app_list[$app]['role']; ?>",
+                  });
+                <?php
+            }
+            ?>
 
-    $("#beans-step").on('click', function () {
-        let step = $(this).attr("data-step");
-        if ($(this).text() === "connect") {
-            $("#beans-connect-form").submit();
-        }
-        const data = info[step];
-        let next_step = parseInt(step) + 1;
-        if (next_step === info.length) {
-            $(this).text("connect");
-            $(this).attr("id", "ultimate-submit-button");
-            $(this).attr("type", "submit");
-            $("#beans-welcome-text").text(data.title);
-            $("#beans-app-title").hide();
-            $("#beans-app-img").hide();
-            $("#beans-ultimate-connect").show();
-            $(this).hide();
-            $("#beans-app-hero").attr("width", "75%");
-        }
+          $("#beans-step").on('click', function () {
+              let step = $(this).attr("data-step");
+              if ($(this).text() === "connect") {
+                  $("#beans-connect-form").submit();
+              }
+              const data = info[step];
+              let next_step = parseInt(step) + 1;
+              if (next_step === info.length) {
+                  $(this).text("connect");
+                  $(this).attr("id", "ultimate-submit-button");
+                  $(this).attr("type", "submit");
+                  $("#beans-welcome-text").text(data.title);
+                  $("#beans-app-title").hide();
+                  $("#beans-app-img").hide();
+                  $("#beans-ultimate-connect").show();
+                  $(this).hide();
+                  $("#beans-app-hero").attr("width", "75%");
+              }
 
-        if (!data) return "";
-        $("#beans-welcome-text").text(data.role);
-        $("#beans-welcome-text").attr("style", "margin: 0 0;");
+              if (!data) return "";
+              $("#beans-welcome-text").text(data.role);
+              $("#beans-welcome-text").attr("style", "margin: 0 0;");
 
-        $("#beans-app-img").attr("src", data.banner);
-        $("#beans-app-title").text(data.title);
-        $("#beans-app-hero").attr("src", data.hero);
-        $(this).attr("data-step", next_step);
-        $("#app-image").attr("style", "text-align:center;");
-    });
-    $("#beans-ultimate-submit-button").on('click', function () {
-        $("#beans-connect-form").submit();
-    })
-  });
+              $("#beans-app-img").attr("src", data.banner);
+              $("#beans-app-title").text(data.title);
+              $("#beans-app-hero").attr("src", data.hero);
+              $(this).attr("data-step", next_step);
+              $("#app-image").attr("style", "text-align:center;");
+          });
+          $("#beans-ultimate-submit-button").on('click', function () {
+              $("#beans-connect-form").submit();
+          })
+      });
 
   </script>
 </div>

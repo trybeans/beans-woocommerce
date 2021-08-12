@@ -25,6 +25,7 @@ if (!in_array('woocommerce/woocommerce.php', $active_plugins)) {
     return;
 }
 
+require_once 'config.php';
 require_once 'includes/Beans.php';
 require_once 'includes/Helper.php';
 
@@ -44,7 +45,6 @@ if (! class_exists('WC_Beans')) :
 
         protected function __construct()
         {
-            require_once 'config.php';
             add_action('init', array(__CLASS__, 'init'), 10, 1);
         }
 

@@ -2,6 +2,7 @@
 
 namespace BeansWoo\Server;
 
+use Beans\BeansError;
 use BeansWoo\Helper;
 
 class Hooks
@@ -13,9 +14,6 @@ class Hooks
 
         if (Helper::isSetup()) {
             add_filter('woocommerce_webhook_deliver_async', array(__CLASS__, 'setWebhookDeliverMode'), 10, 3);
-            add_filter('woocommerce_rest_prepare_customer', array(__CLASS__, 'addBeansAppActivated'), 90, 1);
-            add_filter('woocommerce_rest_prepare_product_object', array(__CLASS__, 'addBeansAppActivated'), 90, 1);
-            add_filter('woocommerce_rest_prepare_shop_order_object', array(__CLASS__, 'addBeansAppActivated'), 90, 1);
         }
     }
 
@@ -29,21 +27,6 @@ class Hooks
             return false;
         }
         return true;
-    }
-
-    public static function addBeansAppActivated($response)
-    {
-        $apps = Helper::getApps();
-        $installed_apps = [];
-
-        foreach ($apps as $app_name => $app_info) {
-            if (Helper::isSetupApp($app_name)) {
-                $installed_apps[] = $app_name;
-            }
-        }
-        $response->data["beans_apps"] = $installed_apps;
-
-        return $response;
     }
 
     public static function addSitePagesInfos($response, $system_status)
@@ -131,5 +114,20 @@ class Hooks
         }
 
         return $pages_output;
+    }
+
+    public static function postWebhookStatus($status)
+    {
+        $args = [
+            'status' => $status
+        ];
+        $headers =  array(
+            'X-WC-Webhook-Source:' . home_url(),
+        );
+
+        try {
+            Helper::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
+        } catch (BeansError $e) {
+        }
     }
 }

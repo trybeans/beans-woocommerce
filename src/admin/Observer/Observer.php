@@ -12,8 +12,8 @@ class Observer
         add_action('admin_enqueue_scripts', array(__CLASS__, 'loadAdminStyle'));
         add_action("admin_init", array(__CLASS__, "registerSettingOptions"));
 
-        add_action('admin_notices', array('\BeansWoo\Admin\Connector', 'adminNotice'));
-        add_action('admin_init', array('\BeansWoo\Admin\Connector', 'noticeDismissed'));
+        add_action('admin_notices', array(__CLASS__, 'adminNotice'));
+        add_action('admin_init', array(__CLASS__, 'noticeDismissed'));
 
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
 
@@ -73,6 +73,44 @@ class Observer
                 <div style="margin: 10px auto;"> Beans: <?php echo $text; ?></div>
             </div>
             <?php
+        }
+    }
+
+    public static function adminNotice()
+    {
+        $user_id = get_current_user_id();
+        if (get_user_meta($user_id, 'beans_' . static::$app_name . '_notice_dismissed')) {
+            return;
+        }
+
+        if (! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name)) {
+            ?>
+          <div class="notice notice-error" style="margin-left: auto">
+            <div style="margin: 10px auto;">
+              Beans: <?php echo __("Beans Ultimate is not properly setup", 'beans-woo'); ?>
+              <a href="<?php echo BEANS_WOO_MENU_LINK; ?>"><?php echo __('Set up', 'beans-woo') ?></a>
+              <a href="?beans_<?php echo static::$app_name?>._notice_dismissed"
+                 style="float:right; text-decoration: none">
+                x
+              </a>
+            </div>
+          </div>
+            <?php
+        }
+    }
+
+    public static function noticeDismissed()
+    {
+        $user_id = get_current_user_id();
+        if (isset($_GET['beans_' . static::$app_name . '_notice_dismissed'])) {
+            add_user_meta(
+                $user_id,
+                'beans_' . static::$app_name . '_notice_dismissed',
+                'true',
+                true
+            );
+            $location = $_SERVER['HTTP_REFERER'];
+            wp_safe_redirect($location);
         }
     }
 }

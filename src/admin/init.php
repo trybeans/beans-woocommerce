@@ -43,14 +43,14 @@ class Main
     public static function renderSettingsPage()
     {
 
-        if (isset($_GET['card']) && isset($_GET['token'])) {
-            if (Connector::processSetup()) {
+        if (isset($_GET['reset_beans'])) {
+            if (Helper::resetSetup()) {
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }
 
-        if (isset($_GET['reset_beans'])) {
-            if (Helper::resetSetup()) {
+        if (isset($_GET['card']) && isset($_GET['token'])) {
+            if (Connector::processSetup()) {
                 return wp_redirect(BEANS_WOO_MENU_LINK);
             }
         }

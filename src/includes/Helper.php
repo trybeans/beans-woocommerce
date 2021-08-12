@@ -25,51 +25,6 @@ class Helper
         return empty($val) ? $domains[ $sub ] : getenv($key);
     }
 
-    public static function getApps()
-    {
-        return array(
-            'liana' => array(
-                'title' => 'Make your customers addicted to your shop',
-                'role' => 'Loyalty Program',
-            ),
-
-            'bamboo' => array(
-                'title' => 'Turn your customers into advocates of your brand',
-                'role' => 'Referral Program',
-            ),
-
-            'foxx' => array(
-                'title' => 'Super-targeted automated emails that drive sales',
-                'role' => 'Email Automation',
-            ),
-
-            'poppy' => array(
-                'title' => 'Get customers to take actions when they are most likely to convert',
-                'role' => 'Smart Popups'
-            ),
-
-            'snow' => array(
-                'title' => 'Communicate with customers without disrupting their journey',
-                'role' => 'Notification Widget'
-            ),
-
-            'lotus' => array(
-                'title' => 'Save time managing social media for your shop.',
-                'role' => 'Social Media Automation',
-            ),
-
-            'arrow' => array(
-                'title' => 'Know your customer.',
-                'role' => 'Social Connect',
-            ),
-
-            'ultimate' => array(
-                'title' => 'Connect your shop to get started',
-                'role' => '',
-            )
-        );
-    }
-
     public static function API()
     {
         if (! self::$key) {
@@ -245,21 +200,6 @@ class Helper
         $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
         $current_page = explode("?", $current_page)[0];
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
-    }
-
-    public static function postWebhookStatus($status)
-    {
-        $args = [
-          'status' => $status
-        ];
-        $headers =  array(
-            'X-WC-Webhook-Source:' . home_url(),
-        );
-
-        try {
-            self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
-        } catch (Beans\BeansError $e) {
-        }
     }
 
     public static function isCURL()

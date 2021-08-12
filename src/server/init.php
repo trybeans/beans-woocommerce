@@ -16,12 +16,12 @@ class Main
         Hooks::init();
 
         register_activation_hook(__FILE__, function () {
-            Helper::postWebhookStatus('activated');
+            Hooks::postWebhookStatus('activated');
         });
 
         register_deactivation_hook(__FILE__, function () {
             Helper::removeTransients();
-            Helper::postWebhookStatus('deactivated');
+            Hooks::postWebhookStatus('deactivated');
         });
     }
 }
