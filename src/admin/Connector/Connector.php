@@ -21,7 +21,7 @@ class Connector
         add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
     }
 
-    protected static function installAssets($app_name = null)
+    public static function installAssets($app_name = null)
     {
         if (!in_array($app_name, ['liana', 'bamboo'])) {
             return false;
@@ -44,32 +44,7 @@ class Connector
         return true;
     }
 
-    public static function renderSettingsPage()
-    {
-
-        if (isset($_GET['card']) && isset($_GET['token'])) {
-            if (self::processSetup()) {
-                return wp_redirect(BEANS_WOO_MENU_LINK);
-            }
-        }
-
-        if (isset($_GET['reset_beans'])) {
-            if (Helper::resetSetup()) {
-                return wp_redirect(BEANS_WOO_MENU_LINK);
-            }
-        }
-
-        self::renderNotices();
-
-        if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
-            self::updateInstalledApps();
-            return include(dirname(__FILE__) . '/connector-settings.html.php');
-        }
-
-        return include(dirname(__FILE__, 2) . '/Inspector/inspector-debug.html.php');
-    }
-
-    protected static function processSetup()
+    public static function processSetup()
     {
         Helper::log(print_r($_GET, true));
 

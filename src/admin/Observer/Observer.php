@@ -15,7 +15,6 @@ class Observer
         add_action('admin_notices', array('\BeansWoo\Admin\Connector', 'adminNotice'));
         add_action('admin_init', array('\BeansWoo\Admin\Connector', 'noticeDismissed'));
 
-        add_action('admin_menu', array(__CLASS__, 'registerAdminMenu'));
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
     }
 
@@ -55,21 +54,6 @@ class Observer
             <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
         </div>
         <?php
-    }
-
-    public static function registerAdminMenu()
-    {
-        if (current_user_can('manage_options')) {
-            add_menu_page(
-                'Beans',
-                'Beans',
-                'manage_options',
-                BEANS_WOO_BASE_MENU_SLUG,
-                array('\BeansWoo\Admin\Connector', 'renderSettingsPage'),
-                plugins_url('/assets/img/beans-wordpress-icon.svg', BEANS_PLUGIN_FILENAME),
-                56
-            );
-        }
     }
 
     public static function checkCURLStatus()
