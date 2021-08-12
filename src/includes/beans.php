@@ -71,14 +71,14 @@ class Beans
 
     const VERSION = '3.0.0';
 
-    private $secret = '';
-    private $next_page = '';
-    private $previous_page = '';
-    private $curl_handle = null;
+    private $_secret = '';
+    private $_next_page = '';
+    private $_previous_page = '';
+    private $_curl_handle = null;
 
     public function __construct($secret = null)
     {
-        $this->secret = $secret;
+        $this->_secret = $secret;
     }
 
     public function get($path, $arg = null, $headers = null)
@@ -88,12 +88,12 @@ class Beans
 
     public function get_next_page()
     {
-        return $this->next_page ? $this->get($this->next_page, null) : array();
+        return $this->_next_page ? $this->get($this->_next_page, null) : array();
     }
 
     public function get_previous_page()
     {
-        return $this->previous_page ? $this->get($this->previous_page, null) : array();
+        return $this->_previous_page ? $this->get($this->_previous_page, null) : array();
     }
 
     public function post($path, $arg = null, $headers = null)
@@ -159,9 +159,9 @@ class Beans
             CURLOPT_TIMEOUT        => 80,
             CURLOPT_HTTPHEADER     => $headers,
         );
-        if ($this->secret) {
+        if ($this->_secret) {
             $curlConfig[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-            $curlConfig[CURLOPT_USERPWD] = $this->secret;
+            $curlConfig[CURLOPT_USERPWD] = $this->_secret;
         }
 
         //Make HTTP request
@@ -214,8 +214,8 @@ class Beans
 
         // support pagination
         if (isset($result['data']) && isset($result['object']) && $result['object'] == 'list') {
-            $this->next_page = $result['next'];
-            $this->previous_page = $result['previous'];
+            $this->_next_page = $result['next'];
+            $this->_previous_page = $result['previous'];
             $result = $result['data'];
         }
 
@@ -224,17 +224,17 @@ class Beans
 
     protected function getCurlHandle()
     {
-        if (!$this->curl_handle) {
-            $this->curl_handle = curl_init();
+        if (!$this->_curl_handle) {
+            $this->_curl_handle = curl_init();
         }
 
-        return $this->curl_handle;
+        return $this->_curl_handle;
     }
 
     public function __destruct()
     {
-        if ($this->curl_handle) {
-            curl_close($this->curl_handle);
+        if ($this->_curl_handle) {
+            curl_close($this->_curl_handle);
         }
     }
 }
