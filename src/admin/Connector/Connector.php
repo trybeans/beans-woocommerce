@@ -2,6 +2,7 @@
 
 namespace BeansWoo\Admin;
 
+use Beans\BeansError;
 use BeansWoo\Helper;
 
 class Connector
@@ -79,7 +80,7 @@ class Connector
 
         try {
             $integration_key = Helper::API()->get('/core/auth/integration_key/' . $token);
-        } catch (\Beans\BeansError  $e) {
+        } catch (BeansError  $e) {
             self::$errors[] = 'Connecting to Beans failed with message: ' . $e->getMessage();
             Helper::log('Connecting failed: ' . $e->getMessage());
 
