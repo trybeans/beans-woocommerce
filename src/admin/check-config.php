@@ -30,7 +30,7 @@ class CheckConfig
 
     public static function init()
     {
-        self::$woo_version = self::plugin_version('woocommerce');
+        self::$woo_version = self::pluginVersion('woocommerce');
         self::$woo_is_supported = version_compare(self::$woo_version, self::$woo_version_supported) >= 0;
 
         global $wp_version;
@@ -51,14 +51,14 @@ class CheckConfig
             && self::$php_is_supported && self::$curl_is_supported && self::$json_is_supported
             && self::$permalink_is_supported && self::$wp_permalink_is_supported;
 
-        self::$woo_api_uri_is_up = self::$beans_is_supported ? self::check_woo_api_uri(
+        self::$woo_api_uri_is_up = self::$beans_is_supported ? self::checkWooApiUri(
             self::$woo_api_uri_http_status,
             self::$woo_api_uri_content_type
         ) : null;
 
         self::$beans_is_supported = self::$woo_api_uri_is_up;
 
-        self::$woo_api_auth_is_up = self::$beans_is_supported ? self::check_woo_api_auth(
+        self::$woo_api_auth_is_up = self::$beans_is_supported ? self::checkWooApiAuth(
             self::$woo_api_auth_http_status,
             self::$woo_api_auth_content_type
         ) : null;
@@ -66,7 +66,7 @@ class CheckConfig
         self::$beans_is_supported = self::$woo_api_auth_is_up;
     }
 
-    protected static function plugin_version($plugin_name)
+    protected static function pluginVersion($plugin_name)
     {
         if (!function_exists('get_plugins')) {
             require_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -77,7 +77,7 @@ class CheckConfig
         return $plugin_folder["$plugin_name.php"]['Version'];
     }
 
-    protected static function check_woo_api_uri(&$http_status, &$content_type)
+    protected static function checkWooApiUri(&$http_status, &$content_type)
     {
         $ch = curl_init();
         $curlConfig = array(
@@ -96,7 +96,7 @@ class CheckConfig
         return in_array($http_status, [200, 503]);
     }
 
-    protected static function check_woo_api_auth(&$http_status, &$content_type)
+    protected static function checkWooApiAuth(&$http_status, &$content_type)
     {
         $ch = curl_init();
         $curlConfig = array(
