@@ -2,7 +2,7 @@
 
 namespace BeansWoo\Admin;
 
-class CheckConfig
+class Inspector
 {
     public static $wp_version_supported = '5.0';
     public static $woo_version_supported = '3.9';
