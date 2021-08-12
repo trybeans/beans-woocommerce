@@ -65,7 +65,7 @@ class Connector
             return include(dirname(__FILE__) . '/connector-settings.html.php');
         }
 
-        return include(dirname(__FILE__, 2) . '/Inspector/inspector-debug.html.php');
+        return include(dirname(__FILE__) . '/connector-connect.html.php');
     }
 
     protected static function _processSetup()
