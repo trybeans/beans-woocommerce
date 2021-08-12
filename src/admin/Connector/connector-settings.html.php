@@ -2,7 +2,7 @@
 
 defined('ABSPATH') or die;
 
-use Beans\Error\BaseError;
+use Beans\BeansError;
 use BeansWoo\Admin\Connector;
 use BeansWoo\Helper;
 
@@ -12,7 +12,7 @@ if ( ! $loginkey) {
     try {
         $loginkey = Helper::API()->post('core/user/current/loginkey');
         set_transient('beans_loginkey', $loginkey, 3 * 60);
-    } catch (BaseError  $e) {
+    } catch (BeansError  $e) {
     }
 }
 
