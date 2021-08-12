@@ -1,10 +1,11 @@
 <?php
 
-namespace BeansWoo\Front\Liana;
+namespace BeansWoo\StoreFront\Liana\Cart;
 
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
+use BeansWoo\StoreFront\Liana\Observer\LianaObserver;
 
 class Block
 {
@@ -26,7 +27,7 @@ class Block
         $cart  = Helper::getCart();
         ob_start();
         if (count($cart->get_cart()) == 0) {
-            Observer::cancelRedemption();
+            LianaObserver::cancelRedemption();
             ?>
             <script>
                 delete window.liana_init_data.debit
@@ -58,5 +59,4 @@ class Block
         </div>
         <?php
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Admin;
+namespace BeansWoo\Admin\Observer;
 
 use BeansWoo\Helper;
 

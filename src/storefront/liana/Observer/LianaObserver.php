@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\Front\Liana;
+namespace BeansWoo\StoreFront\Liana\Observer;
 
 defined('ABSPATH') or die;
 

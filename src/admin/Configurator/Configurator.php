@@ -1,7 +1,6 @@
 <?php
 
-namespace BeansWoo\Admin;
-
+namespace BeansWoo\Admin\Configurator;
 
 class CheckConfig
 {

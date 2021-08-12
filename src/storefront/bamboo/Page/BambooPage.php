@@ -1,10 +1,10 @@
 <?php
 
-namespace BeansWoo\Front\Bamboo;
+namespace BeansWoo\StoreFront\Bamboo\Page;
 
 defined('ABSPATH') or die;
 
-class BambooBlock
+class Block
 {
 
     public static function init()
@@ -16,7 +16,7 @@ class BambooBlock
     {
         if (strpos($content, '[beans_referral_page]') !== false) {
             ob_start();
-            include(dirname(__FILE__) . '/html-page.php');
+            include(dirname(__FILE__) . '/bamboo-page.html.php');
             $page = ob_get_clean();
             $content = str_replace('[beans_referral_page]', $page, $content);
         }
