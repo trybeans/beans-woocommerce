@@ -1,9 +1,8 @@
 <?php
 
-namespace BeansWoo\StoreFront\Liana\Observer;
+namespace BeansWoo\StoreFront;
 
-defined('ABSPATH') or die;
-
+use Beans\BeansError;
 use BeansWoo\Helper;
 
 class LianaObserver
@@ -45,7 +44,7 @@ class LianaObserver
                 'first_name' => $firstname,
                 'last_name'  => $lastname,
             ));
-        } catch (\Beans\Error\BaseError $e) {
+        } catch (BeansError $e) {
             Helper::log('Unable to create account: ' . $e->getMessage());
         }
 
@@ -95,7 +94,7 @@ class LianaObserver
                         '/liana/auth/consumer_token',
                         array('account' => $account['id'])
                     );
-                } catch (\Beans\Error\BaseError $e) {
+                } catch (BeansError $e) {
                     Helper::log('Getting Auth Token Failed: ' . $e->getMessage());
                 }
             }
@@ -279,7 +278,7 @@ class LianaObserver
 
         try {
             $debit = Helper::API()->post('/liana/debit', $data);
-        } catch (\Beans\Error\BaseError $e) {
+        } catch (BeansError $e) {
             if ($e->getCode() != 409) {
                 Helper::log('Debiting failed: ' . $e->getMessage());
                 wc_add_notice('Beans debit failed: ' . $e->getMessage(), 'error');
@@ -301,7 +300,7 @@ class LianaObserver
         }
         try {
             $_SESSION['liana_account'] = Helper::API()->get('liana/account/' . $account['id']);
-        } catch (\Beans\Error\BaseError $e) {
+        } catch (BeansError $e) {
             Helper::log('Unable to get account: ' . $e->getMessage());
         }
     }

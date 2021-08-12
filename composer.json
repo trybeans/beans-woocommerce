@@ -31,6 +31,10 @@
             ]
         }
     ],
+    "require": {
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
     "require-dev": {
         "composer/installers": "^1.11.0",
         "johnpbloch/wordpress": "~5.5.0",
