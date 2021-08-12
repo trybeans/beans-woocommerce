@@ -24,5 +24,4 @@ class Main
             Helper::postWebhookStatus('deactivated');
         });
     }
-
 }

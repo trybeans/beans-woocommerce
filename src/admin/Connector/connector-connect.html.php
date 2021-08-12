@@ -4,7 +4,7 @@ defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
 
-$base_banner_url = 'https://'.Helper::getDomain('CDN').'/static-v3/connect/img/app/';
+$base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 $base_asset_path = '/assets/img/admin/onboarding';
 
 $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GET['force_beans']);
@@ -32,7 +32,7 @@ $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GE
         </div>
         <div style="display: flex; width: 100%; justify-content: center">
           <div style="text-align: center">
-            <img id="beans-app-hero" src="<?php echo plugins_url($base_asset_path.'/ultimate-hero.svg', BEANS_PLUGIN_FILENAME) ?>" alt="" width="auto" height="280px">
+            <img id="beans-app-hero" src="<?php echo plugins_url($base_asset_path . '/ultimate-hero.svg', BEANS_PLUGIN_FILENAME) ?>" alt="" width="auto" height="280px">
           </div>
         </div>
         <div style="height: auto">

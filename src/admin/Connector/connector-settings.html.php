@@ -8,7 +8,7 @@ use BeansWoo\Helper;
 
 $loginkey = get_transient('beans_loginkey');
 
-if ( ! $loginkey) {
+if (! $loginkey) {
     try {
         $loginkey = Helper::API()->post('core/user/current/loginkey');
         set_transient('beans_loginkey', $loginkey, 3 * 60);
@@ -49,7 +49,7 @@ $base_asset_path = 'assets/img/connector';
         </div>
         <div>
           <a class="button beans-woo-banner-link"
-             href="https://<?php echo Helper::getDomain('CONNECT')."/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo Helper::getDomain('NAME') ?>"
+             href="https://<?php echo Helper::getDomain('CONNECT') . "/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo Helper::getDomain('NAME') ?>"
              target="_blank">
             Go To Beans Ultimate
           </a>
@@ -73,7 +73,7 @@ $base_asset_path = 'assets/img/connector';
               </span>
             </div>
             <div style="display: flex; align-items: center; margin-left: 20px;">
-              <img width="150px" src="<?php echo plugins_url($base_asset_path.'/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
+              <img width="150px" src="<?php echo plugins_url($base_asset_path . '/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
             </div>
           </div>
         <?php endif; ?>
@@ -92,7 +92,7 @@ $base_asset_path = 'assets/img/connector';
             </div>
             <div style="display: flex; align-items: center; margin-left: 20px;">
               <img width="150px"
-                   src="<?php echo plugins_url($base_asset_path.'/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
+                   src="<?php echo plugins_url($base_asset_path . '/reward-page.svg', BEANS_PLUGIN_FILENAME); ?>"/>
             </div>
           </div>
         <?php endif; ?>
@@ -118,7 +118,7 @@ $base_asset_path = 'assets/img/connector';
           <span class="beans-woo-help-action">
             <a target="_blank" href="https://web.facebook.com/groups/1220975858059106/">
               <span>
-                <img src="<?php echo plugins_url($base_asset_path.'/facebook.svg', BEANS_PLUGIN_FILENAME); ?>"
+                <img src="<?php echo plugins_url($base_asset_path . '/facebook.svg', BEANS_PLUGIN_FILENAME); ?>"
                      width="18px" height="18px"/>
               </span>
               Join Facebook Group
@@ -127,7 +127,7 @@ $base_asset_path = 'assets/img/connector';
           <span class="beans-woo-help-action">
             <a target="_blank" href="https://twitter.com/beanshq">
               <span>
-                <img src="<?php echo plugins_url($base_asset_path.'/twitter.svg', BEANS_PLUGIN_FILENAME); ?>"
+                <img src="<?php echo plugins_url($base_asset_path . '/twitter.svg', BEANS_PLUGIN_FILENAME); ?>"
                      width="18px" height="18px"/>
               </span>
               Follow us on Twitter
@@ -135,14 +135,16 @@ $base_asset_path = 'assets/img/connector';
           </span>
           <div class="beans-woo-help-action">
             <a target="_blank" href="http://help.trybeans.com/">
-              <img src="<?php echo plugins_url($base_asset_path.'/help-center.svg',
-                  BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
+              <img src="<?php echo plugins_url(
+                  $base_asset_path . '/help-center.svg',
+                  BEANS_PLUGIN_FILENAME
+                        ); ?>" width="18px" height="18px"/>
               Go to Help Center
             </a>
           </div>
           <div class="beans-woo-help-action">
             <a href="mailto:hello@trybeans.com">
-              <img src="<?php echo plugins_url($base_asset_path.
+              <img src="<?php echo plugins_url($base_asset_path .
                   '/email-support.svg', BEANS_PLUGIN_FILENAME); ?>" width="18px" height="18px"/>
               Contact Support
             </a>
@@ -152,7 +154,7 @@ $base_asset_path = 'assets/img/connector';
 
       <div class="beans-woo-review">
         <div style="display: flex; align-items: center;">
-          <img src="<?php echo plugins_url($base_asset_path.'/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
+          <img src="<?php echo plugins_url($base_asset_path . '/beans-review-logo.png', BEANS_PLUGIN_FILENAME); ?>"/>
         </div>
         <div>
           <div class="beans-woo-review-title">
@@ -173,5 +175,5 @@ $base_asset_path = 'assets/img/connector';
 <?php endif; ?>
 <div style='max-width: 700px; margin: auto;'>
   <a style="color: #d70000; float: right; margin-right: 20px;"
-     href='<?php echo BEANS_WOO_MENU_LINK.'&reset_beans=1'; ?>'>Reset Settings Now</a>
+     href='<?php echo BEANS_WOO_MENU_LINK . '&reset_beans=1'; ?>'>Reset Settings Now</a>
 </div>
