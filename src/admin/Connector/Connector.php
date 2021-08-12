@@ -4,9 +4,7 @@ namespace BeansWoo\Admin\Connector;
 
 use BeansWoo\Helper;
 
-defined('ABSPATH') or die;
-
-class UltimateConnector
+class Connector
 {
 
     public static $app_name = 'ultimate';
@@ -18,7 +16,7 @@ class UltimateConnector
     public static function init()
     {
         self::$card = Helper::getBeansObject(self::$app_name, 'card');
-
+        self::updateInstalledApps();
         add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
     }
 
@@ -64,10 +62,10 @@ class UltimateConnector
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
             self::updateInstalledApps();
-            return include(dirname(__FILE__, 2) . '/views/html-info.php');
+            return include(dirname(__FILE__).'/connector-settings.html.php');
         }
 
-        return include(dirname(__FILE__, 2) . '/views/html-connect.php');
+        return include(dirname(__FILE__).'/connector-connect.html.php');
     }
 
     protected static function _processSetup()

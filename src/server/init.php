@@ -1,8 +1,8 @@
 <?php
 
-namespace BeansWoo\API;
+namespace BeansWoo\Server;
 
-include_once('api-beans-rest-woocommerce.php');
+include_once('Hooks.php');
 
 defined('ABSPATH') or die;
 

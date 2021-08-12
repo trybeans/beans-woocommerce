@@ -1,14 +1,10 @@
 <?php
 
-namespace BeansWoo\Front\Liana;
-
-defined('ABSPATH') or die;
+namespace BeansWoo\StoreFront\Liana\Observer;
 
 use BeansWoo\Helper;
 
-include_once('observer.php');
-
-class ProductObserver
+class LianaProductObserver
 {
     public static $display;
     public static $redemption;
@@ -110,7 +106,7 @@ class ProductObserver
                 $product = new \WC_Product_Variation($variation_id);
             }
 
-            Observer::updateSession();
+            LianaObserver::updateSession();
             $account = $_SESSION['liana_account'];
 
             $min_beans = $product->get_price() * self::$display['beans_rate'];
