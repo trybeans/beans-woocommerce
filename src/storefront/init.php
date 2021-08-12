@@ -16,6 +16,8 @@ include_once("liana/Observer/LianaProductObserver.php");
 include_once("liana/Cart/LianaCart.php");
 include_once("liana/Page/LianaPage.php");
 
+define('BEANS_LIANA_COUPON_UID', 'redeem_points');
+
 use BeansWoo\Helper;
 
 
