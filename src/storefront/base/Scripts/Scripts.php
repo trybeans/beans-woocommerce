@@ -13,11 +13,6 @@ class Block
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
 
         add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
-
-        if (current_user_can('administrator') and is_null(Helper::getConfig('isAdmin_account'))) {
-            do_action('woocommerce_new_customer', get_current_user_id());  // force customer webhook for admin
-            Helper::setConfig('is_admin_account', true);
-        }
     }
 
     public static function renderHead()
