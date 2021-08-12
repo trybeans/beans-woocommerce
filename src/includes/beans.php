@@ -83,35 +83,35 @@ class Beans
 
     public function get($path, $arg = null, $headers = null)
     {
-        return $this->make_request($path, $arg, 'GET', $headers);
+        return $this->makeRequest($path, $arg, 'GET', $headers);
     }
 
-    public function get_next_page()
+    public function getNextPage()
     {
         return $this->_next_page ? $this->get($this->_next_page, null) : array();
     }
 
-    public function get_previous_page()
+    public function getPreviousPage()
     {
         return $this->_previous_page ? $this->get($this->_previous_page, null) : array();
     }
 
     public function post($path, $arg = null, $headers = null)
     {
-        return $this->make_request($path, $arg, 'POST', $headers);
+        return $this->makeRequest($path, $arg, 'POST', $headers);
     }
 
     public function put($path, $arg = null, $headers = null)
     {
-        return $this->make_request($path, $arg, 'PUT', $headers);
+        return $this->makeRequest($path, $arg, 'PUT', $headers);
     }
 
     public function delete($path, $arg = null, $headers = null)
     {
-        return $this->make_request($path, $arg, 'DELETE', $headers);
+        return $this->makeRequest($path, $arg, 'DELETE', $headers);
     }
 
-    public function make_request($path, $data = null, $method = null, $headers = null)
+    public function makeRequest($path, $data = null, $method = null, $headers = null)
     {
         $url = $this->endpoint . $path;
 
