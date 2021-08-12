@@ -62,10 +62,10 @@ class Connector
 
         if (Helper::isSetup() && Helper::isSetupApp(static::$app_name)) {
             self::updateInstalledApps();
-            return include(dirname(__FILE__, 2) . '/Configurator/configurator-html.php');
+            return include(dirname(__FILE__).'/connector-settings.html.php');
         }
 
-        return include(dirname(__FILE__) . '/connector-settings-html.php');
+        return include(dirname(__FILE__).'/connector-connect.html.php');
     }
 
     protected static function _processSetup()

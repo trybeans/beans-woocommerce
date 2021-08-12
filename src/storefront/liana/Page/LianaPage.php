@@ -16,7 +16,7 @@ class Block
     {
         if (strpos($content, '[beans_page]') !== false && Helper::isSetupApp('liana')) {
             ob_start();
-            include(dirname(__FILE__) . '/liana-page-html.php');
+            include(dirname(__FILE__).'/liana-page.html.php');
             $page = ob_get_clean();
             $content = str_replace('[beans_page]', $page, $content);
         }
