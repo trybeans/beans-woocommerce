@@ -205,7 +205,8 @@ class ProductObserver
         return $price_html;
     }
 
-    public static function remove_product_from_cart($cart_item_key, $cart){
+    public static function remove_product_from_cart($cart_item_key, $cart)
+    {
         $cart_item = $cart->get_cart()[$cart_item_key];
 
         if (
