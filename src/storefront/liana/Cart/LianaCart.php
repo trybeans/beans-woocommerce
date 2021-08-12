@@ -1,13 +1,10 @@
 <?php
 
-namespace BeansWoo\StoreFront\Liana\Cart;
-
-defined('ABSPATH') or die;
+namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
-use BeansWoo\StoreFront\Liana\Observer\LianaObserver;
 
-class Block
+class LianaCart
 {
 
     public static function init()

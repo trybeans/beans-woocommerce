@@ -2,15 +2,12 @@
 
 namespace BeansWoo;
 
-
-use Beans\Beans;
-use Beans\Error\BaseError;
+use Beans;
 
 class Helper
 {
-    const CONFIG_NAME = 'beans-config-3';
+    private const CONFIG_NAME = 'beans-config-3';
 
-    private static $cards = array();
     public static $key = null;
 
     public static function getDomain($sub)
@@ -78,7 +75,7 @@ class Helper
         if (! self::$key) {
             self::$key = self::getConfig('secret');
         }
-        $beans = new Beans(self::$key);
+        $beans = new Beans\Beans(self::$key);
 
         $beans->endpoint = 'https://' . self::getDomain('API') . '/v3/';
 
@@ -125,7 +122,6 @@ class Helper
             }
         }
         self::removeTransients();
-        self::$cards = array();
         delete_option(Helper::CONFIG_NAME);
         return true;
     }
@@ -160,9 +156,9 @@ class Helper
         return true;
     }
 
-    public static function getBeansObject($appName, $objectName)
+    public static function getBeansObject($app_name, $object_name)
     {
-        $object = $appName . "_" . $objectName;
+        $object = $app_name . "_" . $object_name;
 
         $beans_object = get_transient("beans_$object");
 
@@ -172,11 +168,11 @@ class Helper
             return $beans_object[$object];
         }
 
-        if (self::isSetup() && self::isSetupApp($appName)) {
+        if (self::isSetup() && self::isSetupApp($app_name)) {
             try {
-                $beans_object[$object] = self::API()->get("${appName}/${objectName}/current");
+                $beans_object[$object] = self::API()->get("${app_name}/${object_name}/current");
                 set_transient("beans_$object", $beans_object, 2 * 60);
-            } catch (BaseError $e) {
+            } catch (Beans\BeansError $e) {
                 self::log('Unable to get card: ' . $e->getMessage());
             }
         }
@@ -262,7 +258,7 @@ class Helper
 
         try {
             self::API()->post('/radix/woocommerce/hook/shop/plugin_status', $args, $headers);
-        } catch (BaseError $e) {
+        } catch (Beans\BeansError $e) {
         }
     }
 

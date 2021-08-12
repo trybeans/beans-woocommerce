@@ -1,8 +1,8 @@
 <?php
 
-namespace BeansWoo\Admin\Configurator;
+namespace BeansWoo\Admin;
 
-class CheckConfig
+class Inspector
 {
     public static $wp_version_supported = '5.0';
     public static $woo_version_supported = '3.9';
@@ -77,14 +77,14 @@ class CheckConfig
     protected static function checkWooApiUri(&$http_status, &$content_type)
     {
         $ch = curl_init();
-        $curlConfig = array(
+        $curl_config = array(
             CURLOPT_URL => BEANS_WOO_API_ENDPOINT,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_CONNECTTIMEOUT => 30,
             CURLOPT_TIMEOUT => 80
         );
-        curl_setopt_array($ch, $curlConfig);
+        curl_setopt_array($ch, $curl_config);
         curl_exec($ch);
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
@@ -96,14 +96,14 @@ class CheckConfig
     protected static function checkWooApiAuth(&$http_status, &$content_type)
     {
         $ch = curl_init();
-        $curlConfig = array(
+        $curl_config = array(
             CURLOPT_URL => BEANS_WOO_API_AUTH_ENDPOINT,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_CONNECTTIMEOUT => 30,
             CURLOPT_TIMEOUT => 80
         );
-        curl_setopt_array($ch, $curlConfig);
+        curl_setopt_array($ch, $curl_config);
         curl_exec($ch);
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);

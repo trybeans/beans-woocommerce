@@ -25,12 +25,13 @@ if (!in_array('woocommerce/woocommerce.php', $active_plugins)) {
     return;
 }
 
-include_once('includes/Beans.php');
-include_once('includes/Helper.php');
+require_once 'config.php';
+require_once 'includes/Beans.php';
+require_once 'includes/Helper.php';
 
-include_once('server/init.php');
-include_once('admin/init.php');
-include_once('storefront/init.php');
+require_once 'server/init.php';
+require_once 'admin/init.php';
+require_once 'storefront/init.php';
 
 use BeansWoo\Server\Main as ServerMain;
 use BeansWoo\Admin\Main as AdminMain;
@@ -40,21 +41,19 @@ if (! class_exists('WC_Beans')) :
 
     class WC_Beans
     {
-        protected static $_instance = null;
+        protected static $instance = null;
 
-
-        function __construct()
+        protected function __construct()
         {
-            include_once('config.php');
             add_action('init', array(__CLASS__, 'init'), 10, 1);
         }
 
         public static function instance()
         {
-            if (is_null(self::$_instance)) {
-                self::$_instance = new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
             }
-            return self::$_instance;
+            return self::$instance;
         }
 
         public static function init()
@@ -75,30 +74,9 @@ endif;
 /**
  * Use instance to avoid multiple api call so Beans can be super fast.
  */
-function wcBeansInstance()
+function WC_getBeansInstance()
 {
      return WC_Beans::instance();
 }
 
-$GLOBALS['wc_beans'] = wcBeansInstance();
-
-
-function wcBeansPluginActivate()
-{
-    Helper::postWebhookStatus('activated');
-}
-
-register_activation_hook(__FILE__, function () {
-    wcBeansPluginActivate();
-});
-
-
-function wcBeansPluginDeactivate()
-{
-    Helper::removeTransients();
-    Helper::postWebhookStatus('deactivated');
-}
-
-register_deactivation_hook(__FILE__, function () {
-    wcBeansPluginDeactivate();
-});
+$GLOBALS['wc_beans'] = WC_getBeansInstance();

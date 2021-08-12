@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\StoreFront\Liana\Observer;
+namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 

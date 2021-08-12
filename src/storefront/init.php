@@ -4,19 +4,18 @@ namespace BeansWoo\StoreFront;
 
 defined('ABSPATH') or die;
 
-include_once("base/Scripts/Scripts.php");
-include_once("base/Registration/Registration.php");
+require_once "base/Scripts/Scripts.php";
+require_once "base/Registration/Registration.php";
 
-include_once("arrow/Login/ArrowLogin.php");
+require_once "arrow/Login/ArrowLogin.php";
 
-include_once("bamboo/Page/BambooPage.php");
+require_once "bamboo/Page/BambooPage.php";
 
-include_once("liana/Observer/LianaObserver.php");
-include_once("liana/Observer/LianaProductObserver.php");
-include_once("liana/Cart/LianaCart.php");
-include_once("liana/Page/LianaPage.php");
+require_once "liana/Observer/LianaObserver.php";
+require_once "liana/Observer/LianaProductObserver.php";
+require_once "liana/Cart/LianaCart.php";
+require_once "liana/Page/LianaPage.php";
 
-define('BEANS_LIANA_COUPON_UID', 'redeem_points');
 
 use BeansWoo\Helper;
 
@@ -25,22 +24,22 @@ class Main
 {
     public static function init()
     {
-        Base\Scripts\Block::init();
-        Base\Registration\Block::init();
+        Scripts::init();
+        Registration::init();
 
-        Arrow\Login\ArrowLogin::init();
+        ArrowLogin::init();
 
-        Bamboo\Page\Block::init();
+        BambooPage::init();
 
-        Liana\Page\Block::init();
-        Liana\Cart\Block::init();
+        LianaPage::init();
+        LianaCart::init();
 
         $display = Helper::getBeansObject('liana', 'display');
         if (empty($display) || ! $display['is_active']) {
             return;
         }
 
-        Liana\Observer\LianaObserver::init($display);
-        Liana\Observer\LianaProductObserver::init($display);
+        LianaObserver::init($display);
+        LianaProductObserver::init($display);
     }
 }
