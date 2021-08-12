@@ -12,8 +12,8 @@ class Observer
         add_action('admin_enqueue_scripts', array(__CLASS__, 'loadAdminStyle'));
         add_action("admin_init", array(__CLASS__, "registerSettingOptions"));
 
-        add_action('admin_notices', array('\BeansWoo\Admin\Connector\UltimateConnector', 'adminNotice'));
-        add_action('admin_init', array('\BeansWoo\Admin\Connector\UltimateConnector', 'noticeDismissed'));
+        add_action('admin_notices', array('\BeansWoo\Admin\Connector\Connector', 'adminNotice'));
+        add_action('admin_init', array('\BeansWoo\Admin\Connector\Connector', 'noticeDismissed'));
 
         add_action('admin_menu', array(__CLASS__, 'registerAdminMenu'));
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
