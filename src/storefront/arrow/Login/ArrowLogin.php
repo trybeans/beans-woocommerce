@@ -2,8 +2,6 @@
 
 namespace BeansWoo\StoreFront;
 
-defined('ABSPATH') or die;
-
 class ArrowLogin
 {
 
