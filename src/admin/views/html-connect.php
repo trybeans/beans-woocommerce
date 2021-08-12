@@ -8,7 +8,7 @@ use BeansWoo\Admin\CheckConfig;
 CheckConfig::init();
 global $wp_version;
 
-function get_supported_tag($vs_is_supported)
+function getSupportedTag($vs_is_supported)
 {
     if ($vs_is_supported) {
         echo "&nbsp;&nbsp;<span>&#x2705</span>";
@@ -55,7 +55,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <li>
                 <p>
                     <strong>WooCommerce Version</strong>: <?php echo CheckConfig::$woo_version;
-                    get_supported_tag(CheckConfig::$woo_is_supported); ?>
+                    getSupportedTag(CheckConfig::$woo_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$woo_is_supported) : ?>
                     <p class="beans-admin-check-warning">
@@ -69,7 +69,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <li>
                 <p>
                     <strong>Wordpress Version</strong>: <?php echo $wp_version;
-                    get_supported_tag(CheckConfig::$wp_is_supported); ?>
+                    getSupportedTag(CheckConfig::$wp_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$wp_is_supported) : ?>
                     <p class="beans-admin-check-warning">
@@ -81,7 +81,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <li>
                 <p>
                     <strong>PHP Version</strong>: <?php echo CheckConfig::$php_version;
-                    get_supported_tag(CheckConfig::$php_is_supported); ?>
+                    getSupportedTag(CheckConfig::$php_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$php_is_supported) : ?>
                     <p class="beans-admin-check-warning">
@@ -92,7 +92,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>CURL Supported</strong>: <?php get_supported_tag(CheckConfig::$curl_is_supported); ?>
+                    <strong>CURL Supported</strong>: <?php getSupportedTag(CheckConfig::$curl_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$curl_is_supported) : ?>
                     <p class="beans-admin-check-warning">Contact your web host to enable CURL support.</p>
@@ -100,7 +100,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>JSON Supported</strong>: <?php get_supported_tag(CheckConfig::$json_is_supported); ?>
+                    <strong>JSON Supported</strong>: <?php getSupportedTag(CheckConfig::$json_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$json_is_supported) : ?>
                     <p class="beans-admin-check-warning">Contact your web host to enable JSON support.</p>
@@ -108,7 +108,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>Permalink Enabled</strong>: <?php get_supported_tag(CheckConfig::$permalink_is_supported); ?>
+                    <strong>Permalink Enabled</strong>: <?php getSupportedTag(CheckConfig::$permalink_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$permalink_is_supported) : ?>
                     <p class="beans-admin-check-warning">
@@ -121,7 +121,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             </li>
             <li>
                 <p>
-                    <strong>WordPress Permalink Enabled</strong>: <?php get_supported_tag(CheckConfig::$wp_permalink_is_supported); ?>
+                    <strong>WordPress Permalink Enabled</strong>: <?php getSupportedTag(CheckConfig::$wp_permalink_is_supported); ?>
                 </p>
                 <?php if (!CheckConfig::$wp_permalink_is_supported) : ?>
                     <p class="beans-admin-check-warning">
@@ -136,7 +136,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
                 <li>
                     <p>
                         <strong>WooCommerce API V3 URI
-                            Test</strong>: <?php get_supported_tag(CheckConfig::$woo_api_uri_is_up); ?>
+                            Test</strong>: <?php getSupportedTag(CheckConfig::$woo_api_uri_is_up); ?>
                     </p>
                     <?php if (!CheckConfig::$woo_api_uri_is_up) : ?>
                         <p class="beans-admin-check-warning">
@@ -157,7 +157,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
                     <p>
                         <strong>
                             WooCommerce API V2 Authentication
-                            Test</strong>: <?php get_supported_tag(CheckConfig::$woo_api_auth_is_up); ?>
+                            Test</strong>: <?php getSupportedTag(CheckConfig::$woo_api_auth_is_up); ?>
                     </p>
                     <?php if (!CheckConfig::$woo_api_auth_is_up) : ?>
                         <p class="beans-admin-check-warning">
