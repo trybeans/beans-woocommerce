@@ -1,6 +1,6 @@
 <?php
 
-namespace BeansWoo\API;
+namespace BeansWoo\Server;
 
 defined('ABSPATH') or die;
 

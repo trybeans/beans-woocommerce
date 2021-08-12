@@ -1,10 +1,11 @@
 <?php
 
-namespace BeansWoo\Front\Liana;
+namespace BeansWoo\StoreFront\Liana\Cart;
 
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
+use BeansWoo\StoreFront\Liana\Observer\LianaObserver;
 
 class Block
 {
@@ -12,7 +13,6 @@ class Block
     public static function init()
     {
 
-        add_filter('the_content', array(__CLASS__, 'renderPage'), 10, 1);
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 1);
 
         add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
@@ -27,7 +27,7 @@ class Block
         $cart  = Helper::getCart();
         ob_start();
         if (count($cart->get_cart()) == 0) {
-            Observer::cancelRedemption();
+            LianaObserver::cancelRedemption();
             ?>
             <script>
                 delete window.liana_init_data.debit
@@ -58,16 +58,5 @@ class Block
                 beans-cart_total="<?php echo $cart_subtotal; ?>">
         </div>
         <?php
-    }
-
-    public static function renderPage($content, $vars = null)
-    {
-        if (strpos($content, '[beans_page]') !== false && Helper::isSetupApp('liana')) {
-            ob_start();
-            include(dirname(__FILE__) . '/html-page.php');
-            $page = ob_get_clean();
-            $content = str_replace('[beans_page]', $page, $content);
-        }
-        return $content;
     }
 }
