@@ -4,7 +4,7 @@ namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
 
-class BeansRestWoocommerce
+class Hooks
 {
 
     public static function init()
