@@ -18,87 +18,11 @@ class LianaObserver
         self::$redemption = $display['redemption'];
         self::$i18n_strings = self::$display['i18n_strings'];
 
-        add_action('wp_logout', array( __CLASS__, 'clearSession' ), 10, 1);
-        add_action('wp_login', array( __CLASS__, 'customerLogin' ), 10, 2);
-
         add_action('wp_loaded', array( __CLASS__, 'handleRedemptionForm' ), 30, 1);
 
         add_filter('woocommerce_get_shop_coupon_data', array( __CLASS__, 'getCoupon' ), 10, 2);
 
         add_action('woocommerce_checkout_order_processed', array( __CLASS__, 'orderPlaced' ), 10, 1);
-    }
-
-    public static function clearSession()
-    {
-        unset($_SESSION['liana_token']);
-        unset($_SESSION['liana_account']);
-        unset($_SESSION['liana_coupon']);
-        unset($_SESSION['liana_debit']);
-    }
-
-    public static function createBeansAccount($email, $firstname, $lastname)
-    {
-        try {
-            return Helper::API()->post('/liana/account', array(
-                'email'      => $email,
-                'first_name' => $firstname,
-                'last_name'  => $lastname,
-            ));
-        } catch (BeansError $e) {
-            Helper::log('Unable to create account: ' . $e->getMessage());
-        }
-
-        return null;
-    }
-
-    public static function customerLogin($user_login, $user)
-    {
-        self::customerRegister($user->ID);
-    }
-
-    public static function customerRegister($user_id)
-    {
-
-        $user_data = get_userdata($user_id);
-
-        $first_name = get_user_meta($user_id, 'first_name', true);
-        if (! $first_name && isset($_POST['first_name'])) {
-            $first_name = $_POST['first_name'];
-        }
-        if (! $first_name) {
-            $first_name = get_user_meta($user_id, 'billing_first_name', true);
-        }
-        if (! $first_name) {
-            $first_name = get_user_meta($user_id, 'shipping_first_name', true);
-        }
-
-        $last_name = get_user_meta($user_id, 'last_name', true);
-        if (! $last_name && isset($_POST['last_name'])) {
-            $last_name = $_POST['last_name'];
-        }
-        if (! $last_name) {
-            $first_name = get_user_meta($user_id, 'billing_last_name', true);
-        }
-        if (! $last_name) {
-            $first_name = get_user_meta($user_id, 'shipping_last_name', true);
-        }
-
-        $email = $user_data->user_email;
-
-        if ($email) {
-            $account                   = self::createBeansAccount($email, $first_name, $last_name);
-            $_SESSION['liana_account'] = $account;
-            if ($account) {
-                try {
-                    $_SESSION['liana_token'] = Helper::API()->post(
-                        '/liana/auth/consumer_token',
-                        array('account' => $account['id'])
-                    );
-                } catch (BeansError $e) {
-                    Helper::log('Getting Auth Token Failed: ' . $e->getMessage());
-                }
-            }
-        }
     }
 
     public static function handleRedemptionForm()
