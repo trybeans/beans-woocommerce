@@ -17,3 +17,9 @@ wp-content/plugins/hello.php
 /sitemap.xml.gz
 
 .idea/
+composer
+composer.lock
+vendor
+wp
+_local
+.vscode
