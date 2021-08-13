@@ -18,6 +18,7 @@ class Observer
         add_action('admin_init', array(__CLASS__, 'noticeDismissed'));
 
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
+        add_filter("plugin_action_links_" . BEANS_PLUGIN_FILENAME, array(__CLASS__, 'addPluginSettingsLinks' ), 10, 1);
 
         if (current_user_can('administrator') and is_null(Helper::getConfig('is_admin_account'))) {
             do_action('woocommerce_new_customer', get_current_user_id());  // force customer webhook for admin
@@ -114,5 +115,16 @@ class Observer
             $location = $_SERVER['HTTP_REFERER'];
             wp_safe_redirect($location);
         }
+    }
+
+    public static function addPluginSettingsLinks($links)
+    {
+        $row_meta = array(
+            'help' => '<a href="http://help.trybeans.com/" target="_blank" title="Help">Help Center</a>',
+            'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
+            'settings' => '<a href=' . BEANS_WOO_MENU_LINK . '>Settings</a>'
+        );
+
+        return array_merge($links, $row_meta);
     }
 }
