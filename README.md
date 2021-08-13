@@ -37,3 +37,13 @@ To reformat the code:
 ```shell script
 ./vendor/bin/phpcbf
 ```
+
+
+### 4. Develop 
+ 
+```shell script
+ ./composer run-script start
+```
+ 
+ 
+### 5. Testing 

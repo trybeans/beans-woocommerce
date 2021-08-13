@@ -221,9 +221,9 @@ class Helper
 
     public static function removeTransients()
     {
-        delete_transient('beans_liana_display');
-        delete_transient('beans_liana_display');
         # This will help to remove old transients.
+        delete_transient('beans_liana_display');
+        delete_transient('beans_liana_display');
         delete_transient('beans_card');  # todo; remove
     }
 }

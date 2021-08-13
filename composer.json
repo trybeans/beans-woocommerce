@@ -43,7 +43,8 @@
         "squizlabs/php_codesniffer": "^3.6.0",
         "wp-coding-standards/wpcs": "^2.3.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-        "szepeviktor/phpstan-wordpress": "^0.7.7"
+        "szepeviktor/phpstan-wordpress": "^0.7.7",
+        "wp-cli/wp-cli-bundle": "^2.5"
     },
     "scripts": {
         "lint": [
@@ -52,6 +53,12 @@
         ],
         "test": [
             ""
+        ],
+        "post-install-cmd" : [
+            "bash tests/init.sh"
+        ],
+        "start": [
+            "php -S localhost:8800"
         ]
     },
     "scripts-descriptions": {
