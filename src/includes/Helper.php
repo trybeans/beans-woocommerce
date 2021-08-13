@@ -37,15 +37,6 @@ class Helper
         return $beans;
     }
 
-    public static function getAccountData($account, $k, $default = null)
-    {
-        if (isset($account[ $k ])) {
-            echo "$k:'" . $account[ $k ] . "',";
-        } elseif ($default !== null) {
-            echo "$k: '',";
-        }
-    }
-
     public static function getConfig($key)
     {
         $config = get_option(self::CONFIG_NAME);

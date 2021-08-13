@@ -4,6 +4,7 @@ namespace BeansWoo\StoreFront;
 
 defined('ABSPATH') or die;
 
+require_once "base/Auth/Auth.php";
 require_once "base/Scripts/Scripts.php";
 require_once "base/Registration/Registration.php";
 
@@ -26,6 +27,7 @@ class Main
     {
         Scripts::init();
         Registration::init();
+        Auth::init();
 
         ArrowLogin::init();
 

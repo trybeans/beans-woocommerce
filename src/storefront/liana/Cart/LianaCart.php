@@ -25,11 +25,6 @@ class LianaCart
         ob_start();
         if (count($cart->get_cart()) == 0) {
             LianaObserver::cancelRedemption();
-            ?>
-            <script>
-                delete window.liana_init_data.debit
-            </script>
-            <?php
         }
         self::renderCart();
         if ($fragments) {
