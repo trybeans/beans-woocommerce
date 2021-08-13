@@ -9,7 +9,6 @@ class Auth
 
     public static function init()
     {
-
     }
 
     public static function loadUserData()
@@ -45,7 +44,5 @@ class Auth
 
         // Todo, compress data, check size and save to cookies
         // This will fix all caching issues faced with authenticated consumers.
-
     }
-
 }

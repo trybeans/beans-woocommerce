@@ -6,6 +6,8 @@ use BeansWoo\Helper;
 
 class Observer
 {
+    private static $_notice_dismissed_key = 'beans_ultimate_notice_dismissed';
+
     public static function init()
     {
 
@@ -79,17 +81,17 @@ class Observer
     public static function adminNotice()
     {
         $user_id = get_current_user_id();
-        if (get_user_meta($user_id, 'beans_' . static::$app_name . '_notice_dismissed')) {
+        if (get_user_meta($user_id, self::$_notice_dismissed_key)) {
             return;
         }
 
-        if (! Helper::isSetup() || ! Helper::isSetupApp(static::$app_name)) {
+        if (! Helper::isSetup() || ! Helper::isSetupApp('ultimate')) {
             ?>
           <div class="notice notice-error" style="margin-left: auto">
             <div style="margin: 10px auto;">
               Beans: <?php echo __("Beans Ultimate is not properly setup", 'beans-woo'); ?>
               <a href="<?php echo BEANS_WOO_MENU_LINK; ?>"><?php echo __('Set up', 'beans-woo') ?></a>
-              <a href="?beans_<?php echo static::$app_name?>._notice_dismissed"
+              <a href="<?php echo self::$_notice_dismissed_key;?>"
                  style="float:right; text-decoration: none">
                 x
               </a>
@@ -102,10 +104,10 @@ class Observer
     public static function noticeDismissed()
     {
         $user_id = get_current_user_id();
-        if (isset($_GET['beans_' . static::$app_name . '_notice_dismissed'])) {
+        if (isset($_GET[self::$_notice_dismissed_key])) {
             add_user_meta(
                 $user_id,
-                'beans_' . static::$app_name . '_notice_dismissed',
+                self::$_notice_dismissed_key,
                 'true',
                 true
             );
