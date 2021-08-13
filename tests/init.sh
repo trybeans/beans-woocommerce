@@ -22,6 +22,6 @@ if ! $WP_CMD core is-installed --path=$PROJECT_DIR/wp; then
 fi
 
 echo "Add Beans WooCommerce Plugin"
-ls ./wp/wp-content/plugins/beans-woocommerce
+ln -s ./src ./wp/wp-content/plugins/beans-woocommerce
 
 echo "Test environment has been successfully initialized"
