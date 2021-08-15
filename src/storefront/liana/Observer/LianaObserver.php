@@ -7,225 +7,48 @@ use BeansWoo\Helper;
 
 class LianaObserver
 {
-    public static $display;
-    public static $redemption;
-    public static $i18n_strings;
+
+    protected static $display;
+    protected static $redemption;
+    protected static $i18n_strings;
+    protected const REDEEM_COUPON_UID = 'redeem_points';
 
     public static function init($display)
     {
-
-        self::$display = $display;
-        self::$redemption = $display['redemption'];
+        self::$display      = $display;
+        self::$redemption   = $display['redemption'];
         self::$i18n_strings = self::$display['i18n_strings'];
-
-        add_action('wp_loaded', array( __CLASS__, 'handleRedemptionForm' ), 30, 1);
-
-        add_filter('woocommerce_get_shop_coupon_data', array( __CLASS__, 'getCoupon' ), 10, 2);
-
-        add_action('woocommerce_checkout_order_processed', array( __CLASS__, 'orderPlaced' ), 10, 1);
     }
 
-    public static function handleRedemptionForm()
+    protected static function getAccountData($key)
     {
+        $account = BeansAccount::get();
 
-        if (! isset($_POST['beans_action'])) {
-            return;
+        if (!$account) {
+            return null;
         }
 
-        $action = $_POST['beans_action'];
-
-        if ($action == 'apply') {
-            self::applyRedemption();
-        } else {
-            self::cancelRedemption();
-        }
-    }
-
-    public static function getCoupon($coupon, $coupon_code)
-    {
-
-        if ($coupon_code != BEANS_LIANA_COUPON_UID) {
-            return $coupon;
-        }
-        if (
-            ! isset($_SESSION['liana_account']) ||
-             ! isset($_SESSION['liana_account']['beans'])
-        ) {
-            return $coupon;
-        }
-        if (
-            ! isset($_SESSION['liana_debit']) ||
-             ! isset($_SESSION['liana_debit']['beans'])
-        ) {
-            return $coupon;
+        if (isset($account['liana'][$key])) {
+            return $account['liana'][$key];
         }
 
-        if (
-            isset($_SESSION['liana_coupon']) &&
-             $_SESSION['liana_coupon']
-        ) {
-            return $_SESSION['liana_coupon'];
+        if (isset($account[$key])) {
+            return $account[$key];
         }
 
-        $cart = Helper::getCart();
-        if (empty($cart)) {
-            return $coupon;
-        }
-
-        $coupon_data = array(
-            'id'                          => 0,
-            'amount'                      => $_SESSION['liana_debit']['value'],
-            'date_created'                => strtotime('-1 hour', time()),
-            'date_modified'               => time(),
-            'date_expires'                =>  strtotime('+1 day', time()),
-            'discount_type'               => 'fixed_cart',
-            'description'                 => '',
-            'usage_count'                 => 0,
-            'individual_use'              => false,
-            'product_ids'                 => array(),
-            'excluded_product_ids'        => array(),
-            'usage_limit'                 => 1,
-            'usage_limit_per_user'        => 1,
-            'limit_usage_to_x_items'      => null,
-            'free_shipping'               => false,
-            'product_categories'          => array(),
-            'excluded_product_categories' => array(),
-            'exclude_sale_items'          => false,
-            'minimum_amount'              => '',
-            'maximum_amount'              => '',
-            'email_restrictions'          => array(),
-            'used_by'                     => array(),
-            'virtual'                     => true,
-        );
-
-        $_SESSION['liana_coupon'] = $coupon_data;
-
-        return $coupon_data;
-    }
-
-    public static function applyRedemption()
-    {
-
-        if (! isset($_SESSION['liana_account'])) {
-            return;
-        }
-
-        self::cancelRedemption();
-        self::updateSession();
-
-        $account = $_SESSION['liana_account'];
-
-        $cart = Helper::getCart();
-
-        $max_amount = $cart->subtotal;
-        if (
-            isset(self::$redemption) && isset(self::$redemption['min_beans']) &&
-            isset(self::$redemption['max_percentage'])
-        ) {
-            $min_beans =  self::$redemption['min_beans'];
-            if ($account['beans']  < $min_beans) {
-                wc_add_notice(Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_minimum_points'],
-                    array(
-                        'quantity' => $min_beans,
-                        "beans_name" => self::$display['beans_name'],
-                    )
-                ), 'notice');
-                return;
-            }
-
-            $percent_discount =  self::$redemption['max_percentage'];
-            if ($percent_discount < 100) {
-                $max_amount = ( 1.0 * $cart->subtotal * $percent_discount ) / 100;
-                if ($max_amount < $account['beans_value']) {
-                    wc_add_notice(Helper::replaceTags(
-                        self::$i18n_strings['redemption']['condition_maximum_discount'],
-                        array(
-                            'max_discount' => $percent_discount,
-                        )
-                    ), 'notice');
-                }
-            }
-        }
-
-        $amount = min($max_amount, $account['beans_value']);
-        $amount = sprintf('%0.2f', $amount);
-
-        $_SESSION['liana_debit'] = array(
-            'beans' => $amount * self::$display['beans_rate'],
-            'value' => $amount
-        );
-        $cart->apply_coupon(BEANS_LIANA_COUPON_UID);
+        return null;
     }
 
     public static function cancelRedemption()
     {
-
-        Helper::getCart()->remove_coupon(BEANS_LIANA_COUPON_UID);
+        Helper::getCart()->remove_coupon(self::REDEEM_COUPON_UID);
 
         unset($_SESSION['liana_coupon']);
-        unset($_SESSION['liana_debit']);
+        unset($_SESSION['liana_redemption']);
     }
 
-    public static function orderPlaced($order_id)
+    public static function getActiveRedemption()
     {
-        $order = new \WC_Order($order_id);
-
-        $account = null;
-
-        if (isset($_SESSION['liana_account'])) {
-            $account = $_SESSION['liana_account'];
-        }
-
-        if (! in_array(BEANS_LIANA_COUPON_UID, $order->get_coupon_codes())) {
-            return ;
-        }
-
-        if (! $account) {
-            wc_add_notice('Trying to redeem beans without beans account.', 'error');
-            return ;
-        }
-
-        $coupon = new \WC_Coupon(BEANS_LIANA_COUPON_UID);
-        $amount     = (double) $coupon->get_amount();
-        $amount     = sprintf('%0.2f', $amount);
-        $amount_str =  sprintf(get_woocommerce_price_format(), get_woocommerce_currency_symbol(), $amount);
-
-        $data = array(
-            'quantity'    => $amount,
-            'rule'        => strtoupper(get_woocommerce_currency()),
-            'account'     => $account['id'],
-            'description' => "Debited for a $amount_str discount",
-            'uid'         => 'wc_' . $order->get_id() . '_' . $order->get_order_key(),
-            'commit'      => true
-        );
-
-        try {
-            $debit = Helper::API()->post('/liana/debit', $data);
-        } catch (BeansError $e) {
-            if ($e->getCode() != 409) {
-                Helper::log('Debiting failed: ' . $e->getMessage());
-                wc_add_notice('Beans debit failed: ' . $e->getMessage(), 'error');
-                return ;
-            }
-        }
-        self::cancelRedemption();
-        self::updateSession();
-    }
-
-    public static function updateSession()
-    {
-        $account = null;
-        if (! empty($_SESSION['liana_account'])) {
-            $account = $_SESSION['liana_account'];
-        }
-        if (! $account) {
-            return;
-        }
-        try {
-            $_SESSION['liana_account'] = Helper::API()->get('liana/account/' . $account['id']);
-        } catch (BeansError $e) {
-            Helper::log('Unable to get account: ' . $e->getMessage());
-        }
+        return isset($_SESSION['liana_redemption']) ? $_SESSION['liana_redemption'] : null;
     }
 }

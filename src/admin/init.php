@@ -57,8 +57,7 @@ class Main
 
         Connector::renderNotices();
 
-        if (Helper::isSetup() && Helper::isSetupApp(Connector::$app_name)) {
-            Connector::updateInstalledApps();
+        if (Helper::isSetup()) {
             return include(dirname(__FILE__) . '/Connector/connector-settings.html.php');
         }
 

@@ -9,7 +9,6 @@ class LianaCart
 
     public static function init()
     {
-
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 1);
 
         add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
@@ -21,7 +20,7 @@ class LianaCart
 
     public static function renderCartFragment($fragments)
     {
-        $cart  = Helper::getCart();
+        $cart = Helper::getCart();
         ob_start();
         if (count($cart->get_cart()) == 0) {
             LianaObserver::cancelRedemption();
@@ -29,25 +28,26 @@ class LianaCart
         self::renderCart();
         if ($fragments) {
             ?>
-        <script>
-            window.Beans3.Liana.Radix.init();
-        </script>
+            <script>
+                window.Beans3.Liana.Radix.init();
+            </script>
             <?php
         }
-         $fragments['div.beans-cart'] = ob_get_clean();
-         return $fragments;
+        $fragments['div.beans-cart'] = ob_get_clean();
+        return $fragments;
     }
 
     public static function renderCart()
     {
-        $cart_subtotal  = Helper::getCart()->cart_contents_total;
+        $cart_subtotal = Helper::getCart()->cart_contents_total;
 
         ?>
         <div
-                id="beans-cart-redeem-button"
-                class="beans-cart"
-                beans-btn-class="checkout-button button"
-                beans-cart_total="<?php echo $cart_subtotal; ?>">
+            id="beans-cart-redeem-button"
+            class="beans-cart"
+            beans-btn-class="checkout-button button"
+            beans-cart_total="<?=$cart_subtotal?>"
+        >
         </div>
         <?php
     }
