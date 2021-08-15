@@ -30,6 +30,7 @@ define( 'DB_PASSWORD', 'Beans_WooCommerce_Testcases@0' );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'SG-BeansMain2-4788-mysql-master.servers.mongodirector.com' );
+// define( 'DB_HOST', '127.0.0.1' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -88,3 +89,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
+
+/** Additional options */
+
+define('WP_SITEURL', 'http://localhost:8800/wp');
+define('WP_ADMIN_DIR', 'wp-admin');  
+

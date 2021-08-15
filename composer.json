@@ -44,7 +44,8 @@
         "wp-coding-standards/wpcs": "^2.3.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
         "szepeviktor/phpstan-wordpress": "^0.7.7",
-        "wp-cli/wp-cli-bundle": "^2.5"
+        "wp-cli/wp-cli-bundle": "^2.5",
+        "phpunit/phpunit": "^7.5"
     },
     "scripts": {
         "lint": [

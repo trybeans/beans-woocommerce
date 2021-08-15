@@ -1,5 +1,11 @@
 # Beans for WooCommerce
 
+### Prerequisite
+
+- You need to make sure that you have mysql installed and that `mysql` is available in your path 
+To check that you can run `which mysql`
+
+
 ### 1. Install Composer 
 
 ```shell script
@@ -42,8 +48,10 @@ To reformat the code:
 ### 4. Develop 
  
 ```shell script
- ./composer run-script start
+./composer run-script start
 ```
  
+ Wordpress admin username and password are `beans`
+
  
 ### 5. Testing 
