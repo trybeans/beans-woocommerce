@@ -2,7 +2,6 @@
 
 namespace BeansWoo\StoreFront;
 
-use Beans\BeansError;
 use BeansWoo\Helper;
 
 class Auth

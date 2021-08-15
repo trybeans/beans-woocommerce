@@ -12,7 +12,7 @@ If you are having trouble to find out more about it here: https://getcomposer.or
 ### 2. Install dependencies 
 
 ```shell script
-./composer update
+./composer install
 ```
 
 ### 3. Running Linters 

@@ -2,7 +2,6 @@
 
 namespace BeansWoo\StoreFront;
 
-use Beans\Beans400Error;
 use Beans\BeansError;
 use BeansWoo\Helper;
 
@@ -185,5 +184,4 @@ class LianaCartObserver extends LianaObserver
         self::cancelRedemption();
         BeansAccount::update();
     }
-
 }
