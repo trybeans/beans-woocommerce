@@ -86,7 +86,7 @@ class Hooks
     {
         $pages_output = [];
 
-        foreach (Helper::getPages() as $app_name => $values) {
+        foreach (Helper::getBeansPages() as $app_name => $values) {
             $page_id = $values['page_id'];
             $page_exists = false;
             $page_visible = false;

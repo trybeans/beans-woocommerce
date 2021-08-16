@@ -3,29 +3,25 @@
 defined('ABSPATH') or die;
 
 use Beans\BeansError;
-use BeansWoo\Admin\Connector;
 use BeansWoo\Helper;
 
-$loginkey = get_transient('beans_loginkey');
-
-if (!$loginkey) {
-    try {
-        $loginkey = Helper::API()->post('core/user/current/loginkey');
-        set_transient('beans_loginkey', $loginkey, 3 * 60);
-    } catch (BeansError  $e) {
-    }
+try {
+    $loginkey = Helper::requestTransientAPI('POST', 'core/user/current/loginkey');
+} catch (BeansError $e) {
+    Helper::log('Unable to retrieve login key: ' . $e->getMessage());
+    $loginkey = array();
 }
 
 if (isset($_POST['beans-liana-display-redemption-checkout'])) {
     $is_redeem_checkout = htmlspecialchars($_POST['beans-liana-display-redemption-checkout']);
     update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
-$app_name       = Connector::$app_name;
+
 $base_asset_url = plugins_url('assets/img/connector', BEANS_PLUGIN_FILENAME);
 
 ?>
 
-<?php if (empty(Connector::$card)) : ?>
+<?php if (!Helper::isSetup()) : ?>
   <div class="welcome-panel beans-admin-content" style="max-width: 600px; margin: auto">
     <p class="beans-admin-check-warning">
       Unable to connect to Beans. Unable to retrieve information about your account status.
@@ -56,62 +52,54 @@ $base_asset_url = plugins_url('assets/img/connector', BEANS_PLUGIN_FILENAME);
           </a>
         </div>
       </div>
-        <?php if (Helper::isSetupApp('liana')) : ?>
-          <div class="beans-woo-reward">
-            <div>
-              <div class="beans-woo-reward-title">
-                Reward page
-              </div>
-              <div class="beans-woo-reward-description">
-                The reward page is available on your website and let your customers join and use your reward
-                program.
-              </div>
-              <span class="">
+      <div class="beans-woo-reward">
+        <div>
+          <div class="beans-woo-reward-title">
+            Reward page
+          </div>
+          <div class="beans-woo-reward-description">
+            The reward page is available on your website and let your customers join and use your reward
+            program.
+          </div>
+          <span class="">
                 <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
                    href="<?php echo get_permalink(Helper::getConfig('liana_page')); ?>">
                     Go to the reward page
                 </a>
               </span>
-            </div>
-            <div style="display: flex; align-items: center; margin-left: 20px;">
-              <img width="150px" src="<?php echo $base_asset_url; ?>/reward-page.svg"/>
-            </div>
+        </div>
+        <div style="display: flex; align-items: center; margin-left: 20px;">
+          <img width="150px" src="<?php echo $base_asset_url; ?>/reward-page.svg"/>
+        </div>
+      </div>
+      <div class="beans-woo-reward">
+        <div>
+          <div class="beans-woo-reward-title">Referral page</div>
+          <div class="beans-woo-reward-description">
+            The referral page is available on your website and let your customers join
+            and use your referral program.
           </div>
-        <?php endif; ?>
-        <?php if (Helper::isSetupApp('bamboo')) : ?>
-          <div class="beans-woo-reward">
-            <div>
-              <div class="beans-woo-reward-title">Referral page</div>
-              <div class="beans-woo-reward-description">
-                The referral page is available on your website and let your customers join
-                and use your referral program.
-              </div>
-              <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
-                 href="<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>">
-                Go to the referral page
-              </a>
-            </div>
-            <div style="display: flex; align-items: center; margin-left: 20px;">
-              <img width="150px" src="<?php echo $base_asset_url; ?>/reward-page.svg"/>
-            </div>
-          </div>
-        <?php endif; ?>
+          <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
+             href="<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>">
+            Go to the referral page
+          </a>
+        </div>
+        <div style="display: flex; align-items: center; margin-left: 20px;">
+          <img width="150px" src="<?php echo $base_asset_url; ?>/reward-page.svg"/>
+        </div>
+      </div>
+      <div class="beans-woo-settings">
+        <div class="beans-woo-settings-title">Settings</div>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields("beans-section");
 
-        <?php if ((Helper::isSetupApp('liana'))) : ?>
-          <div class="beans-woo-settings">
-            <div class="beans-woo-settings-title">Settings</div>
-            <form method="post" action="options.php">
-                <?php
-                settings_fields("beans-section");
+            do_settings_sections("beans-woo");
 
-                do_settings_sections("beans-woo");
-
-                submit_button('Save', 'submit', 'beans-checkout-button', '', ['class' => 'button']);
-                ?>
-            </form>
-          </div>
-        <?php endif; ?>
-
+            submit_button('Save', 'submit', 'beans-checkout-button', '', ['class' => 'button']);
+            ?>
+        </form>
+      </div>
       <div class="beans-woo-help">
         <div class="beans-woo-help-title">Need help?</div>
         <div style="display: flex;">
