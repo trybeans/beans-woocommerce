@@ -103,7 +103,7 @@ Pinterest, Instagram, and more...
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 4.0
+- WooCommerce >= 4.1
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers
