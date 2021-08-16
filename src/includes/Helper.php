@@ -19,13 +19,14 @@ class Helper
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
             'CDN'     => 'cdn.trybeans.com',
+            'HOOK'    => 'api.radix.trybeans.com',
         );
         $val     = getenv($key);
 
         return empty($val) ? $domains[$sub] : getenv($key);
     }
 
-    public static function API()
+    public static function API($domain = 'API')
     {
         if (!self::$key) {
             self::$key = self::getConfig('secret');
@@ -33,7 +34,7 @@ class Helper
 
         $beans = new Beans\Beans(self::$key);
 
-        $beans->endpoint = 'https://' . self::getDomain('API') . '/v3/';
+        $beans->endpoint = 'https://' . self::getDomain($domain) . '/v3/';
 
         return $beans;
     }

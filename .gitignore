@@ -23,3 +23,6 @@ vendor
 wp
 _local
 .vscode
+
+tests/_output/
+tests/_support/_generated/
