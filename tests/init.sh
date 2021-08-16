@@ -19,8 +19,6 @@ if ! $WP_CMD core is-installed --path=$PROJECT_DIR/wp; then
     --admin_user="beans" \
     --admin_password="beans" \
     --admin_email="radix+testcases-woocommerce@trybeans.com"
-
-  # $WP_CMD option update siteurl $SITE_URL --path=$PROJECT_DIR/wp
 fi
 
 echo "Link Beans WooCommerce plugin"
@@ -29,6 +27,15 @@ ln -s $PROJECT_DIR/src $PROJECT_DIR/wp/wp-content/plugins/beans-woocommerce
 echo "Activate Woocommerce"
 $WP_CMD --path=$PROJECT_DIR/wp  --url=localhost:8800/wp plugin activate woocommerce
 
+echo "Setting up Woocommerce"
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_demo_store yes
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_currency USD
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_address	1430 Market Street
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_address_2	
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_city	San Francisco
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_postcode	91234
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_default_country	US:CA
+
 echo "Import Woocommerce data"
 $WP_CMD --path=$PROJECT_DIR/wp plugin install wordpress-importer --activate
 $WP_CMD --path=$PROJECT_DIR/wp import $PROJECT_DIR/wp/wp-content/plugins/woocommerce/sample-data/sample_products.xml --authors=create
@@ -36,6 +43,5 @@ $WP_CMD --path=$PROJECT_DIR/wp import $PROJECT_DIR/wp/wp-content/plugins/woocomm
 
 echo "Test environment has been successfully initialized"
 
-
-# To reset the db an reinstall wp
+# To reset the db and reinstall wp
 # wp --path=$PROJECT_DIR/wp db clean --yes

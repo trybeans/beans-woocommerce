@@ -29,8 +29,8 @@ define( 'DB_USER', 'beanswoocommercetestcases' );
 define( 'DB_PASSWORD', 'Beans_WooCommerce_Testcases@0' );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'SG-BeansMain2-4788-mysql-master.servers.mongodirector.com' );
-// define( 'DB_HOST', '127.0.0.1' );
+// define( 'DB_HOST', 'SG-BeansMain2-4788-mysql-master.servers.mongodirector.com' );
+define( 'DB_HOST', '127.0.0.1' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
