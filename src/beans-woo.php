@@ -9,8 +9,8 @@
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
  * Domain Path: /languages
- * WC requires at least: 4.1
- * WC tested up to: 5.6.*
+ * WC requires at least: 4.0
+ * WC tested up to: 5.5.*
  * @author Beans
  */
 

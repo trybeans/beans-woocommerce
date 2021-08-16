@@ -2,7 +2,7 @@
 
 Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.1
+Requires at least: 5.2
 Tested up to: 5.8
 Stable tag: 3.3.0
 License: Apache License, Version 2.0
@@ -103,7 +103,7 @@ Pinterest, Instagram, and more...
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 3.9
+- WooCommerce >= 4.0
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers

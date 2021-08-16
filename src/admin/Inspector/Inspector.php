@@ -4,8 +4,8 @@ namespace BeansWoo\Admin;
 
 class Inspector
 {
-    public static $wp_version_supported = '5.0';
-    public static $woo_version_supported = '3.9';
+    public static $wp_version_supported = '5.2';
+    public static $woo_version_supported = '4.0';
     public static $php_version_supported = '5.6.0';
 
     public static $woo_version;
