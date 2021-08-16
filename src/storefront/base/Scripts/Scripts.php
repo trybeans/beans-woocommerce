@@ -32,16 +32,16 @@ class Scripts
         ?>
         <script>
             window.beans_pages = {
-                _current: "<?php echo Helper::getCurrentPage(); ?>",
-                cart: "<?php echo wc_get_cart_url(); ?>",
-                checkout: "<?php echo wc_get_checkout_url(); ?>",
-                shop: "<?php echo wc_get_page_permalink('shop'); ?>",
-                login: "<?php echo wc_get_page_permalink('myaccount'); ?>",
-                register: "<?php echo wc_get_page_permalink('myaccount'); ?>",
-                liana: "<?php echo get_permalink(Helper::getConfig('liana_page')); ?>",
-                bamboo: "<?php echo get_permalink(Helper::getConfig('bamboo_page')); ?>",
+                _current: "<?=Helper::getCurrentPage()?>",
+                cart: "<?=wc_get_cart_url()?>",
+                checkout: "<?=wc_get_checkout_url()?>",
+                shop: "<?=wc_get_page_permalink('shop')?>",
+                login: "<?=wc_get_page_permalink('myaccount')?>",
+                register: "<?=wc_get_page_permalink('myaccount')?>",
+                liana: "<?=get_permalink(Helper::getConfig('liana_page'))?>",
+                bamboo: "<?=get_permalink(Helper::getConfig('bamboo_page'))?>",
             }
-            window.beans_plugin_version = "<?php echo BEANS_VERSION; ?>";
+            window.beans_plugin_version = "<?=BEANS_PLUGIN_VERSION?>";
             window.Beans3.Radix.init();
         </script>
         <?php

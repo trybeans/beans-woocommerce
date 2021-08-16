@@ -19,38 +19,47 @@ class Helper
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
             'CDN'     => 'cdn.trybeans.com',
+            'HOOK'    => 'api.radix.trybeans.com',
         );
         $val     = getenv($key);
 
-        return empty($val) ? $domains[ $sub ] : getenv($key);
+        return empty($val) ? $domains[$sub] : getenv($key);
     }
 
-    public static function API()
+    public static function API($domain = 'API')
     {
-        if (! self::$key) {
+        if (!self::$key) {
             self::$key = self::getConfig('secret');
         }
+
         $beans = new Beans\Beans(self::$key);
 
-        $beans->endpoint = 'https://' . self::getDomain('API') . '/v3/';
+        $beans->endpoint = 'https://' . self::getDomain($domain) . '/v3/';
 
         return $beans;
     }
 
-    public static function getAccountData($account, $k, $default = null)
+    public static function requestTransientAPI($method, $path, $arg = null, $headers = null)
     {
-        if (isset($account[ $k ])) {
-            echo "$k:'" . $account[ $k ] . "',";
-        } elseif ($default !== null) {
-            echo "$k: '',";
+        $transient_key = '$beans_' . str_replace('/', '_', $path);
+
+        $object = get_transient($transient_key);
+
+        if ($object) {
+            return $object;
         }
+
+        $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
+        set_transient($transient_key, $object, 15 * 60);
+
+        return $object;
     }
 
     public static function getConfig($key)
     {
         $config = get_option(self::CONFIG_NAME);
-        if (isset($config[ $key ])) {
-            return $config[ $key ];
+        if (isset($config[$key])) {
+            return $config[$key];
         }
 
         return null;
@@ -58,8 +67,8 @@ class Helper
 
     public static function setConfig($key, $value)
     {
-        $config         = get_option(self::CONFIG_NAME);
-        $config[ $key ] = $value;
+        $config       = get_option(self::CONFIG_NAME);
+        $config[$key] = $value;
         update_option(self::CONFIG_NAME, $config);
     }
 
@@ -81,22 +90,13 @@ class Helper
         return true;
     }
 
-    public static function isSetupApp($app_name)
-    {
-        $apps = self::getConfig('apps');
-        if (! $apps) {
-            $apps = array();
-        }
-        return in_array($app_name, $apps);
-    }
-
     public static function log($info)
     {
         if (file_exists(BEANS_INFO_LOG) && filesize(BEANS_INFO_LOG) > 100000) {
             unlink(BEANS_INFO_LOG);
         }
 
-        if (! is_writable(BEANS_INFO_LOG)) {
+        if (!is_writable(BEANS_INFO_LOG)) {
             return false;
         }
 
@@ -111,100 +111,40 @@ class Helper
         return true;
     }
 
-    public static function getBeansObject($app_name, $object_name)
-    {
-        $object = $app_name . "_" . $object_name;
-
-        $beans_object = get_transient("beans_$object");
-
-        $beans_object = $beans_object ? $beans_object : array();
-
-        if (isset($beans_object[$object])) {
-            return $beans_object[$object];
-        }
-
-        if (self::isSetup() && self::isSetupApp($app_name)) {
-            try {
-                $beans_object[$object] = self::API()->get("${app_name}/${object_name}/current");
-                set_transient("beans_$object", $beans_object, 2 * 60);
-            } catch (Beans\BeansError $e) {
-                self::log('Unable to get card: ' . $e->getMessage());
-            }
-        }
-
-        return isset($beans_object[$object]) ? $beans_object[$object] : null;
-    }
-
     public static function getCart()
     {
         global $woocommerce;
 
-        if (! empty($woocommerce->cart) && empty($woocommerce->cart->cart_contents)) {
+        if (!empty($woocommerce->cart) && empty($woocommerce->cart->cart_contents)) {
             $woocommerce->cart->calculate_totals();
         }
 
         return $woocommerce->cart;
     }
 
-    public static function setInstalledApp($app_name)
-    {
-        if (self::isSetupApp($app_name)) {
-            return ;
-        }
-
-        $config         = get_option(self::CONFIG_NAME);
-        if (isset($config['apps'])) {
-            if (!in_array($app_name, $config['apps'])) {
-                $config['apps'][ $app_name] =  $app_name;
-            }
-        } else {
-            $config['apps'] = array($app_name => $app_name, );
-        }
-        update_option(self::CONFIG_NAME, $config);
-    }
-
-    public static function getPages()
+    public static function getBeansPages()
     {
         return [
-            'liana' => [
-                'shortcode' => '[beans_page]',
-                'page_id' => self::getConfig('liana_page'),
-                'page_name' => 'Rewards Program',
-                'option' => 'beans_page_id',
-                'slug' => 'rewards-program',
-                'type' => 'reward',
-            ],
-            'bamboo' => [
-                'shortcode' => '[beans_referral_page]',
-                'page_id' => self::getConfig('bamboo_page'),
-                'page_name' => 'Referral Program',
-                'option' => 'beans_referral_page_id',
-                'slug' => 'referral-program',
-                'type' => 'referral',
-            ],
-
+            'liana'  => \BeansWoo\StoreFront\LianaPage::getPageReferences(),
+            'bamboo' => \BeansWoo\StoreFront\BambooPage::getPageReferences(),
         ];
     }
 
     public static function getCurrentPage()
     {
         $pages = [
-            wc_get_cart_url() => 'cart',
-            wc_get_checkout_url() => 'cart',  # DON'T TOUCH: This helps to show the redeem button on the checkout page
-            wc_get_page_permalink('shop') => 'product',
-            wc_get_page_permalink('myaccount') => 'login',
-            get_permalink(Helper::getConfig('liana_page')) => 'reward',
+            wc_get_cart_url()                               => 'cart',
+            wc_get_checkout_url()                           => 'cart',
+            # DON'T TOUCH: This helps to show the redeem button on the checkout page
+            wc_get_page_permalink('shop')                   => 'product',
+            wc_get_page_permalink('myaccount')              => 'login',
+            get_permalink(Helper::getConfig('liana_page'))  => 'reward',
             get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
         ];
 
         $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
         $current_page = explode("?", $current_page)[0];
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
-    }
-
-    public static function isCURL()
-    {
-        return function_exists('curl_version');
     }
 
     public static function replaceTags($string, $tags, $force_lower = false)
@@ -221,9 +161,9 @@ class Helper
 
     public static function removeTransients()
     {
-        delete_transient('beans_liana_display');
-        delete_transient('beans_liana_display');
         # This will help to remove old transients.
+        delete_transient('beans_liana_display');
+        delete_transient('beans_liana_display');
         delete_transient('beans_card');  # todo; remove
     }
 }

@@ -6,17 +6,16 @@ use BeansWoo\Helper;
 
 class Observer
 {
-    private static $_notice_dismissed_key = 'beans_ultimate_notice_dismissed';
+    private const NOTICE_KEY = 'beans_ultimate_notice_dismissed';
 
     public static function init()
     {
-
         add_action('admin_enqueue_scripts', array(__CLASS__, 'loadAdminStyle'));
-        add_action("admin_init", array(__CLASS__, "registerSettingOptions"));
 
         add_action('admin_notices', array(__CLASS__, 'adminNotice'));
-        add_action('admin_init', array(__CLASS__, 'noticeDismissed'));
 
+        add_action('admin_init', array(__CLASS__, 'noticeDismissed'));
+        add_action("admin_init", array(__CLASS__, "registerSettingOptions"));
         add_action('admin_init', array(__CLASS__, 'checkCURLStatus'), 0, 99);
         add_filter("plugin_action_links_" . BEANS_PLUGIN_FILENAME, array(__CLASS__, 'addPluginSettingsLinks' ), 10, 1);
 
@@ -50,17 +49,17 @@ class Observer
     public static function displayRedeemCheckboxSettings()
     {
         ?>
-        <!-- Here we are comparing stored value with 1. Stored value is 1 if user
-        checks the checkbox otherwise empty string. -->
-        <div>
-            <input type="checkbox"
-                   id="beans-liana-display-redemption-checkout"
-                   name="beans-liana-display-redemption-checkout"
-                   value="1"
-                <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?>
-            />
-            <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
-        </div>
+      <!-- Here we are comparing stored value with 1. Stored value is 1 if user
+      checks the checkbox otherwise empty string. -->
+      <div>
+        <input type="checkbox"
+               id="beans-liana-display-redemption-checkout"
+               name="beans-liana-display-redemption-checkout"
+               value="1"
+            <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?>
+        />
+        <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
+      </div>
         <?php
     }
 
@@ -70,10 +69,10 @@ class Observer
             "cURL is not installed. Please install and activate, otherwise, the Beans program may not work.",
             'beans-woo'
         );
-        if (! Helper::isCURL()) {
+        if (!function_exists('curl_version')) {
             ?>
             <div class="notice notice-warning" style="margin-left: auto">
-                <div style="margin: 10px auto;"> Beans: <?php echo $text; ?></div>
+              <div style="margin: 10px auto;"> Beans: <?=$text?></div>
             </div>
             <?php
         }
@@ -82,18 +81,17 @@ class Observer
     public static function adminNotice()
     {
         $user_id = get_current_user_id();
-        if (get_user_meta($user_id, self::$_notice_dismissed_key)) {
+        if (get_user_meta($user_id, self::NOTICE_KEY)) {
             return;
         }
 
-        if (! Helper::isSetup() || ! Helper::isSetupApp('ultimate')) {
+        if (!Helper::isSetup()) {
             ?>
           <div class="notice notice-error" style="margin-left: auto">
             <div style="margin: 10px auto;">
-              Beans: <?php echo __("Beans Ultimate is not properly setup", 'beans-woo'); ?>
-              <a href="<?php echo BEANS_WOO_MENU_LINK; ?>"><?php echo __('Set up', 'beans-woo') ?></a>
-              <a href="<?php echo self::$_notice_dismissed_key;?>"
-                 style="float:right; text-decoration: none">
+              Beans: <?=__("Beans Ultimate is not properly setup", 'beans-woo');?>
+              <a href="<?=BEANS_WOO_MENU_LINK?>"><?=__('Set up', 'beans-woo')?></a>
+              <a href="<?=self::NOTICE_KEY?>" style="float:right; text-decoration: none">
                 x
               </a>
             </div>
@@ -105,10 +103,10 @@ class Observer
     public static function noticeDismissed()
     {
         $user_id = get_current_user_id();
-        if (isset($_GET[self::$_notice_dismissed_key])) {
+        if (isset($_GET[self::NOTICE_KEY])) {
             add_user_meta(
                 $user_id,
-                self::$_notice_dismissed_key,
+                self::NOTICE_KEY,
                 'true',
                 true
             );
