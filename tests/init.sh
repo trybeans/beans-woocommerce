@@ -27,19 +27,32 @@ ln -s $PROJECT_DIR/src $PROJECT_DIR/wp/wp-content/plugins/beans-woocommerce
 echo "Activate Woocommerce"
 $WP_CMD --path=$PROJECT_DIR/wp  --url=localhost:8800/wp plugin activate woocommerce
 
+echo "Install & Activate Woocommerce Stripe Gateway"
+$WP_CMD --path=$PROJECT_DIR/wp plugin install woocommerce-gateway-stripe --activate
+
 echo "Setting up Woocommerce"
 $WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_demo_store yes
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_currency USD
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_address	1430 Market Street
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_address_2	
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_city	San Francisco
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_currency "USD"
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_address	"41430 Market Street"
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_address_2 ""
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_city	"San Francisco"
 $WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_store_postcode	91234
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_default_country	US:CA
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_default_country	"US:CA"
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_registration_generate_password	no
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_enable_myaccount_registration	yes
+
+echo "Setting up Woocommerce Stripe Gateway"
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_enabled	yes
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_testmode	yes
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_test_publishable_key "$STRIPE_PUBLIC_KEY"
+$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_test_secret_key	"$STRIPE_SECRET_KEY"
+
+echo "Setting up Permalink"
+$WP_CMD --path=$PROJECT_DIR/wp rewrite structure '/%postname%'
 
 echo "Import Woocommerce data"
 $WP_CMD --path=$PROJECT_DIR/wp plugin install wordpress-importer --activate
 $WP_CMD --path=$PROJECT_DIR/wp import $PROJECT_DIR/wp/wp-content/plugins/woocommerce/sample-data/sample_products.xml --authors=create
-
 
 echo "Test environment has been successfully initialized"
 
