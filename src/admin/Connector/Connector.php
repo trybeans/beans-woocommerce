@@ -7,30 +7,24 @@ use BeansWoo\Helper;
 
 class Connector
 {
-
-    public static $app_name = 'ultimate';
-    public static $card ;
-
-    public static $errors = array();
-    public static $messages = array();
+    private static $_errors = array();
+    private static $_messages = array();
 
     public static function init()
     {
-        self::$card = Helper::getBeansObject(self::$app_name, 'card');
-        self::updateInstalledApps();
         add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
     }
 
-    public static function installAssets($app_name = null)
+    private static function installAssets($app_name = null)
     {
         if (!in_array($app_name, ['liana', 'bamboo'])) {
             return false;
         }
         $name = $app_name;
         // Install Page
-        $page_infos = Helper::getPages()[$name];
+        $page_infos = Helper::getBeansPages()[$name];
 
-        if (! get_post(Helper::getConfig($name . '_page'))) {
+        if (!get_post(Helper::getConfig($name . '_page'))) {
             require_once(WP_PLUGIN_DIR . '/woocommerce/includes/admin/wc-admin-functions.php');
             $page_id = wc_create_page(
                 $page_infos['slug'],
@@ -48,15 +42,15 @@ class Connector
     {
         Helper::log(print_r($_GET, true));
 
-        $card  = $_GET['card'];
-        $token = $_GET['token'];
+        $card_id = $_GET['card'];
+        $token   = $_GET['token'];
 
-        Helper::$key = $card;
+        Helper::$key = $card_id;
 
         try {
-            $integration_key = Helper::API()->get('/core/auth/integration_key/' . $token);
+            $integration_key = Helper::API()->get('core/auth/integration_key' . $token);
         } catch (BeansError  $e) {
-            self::$errors[] = 'Connecting to Beans failed with message: ' . $e->getMessage();
+            self::$_errors[] = 'Connecting to Beans failed with message: ' . $e->getMessage();
             Helper::log('Connecting failed: ' . $e->getMessage());
 
             return null;
@@ -65,45 +59,30 @@ class Connector
         Helper::setConfig('key', $integration_key['id']);
         Helper::setConfig('card', $integration_key['card']['id']);
         Helper::setConfig('secret', $integration_key['secret']);
-        Helper::setInstalledApp(self::$app_name);
+
         return true;
     }
 
     public static function renderNotices()
     {
-        if (self::$errors || self::$messages) {
+        if (self::$_errors || self::$_messages) {
             ?>
-            <div class="<?php echo empty(self::$errors) ? "updated" : "error"; ?> ">
-                <?php if (self::$errors) : ?>
-                    <ul>
-                        <?php foreach (self::$errors as $error) {
-                            echo "<li>$error</li>";
-                        } ?>
-                    </ul>
-                <?php else : ?>
-                    <ul>
-                        <?php foreach (self::$messages as $message) {
-                            echo "<li>$message</li>";
-                        } ?>
-                    </ul>
-                <?php endif; ?>
-            </div>
+          <div class="<?php echo empty(self::$_errors) ? "updated" : "error"; ?> ">
+              <?php if (self::$_errors) : ?>
+                <ul>
+                    <?php foreach (self::$_errors as $error) {
+                        echo "<li>$error</li>";
+                    } ?>
+                </ul>
+              <?php else : ?>
+                <ul>
+                    <?php foreach (self::$_messages as $message) {
+                        echo "<li>$message</li>";
+                    } ?>
+                </ul>
+              <?php endif; ?>
+          </div>
             <?php
-        }
-    }
-
-    public static function updateInstalledApps()
-    {
-        if (! is_array(self::$card)) {
-            return;
-        }
-
-        foreach (self::$card['apps'] as $app => $status) {
-            $app = strtolower($app);
-            if ($status['is_installed']) {
-                self::installAssets($app);
-                Helper::setInstalledApp($app);
-            }
         }
     }
 

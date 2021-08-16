@@ -63,7 +63,7 @@ class Inspector
         self::$beans_is_supported = self::$woo_api_auth_is_up;
     }
 
-    protected static function pluginVersion($plugin_name)
+    private static function pluginVersion($plugin_name)
     {
         if (!function_exists('get_plugins')) {
             require_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -74,7 +74,7 @@ class Inspector
         return $plugin_folder["$plugin_name.php"]['Version'];
     }
 
-    protected static function checkWooApiUri(&$http_status, &$content_type)
+    private static function checkWooApiUri(&$http_status, &$content_type)
     {
         $ch = curl_init();
         $curl_config = array(
@@ -93,7 +93,7 @@ class Inspector
         return in_array($http_status, [200, 503]);
     }
 
-    protected static function checkWooApiAuth(&$http_status, &$content_type)
+    private static function checkWooApiAuth(&$http_status, &$content_type)
     {
         $ch = curl_init();
         $curl_config = array(

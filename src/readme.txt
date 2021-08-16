@@ -2,9 +2,9 @@
 
 Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.2
-Tested up to: 5.6
-Stable tag: 3.3
+Requires at least: 5.1
+Tested up to: 5.8
+Stable tag: 3.3.0
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -170,7 +170,7 @@ The WordPress codex contains instructions on
 - Integrate Beans Ultimate
 
 = 3.1.11 =
-- Integrate Lotus: Save time managing social media for your shop
+- Integrate LoDEV-131-changelogtus: Save time managing social media for your shop
 - Test compatibility with woocommerce 3.9.0
 
 = 3.1.10 =

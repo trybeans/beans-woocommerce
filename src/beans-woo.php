@@ -4,13 +4,13 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.3
+ * Version: 3.3.0
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
  * Domain Path: /languages
- * WC requires at least: 4.0
- * WC tested up to: 5.5.*
+ * WC requires at least: 4.1
+ * WC tested up to: 5.6.*
  * @author Beans
  */
 
