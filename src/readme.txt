@@ -143,9 +143,13 @@ The WordPress codex contains instructions on
 - Remove all standalone apps
 - Better management of the display of program pages
 - Better handle connection issues
-- Set minimum WordPress version supported to 5.2
-- Set minimum WooCommerce version supported to 4.0
+- Fix cache issues on consumer authentication 
+- Update minimum PHP version supported to 7.1
+- Update minimum WordPress version supported to 5.2
+- Update minimum WooCommerce version supported to 4.1
 - Remove support for WooCommerce API V2
+
+
 
 = 3.2.4 =
 - Update `Pay with Beans` product price by equivalent Points
