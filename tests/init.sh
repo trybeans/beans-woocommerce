@@ -1,24 +1,30 @@
 #!/usr/bin/env bash
 
-PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
-SITE_URL=http://localhost:8800/wp
-WP_CMD=$PROJECT_DIR/vendor/bin/wp
 
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
+
+WP_CMD=$PROJECT_DIR/vendor/bin/wp
 echo "PROJECT_DIR=$PROJECT_DIR"
 
-cp $PROJECT_DIR/tests/wp-config-test.php $PROJECT_DIR/wp/wp-config.php
+ENV_FILENAME="$PROJECT_DIR/.env.testing"
+echo "Load $ENV_FILENAME file"
+if [ -f $ENV_FILENAME ]
+then
+  export $(cat $ENV_FILENAME | sed 's/#.*//g' | xargs)
+fi
 
+cp $PROJECT_DIR/tests/wp-config-test.php $PROJECT_DIR/wp/wp-config.php
 
 if ! $WP_CMD core is-installed --path=$PROJECT_DIR/wp; then
   echo "Wordpress has not yet been initialized";
   echo "Setting up Wordpress";
   $WP_CMD core install \
     --path=$PROJECT_DIR/wp \
-    --url=$SITE_URL \
+    --url=$TEST_SITE_WP_URL \
     --title="Beans WooCommerce Testcase" \
-    --admin_user="beans" \
-    --admin_password="beans" \
-    --admin_email="radix+testcases-woocommerce@trybeans.com"
+    --admin_user=$TEST_SITE_ADMIN_USERNAME \
+    --admin_password=$TEST_SITE_ADMIN_PASSWORD \
+    --admin_email=$TEST_SITE_ADMIN_EMAIL
 fi
 
 echo "Link Beans WooCommerce plugin"
@@ -42,10 +48,7 @@ $WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_registration_generate_p
 $WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_enable_myaccount_registration	yes
 
 echo "Setting up Woocommerce Stripe Gateway"
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_enabled	yes
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_testmode	yes
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_test_publishable_key "$STRIPE_PUBLIC_KEY"
-$WP_CMD --path=$PROJECT_DIR/wp option update woocommerce_stripe_test_secret_key	"$STRIPE_SECRET_KEY"
+$WP_CMD --path=$PROJECT_DIR/wp wc payment_gateway update stripe --user=1 --settings='{"testmode":"yes", "enabled": "yes", "test_publishable_key":"'$TEST_STRIPE_PUBLIC_KEY'", "test_secret_key":"'$TEST_STRIPE_SECRET_KEY'"}'
 
 echo "Setting up Permalink"
 $WP_CMD --path=$PROJECT_DIR/wp rewrite structure '/%postname%'
