@@ -6,10 +6,6 @@ use BeansWoo\Helper;
 
 defined('ABSPATH') or die;
 
-require_once "Observer/Observer.php";
-require_once "Connector/Connector.php";
-require_once "Inspector/Inspector.php";
-
 class Router
 {
     private const MENU_SLUG = 'beans-woo';
