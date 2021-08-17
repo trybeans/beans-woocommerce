@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
@@ -70,7 +69,6 @@ if (! class_exists('WC_Beans')) :
 
         public static function init()
         {
-            die("<h1>Here you go my brother</h1> " . BEANS_PLUGIN_FILENAME);
             if (! session_id()) {
                 session_start();
             }
