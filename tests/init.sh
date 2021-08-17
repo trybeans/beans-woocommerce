@@ -6,18 +6,22 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
 WP_CMD=$PROJECT_DIR/vendor/bin/wp
 echo "PROJECT_DIR=$PROJECT_DIR"
 
-ENV_FILENAME="$PROJECT_DIR/.env.testing"
-echo "Load $ENV_FILENAME file"
-if [ -f $ENV_FILENAME ]
-then
-  export $(cat $ENV_FILENAME | sed 's/#.*//g' | xargs)
-fi
+# ENV_FILENAME="$PROJECT_DIR/.env.testing"
+# echo "Load $ENV_FILENAME file"
+# if [ -f $ENV_FILENAME ]
+# then
+#   export $(cat $ENV_FILENAME | sed 's/#.*//g' | xargs)
+# fi
+
+# set -a # automatically export all variables
+source $PROJECT_DIR/.env.testing
+# set +a
+
 
 cp $PROJECT_DIR/tests/wp-config-test.php $PROJECT_DIR/wp/wp-config.php
 
 if ! $WP_CMD core is-installed --path=$PROJECT_DIR/wp; then
-  echo "Wordpress has not yet been initialized";
-  echo "Setting up Wordpress";
+  echo "Wordpress has not yet been initialized. Setting up Wordpress: ";
   $WP_CMD core install \
     --path=$PROJECT_DIR/wp \
     --url=$TEST_SITE_WP_URL \
@@ -31,7 +35,7 @@ echo "Link Beans WooCommerce plugin"
 ln -s $PROJECT_DIR/src $PROJECT_DIR/wp/wp-content/plugins/beans-woocommerce
 
 echo "Activate Woocommerce"
-$WP_CMD --path=$PROJECT_DIR/wp  --url=localhost:8800/wp plugin activate woocommerce
+$WP_CMD --path=$PROJECT_DIR/wp  --url=$TEST_SITE_WP_URL/wp plugin activate woocommerce
 
 echo "Install & Activate Woocommerce Stripe Gateway"
 $WP_CMD --path=$PROJECT_DIR/wp plugin install woocommerce-gateway-stripe --activate

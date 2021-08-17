@@ -8,6 +8,5 @@ parameters:
 		- src
 	bootstrapFiles:
 		- src/config.php
-		- wordpress-constants.php
 includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
