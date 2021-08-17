@@ -22,5 +22,4 @@ class Main
         Connector::init();
         Observer::init();
     }
-
 }
