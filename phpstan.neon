@@ -7,6 +7,6 @@ parameters:
 	paths:
 		- src
 	bootstrapFiles:
-		- src/config.php
+		- src/beans-woocommerce.php
 includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
