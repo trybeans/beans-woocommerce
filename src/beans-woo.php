@@ -25,6 +25,7 @@ if (!in_array('woocommerce/woocommerce.php', $active_plugins)) {
     return;
 }
 
+require_once 'config.php';
 require_once 'includes/Beans.php';
 require_once 'includes/Helper.php';
 
