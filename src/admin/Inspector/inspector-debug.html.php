@@ -9,7 +9,6 @@ use BeansWoo\Helper;
 use BeansWoo\Admin\Inspector;
 
 Inspector::init();
-global $wp_version;
 
 function getSupportedTag($vs_is_supported)
 {
@@ -60,7 +59,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
       </li>
       <li>
         <p>
-          <strong>WooCommerce Version</strong>: <?php echo Inspector::$woo_version;
+          <strong>WooCommerce Version</strong>: <?php echo Inspector::$versioning_installed['woocommerce'];
             getSupportedTag(Inspector::$woo_is_supported); ?>
         </p>
         <?php if (!Inspector::$woo_is_supported) : ?>
@@ -74,7 +73,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
       </li>
       <li>
         <p>
-          <strong>Wordpress Version</strong>: <?php echo $wp_version;
+          <strong>Wordpress Version</strong>: <?php echo $versioning_installed['wordpress'];
             getSupportedTag(Inspector::$wp_is_supported); ?>
         </p>
         <?php if (!Inspector::$wp_is_supported) : ?>
@@ -88,7 +87,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
       </li>
       <li>
         <p>
-          <strong>PHP Version</strong>: <?php echo Inspector::$php_version;
+          <strong>PHP Version</strong>: <?php echo Inspector::$versioning_installed['php'];
             getSupportedTag(Inspector::$php_is_supported); ?>
         </p>
         <?php if (!Inspector::$php_is_supported) : ?>
@@ -151,7 +150,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <?php if (!Inspector::$woo_api_uri_is_up) : ?>
             <p class="beans-admin-check-warning">
               Unable to connect to the API using endpoint: <br/>
-                <?php echo getenv("BEANS_WOO_API_ENDPOINT"); ?> <br/>
+                <?php echo Inspector::$wc_endpoint_url_api; ?> <br/>
               HTTP Status: <?php echo Inspector::$woo_api_uri_http_status ?> <br/>
               Content Type: <?php echo Inspector::$woo_api_uri_content_type ?> <br/>
               Please:
@@ -172,7 +171,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
             <?php if (!Inspector::$woo_api_auth_is_up) : ?>
             <p class="beans-admin-check-warning">
               Unable to connect to the API using authentication endpoint: <br/>
-                <?php echo BEANS_WOO_API_AUTH_ENDPOINT; ?> <br/>
+                <?php echo Inspector::$wc_endpoint_url_auth; ?> <br/>
               HTTP Status: <?php echo Inspector::$woo_api_auth_http_status; ?> <br/>
               Content Type: <?php echo Inspector::$woo_api_auth_content_type; ?> <br/>
               Please:
@@ -195,8 +194,8 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
   <input type="hidden" name="company_name" value="<?php echo get_bloginfo('name'); ?>">
   <input type="hidden" name="currency" value="<?php echo strtoupper(get_woocommerce_currency()); ?>">
   <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
-  <input type="hidden" name="api_uri" value="<?php echo BEANS_WOO_API_ENDPOINT; ?>">
-  <input type="hidden" name="api_auth_uri" value="<?php echo BEANS_WOO_API_AUTH_ENDPOINT ?>">
+  <input type="hidden" name="api_uri" value="<?php echo Inspector::$wc_endpoint_url_api; ?>">
+  <input type="hidden" name="api_auth_uri" value="<?php echo Inspector::$wc_endpoint_url_auth ?>">
   <input type="hidden" name="redirect" value="<?php echo BEANS_WOO_MENU_LINK; ?>">
 </form>
 <script>

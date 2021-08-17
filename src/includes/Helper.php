@@ -7,6 +7,7 @@ use Beans;
 class Helper
 {
     private const CONFIG_NAME = 'beans-config-3';
+    private const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt';
 
     public static $key = null;
 
@@ -92,18 +93,18 @@ class Helper
 
     public static function log($info)
     {
-        if (file_exists(BEANS_INFO_LOG) && filesize(BEANS_INFO_LOG) > 100000) {
-            unlink(BEANS_INFO_LOG);
+        if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
+            unlink(self::LOG_FILE);
         }
 
-        if (!is_writable(BEANS_INFO_LOG)) {
+        if (!is_writable(self::LOG_FILE)) {
             return false;
         }
 
         $log = date('Y-m-d H:i:s.uP') . " => " . $info . PHP_EOL;
 
         try {
-            file_put_contents(BEANS_INFO_LOG, $log, FILE_APPEND);
+            file_put_contents(self::LOG_FILE, $log, FILE_APPEND);
         } catch (\Exception $e) {
             return false;
         }
@@ -162,7 +163,6 @@ class Helper
     public static function removeTransients()
     {
         # This will help to remove old transients.
-        delete_transient('beans_liana_display');
         delete_transient('beans_liana_display');
         delete_transient('beans_card');  # todo; remove
     }
