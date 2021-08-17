@@ -93,5 +93,6 @@ require_once ABSPATH . 'wp-settings.php';
 /** Additional options */
 
 define('WP_SITEURL', 'http://localhost:8800/wp');
+define('WP_HOME', 'http://localhost:8800/wp');
 define('WP_ADMIN_DIR', 'wp-admin');  
 

@@ -57,4 +57,4 @@ $WP_CMD --path=$PROJECT_DIR/wp import $PROJECT_DIR/wp/wp-content/plugins/woocomm
 echo "Test environment has been successfully initialized"
 
 # To reset the db and reinstall wp
-# wp --path=$PROJECT_DIR/wp db clean --yes
+# ./vendor/bin/wp --path=$PROJECT_DIR/wp db clean --yes

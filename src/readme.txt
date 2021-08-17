@@ -2,7 +2,7 @@
 
 Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.1
+Requires at least: 5.2
 Tested up to: 5.8
 Stable tag: 3.3.0
 License: Apache License, Version 2.0
@@ -21,7 +21,7 @@ Visit [Beans Marketing Apps](http://bit.ly/36Al6vj) website for complete details
 = Liana · Loyalty & Rewards Program =
 
 Make your customers addicted to your shop. Liana helps you get your
-customers to place a second order, a third, a fourth and more. Use Liana, to:
+customers to place a second order, a third, a fourth and more. Use Liana to:
 
 - Reward your customers for profitable action: A set of predefined rules helps you reward customers for actions that profit your business
 - Get customers to actively participate: Send frequent reminders to your customers to get them to actively participate in your rewards scheme
@@ -103,7 +103,7 @@ Pinterest, Instagram, and more...
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 3.9
+- WooCommerce >= 4.1
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers
@@ -138,6 +138,14 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 3.3 ==
+- Remove all standalone apps
+- Better management of the display of program pages
+- Better handle connection issues
+- Set minimum WordPress version supported to 5.2
+- Set minimum WooCommerce version supported to 4.0
+- Remove support for WooCommerce API V2
 
 = 3.2.4 =
 - Update `Pay with Beans` product price by equivalent Points
@@ -182,7 +190,7 @@ The WordPress codex contains instructions on
 = 3.1.6 =
  - Fix referral page displaying issue
  - Fix reward page displaying issue
- - Compatibility with wordpress 5.3
+ - Compatibility with WordPress 5.3
  - Compatibility with woocommerce 3.8
 
 = 3.1.5 =
@@ -198,13 +206,13 @@ The WordPress codex contains instructions on
 = 3.1.2 =
 - Introducing Foxx: Email automation
 - Fix connect issues
-- Use default button class of wordpress
+- Use default button class of WordPress
 - Remove font-family from connected state
 
 = 3.1.1 =
 - Fix Snow display
 - Fix connect issues
-- Add Informations and Setting section
+- Add Information and Setting section
 
 = 3.1.0 =
 - Introducing Snow: the new widget notifications
@@ -214,7 +222,7 @@ The WordPress codex contains instructions on
 - Fix redemption issues
 
 = 3.0.5 =
-- Update Liana to latest version
+- Update Liana to the latest version
 
 = 3.0.4 =
 - Hide button on checkout page
@@ -244,10 +252,10 @@ The WordPress codex contains instructions on
 - Auto reconnect the customer when they get disconnected from their beans account
 
 = 2.0.4 =
-- deactivate synchronizaton
+- deactivate synchronization
 
 = 2.0.3 =
-- deactivate synchronizaton
+- deactivate synchronization
 
 = 2.0.2 =
 - Fix issue with Beans script not loading when there is a conflict
@@ -274,7 +282,7 @@ The WordPress codex contains instructions on
 - Minor bug fix
 
 = 0.9.3 =
-- fix synchronisation issue with Beans
+- fix synchronization issue with Beans
 
 = 0.9.2 =
 - fix logging issue
