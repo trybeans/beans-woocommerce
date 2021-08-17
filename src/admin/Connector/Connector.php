@@ -48,7 +48,7 @@ class Connector
         Helper::$key = $card_id;
 
         try {
-            $integration_key = Helper::API()->get('core/auth/integration_key' . $token);
+            $integration_key = Helper::API()->get('core/auth/integration_key/' . $token);
         } catch (BeansError  $e) {
             Router::alert('error', 'Connecting to Beans failed with message: ' . $e->getMessage());
             Helper::log('Connecting failed: ' . $e->getMessage());
