@@ -170,7 +170,7 @@ The WordPress codex contains instructions on
 - Integrate Beans Ultimate
 
 = 3.1.11 =
-- Integrate LoDEV-131-changelogtus: Save time managing social media for your shop
+- Integrate Lotus: Save time managing social media for your shop
 - Test compatibility with woocommerce 3.9.0
 
 = 3.1.10 =
