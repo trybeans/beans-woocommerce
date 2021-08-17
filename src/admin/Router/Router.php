@@ -26,7 +26,7 @@ class Router
                 'manage_options',
                 self::MENU_SLUG,
                 array(__CLASS__, 'renderAdminPage'),
-                plugins_url('/assets/img/beans-wordpress-icon.svg', BEANS_PLUGIN_FILENAME),
+                Helper::getAssetURL('/assets/img/beans-wordpress-icon.svg'),
                 56
             );
         }

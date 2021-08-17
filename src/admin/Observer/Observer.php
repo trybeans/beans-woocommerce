@@ -29,7 +29,7 @@ class Observer
     {
         wp_enqueue_style(
             'admin-styles',
-            plugins_url('assets/css/beans-admin.css', BEANS_PLUGIN_FILENAME)
+            Helper::getAssetURL('assets/css/beans-admin.css')
         );
     }
 

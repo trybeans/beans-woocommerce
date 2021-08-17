@@ -166,4 +166,9 @@ class Helper
         delete_transient('beans_liana_display');
         delete_transient('beans_card');  # todo; remove
     }
+
+    public static function getAssetURL($path)
+    {
+        return plugins_url($path, BEANS_PLUGIN_FILENAME);
+    }
 }

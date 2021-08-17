@@ -4,7 +4,7 @@ defined('ABSPATH') or die;
 
 use Beans\BeansError;
 use BeansWoo\Helper;
-use BeansWoo\Router;
+use BeansWoo\Admin\Router;
 
 try {
     $loginkey = Helper::requestTransientAPI('POST', 'core/user/current/loginkey');
@@ -18,7 +18,7 @@ if (isset($_POST['beans-liana-display-redemption-checkout'])) {
     update_option('beans-liana-display-redemption-checkout', $is_redeem_checkout);
 }
 
-$base_asset_url = plugins_url('assets/img/connector', BEANS_PLUGIN_FILENAME);
+$base_asset_url = Helper::getAssetURL('assets/img/connector');
 
 ?>
 
