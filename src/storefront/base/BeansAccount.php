@@ -75,7 +75,7 @@ class BeansAccount
     {
         try {
             $token = Helper::API()->post(
-                'ultimate/auth',
+                'ultimate/auth/consumer_token',
                 array('account' => $account['id'])
             );
         } catch (BeansError $e) {
