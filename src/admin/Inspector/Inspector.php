@@ -19,9 +19,6 @@ class Inspector
         'php' => null,
     );
 
-    public static $woo_version;
-    public static $php_version;
-
     public static $woo_is_supported;
     public static $wp_is_supported;
     public static $php_is_supported;

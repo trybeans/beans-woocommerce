@@ -90,7 +90,7 @@ class Observer
           <div class="notice notice-error" style="margin-left: auto">
             <div style="margin: 10px auto;">
               Beans: <?=__("Beans Ultimate is not properly setup", 'beans-woo');?>
-              <a href="<?=BEANS_WOO_MENU_LINK?>"><?=__('Set up', 'beans-woo')?></a>
+              <a href="<?=Router::getTabURL()?>"><?=__('Set up', 'beans-woo')?></a>
               <a href="<?=self::NOTICE_KEY?>" style="float:right; text-decoration: none">
                 x
               </a>
@@ -120,7 +120,7 @@ class Observer
         $row_meta = array(
             'help' => '<a href="http://help.trybeans.com/" target="_blank" title="Help">Help Center</a>',
             'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
-            'settings' => '<a href=' . BEANS_WOO_MENU_LINK . '>Settings</a>'
+            'settings' => '<a href=' . Router::getTabURL() . '>Settings</a>'
         );
 
         return array_merge($links, $row_meta);
