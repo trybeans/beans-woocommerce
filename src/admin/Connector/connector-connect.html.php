@@ -5,7 +5,7 @@ defined('ABSPATH') or die;
 use BeansWoo\Helper;
 
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
-$base_asset_url  = plugins_url('/assets/img/admin', BEANS_PLUGIN_FILENAME);
+$base_asset_url  = Helper::getAssetURL('/assets/img/admin');
 
 $is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GET['force_beans']);
 
