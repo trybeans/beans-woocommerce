@@ -7,6 +7,7 @@ defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
 use BeansWoo\Admin\Inspector;
+use BeansWoo\Admin\Router;
 
 Inspector::init();
 
@@ -73,7 +74,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
       </li>
       <li>
         <p>
-          <strong>Wordpress Version</strong>: <?php echo $versioning_installed['wordpress'];
+          <strong>Wordpress Version</strong>: <?php echo Inspector::$versioning_installed['wordpress'];
             getSupportedTag(Inspector::$wp_is_supported); ?>
         </p>
         <?php if (!Inspector::$wp_is_supported) : ?>
@@ -196,7 +197,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
   <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
   <input type="hidden" name="api_uri" value="<?php echo Inspector::$wc_endpoint_url_api; ?>">
   <input type="hidden" name="api_auth_uri" value="<?php echo Inspector::$wc_endpoint_url_auth ?>">
-  <input type="hidden" name="redirect" value="<?php echo BEANS_WOO_MENU_LINK; ?>">
+  <input type="hidden" name="redirect" value="<?php echo Router::getTabURL(); ?>">
 </form>
 <script>
   jQuery(function () {

@@ -50,7 +50,7 @@ class Connector
         try {
             $integration_key = Helper::API()->get('core/auth/integration_key' . $token);
         } catch (BeansError  $e) {
-            self::$_errors[] = 'Connecting to Beans failed with message: ' . $e->getMessage();
+            Router::alert('error', 'Connecting to Beans failed with message: ' . $e->getMessage());
             Helper::log('Connecting failed: ' . $e->getMessage());
 
             return null;
@@ -61,29 +61,6 @@ class Connector
         Helper::setConfig('secret', $integration_key['secret']);
 
         return true;
-    }
-
-    public static function renderNotices()
-    {
-        if (self::$_errors || self::$_messages) {
-            ?>
-          <div class="<?php echo empty(self::$_errors) ? "updated" : "error"; ?> ">
-              <?php if (self::$_errors) : ?>
-                <ul>
-                    <?php foreach (self::$_errors as $error) {
-                        echo "<li>$error</li>";
-                    } ?>
-                </ul>
-              <?php else : ?>
-                <ul>
-                    <?php foreach (self::$_messages as $message) {
-                        echo "<li>$message</li>";
-                    } ?>
-                </ul>
-              <?php endif; ?>
-          </div>
-            <?php
-        }
     }
 
     public static function installDefaultAssets()
