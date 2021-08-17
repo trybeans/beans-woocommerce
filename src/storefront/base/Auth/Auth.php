@@ -16,7 +16,7 @@ class Auth
         add_filter('user_register', array(__CLASS__, 'onCustomerRegister'), 10, 1);
     }
 
-    private static function onCustomerRegister($user_id)
+    public static function onCustomerRegister($user_id)
     {
         $user_data = get_userdata($user_id);
 
