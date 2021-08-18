@@ -2,9 +2,9 @@
 
 defined('ABSPATH') or die;
 
+use BeansWoo\Admin\Router;
 use BeansWoo\Helper;
 use BeansWoo\Admin\Inspector;
-use BeansWoo\Admin\Router;
 
 Inspector::init();
 
@@ -16,21 +16,6 @@ function getSupportedTag($vs_is_supported)
         echo "&nbsp;&nbsp;<span>&#x274C</span>";
     }
 }
-
-$admin = wp_get_current_user();
-
-$country_code = get_option('woocommerce_default_country');
-if ($country_code && strpos($country_code, ':') !== false) {
-    try {
-        $country_parts = explode(':', $country_code);
-        $country_code = $country_parts[0];
-    } catch (\Exception $e) {
-    }
-}
-
-$force = isset($_GET['force_beans']);
-
-$connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
 
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 
@@ -185,37 +170,28 @@ $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/i
       <?php endif; ?>
     </ul>
   </div>
-
-  <div id="beans-ultimate-connect">
-    <p class="wc-setup-actions step" style="justify-content: center; display: flex"
-        id="beans-ultimate-submit-button">
-        <?php if (Inspector::$beans_is_supported) : ?>
-      <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
-                      shadow-md" value="Connect to Beans Ultimate">
-        <?php else : ?>
-        <button type="submit"
-                class="button button-disabled beans-bg-primary beans-bg-primary-ultimate shadow-md"
-                value="Connect to Beans Ultimate"
-                disabled>
-        <?php endif; ?>
-          Get Started
-        </button>
-    </p>
-  </div>
+    <form action="" method="get">
+    <div id="beans-ultimate-connect">
+        <p class="wc-setup-actions step" style="justify-content: center; display: flex"
+            id="beans-ultimate-submit-button">
+          <input type="hidden" name="page" value="<?=Router::MENU_SLUG ?>">
+          <input type="hidden" name="tab" value="<?=Router::TAB_CONNECT ?>">
+          <?php if (Inspector::$beans_is_supported) : ?>
+          <button type="submit"
+                  class="btn beans-bg-primary beans-bg-primary-ultimate shadow-md" value="Connect to Beans Ultimate">
+          <?php else : ?>
+              <button type="submit"
+                      class="button button-disabled beans-bg-primary beans-bg-primary-ultimate shadow-md"
+                      value="Connect to Beans Ultimate"
+                      disabled>
+          <?php endif; ?>
+                  Get Started
+              </button>
+        </p>
+    </div>
+    </form>
 </div>
 
-<form method="get" class="beans-admin-form" id="beans-connect-form" action="<?php echo $connect; ?>">
-  <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
-  <input type="hidden" name="first_name" value="<?php echo $admin->user_firstname; ?>">
-  <input type="hidden" name="last_name" value="<?php echo $admin->user_lastname; ?>">
-  <input type="hidden" name="country" value="<?php echo $country_code; ?>">
-  <input type="hidden" name="company_name" value="<?php echo get_bloginfo('name'); ?>">
-  <input type="hidden" name="currency" value="<?php echo strtoupper(get_woocommerce_currency()); ?>">
-  <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
-  <input type="hidden" name="api_uri" value="<?php echo Inspector::$wc_endpoint_url_api; ?>">
-  <input type="hidden" name="api_auth_uri" value="<?php echo Inspector::$wc_endpoint_url_auth ?>">
-  <input type="hidden" name="redirect" value="<?php echo Router::getTabURL(Router::TAB_CONNECT); ?>">
-</form>
 <script>
   jQuery(function () {
 

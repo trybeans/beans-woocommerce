@@ -4,9 +4,24 @@ defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
 use BeansWoo\Admin\Router;
+use BeansWoo\Admin\Inspector;
 
+Inspector::init();
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 $base_asset_url  = Helper::getAssetURL('/assets/img/admin');
+
+$admin = wp_get_current_user();
+
+$country_code = get_option('woocommerce_default_country');
+if ($country_code && strpos($country_code, ':') !== false) {
+    try {
+        $country_parts = explode(':', $country_code);
+        $country_code = $country_parts[0];
+    } catch (\Exception $e) {
+    }
+}
+
+$connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
 
 $beans_app_list = array(
     'liana' => array(
@@ -109,6 +124,18 @@ $beans_app_list = array(
       </div>
     </div>
   </div>
+    <form method="get" class="beans-admin-form" id="beans-connect-form" action="<?php echo $connect; ?>">
+        <input type="hidden" name="email" value="<?php echo $admin->user_email; ?>">
+        <input type="hidden" name="first_name" value="<?php echo $admin->user_firstname; ?>">
+        <input type="hidden" name="last_name" value="<?php echo $admin->user_lastname; ?>">
+        <input type="hidden" name="country" value="<?php echo $country_code; ?>">
+        <input type="hidden" name="company_name" value="<?php echo get_bloginfo('name'); ?>">
+        <input type="hidden" name="currency" value="<?php echo strtoupper(get_woocommerce_currency()); ?>">
+        <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
+        <input type="hidden" name="api_uri" value="<?php echo Inspector::$wc_endpoint_url_api; ?>">
+        <input type="hidden" name="api_auth_uri" value="<?php echo Inspector::$wc_endpoint_url_auth ?>">
+        <input type="hidden" name="redirect" value="<?php echo Router::getTabURL(Router::TAB_CONNECT); ?>">
+    </form>
   <script>
 
       jQuery(function ($) {
