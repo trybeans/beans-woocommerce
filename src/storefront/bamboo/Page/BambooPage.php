@@ -6,7 +6,7 @@ use BeansWoo\Helper;
 
 class BambooPage
 {
-    public const PAGE_SHORTCODE = 'beans_referral_page';
+    const PAGE_SHORTCODE = 'beans_referral_page'; // public
 
     public static function init()
     {

@@ -6,7 +6,7 @@ use BeansWoo\Helper;
 
 class Auth
 {
-    public const COOKIE_KEY = 'beans_cjs';
+    const COOKIE_KEY = 'beans_cjs'; // public
 
     public static function init()
     {

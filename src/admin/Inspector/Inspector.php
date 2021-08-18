@@ -7,11 +7,11 @@ class Inspector
     public static $wc_endpoint_url_api;
     public static $wc_endpoint_url_auth;
 
-    private const VERSIONING_SUPPORTED  = array(
+    const VERSIONING_SUPPORTED  = array(
         'wordpress' => '5.2',
         'woocommerce' => '4.1',
         'php' => '7.1',
-    );
+    ); // private
 
     public static $versioning_installed = array(
         'wordpress' => null,

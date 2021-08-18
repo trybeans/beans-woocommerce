@@ -6,8 +6,8 @@ use Beans;
 
 class Helper
 {
-    private const CONFIG_NAME = 'beans-config-3';
-    private const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt';
+    const CONFIG_NAME = 'beans-config-3'; // private
+    const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt'; // private
 
     public static $key = null;
 
@@ -47,6 +47,7 @@ class Helper
         $object = get_transient($transient_key);
 
         if ($object) {
+            \BeansWoo\Helper::log("*** TRANSIENT *** ${method} ${path} ${transient_key}");
             return $object;
         }
 

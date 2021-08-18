@@ -10,7 +10,7 @@ class LianaObserver
     protected static $display;
     protected static $redemption;
     protected static $i18n_strings;
-    protected const REDEEM_COUPON_UID = 'redeem_points';
+    const REDEEM_COUPON_UID = 'redeem_points'; // protected
 
     public static function init($display)
     {

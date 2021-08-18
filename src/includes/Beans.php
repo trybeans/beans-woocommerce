@@ -33,7 +33,7 @@ class Beans
 {
     public $endpoint = 'https://api.trybeans.com/v3/';
 
-    private const VERSION = '3.3.0';
+    const VERSION = '3.3.0';  // private
 
     private $_secret = '';
     private $_next_page = '';
@@ -77,6 +77,8 @@ class Beans
 
     public function makeRequest($path, $data = null, $method = null, $headers = null)
     {
+        \BeansWoo\Helper::log("*** API CALL *** ${method} ${path}");
+
         $url = $this->endpoint . $path;
 
         if (strpos($path, '://') !== false) {

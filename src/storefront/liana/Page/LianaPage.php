@@ -6,7 +6,7 @@ use BeansWoo\Helper;
 
 class LianaPage
 {
-    public const PAGE_SHORTCODE = 'beans_page';
+    const PAGE_SHORTCODE = 'beans_page'; // public
 
     public static function init()
     {
