@@ -39,11 +39,8 @@ class Inspector
 
     public static function init()
     {
-
         self::$wc_endpoint_url_api = get_site_url() . '/wp-json/wc/v3/';
         self::$wc_endpoint_url_auth = get_site_url() . '/wc-auth/v1/authorize/';
-
-        self::checkVersioning();
     }
 
     public static function checkVersioning()

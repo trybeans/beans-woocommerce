@@ -7,6 +7,7 @@ use BeansWoo\Helper;
 use BeansWoo\Admin\Inspector;
 
 Inspector::init();
+Inspector::checkVersioning();
 
 function getSupportedTag($vs_is_supported)
 {
