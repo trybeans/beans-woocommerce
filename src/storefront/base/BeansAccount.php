@@ -41,7 +41,7 @@ class BeansAccount
         $account = $_SESSION['beans_account'];
 
         try {
-            $account = Helper::API()->get('ultimate/account' . $account['id']);
+            $account = Helper::API()->get('ultimate/account/' . $account['id']);
         } catch (BeansError $e) {
             Helper::log('Unable to get account: ' . $e->getMessage());
             unset($_SESSION['beans_account']);

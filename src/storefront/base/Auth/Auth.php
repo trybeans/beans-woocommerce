@@ -91,7 +91,7 @@ class Auth
             "redeem"  => array(
                 "code"    => $redemption ? $redemption['code'] : null,
                 "beans"   => $redemption ? $redemption['beans'] : null,
-                "message" => $redemption ? $redemption['message'] : null,
+                "message" => null,
             ),
             "cart"    => array(
                 "item_count"  => $cart ? $cart->cart_contents_count : null,
