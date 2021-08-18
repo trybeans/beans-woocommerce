@@ -3,11 +3,10 @@
 defined('ABSPATH') or die;
 
 use BeansWoo\Helper;
+use BeansWoo\Admin\Router;
 
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 $base_asset_url  = Helper::getAssetURL('/assets/img/admin');
-
-$is_beans_connect = \BeansWoo\Admin\Inspector::$beans_is_supported || isset($_GET['force_beans']);
 
 $beans_app_list = array(
     'liana' => array(
@@ -54,6 +53,7 @@ $beans_app_list = array(
 ?>
 
 
+<div class="beans-admin-container">
 <img class="beans-admin-logo" src="<?php echo $base_banner_url; ?>logo-full-ultimate.svg" alt="ultimate-logo">
 <div class="welcome-panel-ultimate beans-admin-content-ultimate" style="max-width: 600px; margin: auto">
   <div>
@@ -100,15 +100,8 @@ $beans_app_list = array(
         <div id="beans-ultimate-connect" style="display: none">
           <p class="wc-setup-actions step" style="justify-content: center; display: flex"
              id="beans-ultimate-submit-button">
-              <?php if ($is_beans_connect) : ?>
             <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
                             shadow-md" value="Connect to Beans Ultimate">
-              <?php else : ?>
-              <button type="submit"
-                      class="button button-disabled beans-bg-primary beans-bg-primary-ultimate shadow-md"
-                      value="Connect to Beans Ultimate"
-                      disabled>
-              <?php endif; ?>
                 Connect
               </button>
           </p>
@@ -174,4 +167,6 @@ $beans_app_list = array(
       });
 
   </script>
+</div>
+    <a href="<?=Router::getTabURL(Router::TAB_INSPECT)?>" id="view-config">View configuration</a>
 </div>

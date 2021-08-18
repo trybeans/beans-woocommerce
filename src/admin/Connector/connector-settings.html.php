@@ -158,5 +158,5 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
 <?php endif; ?>
 <div style='max-width: 700px; margin: auto;'>
   <a style="color: #d70000; float: right; margin-right: 20px;"
-     href='<?php echo Router::getTabURL() . '&reset_beans=1'; ?>'>Reset Settings Now</a>
+     href='<?php echo Router::getTabURL(Router::TAB_SETTINGS) . '&reset_beans=1'; ?>'>Reset Settings Now</a>
 </div>

@@ -8,7 +8,10 @@ defined('ABSPATH') or die;
 
 class Router
 {
-    private const MENU_SLUG = 'beans-woo';
+    const MENU_SLUG = 'beans-woo'; // private
+    const TAB_INSPECT = 'inspect'; // public
+    const TAB_CONNECT = 'connect'; // public
+    const TAB_SETTINGS = 'settings'; // public
     private static $_messages_info = array();
     private static $_messages_error = array();
 
@@ -70,30 +73,50 @@ class Router
 
     public static function getTabURL($tab = '')
     {
-        return admin_url('?page=' . self::MENU_SLUG);
+        $page = self::MENU_SLUG;
+        return admin_url("?page=${page}&tab=${tab}");
     }
 
     public static function renderAdminPage()
     {
+        $tab = null;
+        if (isset($_GET['tab'])) {
+            $tab = $_GET['tab'];
+        }
 
         if (isset($_GET['reset_beans'])) {
             if (Helper::resetSetup()) {
-                return wp_redirect(self::getTabURL());
+                return wp_redirect(self::getTabURL(self::TAB_INSPECT));
             }
         }
 
         if (isset($_GET['card']) && isset($_GET['token'])) {
             if (Connector::processSetup()) {
-                return wp_redirect(self::getTabURL());
+                return wp_redirect(self::getTabURL(self::TAB_SETTINGS));
             }
         }
 
         self::renderNotices();
 
+        /* For authenticated retailers */
+
         if (Helper::isSetup()) {
-            return include(dirname(__FILE__) . '/Connector/connector-settings.html.php');
+            if ($tab === self::TAB_SETTINGS) {
+                return include(dirname(__FILE__) . '/Connector/connector-settings.html.php');
+            }
+            return wp_redirect(self::getTabURL(self::TAB_SETTINGS));
         }
 
-        return include(dirname(__FILE__) . '/Inspector/inspector-debug.html.php');
+        /* For non authenticated retailers */
+
+        if ($tab === self::TAB_CONNECT) {
+            return include(dirname(__FILE__) . '/Connector/connector-connect.html.php');
+        }
+
+        if ($tab === self::TAB_INSPECT) {
+            return include(dirname(__FILE__) . '/Inspector/inspector-debug.html.php');
+        }
+
+        return wp_redirect(self::getTabURL(self::TAB_INSPECT));
     }
 }

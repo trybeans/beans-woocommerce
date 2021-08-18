@@ -1,6 +1,3 @@
-
-
-
 <?php
 
 defined('ABSPATH') or die;
@@ -34,10 +31,13 @@ if ($country_code && strpos($country_code, ':') !== false) {
 $force = isset($_GET['force_beans']);
 
 $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
+
+$base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
+
 ?>
 
 <div class="beans-admin-container">
-  <?php include dirname(__FILE__, 2) . '/Connector/connector-connect.html.php'; ?>
+<img class="beans-admin-logo" src="<?php echo $base_banner_url; ?>logo-full-ultimate.svg" alt="ultimate-logo">
   <p>
     A complete suite to create a unified marketing experience for your online shop
     <a href="https://<?php echo Helper::getDomain('WWW');?>"  target="_blank">Learn more about Beans Ultimate</a>
@@ -185,6 +185,23 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
       <?php endif; ?>
     </ul>
   </div>
+
+  <div id="beans-ultimate-connect">
+    <p class="wc-setup-actions step" style="justify-content: center; display: flex"
+        id="beans-ultimate-submit-button">
+        <?php if (Inspector::$beans_is_supported) : ?>
+      <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate
+                      shadow-md" value="Connect to Beans Ultimate">
+        <?php else : ?>
+        <button type="submit"
+                class="button button-disabled beans-bg-primary beans-bg-primary-ultimate shadow-md"
+                value="Connect to Beans Ultimate"
+                disabled>
+        <?php endif; ?>
+          Get Started
+        </button>
+    </p>
+  </div>
 </div>
 
 <form method="get" class="beans-admin-form" id="beans-connect-form" action="<?php echo $connect; ?>">
@@ -197,7 +214,7 @@ $connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/conne
   <input type="hidden" name="website" value="<?php echo get_site_url(); ?>">
   <input type="hidden" name="api_uri" value="<?php echo Inspector::$wc_endpoint_url_api; ?>">
   <input type="hidden" name="api_auth_uri" value="<?php echo Inspector::$wc_endpoint_url_auth ?>">
-  <input type="hidden" name="redirect" value="<?php echo Router::getTabURL(); ?>">
+  <input type="hidden" name="redirect" value="<?php echo Router::getTabURL(Router::TAB_CONNECT); ?>">
 </form>
 <script>
   jQuery(function () {
