@@ -28,8 +28,13 @@ class Main
 {
     public static function init()
     {
-        Scripts::init();
         Registration::init();
+
+        if (!Helper::isSetup()) {
+            return;
+        }
+
+        Scripts::init();
         Auth::init();
 
         ArrowLogin::init();
