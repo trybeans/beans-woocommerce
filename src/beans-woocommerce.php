@@ -75,14 +75,17 @@ if (! class_exists('WC_Beans')) :
         public static function init()
         {
             if (is_admin()) {
+                // If on Admin Dashboard
                 AdminMain::init();
 
                 return;
             } elseif (wp_doing_ajax()) {
-                // pass
+                // For AJAX
+                StoreFrontMain::initAjax();
 
                 return;
             } elseif (wp_doing_cron()) {
+                // For background process
                 ServerMain::init();
 
                 return;
