@@ -169,9 +169,13 @@ class Helper
 
     public static function removeTransients()
     {
+        delete_transient('$beans_liana_display_current');
+        delete_transient('$beans_core_user_current_loginkey');
+
         # This will help to remove old transients.
+        # todo; remove
         delete_transient('beans_liana_display');
-        delete_transient('beans_card');  # todo; remove
+        delete_transient('beans_card');
     }
 
     public static function getAssetURL($path)
