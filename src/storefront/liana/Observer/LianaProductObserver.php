@@ -23,14 +23,14 @@ class LianaProductObserver extends LianaObserver
             self::$redemption['reward_exclusive_product_cms_ids']
         );
 
-        add_action('wp_loaded', array(__CLASS__, 'handleProductRedemption'), 99, 1);
+        add_action('wp_loaded', array(__CLASS__, 'handleProductRedemption'), 35);
         add_action('woocommerce_remove_cart_item', array(__CLASS__, 'removeProductFromCart'), 99, 2);
 
         add_filter('woocommerce_is_purchasable', array(__CLASS__, 'isPurchasableProduct'), 99, 2);
         add_filter('woocommerce_is_sold_individually', array(__CLASS__, 'isSoldIndividuallyProduct'), 99, 2);
         add_filter('woocommerce_product_single_add_to_cart_text', array(__CLASS__, 'updateProductCTA'), 99, 2);
         add_filter('woocommerce_add_to_cart_validation', array(__CLASS__, 'addToCartValidation'), 99, 5);
-        add_filter('woocommerce_get_priceHtml', array(__class__, 'updateProductPrice'), 20, 2);
+        add_filter('woocommerce_get_price_html', array(__class__, 'updateProductPrice'), 20, 2);
     }
 
     public static function handleProductRedemption()
