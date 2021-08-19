@@ -10,6 +10,9 @@ class Connector
 
     public static function init()
     {
+        if (Helper::isSetup()) {
+            add_action('admin_init', array(__CLASS__, 'registerSettingOptions'));
+        }
     }
 
     public static function processSetup()
