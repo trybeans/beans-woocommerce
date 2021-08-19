@@ -11,6 +11,7 @@ class LianaAjaxObserver extends LianaObserver
     {
         add_filter('woocommerce_get_shop_coupon_data', array(__CLASS__, 'getCartCoupon'), 10, 2);
         add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
+        add_action('woocommerce_checkout_order_processed', array(__CLASS__, 'commitRedemption'), 10, 1);
     }
 
     public static function getCartCoupon($coupon, $coupon_code)

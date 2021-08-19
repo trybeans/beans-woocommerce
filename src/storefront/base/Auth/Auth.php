@@ -13,7 +13,7 @@ class Auth
         add_action('wp_loaded', array(__CLASS__, 'saveBeansAccountToCookies'), 99);
         add_action('wp_logout', array(__CLASS__, 'onCustomerLogout'), 10, 1);
         add_action('wp_login', array(__CLASS__, 'onCustomerLogin'), 10, 2);
-        add_filter('user_register', array(__CLASS__, 'onCustomerRegister'), 10, 1);
+        add_action('user_register', array(__CLASS__, 'onCustomerRegister'), 10, 1);
     }
 
     public static function onCustomerRegister($user_id)
@@ -60,7 +60,7 @@ class Auth
             return;
         }
 
-        if (!isset($_SESSION['beans_account_force'])) {
+        if (!isset($_SESSION['beans_account_force']) and is_user_logged_in()) {
             $_SESSION['beans_account_force'] = 1;
             self::onCustomerRegister(get_current_user_id());
         }
