@@ -113,6 +113,6 @@ function WC_getBeansInstance()
      return WC_Beans::instance();
 }
 
-\BeansWoo\Helper::log($_SERVER['REQUEST_URI']);
+// \BeansWoo\Helper::log($_SERVER['REQUEST_URI']);
 
 $GLOBALS['wc_beans'] = WC_getBeansInstance();
