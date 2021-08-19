@@ -54,6 +54,18 @@ class Auth
         self::onCustomerRegister($user->ID);
     }
 
+    public static function forceCustomerAuthentication()
+    {
+        if (BeansAccount::get()) {
+            return;
+        }
+
+        if (!isset($_SESSION['beans_account_force'])) {
+            $_SESSION['beans_account_force'] = 1;
+            self::onCustomerRegister(get_current_user_id());
+        }
+    }
+
     public static function onCustomerLogout()
     {
         BeansAccount::clear();

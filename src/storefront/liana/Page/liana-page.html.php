@@ -4,6 +4,8 @@ use BeansWoo\Helper;
 
 defined('ABSPATH') or die;
 
+\BeansWoo\StoreFront\Auth::forceCustomerAuthentication();
+
 ?>
 <div id="liana-rewards-page">
 <!-- DO NOT TOUCH -->

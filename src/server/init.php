@@ -14,13 +14,16 @@ class Main
     public static function init()
     {
         Hooks::init();
+    }
 
-        register_activation_hook(__FILE__, function () {
+    public static function registerPluginActivationHooks()
+    {
+        register_activation_hook(BEANS_PLUGIN_FILENAME, function () {
             Hooks::postWebhookStatus('activated');
         });
 
-        register_deactivation_hook(__FILE__, function () {
-            Helper::removeTransients();
+        register_deactivation_hook(BEANS_PLUGIN_FILENAME, function () {
+            Helper::clearTransients();
             Hooks::postWebhookStatus('deactivated');
         });
     }

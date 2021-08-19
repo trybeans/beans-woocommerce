@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
@@ -57,6 +58,8 @@ if (! class_exists('WC_Beans')) :
         protected function __construct()
         {
             add_action('init', array(__CLASS__, 'init'), 10, 1);
+
+            ServerMain::registerPluginActivationHooks();
         }
 
         public static function instance()
@@ -69,16 +72,36 @@ if (! class_exists('WC_Beans')) :
 
         public static function init()
         {
-            if (! session_id()) {
-                session_start();
+            if (is_admin()) {
+                AdminMain::init();
+
+                return;
+            } elseif (wp_doing_ajax()) {
+                // pass
+
+                return;
+            } elseif (wp_doing_cron()) {
+                ServerMain::init();
+
+                return;
+            } elseif (self::isRestRequest()) {
+                // For REST API request
+                ServerMain::init();
+
+                return;
             }
 
-            AdminMain::init();
+            // For classic web page visit
+
             StoreFrontMain::init();
-            ServerMain::init();
+        }
+
+        private static function isRestRequest()
+        {
+            $uri = $_SERVER['REQUEST_URI'] ?? '';
+            return strpos($uri, '/wp-json') !== false;
         }
     }
-
 endif;
 
 
@@ -89,5 +112,7 @@ function WC_getBeansInstance()
 {
      return WC_Beans::instance();
 }
+
+\BeansWoo\Helper::log($_SERVER['REQUEST_URI']);
 
 $GLOBALS['wc_beans'] = WC_getBeansInstance();

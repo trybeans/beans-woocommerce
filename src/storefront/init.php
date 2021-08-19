@@ -34,6 +34,10 @@ class Main
             return;
         }
 
+        if (! session_id()) {
+            session_start();
+        }
+
         Scripts::init();
         Auth::init();
 
