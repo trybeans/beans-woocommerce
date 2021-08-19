@@ -27,9 +27,9 @@ class Inspector
     public static $json_is_supported;
     public static $beans_is_supported;
 
-    public static $woo_api_uri_is_up;
-    public static $woo_api_auth_is_up;
-    public static $permalink_is_supported;
+    public static $woo_api_uri_is_up = null;
+    public static $woo_api_auth_is_up = null;
+    public static $permalink_is_supported = null;
 
     public static $woo_api_uri_http_status = null;
     public static $woo_api_uri_content_type = null;
@@ -76,19 +76,17 @@ class Inspector
         && self::$php_is_supported && self::$curl_is_supported && self::$json_is_supported
         && self::$permalink_is_supported;
 
-        self::$woo_api_uri_is_up = self::$beans_is_supported ? self::checkWooApiUri(
-            self::$woo_api_uri_http_status,
-            self::$woo_api_uri_content_type
-        ) : null;
+        if (!self::$beans_is_supported) {
+            return;
+        }
 
-        self::$beans_is_supported = self::$woo_api_uri_is_up;
+        self::$beans_is_supported = self::$woo_api_uri_is_up = self::checkWooApiUri();
 
-        self::$woo_api_auth_is_up = self::$beans_is_supported ? self::checkWooApiAuth(
-            self::$woo_api_auth_http_status,
-            self::$woo_api_auth_content_type
-        ) : null;
+        if (!self::$beans_is_supported) {
+            return;
+        }
 
-        self::$beans_is_supported = self::$woo_api_auth_is_up;
+        self::$beans_is_supported = self::$woo_api_auth_is_up = self::checkWooApiAuth();
     }
 
     private static function pluginVersion($plugin_name)
@@ -102,7 +100,7 @@ class Inspector
         return $plugin_folder["$plugin_name.php"]['Version'];
     }
 
-    private static function checkWooApiUri(&$http_status, &$content_type)
+    private static function checkWooApiUri()
     {
         $ch = curl_init();
         $curl_config = array(
@@ -114,14 +112,14 @@ class Inspector
         );
         curl_setopt_array($ch, $curl_config);
         curl_exec($ch);
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+        self::$woo_api_uri_http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        self::$woo_api_uri_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
         curl_close($ch);
 
-        return in_array($http_status, [200, 503]);
+        return in_array(self::$woo_api_uri_http_status, [200, 503]);
     }
 
-    private static function checkWooApiAuth(&$http_status, &$content_type)
+    private static function checkWooApiAuth()
     {
         $ch = curl_init();
         $curl_config = array(
@@ -133,10 +131,13 @@ class Inspector
         );
         curl_setopt_array($ch, $curl_config);
         curl_exec($ch);
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+        self::$woo_api_auth_http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        self::$woo_api_auth_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
         curl_close($ch);
 
-        return in_array($http_status, [401, 503]) && strpos($content_type, 'text/html') !== false;
+        return (
+            in_array(self::$woo_api_auth_http_status, [401, 503])
+            && strpos(self::$woo_api_auth_content_type, 'text/html') !== false
+        );
     }
 }

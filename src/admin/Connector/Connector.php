@@ -7,12 +7,35 @@ use BeansWoo\Helper;
 
 class Connector
 {
-    private static $_errors = array();
-    private static $_messages = array();
 
     public static function init()
     {
-        add_action('admin_init', array(__CLASS__, 'installDefaultAssets'));
+    }
+
+    public static function processSetup()
+    {
+        $card_id = $_GET['card'];
+        $token   = $_GET['token'];
+
+        Helper::$key = $card_id;
+
+        try {
+            $integration_key = Helper::API()->get('core/auth/integration_key/' . $token);
+        } catch (BeansError  $e) {
+            Router::alert('error', 'Connecting to Beans failed with message: ' . $e->getMessage());
+            Helper::log('Connecting failed: ' . $e->getMessage());
+
+            return null;
+        }
+
+        self::installAssets('liana');
+        self::installAssets('bamboo');
+
+        Helper::setConfig('key', $integration_key['id']);
+        Helper::setConfig('card', $integration_key['card']['id']);
+        Helper::setConfig('secret', $integration_key['secret']);
+
+        return true;
     }
 
     private static function installAssets($app_name = null)
@@ -37,34 +60,33 @@ class Connector
         return true;
     }
 
-    public static function processSetup()
+    public static function registerSettingOptions()
     {
-        Helper::log(print_r($_GET, true));
-
-        $card_id = $_GET['card'];
-        $token   = $_GET['token'];
-
-        Helper::$key = $card_id;
-
-        try {
-            $integration_key = Helper::API()->get('core/auth/integration_key/' . $token);
-        } catch (BeansError  $e) {
-            Router::alert('error', 'Connecting to Beans failed with message: ' . $e->getMessage());
-            Helper::log('Connecting failed: ' . $e->getMessage());
-
-            return null;
-        }
-
-        Helper::setConfig('key', $integration_key['id']);
-        Helper::setConfig('card', $integration_key['card']['id']);
-        Helper::setConfig('secret', $integration_key['secret']);
-
-        return true;
+        add_settings_section("beans-section", "", null, "beans-woo");
+        add_settings_field(
+            "beans-liana-display-redemption-checkout",
+            "Redemption on checkout",
+            array(__CLASS__, "displayRedeemCheckboxSettings"),
+            "beans-woo",
+            "beans-section"
+        );
+        register_setting("beans-section", "beans-liana-display-redemption-checkout");
     }
 
-    public static function installDefaultAssets()
+    public static function displayRedeemCheckboxSettings()
     {
-        self::installAssets('liana');
-        self::installAssets('bamboo');
+        ?>
+      <!-- Here we are comparing stored value with 1. Stored value is 1 if user
+      checks the checkbox otherwise empty string. -->
+      <div>
+        <input type="checkbox"
+               id="beans-liana-display-redemption-checkout"
+               name="beans-liana-display-redemption-checkout"
+               value="1"
+            <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?>
+        />
+        <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
+      </div>
+        <?php
     }
 }

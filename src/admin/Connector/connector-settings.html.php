@@ -5,6 +5,9 @@ defined('ABSPATH') or die;
 use Beans\BeansError;
 use BeansWoo\Helper;
 use BeansWoo\Admin\Router;
+use BeansWoo\Admin\Connector;
+
+Connector::registerSettingOptions();
 
 try {
     $loginkey = Helper::requestTransientAPI('POST', 'core/user/current/loginkey');
