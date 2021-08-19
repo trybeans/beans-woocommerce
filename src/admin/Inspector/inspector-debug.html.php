@@ -102,28 +102,13 @@ $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/i
       </li>
       <li>
         <p>
-          <strong>Permalink Enabled</strong>: <?php getSupportedTag(Inspector::$permalink_is_supported); ?>
+          <strong>WordPress Permalink Enabled</strong>: <?php getSupportedTag(Inspector::$permalink_is_supported); ?>
         </p>
         <?php if (!Inspector::$permalink_is_supported) : ?>
           <p class="beans-admin-check-warning">
             Please enable Permalinks:
-            <a href="https://codex.wordpress.org/Settings_Permalinks_Screen" target="_blank">
+            <a href="https://wordpress.org/support/article/settings-permalinks-screen/" target="_blank">
               How to enable Permalink
-            </a>
-          </p>
-        <?php endif; ?>
-      </li>
-      <li>
-        <p>
-          <strong>WordPress Permalink Enabled</strong>:
-          <?php getSupportedTag(Inspector::$wp_permalink_is_supported); ?>
-        </p>
-        <?php if (!Inspector::$wp_permalink_is_supported) : ?>
-          <p class="beans-admin-check-warning">
-            Please enable pretty permalink:
-            <a href="https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
-               target="_blank">
-              How to enable pretty permalink
             </a>
           </p>
         <?php endif; ?>
@@ -202,14 +187,12 @@ $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/i
     const curl_is_supported = "<?php echo Inspector::$curl_is_supported; ?>";
     const json_is_supported = "<?php echo Inspector::$json_is_supported; ?>";
     const permalink_is_supported = "<?php echo Inspector::$permalink_is_supported; ?>";
-    const wp_permalink_is_supported = "<?php echo Inspector::$wp_permalink_is_supported; ?>";
     const woo_api_uri_is_up = "<?php echo Inspector::$woo_api_uri_is_up; ?>";
     const woo_api_auth_is_up = "<?php echo Inspector::$woo_api_auth_is_up; ?>";
 
     if (woo_is_supported !== '1' || wp_is_supported !== '1' || php_is_supported !== '1'
       || php_is_supported !== '1' || curl_is_supported !== '1' || json_is_supported !== '1'
-      || permalink_is_supported !== '1' || wp_permalink_is_supported !== '1'
-      || woo_api_auth_is_up !== '1' || woo_api_uri_is_up !== '1') {
+      || permalink_is_supported !== '1' || woo_api_auth_is_up !== '1' || woo_api_uri_is_up !== '1') {
       jQuery('#view-config').text('View less');
       jQuery('#config-status').slideDown('slow');
     }

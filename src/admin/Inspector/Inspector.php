@@ -30,7 +30,6 @@ class Inspector
     public static $woo_api_uri_is_up;
     public static $woo_api_auth_is_up;
     public static $permalink_is_supported;
-    public static $wp_permalink_is_supported;
 
     public static $woo_api_uri_http_status = null;
     public static $woo_api_uri_content_type = null;
@@ -73,11 +72,9 @@ class Inspector
 
         self::$permalink_is_supported = !is_null(get_option('permalink_structure'));
 
-        self::$wp_permalink_is_supported = !is_null(get_option('permalink_structure'));
-
         self::$beans_is_supported = self::$woo_is_supported && self::$wp_is_supported
         && self::$php_is_supported && self::$curl_is_supported && self::$json_is_supported
-        && self::$permalink_is_supported && self::$wp_permalink_is_supported;
+        && self::$permalink_is_supported;
 
         self::$woo_api_uri_is_up = self::$beans_is_supported ? self::checkWooApiUri(
             self::$woo_api_uri_http_status,
