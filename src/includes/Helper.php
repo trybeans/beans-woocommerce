@@ -116,7 +116,7 @@ class Helper
             unlink(self::LOG_FILE);
         }
 
-        if (!file_exists(self::LOG_FILE)){
+        if (!file_exists(self::LOG_FILE)) {
             file_put_contents(self::LOG_FILE, '');
         }
 

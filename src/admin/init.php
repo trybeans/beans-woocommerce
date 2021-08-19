@@ -16,7 +16,7 @@ class Main
         if (!is_admin()) {
             return;
         }
-
         Router::init();
+        Connector::init();
     }
 }

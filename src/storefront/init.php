@@ -14,13 +14,13 @@ require_once "arrow/Login/ArrowLogin.php";
 require_once "bamboo/Page/BambooPage.php";
 
 require_once "liana/Observer/LianaObserver.php";
+require_once "liana/Observer/LianaAjaxObserver.php";
 require_once "liana/Observer/LianaCartObserver.php";
 require_once "liana/Observer/LianaProductObserver.php";
 require_once "liana/Cart/LianaCart.php";
 require_once "liana/Page/LianaPage.php";
 
 
-use Beans\BeansError;
 use BeansWoo\Helper;
 
 
@@ -62,5 +62,18 @@ class Main
 
         LianaCartObserver::init($display);
         LianaProductObserver::init($display);
+    }
+
+    public static function initAjax()
+    {
+        if (!Helper::isSetup()) {
+            return;
+        }
+
+        if (! session_id()) {
+            session_start();
+        }
+
+        LianaAjaxObserver::init(null);
     }
 }

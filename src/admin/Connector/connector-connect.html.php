@@ -39,19 +39,9 @@ $beans_app_list = array(
         'role'  => 'Email Automation',
     ),
 
-    'poppy' => array(
-        'title' => 'Get customers to take actions when they are most likely to convert',
-        'role'  => 'Smart Popups',
-    ),
-
     'snow' => array(
         'title' => 'Communicate with customers without disrupting their journey',
         'role'  => 'Notification Widget',
-    ),
-
-    'lotus' => array(
-        'title' => 'Save time managing social media for your shop.',
-        'role'  => 'Social Media Automation',
     ),
 
     'arrow' => array(
@@ -141,7 +131,7 @@ $beans_app_list = array(
       jQuery(function ($) {
           let info = [];
             <?php
-            $apps = ['liana', 'bamboo', 'foxx', 'poppy', 'snow', 'lotus', 'arrow', 'ultimate'];
+            $apps = ['liana', 'bamboo', 'foxx', 'snow', 'arrow', 'ultimate'];
             foreach ($apps as $app) {
                 if (in_array($app, ['snow', 'foxx'])) {
                     $hero_image = $app . '-hero.png';
