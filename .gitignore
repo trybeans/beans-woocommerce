@@ -27,4 +27,5 @@ _local
 tests/_output/
 tests/_support/_generated/
 src/src
+src/log.txt
 .env.local
