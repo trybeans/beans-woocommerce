@@ -11,30 +11,9 @@ class LianaCart
     {
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 1);
 
-        add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
-
         if (get_option('beans-liana-display-redemption-checkout')) {
-            add_action('woocommerce_review_order_after_payment', array(__CLASS__, 'renderCart'), 15, 1);
+            add_action('woocommerce_review_order_after_payment', array(__CLASS__, 'renderCart'), 99, 1);
         }
-    }
-
-    public static function renderCartFragment($fragments)
-    {
-        $cart = Helper::getCart();
-        ob_start();
-        if (count($cart->get_cart()) == 0) {
-            LianaObserver::cancelRedemption();
-        }
-        self::renderCart();
-        if ($fragments) {
-            ?>
-            <script>
-                window.Beans3.Liana.Radix.init();
-            </script>
-            <?php
-        }
-        $fragments['div.beans-cart'] = ob_get_clean();
-        return $fragments;
     }
 
     public static function renderCart()
