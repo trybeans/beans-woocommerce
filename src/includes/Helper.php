@@ -65,6 +65,7 @@ class Helper
 
     public static function clearTransients()
     {
+        self::log('Deleting transients');
         delete_transient('$beans_liana_display_current');
         delete_transient('$beans_core_user_current_loginkey');
 
