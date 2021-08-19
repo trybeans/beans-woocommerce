@@ -46,8 +46,8 @@ class Helper
 
         $object = get_transient($transient_key);
 
-        if (!is_null($object)) {
-            \BeansWoo\Helper::log("*** TRANSIENT *** Use Cache: ${method} ${path} ${transient_key}");
+        if ($object !== false) {
+            self::log("*** TRANSIENT *** Use Cache: ${method} ${path} ${transient_key}");
             return $object;
         }
 
@@ -169,6 +169,7 @@ class Helper
 
     public static function removeTransients()
     {
+        self::log('Deleting transients');
         delete_transient('$beans_liana_display_current');
         delete_transient('$beans_core_user_current_loginkey');
 
