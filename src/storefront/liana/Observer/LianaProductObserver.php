@@ -23,7 +23,7 @@ class LianaProductObserver extends LianaObserver
             self::$redemption['reward_exclusive_product_cms_ids']
         );
 
-        add_action('wp_loaded', array(__CLASS__, 'handleProductRedemption'), 99, 1);
+        add_action('wp_loaded', array(__CLASS__, 'handleProductRedemption'), 35);
         add_action('woocommerce_remove_cart_item', array(__CLASS__, 'removeProductFromCart'), 99, 2);
 
         add_filter('woocommerce_is_purchasable', array(__CLASS__, 'isPurchasableProduct'), 99, 2);
