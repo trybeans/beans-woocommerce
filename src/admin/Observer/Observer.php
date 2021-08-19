@@ -91,7 +91,8 @@ class Observer
             <div style="margin: 10px auto;">
               Beans: <?=__("Beans Ultimate is not properly setup", 'beans-woo');?>
               <a href="<?=Router::getTabURL(Router::TAB_INSPECT)?>"><?=__('Set up', 'beans-woo')?></a>
-              <a href="<?=self::NOTICE_KEY?>" style="float:right; text-decoration: none">
+              <a href="<?=Router::getTabURL(Router::TAB_INSPECT)?>&<?=self::NOTICE_KEY ?>=1"
+                 style="float:right; text-decoration: none">
                 x
               </a>
             </div>
