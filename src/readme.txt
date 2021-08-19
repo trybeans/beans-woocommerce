@@ -43,18 +43,6 @@ Let your customers grow your business by referring you to their friends. Use Bam
 [Learn more about Bamboo](http://bit.ly/316tvFp)
 
 
-= Poppy · Smart Popups =
-
-Get customers to take actions when they are most likely to convert.
-Poppy will let you display the right popup at the right time to the right customer. Use Poppy, to:
-
-- Convert more with behavioral popups: Increase conversion by prompting customers to take actions at the perfect time
-- Define conversion goals: Use our wide range of popups to get customers to complete the right action
-- Design Gorgeous Popups: Create beautiful professional-looking popups with no technical expertise
-
-[Learn more about Poppy](http://bit.ly/2UaAHPs)
-
-
 = Foxx · Automated & Marketing Emails =
 
 Super-targeted automated emails that drive sales. Foxx helps you reach out to customers
@@ -65,18 +53,6 @@ with highly relevant offers at the moment they are most likely to shop. Use Foxx
 - Track sales, not just click: Know exactly how much revenue you are generating through your email campaigns
 
 [Learn more about Foxx](http://bit.ly/2GwDomz)
-
-
-= Lotus · Social Media Manager =
-
-Save time managing social media for your shop.
-Lotus will automatically let customers know about new products and promotions in your shop. Use Lotus, to:
-
-- Manage multiple social media accounts: Save time switching from one social media to another
-- Announce important events: Automate posts for everything important happening on your shop
-- Measure your performance: Review your analytics to see how your posts are performing
-
-[Learn more about Lotus](http://bit.ly/38Mqdty)
 
 
 = Snow · Notification Widget =
