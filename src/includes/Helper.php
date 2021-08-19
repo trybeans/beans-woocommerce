@@ -46,12 +46,18 @@ class Helper
 
         $object = get_transient($transient_key);
 
-        if ($object) {
-            \BeansWoo\Helper::log("*** TRANSIENT *** ${method} ${path} ${transient_key}");
+        if (!is_null($object)) {
+            \BeansWoo\Helper::log("*** TRANSIENT *** Use Cache: ${method} ${path} ${transient_key}");
             return $object;
         }
 
-        $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
+        try {
+            $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
+        } catch (Beans\BeansError $e) {
+            self::log("*** TRANSIENT *** Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
+            $object = array() ;
+        }
+
         set_transient($transient_key, $object, 15 * 60);
 
         return $object;

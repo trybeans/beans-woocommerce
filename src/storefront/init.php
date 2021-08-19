@@ -45,13 +45,12 @@ class Main
         LianaCart::init();
 
 
-        try {
-            $display = Helper::requestTransientAPI('GET', 'liana/display/current');
-        } catch (BeansError $e) {
-            Helper::log('Unable to retrieve display: ' . $e->getMessage());
+        $display = Helper::requestTransientAPI('GET', 'liana/display/current');
+
+        if (empty($display['is_active'])) {
+            Helper::log('Display is empty');
             return;
         }
-
         if (!$display['is_active']) {
             Helper::log('Display is deactivated');
             return;
