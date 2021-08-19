@@ -30,7 +30,7 @@ class LianaProductObserver extends LianaObserver
         add_filter('woocommerce_is_sold_individually', array(__CLASS__, 'isSoldIndividuallyProduct'), 99, 2);
         add_filter('woocommerce_product_single_add_to_cart_text', array(__CLASS__, 'updateProductCTA'), 99, 2);
         add_filter('woocommerce_add_to_cart_validation', array(__CLASS__, 'addToCartValidation'), 99, 5);
-        add_filter('woocommerce_get_priceHtml', array(__class__, 'updateProductPrice'), 20, 2);
+        add_filter('woocommerce_get_price_html', array(__class__, 'updateProductPrice'), 20, 2);
     }
 
     public static function handleProductRedemption()
