@@ -172,14 +172,11 @@ class LianaProductObserver extends LianaObserver
 
     public static function addToCartValidation($result, $product_id, $quantity, $variation_id = 0, $variations = null)
     {
-        $account_balance = self::getAccountData('beans');
-
         if (!is_user_logged_in() && in_array($product_id, self::$pay_with_point_product_ids)) {
             wc_add_notice(self::$i18n_strings['reward_product']['join_and_get'], 'error');
             $result = false;
         } elseif (
             is_user_logged_in()
-            && !is_null($account_balance)
             && in_array($product_id, self::$pay_with_point_product_ids)
         ) {
             if ((int)$variation_id === 0) {
@@ -187,7 +184,7 @@ class LianaProductObserver extends LianaObserver
             } else {
                 $product = new \WC_Product_Variation($variation_id);
             }
-
+            BeansAccount::update();
             $account_balance = self::getAccountData('beans');
 
             $min_beans = $product->get_price() * self::$display['beans_rate'];
