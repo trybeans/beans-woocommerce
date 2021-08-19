@@ -46,21 +46,32 @@ class Helper
 
         $object = get_transient($transient_key);
 
-        if (!is_null($object)) {
-            \BeansWoo\Helper::log("*** TRANSIENT *** Use Cache: ${method} ${path} ${transient_key}");
+        if (!is_null($object) && $object !== false) {
+            // self::log("TRANSIENT Use Cache: ${method} ${path} ${transient_key}");
             return $object;
         }
 
         try {
             $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
         } catch (Beans\BeansError $e) {
-            self::log("*** TRANSIENT *** Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
+            // self::log("TRANSIENT Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
             $object = array() ;
         }
 
         set_transient($transient_key, $object, 15 * 60);
 
         return $object;
+    }
+
+    public static function clearTransients()
+    {
+        delete_transient('$beans_liana_display_current');
+        delete_transient('$beans_core_user_current_loginkey');
+
+        # This will help to remove old transients.
+        # todo; remove
+        delete_transient('beans_liana_display');
+        delete_transient('beans_card');
     }
 
     public static function getConfig($key)
@@ -93,7 +104,7 @@ class Helper
                 wp_delete_post($app_page, true);
             }
         }
-        self::removeTransients();
+        self::clearTransients();
         delete_option(Helper::CONFIG_NAME);
         return true;
     }
@@ -102,6 +113,7 @@ class Helper
     {
         if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
             unlink(self::LOG_FILE);
+            file_put_contents(self::LOG_FILE, '');
         }
 
         if (!is_writable(self::LOG_FILE)) {
@@ -165,17 +177,6 @@ class Helper
             },
             $string
         );
-    }
-
-    public static function removeTransients()
-    {
-        delete_transient('$beans_liana_display_current');
-        delete_transient('$beans_core_user_current_loginkey');
-
-        # This will help to remove old transients.
-        # todo; remove
-        delete_transient('beans_liana_display');
-        delete_transient('beans_card');
     }
 
     public static function getAssetURL($path)
