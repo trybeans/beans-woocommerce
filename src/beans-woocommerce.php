@@ -103,7 +103,7 @@ if (! class_exists('WC_Beans')) :
 
         private static function isRestRequest()
         {
-            $uri = $_SERVER['REQUEST_URI'] ?? '';
+            $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
             return strpos($uri, '/wp-json') !== false;
         }
     }
