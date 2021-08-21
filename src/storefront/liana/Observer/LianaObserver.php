@@ -69,13 +69,17 @@ class LianaObserver
                 $coupon = new \WC_Coupon($code);
 
                 $amount     = sprintf('%0.2f', $coupon->get_amount());
-                $amount_str = sprintf(get_woocommerce_price_format(), get_woocommerce_currency_symbol(), $amount);
+                $amount_str = sprintf(
+                    get_woocommerce_price_format(),
+                    html_entity_decode(get_woocommerce_currency_symbol()),
+                    $amount
+                );
 
                 $data = array(
                     'quantity'    => $amount,
                     'rule'        => strtoupper(get_woocommerce_currency()),
                     'account'     => $account_id,
-                    'description' => "Debited for a $amount_str discount",
+                    'description' => "Debited for a $amount_str discount on order #" . $order->get_id(),
                     'uid'         => 'wc_' . $order->get_id() . '_' . $order->get_order_key(),
                     'commit'      => true,
                 );
