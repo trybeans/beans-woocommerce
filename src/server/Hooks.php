@@ -82,7 +82,7 @@ class Hooks
         return $response;
     }
 
-    public static function getBeansPages()
+    private static function getBeansPages()
     {
         $pages_output = [];
 

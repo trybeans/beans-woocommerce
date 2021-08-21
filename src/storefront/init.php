@@ -51,10 +51,11 @@ class Main
 
         $display = Helper::requestTransientAPI('GET', 'liana/display/current');
 
-        if (empty($display['is_active'])) {
+        if (empty($display)) {
             Helper::log('Display is empty');
             return;
         }
+
         if (!$display['is_active']) {
             Helper::log('Display is deactivated');
             return;

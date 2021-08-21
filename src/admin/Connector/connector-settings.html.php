@@ -98,7 +98,7 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
 
             do_settings_sections("beans-woo");
 
-            submit_button('Save', 'submit', 'beans-checkout-button', '', ['class' => 'button']);
+            submit_button('Save', 'submit', 'beans-checkout-button', false, ['class' => 'button']);
             ?>
         </form>
       </div>

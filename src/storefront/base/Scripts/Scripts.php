@@ -20,7 +20,7 @@ class Scripts
             'https://' . Helper::getDomain("CDN") .
             '/lib/ultimate/3.3/woocommerce/ultimate.beans.js?radix=woocommerce&id=' . Helper::getConfig('card'),
             array(),
-            time(),
+            (string)time(),
             false
         );
 
