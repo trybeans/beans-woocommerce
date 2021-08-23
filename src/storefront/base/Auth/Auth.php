@@ -111,9 +111,6 @@ class Auth
             ),
         );
 
-        // Todo, compress data, check size and save to cookies
-        //  This will fix all caching issues faced with authenticated consumers.
-        // The max size of a cookie is 4096B. With the all values we can't hit that limit.
         setcookie(
             self::COOKIE_KEY,
             (string)json_encode($data),

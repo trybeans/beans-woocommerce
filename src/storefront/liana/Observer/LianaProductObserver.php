@@ -129,8 +129,6 @@ class LianaProductObserver extends LianaObserver
         return $price_html;
     }
 
-    /* Todo rename methods bellow to be more explicit */
-
     public static function isSoldIndividuallyProduct($is_sol_individually, $product)
     {
         $product_id = (int)$product->get_parent_id();
