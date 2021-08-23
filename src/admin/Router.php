@@ -115,7 +115,7 @@ class Router
 
         if (Helper::isSetup()) {
             if ($tab === self::TAB_SETTINGS) {
-                return include(dirname(__FILE__) . '/Connector/connector-settings.html.php');
+                return include(dirname(__FILE__) . '/Connect/connector-settings.html.php');
             }
             return wp_redirect(self::getTabURL(self::TAB_SETTINGS));
         }
@@ -123,7 +123,7 @@ class Router
         /* For non authenticated retailers */
 
         if ($tab === self::TAB_CONNECT) {
-            return include(dirname(__FILE__) . '/Connector/connector-connect.html.php');
+            return include(dirname(__FILE__) . '/Connect/connector-connect.html.php');
         }
 
         if ($tab === self::TAB_INSPECT) {
