@@ -117,6 +117,7 @@ The WordPress codex contains instructions on
 == Changelog ==
 
 == 3.3 ==
+- Restructure project
 - Remove all standalone apps
 - Better management of the display of program pages
 - Better handle connection issues
@@ -125,8 +126,6 @@ The WordPress codex contains instructions on
 - Update minimum WordPress version supported to 5.2
 - Update minimum WooCommerce version supported to 4.1
 - Remove support for WooCommerce API V2
-
-
 
 = 3.2.4 =
 - Update `Pay with Beans` product price by equivalent Points
