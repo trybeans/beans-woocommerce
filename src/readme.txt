@@ -5,7 +5,7 @@ Tags: loyalty, referral, email, popup, social, rewards, automated emails, referr
 Requires at least: 5.2
 Requires PHP: 7.1
 Tested up to: 5.8
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -116,7 +116,10 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
-== 3.3 ==
+== 3.3.1 ==
+- Critical bug fix in includes file
+
+== 3.3.0 ==
 - Restructure project
 - Remove all standalone apps
 - Better management of the display of program pages
