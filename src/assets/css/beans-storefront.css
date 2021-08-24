@@ -274,3 +274,14 @@ div: .beans-section
 .ectomycorrhiza-icon img + img {
     display:none !important;
 }
+
+/* `Powered by Beans` section */
+.beans-page-footer {
+    margin: 50px auto 20px;
+    max-width: 800px;
+    text-align: center
+}
+
+.beans-page-footer > p {
+    text-align: center;
+}
