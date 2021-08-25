@@ -13,6 +13,7 @@ class Connector
         if (Helper::isSetup()) {
             add_action('admin_init', array(__CLASS__, 'registerSettingOptions'));
         }
+        add_action('admin_init', array(__CLASS__, 'setupPages'));
     }
 
     public static function processSetup()
@@ -91,5 +92,11 @@ class Connector
         <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
       </div>
         <?php
+    }
+
+    public static function setupPages()
+    {
+        self::installAssets('liana');
+        self::installAssets('bamboo');
     }
 }
