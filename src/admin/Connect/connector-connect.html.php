@@ -5,8 +5,10 @@ defined('ABSPATH') or die;
 use BeansWoo\Helper;
 use BeansWoo\Admin\Router;
 use BeansWoo\Admin\Inspector;
+use BeansWoo\Admin\Connector;
 
 Inspector::init();
+Connector::setupPages();
 $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 $base_asset_url  = Helper::getAssetURL('/assets/img/admin');
 

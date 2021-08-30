@@ -13,7 +13,6 @@ class Connector
         if (Helper::isSetup()) {
             add_action('admin_init', array(__CLASS__, 'registerSettingOptions'));
         }
-        self::setupPages();
     }
 
     public static function processSetup()
@@ -51,7 +50,6 @@ class Connector
         $page_infos = Helper::getBeansPages()[$name];
 
         if (!get_post(Helper::getConfig($name . '_page'))) {
-            require_once(WP_PLUGIN_DIR . '/woocommerce/includes/admin/wc-admin-functions.php');
             $page_id = wc_create_page(
                 $page_infos['slug'],
                 $page_infos['option'],
