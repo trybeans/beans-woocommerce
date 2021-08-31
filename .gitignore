@@ -17,3 +17,15 @@ wp-content/plugins/hello.php
 /sitemap.xml.gz
 
 .idea/
+composer
+composer.lock
+vendor
+wp
+_local
+.vscode
+
+tests/_output/
+tests/_support/_generated/
+src/src
+src/log.txt
+.env.local

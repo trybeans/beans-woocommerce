@@ -1,2 +1,5 @@
 <?php
-// Silence is golden
+
+// Send to wp sub url
+header("Location: /wp");
+die();
