@@ -31,9 +31,6 @@ class Connector
             return null;
         }
 
-        self::installAssets('liana');
-        self::installAssets('bamboo');
-
         Helper::setConfig('key', $integration_key['id']);
         Helper::setConfig('card', $integration_key['card']['id']);
         Helper::setConfig('secret', $integration_key['secret']);
@@ -91,5 +88,11 @@ class Connector
         <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
       </div>
         <?php
+    }
+
+    public static function setupPages()
+    {
+        self::installAssets('liana');
+        self::installAssets('bamboo');
     }
 }
