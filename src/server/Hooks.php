@@ -126,7 +126,7 @@ class Hooks
         );
 
         try {
-            Helper::API('HOOK')->post('/hook/radix/woocommerce/shop/plugin_status', $args, $headers);
+            Helper::API('HOOK')->post('hook/radix/woocommerce/shop/plugin_status', $args, $headers);
         } catch (BeansError $e) {
         }
     }
