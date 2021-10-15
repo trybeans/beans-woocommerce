@@ -114,7 +114,8 @@ class Auth
         setcookie(
             self::COOKIE_KEY,
             (string)json_encode($data),
-            strtotime("+15 minutes")
+            strtotime("+15 minutes"),
+            "/"
         );
     }
 }
