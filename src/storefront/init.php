@@ -17,6 +17,8 @@ require_once "liana/Observer/LianaObserver.php";
 require_once "liana/Observer/LianaAjaxObserver.php";
 require_once "liana/Observer/LianaCartObserver.php";
 require_once "liana/Observer/LianaProductObserver.php";
+require_once "liana/Observer/LianaProductAjaxObserver.php";
+
 require_once "liana/Cart/LianaCart.php";
 require_once "liana/Page/LianaPage.php";
 
@@ -76,5 +78,18 @@ class Main
         }
 
         LianaAjaxObserver::init(null);
+
+        $display = Helper::requestTransientAPI('GET', 'liana/display/current');
+
+        if (empty($display)) {
+            Helper::log('Ajax: Display is empty');
+            return;
+        }
+
+        if (!$display['is_active']) {
+            Helper::log('Ajax: Display is deactivated');
+            return;
+        }
+        LianaProductAjaxObserver::init($display);
     }
 }
