@@ -16,12 +16,8 @@ class LianaProductObserver extends LianaObserver
         if (empty(self::$redemption['reward_exclusive_product_cms_ids'])) {
             return;
         }
-        self::$pay_with_point_product_ids = array_map(
-            function ($value) {
-                return (int)$value;
-            },
-            self::$redemption['reward_exclusive_product_cms_ids']
-        );
+
+        self::extractProductIds();
 
         add_action('wp_loaded', array(__CLASS__, 'handleProductRedemption'), 35);
         add_action('woocommerce_remove_cart_item', array(__CLASS__, 'removeProductFromCart'), 99, 2);
@@ -209,5 +205,15 @@ class LianaProductObserver extends LianaObserver
         ) {
             self::cancelRedemption();
         }
+    }
+
+    public static function extractProductIds()
+    {
+        self::$pay_with_point_product_ids = array_map(
+            function ($value) {
+                return (int)$value;
+            },
+            self::$redemption['reward_exclusive_product_cms_ids']
+        );
     }
 }
