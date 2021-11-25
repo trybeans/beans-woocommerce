@@ -49,6 +49,7 @@ class Scripts
                 login: "<?=get_option('woocommerce_myaccount_page_id');?>",
                 liana: "<?=Helper::getConfig('liana_page');?>",
                 bamboo: "<?=Helper::getConfig('bamboo_page');?>",
+                home: "<?= get_option('page_on_front');?>"
             }
             window.beans_pages_ids.register = window.beans_pages_ids.login;
             window.beans_plugin_version = "<?=BEANS_PLUGIN_VERSION?>";
