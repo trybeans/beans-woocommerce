@@ -41,7 +41,18 @@ class Scripts
                 liana: "<?=get_permalink(Helper::getConfig('liana_page'))?>",
                 bamboo: "<?=get_permalink(Helper::getConfig('bamboo_page'))?>",
             }
+
+            window.beans_pages_ids = {
+                cart: "<?=get_option('woocommerce_cart_page_id');?>",
+                checkout: "<?=get_option('woocommerce_checkout_page_id');?>",
+                shop: "<?=get_option('woocommerce_shop_page_id'); ?>",
+                login: "<?=get_option('woocommerce_myaccount_page_id');?>",
+                liana: "<?=Helper::getConfig('liana_page');?>",
+                bamboo: "<?=Helper::getConfig('bamboo_page');?>",
+            }
+            window.beans_pages_ids.register = window.beans_pages_ids.login;
             window.beans_plugin_version = "<?=BEANS_PLUGIN_VERSION?>";
+
             window.Beans3.Radix.init();
         </script>
         <?php

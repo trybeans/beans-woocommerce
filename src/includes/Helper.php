@@ -168,7 +168,13 @@ class Helper
 
         $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
         $current_page = explode("?", $current_page)[0];
-        return isset($pages[$current_page]) ? $pages[$current_page] : '';
+
+        $result = isset($pages[$current_page]) ? $pages[$current_page] : '';
+
+        if ($result === '' && is_product()) {
+            $result = 'product';
+        }
+        return $result;
     }
 
     public static function replaceTags($string, $tags, $force_lower = false)
