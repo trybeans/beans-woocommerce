@@ -30,3 +30,4 @@ src/src
 src/log.txt
 .env.local
 beans-woo-env/*
+.history
