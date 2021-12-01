@@ -4,8 +4,8 @@ Contributors: nas2lor, yan_dah, corentinalcoy
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 5.2
 Requires PHP: 7.1
-Tested up to: 5.8
-Stable tag: 3.3.2
+Tested up to: 5.8.2
+Stable tag: 3.3.3
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -115,6 +115,11 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 3.3.3 ==
+- Fix beans_cjs cookies scope
+- Fix plugin status webhook URL
+- Fix buy products with points ajax validation
 
 == 3.3.2 ==
 - Create programs pages when the plugin is active
