@@ -43,6 +43,7 @@ if (!defined('BEANS_PLUGIN_VERSION')) {
 require_once 'includes/Beans.php';
 require_once 'includes/Helper.php';
 
+require_once 'logger/init.php';
 require_once 'server/init.php';
 require_once 'admin/init.php';
 require_once 'storefront/init.php';
@@ -50,8 +51,9 @@ require_once 'storefront/init.php';
 use BeansWoo\Server\Main as ServerMain;
 use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\StoreFront\Main as StoreFrontMain;
+use BeansWoo\Logger\Main as LoggerMain;
 
-if (! class_exists('WC_Beans')) :
+if (!class_exists('WC_Beans')) :
 
     class WC_Beans
     {
@@ -74,6 +76,9 @@ if (! class_exists('WC_Beans')) :
 
         public static function init()
         {
+            // Register the logger
+            LoggerMain::init();
+
             if (is_admin()) {
                 // If on Admin Dashboard
                 AdminMain::init();
@@ -115,7 +120,7 @@ endif;
  */
 function WC_getBeansInstance()
 {
-     return WC_Beans::instance();
+    return WC_Beans::instance();
 }
 
 // \BeansWoo\Helper::log($_SERVER['REQUEST_URI']);
