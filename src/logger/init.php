@@ -2,6 +2,7 @@
 
 namespace BeansWoo\Logger;
 
+use BeansWoo\Helper;
 use BeansWoo\Logger\Beans_Log_Handler;
 
 defined('ABSPATH') or die;
@@ -18,14 +19,21 @@ class Main
     {
         require_once 'Handler.php';
         self::updateHandlerStatus();
-        array_push($handlers, new Beans_Log_Handler());
+
+        $log_status = Helper::getConfig('log_status');
+        if ($log_status == 'active') {
+            array_push($handlers, new Beans_Log_Handler());
+        }
         return $handlers;
     }
 
     public static function updateHandlerStatus()
     {
-        if (!isset($_GET['beans_handler_status'])) return;
-        $status = htmlspecialchars($_GET['beans_handler_status']);
-        update_option('beans_handler_status', $status);
+        if (isset($_GET['beans_handler_status'])) {
+            $status = htmlspecialchars($_GET['beans_handler_status']);
+            if (in_array($status, ['active', 'inactive'])) {
+                Helper::setConfig('log_status', $status);
+            }
+        }
     }
 }
