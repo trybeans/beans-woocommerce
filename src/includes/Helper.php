@@ -55,7 +55,7 @@ class Helper
             $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
         } catch (Beans\BeansError $e) {
             // self::log("TRANSIENT Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
-            $object = array() ;
+            $object = array();
         }
 
         set_transient($transient_key, $object, 15 * 60);
@@ -157,26 +157,26 @@ class Helper
     public static function getCurrentPage()
     {
         if (is_front_page()) {
-            $result = 'home';
-        } elseif (is_product()) {
-            $result = 'product';
-        } else {
-            $pages = [
-                wc_get_cart_url()                               => 'cart',
-                wc_get_checkout_url()                           => 'cart',
-                # DON'T TOUCH: This helps to show the redeem button on the checkout page
-                wc_get_page_permalink('shop')                   => 'shop',
-                wc_get_page_permalink('myaccount')              => 'login',
-                get_permalink(Helper::getConfig('liana_page'))  => 'reward',
-                get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
-            ];
-
-            $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
-            $current_page = explode("?", $current_page)[0];
-
-            $result = isset($pages[$current_page]) ? $pages[$current_page] : '';
+            return 'home';
         }
-        return $result;
+        if (is_product()) {
+            return 'product';
+        }
+
+        $pages = [
+            wc_get_cart_url()                               => 'cart',
+            wc_get_checkout_url()                           => 'cart',
+            # DON'T TOUCH: This helps to show the redeem button on the checkout page
+            wc_get_page_permalink('shop')                   => 'shop',
+            wc_get_page_permalink('myaccount')              => 'login',
+            get_permalink(Helper::getConfig('liana_page'))  => 'reward',
+            get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
+        ];
+
+        $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
+        $current_page = explode("?", $current_page)[0];
+
+        return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
     public static function replaceTags($string, $tags, $force_lower = false)
