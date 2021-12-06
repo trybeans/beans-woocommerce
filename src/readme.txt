@@ -120,6 +120,7 @@ The WordPress codex contains instructions on
 - Fix beans_cjs cookies scope
 - Fix plugin status webhook URL
 - Fix buy products with points ajax validation
+- Better handle snow messages on the differents pages
 
 == 3.3.2 ==
 - Create programs pages when the plugin is active
