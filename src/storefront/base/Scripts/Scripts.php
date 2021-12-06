@@ -18,7 +18,7 @@ class Scripts
         wp_enqueue_script(
             'beans-ultimate-js',
             'https://' . Helper::getDomain("CDN") .
-            '/lib/ultimate/3.3/woocommerce/ultimate.beans.js?radix=woocommerce&id=' . Helper::getConfig('card'),
+                '/lib/ultimate/3.3/woocommerce/ultimate.beans.js?radix=woocommerce&id=' . Helper::getConfig('card'),
             array(),
             (string)time(),
             false
@@ -29,19 +29,32 @@ class Scripts
 
     public static function renderFooter()
     {
+        $account_page_id = get_option('woocommerce_myaccount_page_id');
         ?>
         <script>
             window.beans_pages = {
-                _current: "<?=Helper::getCurrentPage()?>",
-                cart: "<?=wc_get_cart_url()?>",
-                checkout: "<?=wc_get_checkout_url()?>",
-                shop: "<?=wc_get_page_permalink('shop')?>",
-                login: "<?=wc_get_page_permalink('myaccount')?>",
-                register: "<?=wc_get_page_permalink('myaccount')?>",
-                liana: "<?=get_permalink(Helper::getConfig('liana_page'))?>",
-                bamboo: "<?=get_permalink(Helper::getConfig('bamboo_page'))?>",
+                _current: "<?= Helper::getCurrentPage() ?>",
+                cart: "<?= wc_get_cart_url() ?>",
+                checkout: "<?= wc_get_checkout_url() ?>",
+                shop: "<?= wc_get_page_permalink('shop') ?>",
+                login: "<?= wc_get_page_permalink('myaccount') ?>",
+                register: "<?= wc_get_page_permalink('myaccount') ?>",
+                liana: "<?= get_permalink(Helper::getConfig('liana_page')) ?>",
+                bamboo: "<?= get_permalink(Helper::getConfig('bamboo_page')) ?>",
             }
-            window.beans_plugin_version = "<?=BEANS_PLUGIN_VERSION?>";
+
+            window.beans_pages_ids = {
+                cart: "<?= get_option('woocommerce_cart_page_id'); ?>",
+                checkout: "<?= get_option('woocommerce_checkout_page_id'); ?>",
+                shop: "<?= get_option('woocommerce_shop_page_id'); ?>",
+                liana: "<?= Helper::getConfig('liana_page'); ?>",
+                bamboo: "<?= Helper::getConfig('bamboo_page'); ?>",
+                home: "<?= get_option('page_on_front'); ?>",
+                register: "<?= $account_page_id; ?>",
+                login: "<?= $account_page_id; ?>"
+            }
+            window.beans_plugin_version = "<?= BEANS_PLUGIN_VERSION ?>";
+
             window.Beans3.Radix.init();
         </script>
         <?php
