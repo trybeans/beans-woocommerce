@@ -161,11 +161,18 @@ class Helper
 
     public static function getCurrentPage()
     {
+        if (is_front_page()) {
+            return 'home';
+        }
+        if (is_product()) {
+            return 'product';
+        }
+
         $pages = [
             wc_get_cart_url()                               => 'cart',
             wc_get_checkout_url()                           => 'cart',
             # DON'T TOUCH: This helps to show the redeem button on the checkout page
-            wc_get_page_permalink('shop')                   => 'product',
+            wc_get_page_permalink('shop')                   => 'shop',
             wc_get_page_permalink('myaccount')              => 'login',
             get_permalink(Helper::getConfig('liana_page'))  => 'reward',
             get_permalink(Helper::getConfig('bamboo_page')) => 'referral',
@@ -173,6 +180,7 @@ class Helper
 
         $current_page = esc_url(home_url($_SERVER['REQUEST_URI']));
         $current_page = explode("?", $current_page)[0];
+
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
