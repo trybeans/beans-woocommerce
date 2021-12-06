@@ -113,8 +113,8 @@ class Helper
     public static function log($info, $check_log_status = false)
     {
         if ($check_log_status) {
-            if (!Helper::getConfig('log_status')) {
-                return;
+            if (Helper::getConfig('log_status') != 'active') {
+                return false;
             }
         }
         if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
