@@ -34,7 +34,11 @@ class LianaCartObserver extends LianaObserver
     public static function applyCartRedemption()
     {
         if (!self::getAccountData('id')) {
-            Helper::log("Unable to redeem: Unable to retrieve account\naccount=>" . print_r(BeansAccount::get(), true));
+            Helper::log(
+                "Unable to redeem: Unable to retrieve account from session\naccount=>"
+                    . print_r(BeansAccount::get(), true),
+                true
+            );
             return;
         }
 

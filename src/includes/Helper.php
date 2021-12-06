@@ -55,7 +55,7 @@ class Helper
             $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
         } catch (Beans\BeansError $e) {
             // self::log("TRANSIENT Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
-            $object = array() ;
+            $object = array();
         }
 
         set_transient($transient_key, $object, 15 * 60);
@@ -110,8 +110,13 @@ class Helper
         return true;
     }
 
-    public static function log($info)
+    public static function log($info, $check_log_status = false)
     {
+        if ($check_log_status) {
+            if (!Helper::getConfig('log_status')) {
+                return;
+            }
+        }
         if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
             unlink(self::LOG_FILE);
         }

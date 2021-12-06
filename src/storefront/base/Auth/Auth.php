@@ -79,11 +79,19 @@ class Auth
         if (!isset($current_user) and $account) {
             BeansAccount::clear();
             $account = BeansAccount::get();
+            Helper::log(
+                "Customer account: Retrieve from session\naccount=>" . print_r(BeansAccount::get(), true),
+                true
+            );
         }
 
         if (isset($current_user) and !$account) {
             self::onCustomerRegister($current_user->ID);
             $account = BeansAccount::get();
+            Helper::log(
+                "Customer account: Retrieve from onCustomerRegister\naccount=>" . print_r(BeansAccount::get(), true),
+                true
+            );
         }
 
         $cart       = Helper::getCart();
