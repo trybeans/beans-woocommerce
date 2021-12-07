@@ -4,7 +4,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Marketing Apps for WooCommerce.
- * Version: 3.3.2
+ * Version: 3.3.3
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woo
@@ -12,7 +12,7 @@
  * Requires PHP: 7.1
  * Requires at least: 5.2
  * WC requires at least: 4.1
- * WC tested up to: 5.5.*
+ * WC tested up to: 5.9.*
  * @author Beans
  */
 
@@ -36,7 +36,7 @@ if (!defined('BEANS_PLUGIN_PATH')) {
 }
 
 if (!defined('BEANS_PLUGIN_VERSION')) {
-    define('BEANS_PLUGIN_VERSION', '3.3.2');
+    define('BEANS_PLUGIN_VERSION', '3.3.3');
 }
 
 
@@ -51,7 +51,7 @@ use BeansWoo\Server\Main as ServerMain;
 use BeansWoo\Admin\Main as AdminMain;
 use BeansWoo\StoreFront\Main as StoreFrontMain;
 
-if (! class_exists('WC_Beans')) :
+if (!class_exists('WC_Beans')) :
 
     class WC_Beans
     {
@@ -115,7 +115,7 @@ endif;
  */
 function WC_getBeansInstance()
 {
-     return WC_Beans::instance();
+    return WC_Beans::instance();
 }
 
 // \BeansWoo\Helper::log($_SERVER['REQUEST_URI']);

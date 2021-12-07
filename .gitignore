@@ -29,3 +29,5 @@ tests/_support/_generated/
 src/src
 src/log.txt
 .env.local
+beans-woo-env/*
+.history
