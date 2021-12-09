@@ -114,7 +114,7 @@ class LianaProductObserver extends LianaObserver
 
         if (
             in_array($product_id, self::$pay_with_point_product_ids)
-            && !in_array(Helper::getCurrentPage(), array('cart', 'product'))
+            && !in_array(Helper::getCurrentPage(), array('cart', 'home', 'shop'))
         ) {
             $price_html = '<span class="amount">'
                 . $product->get_price() * self::$display['beans_rate'] . ' '
