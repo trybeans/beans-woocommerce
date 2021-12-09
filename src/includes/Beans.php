@@ -33,7 +33,7 @@ class Beans
 {
     public $endpoint = 'https://api.trybeans.com/v3/';
 
-    const VERSION = '3.3.3';  // private
+    const VERSION = '3.3.4';  // private
 
     private $_secret = '';
     private $_next_page = '';
