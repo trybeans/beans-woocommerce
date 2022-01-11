@@ -8,6 +8,7 @@ class Scripts
 {
     public static function init()
     {
+
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
 
         add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
@@ -15,10 +16,25 @@ class Scripts
 
     public static function enqueueScripts()
     {
+        $riper_version = Helper::requestTransientAPI(
+            'GET',
+            'radix/woocommerce/connector/riper_version/',
+            null,
+            null,
+            'HOOK'
+        );
+
+        if (is_array($riper_version) && in_array('riper_version', $riper_version)) {
+            $version = $riper_version['riper_version'];
+        } else {
+            $version = 'lts';
+        }
+
+        $script_src = Helper::getDomain("CDN") . "/lib/ultimate/$version/woocommerce/ultimate.beans.js";
+
         wp_enqueue_script(
             'beans-ultimate-js',
-            'https://' . Helper::getDomain("CDN") .
-                '/lib/ultimate/3.3/woocommerce/ultimate.beans.js?radix=woocommerce&id=' . Helper::getConfig('card'),
+            "https://$script_src?radix=woocommerce&id=" . Helper::getConfig('card'),
             array(),
             (string)time(),
             false
