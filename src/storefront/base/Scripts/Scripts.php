@@ -24,7 +24,7 @@ class Scripts
             'HOOK'
         );
 
-        if (is_array($riper_version) && in_array('riper_version', $riper_version)) {
+        if (isset($riper_version['riper_version'])) {
             $version = $riper_version['riper_version'];
         } else {
             $version = 'lts';
