@@ -40,7 +40,7 @@ class Helper
         return $beans;
     }
 
-    public static function requestTransientAPI($method, $path, $arg = null, $headers = null, $domain = 'API')
+    public static function requestTransientAPI($method, $path, $arg = null, $headers = null)
     {
         $transient_key = '$beans_' . str_replace('/', '_', $path);
 
@@ -52,7 +52,7 @@ class Helper
         }
 
         try {
-            $object = self::API($domain)->makeRequest($path, $arg, strtoupper($method), $headers);
+            $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
         } catch (Beans\BeansError $e) {
             // self::log("TRANSIENT Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
             $object = array();
@@ -68,7 +68,6 @@ class Helper
         self::log('Deleting transients');
         delete_transient('$beans_liana_display_current');
         delete_transient('$beans_core_user_current_loginkey');
-        delete_transient('$radix/woocommerce/connector/riper_version');
 
         # This will help to remove old transients.
         # todo; remove
@@ -159,7 +158,7 @@ class Helper
     {
 
         // This function is used in `LianaProductObserver.updateProductPrice` to update the currency of the price in
-        // point when the Buy with point feature is active. We do not update the price
+        // point when the Buy with point feature is active. We do not update the price 
         // on the `shop` and` product` pages. Be careful when updating this function.
         if (is_front_page()) {
             return 'home';
