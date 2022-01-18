@@ -4,7 +4,7 @@ namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
 
-require_once 'API.php';
+require_once 'Api.php';
 require_once 'Hooks.php';
 
 defined('ABSPATH') or die;
@@ -20,7 +20,7 @@ class Main
     }
 
     public static function register_api($controllers) {
-        $controllers['beans/v1']['riper_version'] = 'APIRESTController';
+        $controllers['wc-beans/v1']['connector'] = 'BeansWoo\Server\ConnectorRESTController';
         return $controllers;
     }
 
