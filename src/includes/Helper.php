@@ -20,7 +20,7 @@ class Helper
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
             'CDN'     => 'cdn.trybeans.com',
-            'HOOK'    => 'api.radix.trybeans.com',
+            'RADIX'    => 'api.radix.trybeans.com',
         );
         $val     = getenv($key);
 
