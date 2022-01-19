@@ -46,7 +46,7 @@ class ConnectorRESTController extends \WP_REST_Controller
             Helper::setConfig('riper_version', $request['riper_version']);
         }
 
-        # Reinstall the App through
+        # Reinstall the plugin
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
