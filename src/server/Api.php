@@ -3,6 +3,7 @@
 namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
+use BeansWoo\Admin\Connector;
 
 class ConnectorRESTController extends \WP_REST_Controller
 {
@@ -34,13 +35,7 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     public function get_item($request)
     {
-        $data = array(
-            'card' => Helper::getConfig('card'),
-            'is_setup' => Helper::isSetup(),
-            'riper_version' => Helper::getConfig('riper_version'),
-            'pages' => Helper::getBeansPages(),
-        );
-        $response = new \WP_REST_Response($data);
+        $response = new \WP_REST_Response(self::get_item_data());
         $response->set_status(200);
         return $response;
     }
@@ -55,17 +50,17 @@ class ConnectorRESTController extends \WP_REST_Controller
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
-            if (!\BeansWoo\Admin\Connector::processSetup($card_id, $token)) {
+            if (!Connector::processSetup($card_id, $token)) {
                 return new \WP_Error(
                     "beans_rest_cannot_setup",
                     __("Unable to setup the plugins", 'woocommerce'),
                     array('status' => 400)
                 );
             }
-            \BeansWoo\Admin\Connector::setupPages();
+            Connector::setupPages();
         }
 
-        $response = $this->get_item($request);
+        $response = new \WP_REST_Response(self::get_item_data());
         $response->set_status(202);
         return $response;
     }
@@ -125,5 +120,15 @@ class ConnectorRESTController extends \WP_REST_Controller
             );
         }
         return true;
+    }
+
+    public static function get_item_data()
+    {
+        return array(
+            'card' => Helper::getConfig('card'),
+            'is_setup' => Helper::isSetup(),
+            'riper_version' => Helper::getConfig('riper_version'),
+            'pages' => Helper::getBeansPages(),
+        );
     }
 }
