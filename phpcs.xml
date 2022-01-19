@@ -18,7 +18,7 @@
     </rule>
 
     <!-- 
-        This file extends from a core class of wordpress and they are not using camelcase convention for methods names. 
+       This file extends from a main wordpress class and they don't use the camelcase convention for method names.
     -->
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>src/server/Api.php</exclude-pattern>
