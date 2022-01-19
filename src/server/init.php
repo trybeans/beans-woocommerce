@@ -15,11 +15,11 @@ class Main
     public static function init()
     {
         Hooks::init();
-        add_filter( 'woocommerce_rest_api_get_rest_namespaces', array(__CLASS__, 'register_api' ));
-
+        add_filter('woocommerce_rest_api_get_rest_namespaces', array(__CLASS__, 'registerApi'));
     }
 
-    public static function register_api($controllers) {
+    public static function registerApi($controllers)
+    {
         $controllers['wc-beans/v1']['connector'] = 'BeansWoo\Server\ConnectorRESTController';
         return $controllers;
     }
