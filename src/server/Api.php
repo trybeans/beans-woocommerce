@@ -6,7 +6,7 @@ use BeansWoo\Helper;
 
 class ConnectorRESTController extends \WP_REST_Controller
 {
-    // The `wc-` prefix is to help to use the WooCommerce Rest authentication on our routes.
+    // The `wc-` prefix helps to use the WooCommerce Rest authentication on our routes.
     protected $namespace = "wc-beans/v1";
     protected $rest_base = 'connector';
 
@@ -14,45 +14,113 @@ class ConnectorRESTController extends \WP_REST_Controller
     {
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/riper_version',
+            '/' . $this->rest_base,
             array(
-                'methods' => 'POST',
-                'callback' => array(__CLASS__, 'update_item_riper_version'),
-                'permission_callback' => array($this, 'update_item_permissions_check'),
-                'args' => array(
-                    'riper_version' => array(
-                        'required' => true,
-                        'validate_callback' => function ($param, $request, $key) {
-                            return is_string($param) and in_array($param, array('lts', 'edge'));
-                        },
-                        'sanitize_callback' => function ($param, $request, $key) {
-                            return htmlspecialchars($param);
-                        },
-                    )
+                array(
+                    'methods' => \WP_REST_Server::READABLE,
+                    'callback' => array(__CLASS__, 'get_item'),
+                    'permission_callback' => array($this, 'get_item_permissions_check'),
+                    'args' => $this->get_args(\WP_REST_Server::READABLE)
+                ),
+                array(
+                    'methods' => \WP_REST_Server::EDITABLE,
+                    'callback' => array(__CLASS__, 'update_item'),
+                    'permission_callback' => array($this, 'update_item_permissions_check'),
+                    'args' => $this->get_args(\WP_REST_Server::EDITABLE)
                 )
             )
         );
     }
 
-    public static function update_item_riper_version($request)
+    public function get_item($request)
     {
-        Helper::setConfig('riper_version', $request['riper_version']);
-
         $data = array(
-            'result' =>  true,
+            'card' => Helper::getConfig('card'),
+            'is_setup' => Helper::isSetup(),
+            'riper_version' => Helper::getConfig('riper_version'),
+            'pages' => Helper::getBeansPages(),
         );
         $response = new \WP_REST_Response($data);
+        $response->set_status(200);
+        return $response;
+    }
+
+    public function update_item($request)
+    {
+        if (isset($request['riper_version'])) {
+            Helper::setConfig('riper_version', $request['riper_version']);
+        }
+
+        # Reinstall the App through
+        if (isset($request['card']) && isset($request['token'])) {
+            $card_id = $request['card'];
+            $token   = $request['token'];
+            if (!\BeansWoo\Admin\Connector::processSetup($card_id, $token)) {
+                return new \WP_Error(
+                    "beans_rest_cannot_setup",
+                    __("Unable to setup the plugins", 'woocommerce'),
+                    array('status' => 400)
+                );
+            }
+            \BeansWoo\Admin\Connector::setupPages();
+        }
+
+        $response = $this->get_item($request);
         $response->set_status(202);
         return $response;
     }
 
+    public function get_item_permissions_check($request)
+    {
+        return $this->check_permissions($request, 'view');
+    }
+
     public function update_item_permissions_check($request)
     {
+        return $this->check_permissions($request, 'edit');
+    }
 
+    public function get_args($action)
+    {
+        if ($action === \WP_REST_Server::EDITABLE) {
+            return array(
+                'riper_version' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_string($param) and in_array($param, array('lts', 'edge'));
+                    },
+                ),
+                'token' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_string($param);
+                    },
+                ),
+                'card' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_string($param) and substr($param, 0, strlen($key)) === $key;
+                    },
+                ),
+            );
+        }
+        return array();
+    }
+
+    public static function sanitize_value($param, $request, $key)
+    {
+        return htmlspecialchars($param);
+    }
+
+    private function check_permissions($request, $action)
+    {
         if (!current_user_can('manage_options')) {
             return new \WP_Error(
-                'beans_rest_cannot_edit',
-                __('Sorry, you are not allowed to edit this resource.', 'woocommerce'),
+                "beans_rest_cannot_$action",
+                __("Sorry, you are not allowed to $action this resource.", 'woocommerce'),
                 array('status' => rest_authorization_required_code())
             );
         }
