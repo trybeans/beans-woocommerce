@@ -16,13 +16,13 @@ class Scripts
     public static function enqueueScripts()
     {
         $version = Helper::getConfig('riper_version');
-        // Fallback on `lts` when the version is not set. This will help to avoid breaking 
+        // Fallback on `lts` when the version is not set. This will help to avoid breaking
         // the store after migrating from 3.3.x to 3.3.5.
-        $version = $version ? $version : 'lts';  
+        $version = $version ? $version : 'lts';
         wp_enqueue_script(
             'beans-ultimate-js',
             'https://' . Helper::getDomain("CDN") .
-                "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" . 
+                "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" .
                 Helper::getConfig('card'),
             array(),
             (string)time(),
