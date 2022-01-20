@@ -58,6 +58,7 @@ class ConnectorRESTController extends \WP_REST_Controller
                 );
             }
             Connector::setupPages();
+            Helper::clearTransients();
         }
 
         $response = new \WP_REST_Response(self::get_item_data());
