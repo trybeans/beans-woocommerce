@@ -14,17 +14,17 @@ class ConnectorRESTController extends \WP_REST_Controller
     {
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base,
+            '/' . $this->rest_base . '/current',
             array(
                 array(
                     'methods' => \WP_REST_Server::READABLE,
-                    'callback' => array(__CLASS__, 'get_item'),
+                    'callback' => array($this, 'get_item'),
                     'permission_callback' => array($this, 'get_item_permissions_check'),
                     'args' => $this->get_args(\WP_REST_Server::READABLE)
                 ),
                 array(
                     'methods' => \WP_REST_Server::EDITABLE,
-                    'callback' => array(__CLASS__, 'update_item'),
+                    'callback' => array($this, 'update_item'),
                     'permission_callback' => array($this, 'update_item_permissions_check'),
                     'args' => $this->get_args(\WP_REST_Server::EDITABLE)
                 )
