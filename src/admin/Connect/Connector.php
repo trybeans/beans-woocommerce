@@ -15,8 +15,10 @@ class Connector
         }
     }
 
-    public static function processSetup($card_id, $token)
+    public static function processSetup()
     {
+        $card_id = $_GET['card'];
+        $token   = $_GET['token'];
 
         Helper::$key = $card_id;
 

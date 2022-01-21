@@ -96,10 +96,7 @@ class Router
         }
 
         if (isset($_GET['card']) && isset($_GET['token'])) {
-            $card_id = $_GET['card'];
-            $token   = $_GET['token'];
-
-            if (Connector::processSetup($card_id, $token)) {
+            if (Connector::processSetup()) {
                 return wp_redirect(self::getTabURL(self::TAB_SETTINGS));
             }
         }
