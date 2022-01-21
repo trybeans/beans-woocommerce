@@ -88,13 +88,9 @@ class Hooks
 
         foreach (Helper::getBeansPages() as $app_name => $values) {
             $page_id = $values['page_id'];
-            $page_exists = false;
             $page_visible = false;
 
             $page_set = true;
-            if (get_post($page_id)) {
-                $page_exists = true;
-            }
             if ('publish' === get_post_status($page_id)) {
                 $page_visible = true;
             }
@@ -105,7 +101,7 @@ class Hooks
                 'type' => $values['type'],
                 'shortcode_present' => true,
                 'shortcode_required' => true,
-                'page_exists' => $page_exists,
+                'page_exists' => $values['page_exists'],
                 'page_visible' => $page_visible,
                 'page_name' => $values['page_name'],
                 'shortcode' => $values['shortcode'],

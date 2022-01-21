@@ -22,13 +22,15 @@ class LianaPage
 
     public static function getPageReferences()
     {
+        $page_id = Helper::getConfig('liana_page');
         return array(
             'shortcode' => '[' . self::PAGE_SHORTCODE . ']',
-            'page_id'   => Helper::getConfig('liana_page'),
+            'page_id'   => $page_id,
             'page_name' => 'Rewards Program',
             'option'    => 'beans_page_id',
             'slug'      => 'rewards-program',
             'type'      => 'reward',
+            'page_exists' => get_post($page_id) ? true : false,
         );
     }
 }

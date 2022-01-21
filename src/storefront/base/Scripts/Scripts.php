@@ -59,6 +59,7 @@ class Scripts
                 login: "<?= $account_page_id; ?>"
             }
             window.beans_plugin_version = "<?= BEANS_PLUGIN_VERSION ?>";
+            window.beans_riper_version = "<?= Helper::getConfig('riper_version'); ?>";
 
             window.Beans3.Radix.init();
         </script>
