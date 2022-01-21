@@ -39,7 +39,7 @@ class ConnectorRESTController extends \WP_REST_Controller
                 array(
                     'methods' => \WP_REST_Server::CREATABLE,
                     'callback' => array($this, 'create_item'),
-                    'permission_callback' => array($this, 'update_item_permissions_check'),
+                    'permission_callback' => array($this, 'create_item_permissions_check'),
                     'args' => $this->get_args(\WP_REST_Server::CREATABLE)
                 ),
             )
@@ -91,6 +91,12 @@ class ConnectorRESTController extends \WP_REST_Controller
     public function update_item_permissions_check($request)
     {
         return $this->check_permissions($request, 'edit');
+    }
+
+    public function create_item_permissions_check($request)
+    {
+        return $this->check_permissions($request, 'install');
+        
     }
 
     public function get_args($action)
