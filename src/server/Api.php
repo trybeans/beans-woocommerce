@@ -3,7 +3,7 @@
 namespace BeansWoo\Server;
 
 use Beans\BeansError;
-use \BeansWoo\Helper;
+use BeansWoo\Helper;
 
 class ConnectorRESTController extends \WP_REST_Controller
 {
@@ -57,9 +57,9 @@ class ConnectorRESTController extends \WP_REST_Controller
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
-            // Using `Connector::processSetup()` doesn't work. I had an error about the 
-            // `Class BeansWoo\Admin\Connector` doesn't exist. I tried to investigate but I am not able to find out 
-            // what is the bug. 
+            // Using `Connector::processSetup()` doesn't work. I had an error about the
+            // `Class BeansWoo\Admin\Connector` doesn't exist. I tried to investigate but I am not able to find out
+            // what is the bug.
             // todo; Use `Connector::processSetup()` instead of duplicating the logic;
             Helper::$key = $card_id;
 
@@ -71,9 +71,9 @@ class ConnectorRESTController extends \WP_REST_Controller
                     "beans_rest_cannot_setup",
                     __("Unable to setup Beans plugin", 'beans'),
                     array('status' => 400)
-                );    
+                );
             }
-    
+
             Helper::setConfig('key', $integration_key['id']);
             Helper::setConfig('card', $integration_key['card']['id']);
             Helper::setConfig('secret', $integration_key['secret']);
@@ -109,7 +109,6 @@ class ConnectorRESTController extends \WP_REST_Controller
     public function install_item_permissions_check($request)
     {
         return $this->check_permissions($request, 'install');
-        
     }
 
     public function get_args($action)
