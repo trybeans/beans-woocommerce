@@ -2,7 +2,7 @@
 
 namespace BeansWoo\Server;
 
-use \BeansWoo\Admin\Connector as BeansConnector;
+use Beans\BeansError;
 use \BeansWoo\Helper;
 
 class ConnectorRESTController extends \WP_REST_Controller
@@ -57,19 +57,32 @@ class ConnectorRESTController extends \WP_REST_Controller
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
-            if (!BeansConnector::processSetup($card_id, $token)) {
+            // Using `Connector::processSetup()` doesn't work. I had an error about the 
+            // `Class BeansWoo\Admin\Connector` doesn't exist. I tried to investigate but I am not able to find out 
+            // what is the bug. 
+            // todo; Use `Connector::processSetup()` instead of duplicating the logic;
+            Helper::$key = $card_id;
+
+            try {
+                $integration_key = Helper::API()->get('core/auth/integration_key/' . $token);
+            } catch (BeansError  $e) {
+                Helper::log('Connecting failed: ' . $e->getMessage());
                 return new \WP_Error(
                     "beans_rest_cannot_setup",
                     __("Unable to setup Beans plugin", 'beans'),
                     array('status' => 400)
-                );
+                );    
             }
-            BeansConnector::setupPages();
+    
+            Helper::setConfig('key', $integration_key['id']);
+            Helper::setConfig('card', $integration_key['card']['id']);
+            Helper::setConfig('secret', $integration_key['secret']);
             Helper::clearTransients();
         }
 
         $response = new \WP_REST_Response(self::get_item_data());
         $response->set_status(201);
+        return $response;
     }
 
     public function update_item($request)
