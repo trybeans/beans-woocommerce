@@ -2,8 +2,8 @@
 
 namespace BeansWoo\Server;
 
-use BeansWoo\Helper;
-use BeansWoo\Admin\Connector;
+use \BeansWoo\Admin\Connector as BeansConnector;
+use \BeansWoo\Helper;
 
 class ConnectorRESTController extends \WP_REST_Controller
 {
@@ -57,14 +57,14 @@ class ConnectorRESTController extends \WP_REST_Controller
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
-            if (!Connector::processSetup($card_id, $token)) {
+            if (!BeansConnector::processSetup($card_id, $token)) {
                 return new \WP_Error(
                     "beans_rest_cannot_setup",
                     __("Unable to setup Beans plugin", 'beans'),
                     array('status' => 400)
                 );
             }
-            Connector::setupPages();
+            BeansConnector::setupPages();
             Helper::clearTransients();
         }
 
@@ -114,14 +114,14 @@ class ConnectorRESTController extends \WP_REST_Controller
         } elseif ($action == \WP_REST_Server::CREATABLE) {
             return array(
                 'token' => array(
-                    'required' => false,
+                    'required' => true,
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_string($param);
                     },
                 ),
                 'card' => array(
-                    'required' => false,
+                    'required' => true,
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_string($param) and substr($param, 0, strlen($key)) === $key;
