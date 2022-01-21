@@ -15,20 +15,33 @@ class ConnectorRESTController extends \WP_REST_Controller
     {
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base,
+            '/' . $this->rest_base . '/current',
             array(
                 array(
                     'methods' => \WP_REST_Server::READABLE,
-                    'callback' => array(__CLASS__, 'get_item'),
+                    'callback' => array($this, 'get_item'),
                     'permission_callback' => array($this, 'get_item_permissions_check'),
                     'args' => $this->get_args(\WP_REST_Server::READABLE)
                 ),
                 array(
                     'methods' => \WP_REST_Server::EDITABLE,
-                    'callback' => array(__CLASS__, 'update_item'),
+                    'callback' => array($this, 'update_item'),
                     'permission_callback' => array($this, 'update_item_permissions_check'),
                     'args' => $this->get_args(\WP_REST_Server::EDITABLE)
                 )
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/install',
+            array(
+                array(
+                    'methods' => \WP_REST_Server::CREATABLE,
+                    'callback' => array($this, 'create_item'),
+                    'permission_callback' => array($this, 'update_item_permissions_check'),
+                    'args' => $this->get_args(\WP_REST_Server::CREATABLE)
+                ),
             )
         );
     }
@@ -39,26 +52,30 @@ class ConnectorRESTController extends \WP_REST_Controller
         $response->set_status(200);
         return $response;
     }
-
-    public function update_item($request)
+    public function create_item($request)
     {
-        if (isset($request['riper_version'])) {
-            Helper::setConfig('riper_version', $request['riper_version']);
-        }
-
-        # Reinstall the plugin
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
             if (!Connector::processSetup($card_id, $token)) {
                 return new \WP_Error(
                     "beans_rest_cannot_setup",
-                    __("Unable to setup the plugins", 'woocommerce'),
+                    __("Unable to setup Beans plugin", 'beans'),
                     array('status' => 400)
                 );
             }
             Connector::setupPages();
             Helper::clearTransients();
+        }
+
+        $response = new \WP_REST_Response(self::get_item_data());
+        $response->set_status(201);
+    }
+
+    public function update_item($request)
+    {
+        if (isset($request['riper_version'])) {
+            Helper::setConfig('riper_version', $request['riper_version']);
         }
 
         $response = new \WP_REST_Response(self::get_item_data());
@@ -87,6 +104,9 @@ class ConnectorRESTController extends \WP_REST_Controller
                         return is_string($param) and in_array($param, array('lts', 'edge'));
                     },
                 ),
+            );
+        } elseif ($action == \WP_REST_Server::CREATABLE) {
+            return array(
                 'token' => array(
                     'required' => false,
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
