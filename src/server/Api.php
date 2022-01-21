@@ -38,8 +38,8 @@ class ConnectorRESTController extends \WP_REST_Controller
             array(
                 array(
                     'methods' => \WP_REST_Server::CREATABLE,
-                    'callback' => array($this, 'create_item'),
-                    'permission_callback' => array($this, 'create_item_permissions_check'),
+                    'callback' => array($this, 'install'),
+                    'permission_callback' => array($this, 'install_item_permissions_check'),
                     'args' => $this->get_args(\WP_REST_Server::CREATABLE)
                 ),
             )
@@ -52,7 +52,7 @@ class ConnectorRESTController extends \WP_REST_Controller
         $response->set_status(200);
         return $response;
     }
-    public function create_item($request)
+    public function install($request)
     {
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
@@ -106,7 +106,7 @@ class ConnectorRESTController extends \WP_REST_Controller
         return $this->check_permissions($request, 'edit');
     }
 
-    public function create_item_permissions_check($request)
+    public function install_item_permissions_check($request)
     {
         return $this->check_permissions($request, 'install');
         
