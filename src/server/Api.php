@@ -3,6 +3,7 @@
 namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
+use BeansWoo\Admin\Connector;
 
 class ConnectorRESTController extends \WP_REST_Controller
 {
@@ -45,6 +46,21 @@ class ConnectorRESTController extends \WP_REST_Controller
             Helper::setConfig('riper_version', $request['riper_version']);
         }
 
+        # Reinstall the plugin
+        if (isset($request['card']) && isset($request['token'])) {
+            $card_id = $request['card'];
+            $token   = $request['token'];
+            if (!Connector::processSetup($card_id, $token)) {
+                return new \WP_Error(
+                    "beans_rest_cannot_setup",
+                    __("Unable to setup the plugins", 'woocommerce'),
+                    array('status' => 400)
+                );
+            }
+            Connector::setupPages();
+            Helper::clearTransients();
+        }
+
         $response = new \WP_REST_Response(self::get_item_data());
         $response->set_status(202);
         return $response;
@@ -69,6 +85,20 @@ class ConnectorRESTController extends \WP_REST_Controller
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_string($param) and in_array($param, array('lts', 'edge'));
+                    },
+                ),
+                'token' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_string($param);
+                    },
+                ),
+                'card' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_string($param) and substr($param, 0, strlen($key)) === $key;
                     },
                 ),
             );
