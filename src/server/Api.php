@@ -3,7 +3,6 @@
 namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
-use BeansWoo\Admin\Connector;
 
 class ConnectorRESTController extends \WP_REST_Controller
 {
