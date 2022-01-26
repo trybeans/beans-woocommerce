@@ -118,6 +118,7 @@ The WordPress codex contains instructions on
 
 == 3.3.5 ==
 - Introduce riper LTS/EDGE version
+- Introduce lifetime discount on the tier system
 - Implement Beans REST API v1
 - Test compatibility with WordPress 5.9
 - Test compatibility with WooCommerce 6.1.1
