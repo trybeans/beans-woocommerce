@@ -4,7 +4,7 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
-class LianaTierObserver extends LianaObserver
+class LianaLifetimeObserver extends LianaObserver
 {
 
     protected static $tiers;
