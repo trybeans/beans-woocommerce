@@ -18,6 +18,7 @@ require_once "liana/Observer/LianaAjaxObserver.php";
 require_once "liana/Observer/LianaCartObserver.php";
 require_once "liana/Observer/LianaProductObserver.php";
 require_once "liana/Observer/LianaProductAjaxObserver.php";
+require_once "liana/Observer/LianaTierObserver.php";
 
 require_once "liana/Cart/LianaCart.php";
 require_once "liana/Page/LianaPage.php";
@@ -64,6 +65,7 @@ class Main
         }
 
         LianaCartObserver::init($display);
+        LianaTierObserver::init($display);
         LianaProductObserver::init($display);
     }
 
