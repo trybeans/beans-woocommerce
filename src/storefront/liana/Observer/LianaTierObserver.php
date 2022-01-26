@@ -64,13 +64,14 @@ class LianaTierObserver extends LianaObserver
         $_SESSION['liana_tier_redemption'] = array(
             'code'  => self::REDEEM_TIER_COUPON_UID,
             'value' => $amount,
+            'beans' => null,
         );
 
         $cart = Helper::getCart();
         $cart->apply_coupon(self::REDEEM_TIER_COUPON_UID);
     }
 
-    public static function getActiveTierDiscount()
+    public static function getActiveTierRedemption()
     {
         return isset($_SESSION['liana_tier_redemption']) ? $_SESSION['liana_tier_redemption'] : null;
     }
@@ -79,7 +80,7 @@ class LianaTierObserver extends LianaObserver
     {
         if (
             $coupon_code != self::REDEEM_TIER_COUPON_UID
-            || !self::getActiveTierDiscount()
+            || !self::getActiveTierRedemption()
         ) {
             return $coupon;
         }
@@ -90,7 +91,7 @@ class LianaTierObserver extends LianaObserver
         }
 
         $cart       = Helper::getCart();
-        $redemption = self::getActiveTierDiscount();
+        $redemption = self::getActiveTierRedemption();
 
         if (empty($cart)) {
             return $coupon;
