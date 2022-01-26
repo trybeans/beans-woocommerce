@@ -91,7 +91,7 @@ class Auth
         $token      = BeansAccount::getToken();
         $redemption = LianaObserver::getActiveRedemption();
         if (empty($redemption)) {
-            $redemption = LianaLifetimeObserver::getActiveTierRedemption();
+            $redemption = LianaLifetimeDiscountObserver::getActiveTierRedemption();
         }
 
         $data = array(
