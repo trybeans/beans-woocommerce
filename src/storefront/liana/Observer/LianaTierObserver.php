@@ -102,7 +102,7 @@ class LianaTierObserver extends LianaObserver
             'date_created'                => strtotime('-1 hour', time()),
             'date_modified'               => time(),
             'date_expires'                => strtotime('+1 day', time()),
-            'discount_type'               => 'percentage',
+            'discount_type'               => 'percent',
             'description'                 => '',
             'usage_count'                 => 0,
             'individual_use'              => false,
