@@ -266,7 +266,8 @@ div: .beans-section
 
 
 /* Woocommerce */
-.woocommerce-remove-coupon[data-coupon="redeem_points"] {
+.woocommerce-remove-coupon[data-coupon="redeem_points"],
+.woocommerce-remove-coupon[data-coupon="redeem_tiers"] {
     display: none;
 }
 

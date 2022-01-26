@@ -1,11 +1,11 @@
 === Beans · Marketing Apps for Woocommerce  ===
 
-Contributors: nas2lor, yan_dah, corentinalcoy
+Contributors: nas2lor, yan_dah, corentinal
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
 Requires at least: 5.2
 Requires PHP: 7.1
-Tested up to: 5.8.2
-Stable tag: 3.3.4
+Tested up to: 5.9
+Stable tag: 3.3.5
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -115,6 +115,13 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 3.3.5 ==
+- Introduce riper LTS/EDGE version
+- Introduce lifetime discount on the tier system
+- Implement Beans REST API v1
+- Test compatibility with WordPress 5.9
+- Test compatibility with WooCommerce 6.1.1
 
 == 3.3.4 ==
 - Fix buy with points product price on product page

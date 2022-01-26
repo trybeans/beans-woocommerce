@@ -25,7 +25,9 @@ class LianaCartObserver extends LianaObserver
         $action = $_POST['beans_action'];
 
         if ($action == 'apply') {
-            self::applyCartRedemption();
+            if (!self::getTierId()) {
+                self::applyCartRedemption();
+            }
         } else {
             self::cancelRedemption();
         }

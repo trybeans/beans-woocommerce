@@ -16,4 +16,11 @@
         <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
         <exclude name="Squiz.Classes.ValidClassName"/>
     </rule>
+
+    <!-- 
+       This file extends from a main wordpress class and they don't use the camelcase convention for method names.
+    -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>src/server/Api.php</exclude-pattern>
+    </rule>
 </ruleset>

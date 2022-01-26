@@ -12,6 +12,7 @@ class LianaObserver
     protected static $redemption;
     protected static $i18n_strings;
     const REDEEM_COUPON_UID = 'redeem_points'; // protected
+    const REDEEM_TIER_COUPON_UID = 'redeem_tiers'; // protected
 
     public static function init($display)
     {
@@ -42,9 +43,13 @@ class LianaObserver
     public static function cancelRedemption()
     {
         Helper::getCart()->remove_coupon(self::REDEEM_COUPON_UID);
+        Helper::getCart()->remove_coupon(self::REDEEM_TIER_COUPON_UID);
 
         unset($_SESSION['liana_coupon']);
         unset($_SESSION['liana_redemption']);
+
+        unset($_SESSION['liana_tier_coupon']);
+        unset($_SESSION['liana_tier_redemption']);
     }
 
     public static function getActiveRedemption()
@@ -97,5 +102,11 @@ class LianaObserver
 
         self::cancelRedemption();
         BeansAccount::update();
+    }
+
+    public static function getTierId()
+    {
+        $tier_id = isset($_POST['tier_id']) && $_POST['tier_id'] ? $_POST['tier_id'] : null;
+        return $tier_id;
     }
 }

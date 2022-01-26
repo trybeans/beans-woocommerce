@@ -20,7 +20,7 @@ class Helper
             'CONNECT' => 'connect.trybeans.com',
             'WWW'     => 'www.trybeans.com',
             'CDN'     => 'cdn.trybeans.com',
-            'HOOK'    => 'api.radix.trybeans.com',
+            'RADIX'    => 'api.radix.trybeans.com',
         );
         $val     = getenv($key);
 
@@ -158,7 +158,7 @@ class Helper
     {
 
         // This function is used in `LianaProductObserver.updateProductPrice` to update the currency of the price in
-        // point when the Buy with point feature is active. We do not update the price 
+        // point when the Buy with point feature is active. We do not update the price
         // on the `shop` and` product` pages. Be careful when updating this function.
         if (is_front_page()) {
             return 'home';

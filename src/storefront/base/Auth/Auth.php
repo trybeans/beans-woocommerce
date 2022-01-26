@@ -90,6 +90,9 @@ class Auth
         $cart       = isset($cart) ? $cart : null;
         $token      = BeansAccount::getToken();
         $redemption = LianaObserver::getActiveRedemption();
+        if (empty($redemption)) {
+            $redemption = LianaLifetimeDiscountObserver::getActiveTierRedemption();
+        }
 
         $data = array(
             "user"    => array(
