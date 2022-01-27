@@ -24,6 +24,14 @@ class LianaAjaxObserver extends LianaObserver
             return $_SESSION['liana_coupon'];
         }
 
+        if (
+            $coupon_code === self::REDEEM_TIER_COUPON_UID
+            && isset($_SESSION['liana_tier_coupon'])
+            && $_SESSION['liana_tier_coupon']
+        ) {
+            return $_SESSION['liana_tier_coupon'];
+        }
+
         return $coupon;
     }
 
