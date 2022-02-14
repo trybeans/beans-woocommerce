@@ -60,6 +60,12 @@ class Scripts
             }
             window.beans_plugin_version = "<?= BEANS_PLUGIN_VERSION ?>";
             window.beans_riper_version = "<?= Helper::getConfig('riper_version'); ?>";
+            
+            // The lines below help to initialize our script even if it is cached.
+            // We used to suffer with WP-Rocket caching
+            // DON'T TOUCH
+            window.beans_radix = "woocommerce";
+            window.beans_card = "<?= Helper::getConfig('card'); ?>";
 
             window.Beans3.Radix.init();
         </script>
