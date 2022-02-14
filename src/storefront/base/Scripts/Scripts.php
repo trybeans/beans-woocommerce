@@ -15,6 +15,16 @@ class Scripts
 
     public static function enqueueScripts()
     {
+        $card = Helper::getConfig('card');
+        ?>
+        <script>
+            // This script helps to initialize our script even if it is cached.
+            // We used to suffer from WP-Rocket caching
+            // DON'T TOUCH
+            window.beans_radix = "woocommerce";
+            window.beans_card = "<?= $card; ?>";
+        </script>
+        <?php
         $version = Helper::getConfig('riper_version');
         // Fallback on `lts` when the version is not set. This will help to avoid breaking
         // the store after migrating from 3.3.x to 3.3.5.
@@ -22,8 +32,7 @@ class Scripts
         wp_enqueue_script(
             'beans-ultimate-js',
             'https://' . Helper::getDomain("CDN") .
-                "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" .
-                Helper::getConfig('card'),
+                "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" . $card,
             array(),
             (string)time(),
             false
