@@ -151,7 +151,7 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     private function check_permissions($request, $action)
     {
-        if (!current_user_can('manage_options')) {
+        if (!current_user_can('manage_woocommerce')) {
             return new \WP_Error(
                 "beans_rest_cannot_$action",
                 __("Sorry, you are not allowed to $action this resource.", 'woocommerce'),
