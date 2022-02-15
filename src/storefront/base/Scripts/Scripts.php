@@ -16,11 +16,11 @@ class Scripts
     public static function enqueueScripts()
     {
         $card = Helper::getConfig('card');
+        // This script helps to initialize our script even if it is cached.
+        // We used to suffer from WP-Rocket caching
+        // DON'T TOUCH
         ?>
         <script>
-            // This script helps to initialize our script even if it is cached.
-            // We used to suffer from WP-Rocket caching
-            // DON'T TOUCH
             window.beans_radix = "woocommerce";
             window.beans_card = "<?= $card; ?>";
         </script>
