@@ -10,6 +10,20 @@ class BeansAccount
 
     public static function create($email, $firstname, $lastname)
     {
+        $card = Helper::requestTransientAPI('GET', 'ultimate/card/current');
+
+        if (isset($card['is_active']) and $card['is_active']) {
+            Helper::log("Unable to create account: Ultimate card is not active.");
+            return null;
+        }
+
+        $apps = array();
+        foreach (["liana", "bamboo", "foxx"] as $app) {
+            if (isset($card['apps'][$app]) and $card['apps'][$app]['is_active']) {
+                $apps[] = $app;
+            }
+        }
+
         try {
             $account = Helper::API()->post(
                 'ultimate/account',
@@ -17,7 +31,7 @@ class BeansAccount
                     'email'      => $email,
                     'first_name' => $firstname,
                     'last_name'  => $lastname,
-                    'apps'       => ["liana", "bamboo", "foxx"],
+                    'apps'       => $apps,
                 )
             );
         } catch (BeansError $e) {

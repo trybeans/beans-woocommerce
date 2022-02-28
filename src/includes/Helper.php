@@ -68,6 +68,7 @@ class Helper
         self::log('Deleting transients');
         delete_transient('$beans_liana_display_current');
         delete_transient('$beans_core_user_current_loginkey');
+        delete_transient('$beans_ultimate_card_current');
 
         # This will help to remove old transients.
         # todo; remove
