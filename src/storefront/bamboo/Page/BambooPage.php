@@ -31,6 +31,7 @@ class BambooPage
             'slug' => 'referral-program',
             'type' => 'referral',
             'page_exists' => get_post($page_id) ? true : false,
+            'display_is_powerby_section' => Helper::getConfig('bamboo_is_powerby'),
         );
     }
 }

@@ -91,6 +91,12 @@ class ConnectorRESTController extends \WP_REST_Controller
             Helper::setConfig('riper_version', $request['riper_version']);
         }
 
+        foreach (['liana_is_powerby', 'bamboo_is_powerby'] as $field) {
+            if (isset($request[$field])) {
+                Helper::setConfig($field, $request[$field]);
+            }
+        }
+
         $response = new \WP_REST_Response(self::get_item_data());
         $response->set_status(202);
         return $response;
@@ -120,6 +126,20 @@ class ConnectorRESTController extends \WP_REST_Controller
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_string($param) and in_array($param, array('lts', 'edge'));
+                    },
+                ),
+                'liana_is_powerby' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_bool($param);
+                    },
+                ),
+                'bamboo_is_powerby' => array(
+                    'required' => false,
+                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_bool($param);
                     },
                 ),
             );
