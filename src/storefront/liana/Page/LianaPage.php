@@ -31,6 +31,7 @@ class LianaPage
             'slug'      => 'rewards-program',
             'type'      => 'reward',
             'page_exists' => get_post($page_id) ? true : false,
+            'display_is_powerby_section' => Helper::getConfig('liana_is_powerby'),
         );
     }
 }
