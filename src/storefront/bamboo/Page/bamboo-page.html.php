@@ -8,6 +8,17 @@ $is_powerby = Helper::getConfig('bamboo_is_powerby');
 ?>
 <div id="bamboo-referral-page">
 <!-- DO NOT TOUCH -->
+  <div style="display: flex;
+              flex-direction: column;
+              width: 100%;
+              justify-content: center;
+              align-items: center;
+              text-align: center;"
+  >
+    <img src="https://cdn.trybeans.com/lib/ultimate/lts/assets/bamboo-loading.gif" 
+         width="100px" height="100px" alt="bamboo-loading" 
+    />
+  </div>
 </div>
 
 <?php if (is_null($is_powerby) || $is_powerby == true) : ?>
