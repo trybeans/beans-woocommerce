@@ -119,7 +119,9 @@ The WordPress codex contains instructions on
 == 3.3.7 ==
 - Fix WP-Rocket caching issue
 - Fix permission issue on Beans API v1
-- Test compatibility with WooCommerce 6.2.0
+- Test compatibility with WooCommerce 6.3.0
+- Add preloader on programs pages
+- Add support to customize powerby section on programs pages
 
 == 3.3.6 ==
 - Load lifetime discount for ajax 
