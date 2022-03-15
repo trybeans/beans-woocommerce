@@ -4,7 +4,7 @@ use BeansWoo\Helper;
 
 defined('ABSPATH') or die;
 
-$is_powerby = Helper::getConfig('bamboo_is_powerby');
+$is_powerby = Helper::getConfig('is_powerby');
 ?>
 <div id="bamboo-referral-page">
 <!-- DO NOT TOUCH -->

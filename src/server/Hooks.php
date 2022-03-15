@@ -106,7 +106,6 @@ class Hooks
                 'page_name' => $values['page_name'],
                 'shortcode' => $values['shortcode'],
                 'path' => str_replace(home_url(), '', get_permalink(Helper::getConfig($app_name . '_page'))),
-                'display_is_powerby_section' => $values['display_is_powerby_section'],
             );
         }
 

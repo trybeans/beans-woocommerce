@@ -5,7 +5,7 @@ use BeansWoo\Helper;
 defined('ABSPATH') or die;
 
 \BeansWoo\StoreFront\Auth::forceCustomerAuthentication();
-$is_powerby = Helper::getConfig('liana_is_powerby');
+$is_powerby = Helper::getConfig('is_powerby');
 ?>
 <div id="liana-rewards-page">
   <!-- DO NOT TOUCH -->

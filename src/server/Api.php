@@ -87,11 +87,7 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     public function update_item($request)
     {
-        if (isset($request['riper_version'])) {
-            Helper::setConfig('riper_version', $request['riper_version']);
-        }
-
-        foreach (['liana_is_powerby', 'bamboo_is_powerby'] as $field) {
+        foreach (['is_powerby', 'riper_version'] as $field) {
             if (isset($request[$field])) {
                 Helper::setConfig($field, $request[$field]);
             }
@@ -128,14 +124,7 @@ class ConnectorRESTController extends \WP_REST_Controller
                         return is_string($param) and in_array($param, array('lts', 'edge'));
                     },
                 ),
-                'liana_is_powerby' => array(
-                    'required' => false,
-                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
-                    'validate_callback' => function ($param, $request, $key) {
-                        return is_bool($param);
-                    },
-                ),
-                'bamboo_is_powerby' => array(
+                'is_powerby' => array(
                     'required' => false,
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
@@ -187,6 +176,7 @@ class ConnectorRESTController extends \WP_REST_Controller
             'card' => Helper::getConfig('card'),
             'is_setup' => Helper::isSetup(),
             'riper_version' => Helper::getConfig('riper_version'),
+            'is_powerby' => Helper::getConfig('is_powerby'),
             'pages' => Helper::getBeansPages(),
         );
     }
