@@ -126,7 +126,7 @@ class ConnectorRESTController extends \WP_REST_Controller
                 ),
                 'is_powerby' => array(
                     'required' => false,
-                    'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    // 'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_bool($param);
                     },
