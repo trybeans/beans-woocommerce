@@ -44,17 +44,30 @@ class LianaLifetimeDiscountObserver extends LianaObserver
 
         self::cancelRedemption();
 
-        $tier_id = self::getTierId();
         $tier = null;
-        foreach (self::$tiers as $value) {
-            if ($value['id'] == $tier_id) {
-                $tier = $value;
-                break;
+        $tier_id = self::getAccountData('tier_id');
+
+        // todo; remove after migrating tier to tier_id on account
+        if (is_null($tier_id)) {
+            $tier = self::getAccountData('tier');
+        }
+
+        if (is_null($tier_id) and is_null($tier)) {
+            return;
+        }
+
+        // todo; remove after migrating tier to tier_id on account
+        if (is_null($tier)) {
+            foreach (self::$tiers as $value) {
+                if ($value['id'] == $tier_id) {
+                    $tier = $value;
+                    break;
+                }
             }
         }
 
         if (is_null($tier)) {
-            return;
+            return ;
         }
 
         $discount_value = $tier['lifetime_discount'];
