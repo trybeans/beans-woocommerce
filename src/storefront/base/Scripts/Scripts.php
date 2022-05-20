@@ -44,6 +44,7 @@ class Scripts
     public static function renderFooter()
     {
         $account_page_id = get_option('woocommerce_myaccount_page_id');
+        $current_currency = Helper::getConfig('is_multi_currency') ? get_woocommerce_currency() : null;
         // todo; remove `beans_pages`, `beans_pages_ids`, `beans_plugin_version`, & `beans_riper_version`
         //  cause they've been deprecated. Use `beans_init_data` instead
         ?>
@@ -71,7 +72,7 @@ class Scripts
                 },
                 plugin_version: "<?= BEANS_PLUGIN_VERSION ?>",
                 riper_version: "<?= Helper::getConfig('riper_version'); ?>",
-                current_currency: "<?= get_woocommerce_currency(); ?>"
+                current_currency: "<?= $current_currency; ?>"
             }
 
             // @:deprecated

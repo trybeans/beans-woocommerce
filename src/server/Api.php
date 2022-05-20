@@ -87,7 +87,7 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     public function update_item($request)
     {
-        foreach (['is_powerby', 'riper_version'] as $field) {
+        foreach (['is_powerby', 'riper_version', 'is_multi_currency'] as $field) {
             if (isset($request[$field])) {
                 Helper::setConfig($field, $request[$field]);
             }
@@ -127,6 +127,12 @@ class ConnectorRESTController extends \WP_REST_Controller
                 'is_powerby' => array(
                     'required' => false,
                     // 'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_bool($param);
+                    },
+                ),                
+                'is_multi_currency' => array(
+                    'required' => false,
                     'validate_callback' => function ($param, $request, $key) {
                         return is_bool($param);
                     },
@@ -177,6 +183,7 @@ class ConnectorRESTController extends \WP_REST_Controller
             'is_setup' => Helper::isSetup(),
             'riper_version' => Helper::getConfig('riper_version'),
             'is_powerby' => Helper::getConfig('is_powerby'),
+            'is_multi_currency' => Helper::getConfig('is_multi_currency'),
             'pages' => Helper::getBeansPages(),
         );
     }
