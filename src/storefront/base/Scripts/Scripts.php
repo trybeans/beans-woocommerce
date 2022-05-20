@@ -77,7 +77,7 @@ class Scripts
                 },
                 plugin_version: "<?= BEANS_PLUGIN_VERSION ?>",
                 riper_version: "<?= Helper::getConfig('riper_version'); ?>",
-                current_currency: "<?= $current_currency; ?>",
+                currency: "<?= $current_currency; ?>",
                 default_currency: "<?= $default_currency; ?>",
             };
 
