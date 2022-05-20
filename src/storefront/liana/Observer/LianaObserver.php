@@ -82,7 +82,7 @@ class LianaObserver
 
                 $data = array(
                     'quantity'    => $amount,
-                    'rule'        => 'rule:liana:discount',
+                    'rule'        => get_option('woocommerce_currency'),
                     'account'     => $account_id,
                     'description' => "Debited for a $amount_str discount on order #" . $order->get_id(),
                     'uid'         => 'wc_' . $order->get_id() . '_' . $order->get_order_key(),
