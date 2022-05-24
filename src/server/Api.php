@@ -54,9 +54,11 @@ class ConnectorRESTController extends \WP_REST_Controller
     }
     public function install($request)
     {
-        if (isset($request['card']) && isset($request['token'])) {
+        if (isset($request['card']) && isset($request['token']) && isset($request['is_powerby'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
+            $is_powerby = (bool) $request['is_powerby'];
+
             // Using `Connector::processSetup()` doesn't work. I had an error about the
             // `Class BeansWoo\Admin\Connector` doesn't exist. I tried to investigate but I am not able to find out
             // what is the bug.
@@ -77,6 +79,7 @@ class ConnectorRESTController extends \WP_REST_Controller
             Helper::setConfig('key', $integration_key['id']);
             Helper::setConfig('card', $integration_key['card']['id']);
             Helper::setConfig('secret', $integration_key['secret']);
+            Helper::setConfig('is_powerby', $is_powerby);
             Helper::clearTransients();
         }
 
@@ -87,7 +90,7 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     public function update_item($request)
     {
-        foreach (['is_powerby', 'riper_version'] as $field) {
+        foreach (['riper_version'] as $field) {
             if (isset($request[$field])) {
                 Helper::setConfig($field, $request[$field]);
             }
@@ -124,13 +127,6 @@ class ConnectorRESTController extends \WP_REST_Controller
                         return is_string($param) and in_array($param, array('lts', 'edge'));
                     },
                 ),
-                'is_powerby' => array(
-                    'required' => false,
-                    // 'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
-                    'validate_callback' => function ($param, $request, $key) {
-                        return is_bool($param);
-                    },
-                ),
             );
         } elseif ($action == \WP_REST_Server::CREATABLE) {
             return array(
@@ -146,6 +142,12 @@ class ConnectorRESTController extends \WP_REST_Controller
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_string($param) and substr($param, 0, strlen($key)) === $key;
+                    },
+                ),
+                'is_powerby' => array(
+                    'required' => true,
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_bool($param);
                     },
                 ),
             );

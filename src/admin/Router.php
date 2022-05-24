@@ -95,7 +95,7 @@ class Router
             }
         }
 
-        if (isset($_GET['card']) && isset($_GET['token'])) {
+        if (isset($_GET['card']) && isset($_GET['token']) && $_GET['is_powerby']) {
             if (Connector::processSetup()) {
                 return wp_redirect(self::getTabURL(self::TAB_SETTINGS));
             }
