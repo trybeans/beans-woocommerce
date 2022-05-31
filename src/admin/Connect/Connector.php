@@ -19,7 +19,6 @@ class Connector
     {
         $card_id = $_GET['card'];
         $token   = $_GET['token'];
-        $is_powerby = (bool) $_GET['is_powerby'];
 
         Helper::$key = $card_id;
 
@@ -35,7 +34,6 @@ class Connector
         Helper::setConfig('key', $integration_key['id']);
         Helper::setConfig('card', $integration_key['card']['id']);
         Helper::setConfig('secret', $integration_key['secret']);
-        Helper::setConfig('is_powerby', $is_powerby);
 
         return true;
     }
