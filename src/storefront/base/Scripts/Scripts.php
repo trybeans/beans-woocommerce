@@ -44,6 +44,12 @@ class Scripts
     public static function renderFooter()
     {
         $account_page_id = get_option('woocommerce_myaccount_page_id');
+        $default_currency = get_option('woocommerce_currency');
+        $current_currency = get_woocommerce_currency();
+
+        if ($current_currency == $default_currency) {
+            $current_currency = null;
+        }
         ?>
         <script>
             window.beans_pages = {
@@ -69,6 +75,11 @@ class Scripts
             }
             window.beans_plugin_version = "<?= BEANS_PLUGIN_VERSION ?>";
             window.beans_riper_version = "<?= Helper::getConfig('riper_version'); ?>";
+
+            window.beans_init_data = {
+                currency: "<?= $current_currency; ?>",
+                default_currency: "<?= $default_currency; ?>",
+            }
 
             window.Beans3.Radix.init();
         </script>
