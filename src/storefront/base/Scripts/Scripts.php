@@ -69,8 +69,20 @@ class Scripts
             }
             window.beans_plugin_version = "<?= BEANS_PLUGIN_VERSION ?>";
             window.beans_riper_version = "<?= Helper::getConfig('riper_version'); ?>";
-
-            window.Beans3.Radix.init();
+            
+            try {
+                window.Beans3.Radix.init();
+            } catch (error) {
+                if (error instanceof TypeError) {
+                    console.warn(
+                    `You are loading the Beans script from your local cache.
+                    It is recommended to not cache the Beans script.
+                    Learn more here: https://help.trybeans.com/integrations/woocommerce/caching-issues`
+                    );
+                } else {
+                    throw error;
+                }
+            }
         </script>
         <?php
     }
