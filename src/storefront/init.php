@@ -46,27 +46,27 @@ class Main
 
         ArrowLogin::init();
 
-        BambooPage::init();
+        $display_liana = Helper::requestTransientAPI('GET', 'liana/display/current');
+        $display_bamboo = Helper::requestTransientAPI('GET', 'bamboo/display/current');
 
-        LianaPage::init();
+        BambooPage::init($display_bamboo);
+
+        LianaPage::init($display_liana);
         LianaCart::init();
 
-
-        $display = Helper::requestTransientAPI('GET', 'liana/display/current');
-
-        if (empty($display)) {
+        if (empty($display_liana)) {
             Helper::log('Display is empty');
             return;
         }
 
-        if (!$display['is_active']) {
+        if (!$display_liana['is_active']) {
             Helper::log('Display is deactivated');
             return;
         }
 
-        LianaCartObserver::init($display);
-        LianaLifetimeDiscountObserver::init($display);
-        LianaProductObserver::init($display);
+        LianaCartObserver::init($display_liana);
+        LianaLifetimeDiscountObserver::init($display_liana);
+        LianaProductObserver::init($display_liana);
     }
 
     public static function initAjax()

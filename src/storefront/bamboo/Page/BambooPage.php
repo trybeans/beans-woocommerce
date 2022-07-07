@@ -7,11 +7,17 @@ use BeansWoo\Helper;
 class BambooPage
 {
     const PAGE_SHORTCODE = 'beans_referral_page'; // public
+    protected static $display;
+    public static $is_powerby;
 
-    public static function init()
+    public static function init($display)
     {
+        self::$display = $display;
+        self::$is_powerby = isset(self::$display['is_powerby']) ? self::$display['is_powerby'] : true;
+
         add_shortcode(self::PAGE_SHORTCODE, array(__CLASS__, 'renderPage'));
     }
+
     public static function renderPage()
     {
         ob_start();
