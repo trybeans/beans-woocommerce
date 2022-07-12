@@ -10,7 +10,7 @@ class Scripts
     {
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
 
-        add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
+        add_action('wp_head', array(__CLASS__, 'renderHeader'), 10, 1);
     }
 
     public static function enqueueScripts()
@@ -35,13 +35,13 @@ class Scripts
                 "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" . $card,
             array(),
             (string)time(),
-            false
+            true
         );
 
         wp_enqueue_style('beans-style', Helper::getAssetURL('assets/css/beans-storefront.css'));
     }
 
-    public static function renderFooter()
+    public static function renderHeader()
     {
         $account_page_id = get_option('woocommerce_myaccount_page_id');
         ?>
@@ -69,20 +69,7 @@ class Scripts
             }
             window.beans_plugin_version = "<?= BEANS_PLUGIN_VERSION ?>";
             window.beans_riper_version = "<?= Helper::getConfig('riper_version'); ?>";
-            
-            try {
-                window.Beans3.Radix.init();
-            } catch (error) {
-                if (error instanceof TypeError) {
-                    console.warn(
-                    `You are loading the Beans script from your local cache.
-                    It is recommended to not cache the Beans script.
-                    Learn more here: https://help.trybeans.com/integrations/woocommerce/caching-issues`
-                    );
-                } else {
-                    throw error;
-                }
-            }
+
         </script>
         <?php
     }
