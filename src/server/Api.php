@@ -57,6 +57,7 @@ class ConnectorRESTController extends \WP_REST_Controller
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
+
             // Using `Connector::processSetup()` doesn't work. I had an error about the
             // `Class BeansWoo\Admin\Connector` doesn't exist. I tried to investigate but I am not able to find out
             // what is the bug.
@@ -87,7 +88,7 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     public function update_item($request)
     {
-        foreach (['is_powerby', 'riper_version'] as $field) {
+        foreach (['riper_version'] as $field) {
             if (isset($request[$field])) {
                 Helper::setConfig($field, $request[$field]);
             }
@@ -122,13 +123,6 @@ class ConnectorRESTController extends \WP_REST_Controller
                     'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
                     'validate_callback' => function ($param, $request, $key) {
                         return is_string($param) and in_array($param, array('lts', 'edge'));
-                    },
-                ),
-                'is_powerby' => array(
-                    'required' => false,
-                    // 'sanitize_callback' => array(__CLASS__, 'sanitize_value'),
-                    'validate_callback' => function ($param, $request, $key) {
-                        return is_bool($param);
                     },
                 ),
             );
@@ -176,7 +170,6 @@ class ConnectorRESTController extends \WP_REST_Controller
             'card' => Helper::getConfig('card'),
             'is_setup' => Helper::isSetup(),
             'riper_version' => Helper::getConfig('riper_version'),
-            'is_powerby' => Helper::getConfig('is_powerby'),
             'pages' => Helper::getBeansPages(),
         );
     }
