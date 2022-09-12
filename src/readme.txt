@@ -117,7 +117,8 @@ The WordPress codex contains instructions on
 == Changelog ==
 
 == 3.3.8 ==
-- Add support for multiple currencies
+- Add support to customize powerby section on programs pages
+- Refactor beans initialization script
 
 == 3.3.7 ==
 - Fix WP-Rocket caching issue
