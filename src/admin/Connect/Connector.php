@@ -31,8 +31,8 @@ class Connector
             return null;
         }
 
+        Helper::setConfig('card', $card_id);
         Helper::setConfig('key', $integration_key['id']);
-        Helper::setConfig('card', $integration_key['card']['id']);
         Helper::setConfig('secret', $integration_key['secret']);
 
         return true;
