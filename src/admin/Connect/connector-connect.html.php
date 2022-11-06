@@ -46,11 +46,6 @@ $beans_app_list = array(
         'role'  => 'Notification Widget',
     ),
 
-    'arrow' => array(
-        'title' => 'Know your customer.',
-        'role'  => 'Social Connect',
-    ),
-
     'ultimate' => array(
         'title' => 'Connect your shop to get started',
         'role'  => '',
@@ -133,7 +128,7 @@ $beans_app_list = array(
       jQuery(function ($) {
           let info = [];
             <?php
-            $apps = ['liana', 'bamboo', 'foxx', 'snow', 'arrow', 'ultimate'];
+            $apps = ['liana', 'bamboo', 'foxx', 'snow', 'ultimate'];
             foreach ($apps as $app) {
                 if (in_array($app, ['snow', 'foxx'])) {
                     $hero_image = $app . '-hero.png';

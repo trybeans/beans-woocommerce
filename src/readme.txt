@@ -1,11 +1,11 @@
-=== Beans · Marketing Apps for Woocommerce  ===
+=== Beans · Loyalty and Rewards programs for Woocommerce  ===
 
 Contributors: nas2lor, yan_dah, corentinal
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.2
+Requires at least: 5.4
 Requires PHP: 7.1
-Tested up to: 5.9
-Stable tag: 3.3.8
+Tested up to: 6.1
+Stable tag: 3.3.9
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -108,13 +108,15 @@ The WordPress codex contains instructions on
 2. Easily manage customers account
 3. Foxx · Automated & Marketing Emails: Send super-targeted emails that drive sales.
 4. Bamboo · Referral Program: Turn your customers into advocates of your brand.
-5. Poppy · Smart Popups: Convert more customers
-6. Snow · Notification Widget: Communicate with customer without disruption
-7. Lotus · Social Media Manager: Save time managing social media
-8. Easily manage customers account
+5. Snow · Notification Widget: Communicate with customer without disruption
 
 
 == Changelog ==
+
+== 3.3.9 ==
+- Update Wordpress compatibility version
+- Update WooCommerce compatibility version
+- Update app screenshots
 
 == 3.3.8 ==
 - Add support to customize powerby section on programs pages
