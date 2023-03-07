@@ -4,19 +4,24 @@
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
 
 WP_CMD=$PROJECT_DIR/vendor/bin/wp
+
 echo "PROJECT_DIR=$PROJECT_DIR"
 
-# ENV_FILENAME="$PROJECT_DIR/.env.testing"
-# echo "Load $ENV_FILENAME file"
-# if [ -f $ENV_FILENAME ]
-# then
-#   export $(cat $ENV_FILENAME | sed 's/#.*//g' | xargs)
-# fi
+ENV_FILENAME="$PROJECT_DIR/.env.local"
+
+echo "Loading $ENV_FILENAME file"
+
+# Create local env file, if not exists
+if [ ! -f $ENV_FILENAME ]; then
+  cp $PROJECT_DIR/.env.testing $ENV_FILENAME
+fi
 
 # set -a # automatically export all variables
-source $PROJECT_DIR/.env.testing
+source $ENV_FILENAME
 # set +a
 
+echo "TEST_SITE_WP_DOMAIN=$TEST_SITE_WP_DOMAIN"
+echo "TEST_SITE_WP_URL=$TEST_SITE_WP_URL"
 
 cp $PROJECT_DIR/tests/wp-config-test.php $PROJECT_DIR/wp/wp-config.php
 
@@ -64,4 +69,4 @@ $WP_CMD --path=$PROJECT_DIR/wp import $PROJECT_DIR/wp/wp-content/plugins/woocomm
 echo "Test environment has been successfully initialized"
 
 # To reset the db and reinstall wp
-# ./vendor/bin/wp --path=wp db clean --yes
+# ;

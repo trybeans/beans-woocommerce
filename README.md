@@ -17,6 +17,8 @@ If you are having trouble to find out more about it here: https://getcomposer.or
 
 ### 2. Install dependencies 
 
+Ensure that mysql is installed and setup. 
+
 ```shell script
 ./composer install
 ```
@@ -44,14 +46,28 @@ To reformat the code:
 ./vendor/bin/phpcbf
 ```
 
-
 ### 4. Develop 
- 
+
+1. Create a local tunnel for localhost on port 8800 using ngrok.io
+```shell script
+ngrok http 8800
+```
+
+2. Copy `.env.testing` to .`env.local` and update env vars.
+
+
+3. If needed reset any existing testing configuration 
+```shell script
+./composer test-reset
+```
+
+4. Launch the web server
 ```shell script
 ./composer run-script start
 ```
- 
- Wordpress admin username and password are `beans`
+
+Visit the address given by the localtunnel
+Wordpress admin username and password are `beans`
 
  
 ### 5. Testing 

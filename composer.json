@@ -18,7 +18,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.1.0"
+            "php": "7.3.0"
         }
     },
     "repositories":[
@@ -37,8 +37,8 @@
     },
     "require-dev": {
         "composer/installers": "^1.11.0",
-        "johnpbloch/wordpress": "~5.2.0",
-        "wpackagist-plugin/woocommerce": "~4.1.0",
+        "johnpbloch/wordpress": "~5.6.0",
+        "wpackagist-plugin/woocommerce": "~5.1.0",
         "phpstan/phpstan": "^0.12.94",
         "squizlabs/php_codesniffer": "^3.6.0",
         "wp-coding-standards/wpcs": "^2.3.0",
@@ -46,13 +46,13 @@
         "szepeviktor/phpstan-wordpress": "^0.7.7",
         "wp-cli/wp-cli-bundle": "^2.5",
         "phpunit/phpunit": "^7.5",
-        "codeception/codeception": "^4.1",                             
-        "codeception/module-asserts": "^1.0",                                      
-        "codeception/module-phpbrowser": "^1.0",                                   
-        "codeception/module-webdriver": "^1.0",                                    
-        "codeception/module-db": "^1.0",                                           
-        "codeception/module-filesystem": "^1.0",                                   
-        "codeception/module-cli": "^1.0",                                          
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^1.0",
+        "codeception/module-phpbrowser": "^1.0",
+        "codeception/module-webdriver": "^1.0",
+        "codeception/module-db": "^1.0",
+        "codeception/module-filesystem": "^1.0",
+        "codeception/module-cli": "^1.0",
         "codeception/util-universalframework": "^1.0",
         "lucatume/wp-browser": "^3.0"
     },
@@ -68,7 +68,16 @@
             "bash tests/init.sh"
         ],
         "start": [
-            "php -S localhost:8800"
+            "source .env.local && php -S localhost:8800"
+        ],
+        "test-setup": [
+            "bash tests/init.sh"
+        ],
+        "test-reset": [
+            "./vendor/bin/wp --path=wp db clean --yes",
+            "rm -r wp",
+            "./composer install",
+            "./composer test-setup"
         ]
     },
     "scripts-descriptions": {
