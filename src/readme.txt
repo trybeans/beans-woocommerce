@@ -2,10 +2,10 @@
 
 Contributors: nas2lor, yan_dah, corentinal
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.4
-Requires PHP: 7.1
-Tested up to: 6.1
-Stable tag: 3.3.9
+Requires at least: 5.6
+Requires PHP: 7.3
+Tested up to: 6.2
+Stable tag: 3.4.0
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -112,6 +112,17 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 3.4.0 ==
+- Drop support for arrow
+- Add support for live testing 
+- Add option to display message on product page 
+- Display woocommerce message on redemption
+- Update Wordpress compatibility version
+- Update WooCommerce compatibility version
+- Update minimum PHP version supported to 7.3
+- Update minimum WordPress version supported to 5.6
+- Update minimum WooCommerce version supported to 5.1
 
 == 3.3.9 ==
 - Update Wordpress compatibility version
