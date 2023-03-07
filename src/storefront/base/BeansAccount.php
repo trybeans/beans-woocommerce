@@ -74,10 +74,7 @@ class BeansAccount
     private static function setToken($account)
     {
         try {
-            $token = Helper::API()->post(
-                'ultimate/auth/consumer_token',
-                array('account' => $account['id'])
-            );
+            $token = Helper::API()->post('ultimate/auth/consumer_token', array('account' => $account['id']));
         } catch (BeansError $e) {
             Helper::log('Getting Auth Token Failed: ' . $e->getMessage());
             unset($_SESSION['beans_token']);
