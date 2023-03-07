@@ -9,8 +9,6 @@ require_once "base/Auth/Auth.php";
 require_once "base/Scripts/Scripts.php";
 require_once "base/Registration/Registration.php";
 
-require_once "arrow/Login/ArrowLogin.php";
-
 require_once "bamboo/Page/BambooPage.php";
 
 require_once "liana/Observer/LianaObserver.php";
@@ -43,8 +41,6 @@ class Main
 
         Scripts::init();
         Auth::init();
-
-        ArrowLogin::init();
 
         $display_liana = Helper::requestTransientAPI('GET', 'liana/display/current');
         $display_bamboo = Helper::requestTransientAPI('GET', 'bamboo/display/current');
@@ -81,17 +77,17 @@ class Main
 
         LianaAjaxObserver::init(null);
 
-        $display = Helper::requestTransientAPI('GET', 'liana/display/current');
+        $display_liana = Helper::requestTransientAPI('GET', 'liana/display/current');
 
-        if (empty($display)) {
+        if (empty($display_liana)) {
             Helper::log('Ajax: Display is empty');
             return;
         }
 
-        if (!$display['is_active']) {
+        if (!$display_liana['is_active']) {
             Helper::log('Ajax: Display is deactivated');
             return;
         }
-        LianaProductAjaxObserver::init($display);
+        LianaProductAjaxObserver::init($display_liana);
     }
 }
