@@ -73,3 +73,9 @@ Wordpress admin username and password are `beans`
 ### 5. Testing 
 
 
+### 6. DocStrings 
+https://stackoverflow.com/questions/1310050/php-function-comments
+https://www.phpdoc.org/
+https://phpdocu.sourceforge.net/howto.php
+https://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_tags.param.pkg.html
+https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/
