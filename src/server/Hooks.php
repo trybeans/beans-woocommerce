@@ -7,7 +7,6 @@ use BeansWoo\Helper;
 
 class Hooks
 {
-
     public static function init()
     {
         add_filter('woocommerce_rest_prepare_system_status', array(__CLASS__, 'addSitePagesInfos'), 90, 2);

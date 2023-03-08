@@ -10,7 +10,6 @@ require_once "Inspector/Inspector.php";
 
 class Main
 {
-
     public static function init()
     {
         if (!is_admin()) {

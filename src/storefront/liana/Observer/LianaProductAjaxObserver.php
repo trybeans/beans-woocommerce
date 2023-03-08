@@ -4,7 +4,6 @@ namespace BeansWoo\StoreFront;
 
 class LianaProductAjaxObserver extends LianaProductObserver
 {
-
     public static function init($display)
     {
         LianaObserver::init($display);

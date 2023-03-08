@@ -6,7 +6,6 @@ use BeansWoo\Helper;
 
 class LianaLifetimeDiscountObserver extends LianaObserver
 {
-
     protected static $tiers;
 
     public static function init($display)

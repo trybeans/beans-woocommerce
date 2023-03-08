@@ -6,7 +6,6 @@ use BeansWoo\Helper;
 
 class LianaProductObserver extends LianaObserver
 {
-
     public static $pay_with_point_product_ids;
 
     public static function init($display)

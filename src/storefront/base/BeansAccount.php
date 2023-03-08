@@ -7,7 +7,6 @@ use BeansWoo\Helper;
 
 class BeansAccount
 {
-
     public static function create($email, $firstname, $lastname)
     {
         try {

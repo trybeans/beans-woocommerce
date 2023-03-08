@@ -6,7 +6,6 @@ use BeansWoo\Helper;
 
 class LianaAjaxObserver extends LianaObserver
 {
-
     public static function init($display)
     {
         add_filter('woocommerce_get_shop_coupon_data', array(__CLASS__, 'getCartCoupon'), 10, 2);

@@ -11,7 +11,6 @@ defined('ABSPATH') or die;
 
 class Main
 {
-
     public static function init()
     {
         Hooks::init();

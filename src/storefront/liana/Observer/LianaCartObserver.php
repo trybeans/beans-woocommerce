@@ -6,7 +6,6 @@ use BeansWoo\Helper;
 
 class LianaCartObserver extends LianaObserver
 {
-
     public static function init($display)
     {
         parent::init($display);

@@ -7,7 +7,6 @@ use BeansWoo\Helper;
 
 class LianaObserver
 {
-
     protected static $display;
     protected static $redemption;
     protected static $i18n_strings;
