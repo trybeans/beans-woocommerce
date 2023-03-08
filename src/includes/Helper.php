@@ -9,6 +9,12 @@ class Helper
     const CONFIG_NAME = 'beans-config-3'; // private
     const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt'; // private
 
+    // Display redemption on checkout page
+    public const OPTION_CHECKOUT_REDEEM = 'beans-liana-display-redemption-checkout';
+
+    // Display points info on product page
+    public const OPTION_PRODUCT_INFO = 'beans-liana-display-product-points';
+
     public static $key = null;
 
     public static function getDomain($sub)

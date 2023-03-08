@@ -63,14 +63,24 @@ class Connector
     public static function registerSettingOptions()
     {
         add_settings_section("beans-section", "", null, "beans-woo");
+
         add_settings_field(
-            "beans-liana-display-redemption-checkout",
+            Helper::OPTION_CHECKOUT_REDEEM,
             "Redemption on checkout",
             array(__CLASS__, "displayRedeemCheckboxSettings"),
             "beans-woo",
             "beans-section"
         );
-        register_setting("beans-section", "beans-liana-display-redemption-checkout");
+        register_setting("beans-section", Helper::OPTION_CHECKOUT_REDEEM);
+
+        add_settings_field(
+            Helper::OPTION_PRODUCT_INFO,
+            "Product points",
+            array(__CLASS__, "displayProductInfoCheckboxSettings"),
+            "beans-woo",
+            "beans-section"
+        );
+        register_setting("beans-section", Helper::OPTION_PRODUCT_INFO);
     }
 
     public static function displayRedeemCheckboxSettings()
@@ -80,12 +90,29 @@ class Connector
       checks the checkbox otherwise empty string. -->
       <div>
         <input type="checkbox"
-               id="beans-liana-display-redemption-checkout"
-               name="beans-liana-display-redemption-checkout"
+               id="<?=Helper::OPTION_CHECKOUT_REDEEM?>"
+               name="<?=Helper::OPTION_CHECKOUT_REDEEM?>"
                value="1"
-            <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?>
+            <?php checked(1, get_option(Helper::OPTION_CHECKOUT_REDEEM), true); ?>
         />
-        <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
+        <label for="<?=Helper::OPTION_CHECKOUT_REDEEM?>">Display redemption on checkout page</label>
+      </div>
+        <?php
+    }
+
+    public static function displayProductInfoCheckboxSettings()
+    {
+        ?>
+      <!-- Here we are comparing stored value with 1. Stored value is 1 if user
+      checks the checkbox otherwise empty string. -->
+      <div>
+        <input type="checkbox"
+               id="<?=Helper::OPTION_PRODUCT_INFO?>"
+               name="<?=Helper::OPTION_PRODUCT_INFO?>"
+               value="1"
+            <?php checked(1, get_option(Helper::OPTION_PRODUCT_INFO), true); ?>
+        />
+        <label for="<?=Helper::OPTION_PRODUCT_INFO?>">Display points info on product page</label>
       </div>
         <?php
     }

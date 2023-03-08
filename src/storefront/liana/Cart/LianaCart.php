@@ -11,7 +11,7 @@ class LianaCart
     {
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 1);
 
-        if (get_option('beans-liana-display-redemption-checkout')) {
+        if (get_option(Helper::OPTION_CHECKOUT_REDEEM)) {
             add_action('woocommerce_review_order_after_payment', array(__CLASS__, 'renderCart'), 99, 1);
         }
     }

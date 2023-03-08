@@ -18,7 +18,7 @@ class LianaObserver
     {
         self::$display      = $display;
         self::$redemption   = $display['redemption'];
-        self::$i18n_strings = self::$display['i18n_strings'];
+        self::$i18n_strings = $display['i18n_strings'];
     }
 
     protected static function getAccountData($key)
