@@ -4,7 +4,7 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
-class LianaCart
+class LianaBlocks
 {
 
     public static function init()

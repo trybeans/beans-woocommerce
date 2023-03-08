@@ -42,7 +42,7 @@ class LianaAjaxObserver extends LianaObserver
         if (count($cart->get_cart()) == 0) {
             self::cancelRedemption();
         }
-        LianaCart::renderCart();
+        LianaBlocks::renderCart();
         if ($fragments) {
             ?>
             <script>
