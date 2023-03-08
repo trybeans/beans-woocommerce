@@ -7,7 +7,6 @@ use BeansWoo\Helper;
 
 class Connector
 {
-
     public static function init()
     {
         if (Helper::isSetup()) {
@@ -64,55 +63,29 @@ class Connector
     {
         add_settings_section("beans-section", "", null, "beans-woo");
 
-        add_settings_field(
-            Helper::OPTION_CHECKOUT_REDEEM,
-            "Redemption on checkout",
-            array(__CLASS__, "displayRedeemCheckboxSettings"),
-            "beans-woo",
-            "beans-section"
-        );
-        register_setting("beans-section", Helper::OPTION_CHECKOUT_REDEEM);
-
-        add_settings_field(
-            Helper::OPTION_PRODUCT_INFO,
-            "Product points",
-            array(__CLASS__, "displayProductInfoCheckboxSettings"),
-            "beans-woo",
-            "beans-section"
-        );
-        register_setting("beans-section", Helper::OPTION_PRODUCT_INFO);
+        foreach (Helper::OPTIONS as $key => $params) {
+            add_settings_field(
+                $params['handle'],
+                $params['label'],
+                array(__CLASS__, "displayOption"),
+                "beans-woo",
+                "beans-section",
+                $params
+            );
+            register_setting("beans-section", $params['handle']);
+        }
     }
 
-    public static function displayRedeemCheckboxSettings()
+    public static function displayOption($args)
     {
         ?>
       <!-- Here we are comparing stored value with 1. Stored value is 1 if user
       checks the checkbox otherwise empty string. -->
       <div>
-        <input type="checkbox"
-               id="<?=Helper::OPTION_CHECKOUT_REDEEM?>"
-               name="<?=Helper::OPTION_CHECKOUT_REDEEM?>"
-               value="1"
-            <?php checked(1, get_option(Helper::OPTION_CHECKOUT_REDEEM), true); ?>
+        <input type="checkbox" id="<?=$args['handle']?>" name="<?=$args['handle']?>" value="1"
+            <?php checked(1, get_option($args['handle']), true); ?>
         />
-        <label for="<?=Helper::OPTION_CHECKOUT_REDEEM?>">Display redemption on checkout page</label>
-      </div>
-        <?php
-    }
-
-    public static function displayProductInfoCheckboxSettings()
-    {
-        ?>
-      <!-- Here we are comparing stored value with 1. Stored value is 1 if user
-      checks the checkbox otherwise empty string. -->
-      <div>
-        <input type="checkbox"
-               id="<?=Helper::OPTION_PRODUCT_INFO?>"
-               name="<?=Helper::OPTION_PRODUCT_INFO?>"
-               value="1"
-            <?php checked(1, get_option(Helper::OPTION_PRODUCT_INFO), true); ?>
-        />
-        <label for="<?=Helper::OPTION_PRODUCT_INFO?>">Display points info on product page</label>
+        <label for="<?=$args['handle']?>"><?=$args['help_text']?></label>
       </div>
         <?php
     }

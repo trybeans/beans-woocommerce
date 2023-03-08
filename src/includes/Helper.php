@@ -9,11 +9,31 @@ class Helper
     const CONFIG_NAME = 'beans-config-3'; // private
     const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt'; // private
 
-    // Display redemption on checkout page
-    public const OPTION_CHECKOUT_REDEEM = 'beans-liana-display-redemption-checkout';
-
-    // Display points info on product page
-    public const OPTION_PRODUCT_INFO = 'beans-liana-display-product-points';
+    /**
+     * Display redemption on checkout page
+     */
+    public const OPTIONS = array(
+        'checkout-redeem' => array(
+            'handle' => 'beans-liana-display-redemption-checkout',
+            'label' => "Redemption on checkout",
+            'help_text' => 'Display redemption on checkout page.',
+        ),
+        'product-points' => array(
+            'handle' => 'beans-liana-display-product-points',
+            'label' => "Product points",
+            'help_text' => 'Display points info on product page.',
+        ),
+        'cart-notices' => array(
+            'handle' => 'beans-liana-display-cart-notices',
+            'label' => "Cart notices",
+            'help_text' => 'Display points balance notice on cart page.',
+        ),
+        'account-nav' => array(
+            'handle' => 'beans-liana-display-account-navigation',
+            'label' => "Account navigation",
+            'help_text' => 'Display links to rewards, referral pages in account navigation.',
+        ),
+    );
 
     public static $key = null;
 

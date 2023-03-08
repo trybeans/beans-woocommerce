@@ -14,14 +14,11 @@ try {
     $loginkey = array();
 }
 
-if (isset($_POST[Helper::OPTION_CHECKOUT_REDEEM])) {
-    $is_redeem_checkout = htmlspecialchars($_POST[Helper::OPTION_CHECKOUT_REDEEM]);
-    update_option(Helper::OPTION_CHECKOUT_REDEEM, $is_redeem_checkout);
-}
-
-if (isset($_POST[Helper::OPTION_PRODUCT_INFO])) {
-    $is_redeem_checkout = htmlspecialchars($_POST[Helper::OPTION_PRODUCT_INFO]);
-    update_option(Helper::OPTION_PRODUCT_INFO, $is_redeem_checkout);
+foreach (Helper::OPTIONS as $key => $params) {
+    if (isset($_POST[$params['handle']])) {
+        $value = htmlspecialchars($_POST[$params['handle']]);
+        update_option($params['handle'], $value);
+    }
 }
 
 $base_asset_url = Helper::getAssetURL('assets/img/connector');
