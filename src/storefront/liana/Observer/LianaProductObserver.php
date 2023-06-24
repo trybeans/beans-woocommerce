@@ -31,7 +31,7 @@ class LianaProductObserver extends LianaObserver
     public static function handleProductRedemption()
     {
         $cart            = Helper::getCart();
-        $account_balance = self::getAccountData('beans');
+        $account_balance = BeansAccount::getSessionAttribute('beans');
 
         if (!isset($cart) || is_null($account_balance)) {
             return;
@@ -48,8 +48,8 @@ class LianaProductObserver extends LianaObserver
         $beans_amount = $amount * self::$display['beans_rate'];
 
         if (count($product_ids) != 0 && $beans_amount > $account_balance) {
-            if ($cart->has_discount(self::REDEEM_COUPON_UID)) {
-                $cart->remove_coupon(self::REDEEM_COUPON_UID);
+            if ($cart->has_discount(self::REDEEM_COUPON_CODE)) {
+                $cart->remove_coupon(self::REDEEM_COUPON_CODE);
             }
 
             foreach ($product_ids as $cart_item_key => $pay_with_point_product_id) {
@@ -59,7 +59,7 @@ class LianaProductObserver extends LianaObserver
             return;
         }
 
-        if (count($product_ids) != 0 && !$cart->has_discount(self::REDEEM_COUPON_UID)) {
+        if (count($product_ids) != 0 && !$cart->has_discount(self::REDEEM_COUPON_CODE)) {
             self::cancelRedemption();
 
             # force quantity to be always equal to 1 for `pay wit point product`
@@ -77,13 +77,13 @@ class LianaProductObserver extends LianaObserver
 
                 return;
             }
-            $_SESSION['liana_redemption'] = array(
-                'code'  => self::REDEEM_COUPON_UID,
+            $_SESSION['liana_redemption_' . self::REDEEM_COUPON_CODE] = array(
+                'code'  => self::REDEEM_COUPON_CODE,
                 'value' => $amount,
                 'beans' => $amount * self::$display['beans_rate'],
             );
 
-            $cart->apply_coupon(self::REDEEM_COUPON_UID);
+            $cart->apply_coupon(self::REDEEM_COUPON_CODE);
         }
     }
 
@@ -97,7 +97,7 @@ class LianaProductObserver extends LianaObserver
                         'beans_name' => self::$display['beans_name'],
                     )
                 ),
-                "woocommerce"
+                "beans-woocommerce"
             );
         }
 
@@ -177,8 +177,8 @@ class LianaProductObserver extends LianaObserver
             } else {
                 $product = new \WC_Product_Variation($variation_id);
             }
-            BeansAccount::update();
-            $account_balance = self::getAccountData('beans');
+            BeansAccount::refreshSession();
+            $account_balance = BeansAccount::getSessionAttribute('beans');
 
             $min_beans = $product->get_price() * self::$display['beans_rate'];
 
@@ -200,7 +200,7 @@ class LianaProductObserver extends LianaObserver
 
         if (
             in_array($cart_item['product_id'], self::$pay_with_point_product_ids)
-            && $cart->has_discount(self::REDEEM_COUPON_UID)
+            && $cart->has_discount(self::REDEEM_COUPON_CODE)
         ) {
             self::cancelRedemption();
         }

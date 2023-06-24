@@ -66,11 +66,11 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
             program.
           </div>
           <span class="">
-                <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
-                   href="<?php echo get_permalink(Helper::getConfig('liana_page')); ?>">
-                    Go to the reward page
-                </a>
-              </span>
+            <a style="margin-top: 10px;" class="button beans-woo-reward-link" target="_blank"
+                href="<?php echo get_permalink(Helper::getConfig('liana_page')); ?>">
+                Go to the reward page
+            </a>
+          </span>
         </div>
         <div style="display: flex; align-items: center; margin-left: 20px;">
           <img width="150px" src="<?php echo $base_asset_url; ?>/reward-page.svg"/>

@@ -14,10 +14,10 @@ class Registration
     public static function registerValidateNameFields($errors, $username, $email)
     {
         if (isset($_POST['first_name']) && empty($_POST['first_name'])) {
-            $errors->add('first_name_error', __('<strong>Error</strong>: First name is required!', 'woocommerce'));
+            $errors->add('first_name_error', __('Error: First name is a required field.', 'beans-woocommerce'));
         }
         if (isset($_POST['last_name']) && empty($_POST['last_name'])) {
-            $errors->add('last_name_error', __('<strong>Error</strong>: Last name is required!.', 'woocommerce'));
+            $errors->add('last_name_error', __('Error: Last name is a required field.', 'beans-woocommerce'));
         }
         return $errors;
     }

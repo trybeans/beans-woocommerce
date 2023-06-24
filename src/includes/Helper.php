@@ -33,6 +33,11 @@ class Helper
             'label' => "Account navigation",
             'help_text' => 'Display links to rewards, referral pages in account navigation.',
         ),
+        'subscription-redemption' => array(
+            'handle' => 'beans-liana-display-subscription-redemption',
+            'label' => "Subscription redemption",
+            'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
+        ),
     );
 
     public static $key = null;

@@ -2,10 +2,10 @@
 
 Contributors: nas2lor, yan_dah, corentinal
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.6
-Requires PHP: 7.3
-Tested up to: 6.2
-Stable tag: 3.4.0
+Requires at least: 5.8
+Requires PHP: 7.4
+Tested up to: 6.4
+Stable tag: 3.5.0
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -112,6 +112,18 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 3.5.0 ==
+- Add support for WooCommerce Subscription
+- Add Beans action controller 
+- Update integration_key object
+- Fix customer registration when rewards program is inactive
+- Fix rounding of values
+- Update Wordpress compatibility version
+- Update WooCommerce compatibility version
+- Update minimum PHP version supported to 7.4
+- Update minimum WordPress version supported to 5.8
+- Update minimum WooCommerce version supported to 6.0
 
 == 3.4.0 ==
 - Drop support for arrow

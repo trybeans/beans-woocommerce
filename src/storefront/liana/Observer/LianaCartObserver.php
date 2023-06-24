@@ -10,136 +10,142 @@ class LianaCartObserver extends LianaObserver
     {
         parent::init($display);
 
-        add_action('wp_loaded', array(__CLASS__, 'handleCartRedemption'), 30, 1);
-        add_filter('woocommerce_get_shop_coupon_data', array(__CLASS__, 'getCartCoupon'), 10, 2);
-        add_action('woocommerce_checkout_order_processed', array(__CLASS__, 'commitRedemption'), 10, 1);
+        add_action('woocommerce_checkout_order_processed', array(__CLASS__, 'processCartRedemption'), 10, 1);
+        add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
     }
 
-    public static function handleCartRedemption()
+    /**
+     * Add a JS fragment that forces the re-rendering of the redeem button on the cart page.
+     * This is necessary when the cart is re-load through AJAX
+     * For example when updating the number of product of product in the cart.
+     *
+     * @return string HTML
+     *
+     * @since 3.0.0
+     */
+    public static function renderCartFragment($fragments)
     {
-        if (!isset($_POST['beans_action'])) {
-            return;
-        }
-
-        $action = $_POST['beans_action'];
-
-        if ($action == 'apply') {
-            if (!self::getTierId()) {
-                self::applyCartRedemption();
-            }
-        } else {
+        $cart = Helper::getCart();
+        ob_start();
+        if (count($cart->get_cart()) == 0) {
             self::cancelRedemption();
         }
+        LianaBlocks::renderCart();
+        if ($fragments) {
+            ?>
+            <script>
+                window.Beans3.Liana.Radix.init();
+            </script>
+            <?php
+        }
+        $fragments['div.beans-cart'] = ob_get_clean();
+        return $fragments;
     }
 
+    /**
+     * Add redemption coupon to cart:
+     * - Clear any existing points redemption from cart
+     * - Ensure that the customer has enough points
+     * - Create redemption coupon while ensuring redemption constraints
+     *
+     * @return void The redemption metadata is saved to $_SESSION
+     *
+     * @since 3.0.0
+     */
     public static function applyCartRedemption()
     {
-        if (!self::getAccountData('id')) {
-            Helper::log("Unable to redeem: Account is available \n account=>" . print_r(BeansAccount::get(), true));
+        $account = BeansAccount::refreshSession();
+
+        if (!$account) {
+            Helper::log(
+                "Unable to redeem: Account is unavailable \n account=>" .
+                print_r(BeansAccount::getSession(), true)
+            );
             return;
         }
 
         self::cancelRedemption();
 
-        BeansAccount::update();
-        $account_beans       = self::getAccountData('beans');
-        $account_beans_value = self::getAccountData('beans_value');
-
         $cart = Helper::getCart();
+        $discount_amount = self::getAllowedDiscount($account, $cart->subtotal);
 
-        $max_amount = $cart->subtotal;
-        if (
-            isset(self::$redemption) && isset(self::$redemption['min_beans'])
-            && isset(self::$redemption['max_percentage'])
-        ) {
-            $min_beans = self::$redemption['min_beans'];
-            if ($account_beans < $min_beans) {
-                wc_add_notice(Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_minimum_points'],
-                    array(
-                        'quantity'   => $min_beans,
-                        "beans_name" => self::$display['beans_name'],
-                    )
-                ), 'notice');
-
-                return;
-            }
-
-            $percent_discount = self::$redemption['max_percentage'];
-            if ($percent_discount < 100) {
-                $max_amount = (1.0 * $cart->subtotal * $percent_discount) / 100;
-                if ($max_amount < $account_beans_value) {
-                    wc_add_notice(Helper::replaceTags(
-                        self::$i18n_strings['redemption']['condition_maximum_discount'],
-                        array(
-                            'max_discount' => $percent_discount,
-                        )
-                    ), 'notice');
-                }
-            }
-        }
-
-        $amount = min($max_amount, $account_beans_value);
-        $amount = sprintf('%0.2f', $amount);
-
-        $_SESSION['liana_redemption'] = array(
-            'code'  => self::REDEEM_COUPON_UID,
-            'value' => $amount,
-            'beans' => $amount * self::$display['beans_rate'],
+        $_SESSION['liana_redemption_' . self::REDEEM_COUPON_CODE] = array(
+            'code'          => self::REDEEM_COUPON_CODE,
+            'amount'        => $discount_amount,
+            'discount_type' => 'fixed_cart',
+            'beans'         => $discount_amount * self::$display['beans_rate'],
         );
-        $cart->apply_coupon(self::REDEEM_COUPON_UID);
+        $cart->apply_coupon(self::REDEEM_COUPON_CODE);
     }
 
-    public static function getCartCoupon($coupon, $coupon_code)
+    /**
+     * Add lifetime discount to purchase:
+     * - Clear any existing points redemption from cart
+     * - Ensure that the customer is on the right tier
+     * - Create redemption coupon
+     *
+     * @return void The redemption metadata is saved to $_SESSION
+     *
+     * @since 3.4.0
+     */
+    public static function applyLifetimeRedemption()
     {
-        if (
-            $coupon_code != self::REDEEM_COUPON_UID
-            || !self::getAccountData('beans')
-            || !self::getActiveRedemption()
-        ) {
-            return $coupon;
+        if (!BeansAccount::getSessionAttribute('id')) {
+            Helper::log(
+                "Unable to redeem: Account is unavailable \n account=>" .
+                print_r(BeansAccount::getSession(), true)
+            );
+            return;
         }
 
-        // If data exists in caching then we can use it;
-        if (isset($_SESSION['liana_coupon']) && $_SESSION['liana_coupon']) {
-            return $_SESSION['liana_coupon'];
+        self::cancelRedemption();
+
+        $tier_id = $_POST['tier_id'];
+        $tier = null;
+        foreach (self::$tiers as $x) {
+            if ($x['id'] == $tier_id) {
+                $tier = $x;
+                break;
+            }
         }
 
-        $cart       = Helper::getCart();
-        $redemption = self::getActiveRedemption();
-
-        if (empty($cart)) {
-            return $coupon;
+        if (is_null($tier)) {
+            return;
         }
 
-        $coupon_data = array(
-            'id'                          => 0,
-            'amount'                      => $redemption['value'],
-            'date_created'                => strtotime('-1 hour', time()),
-            'date_modified'               => time(),
-            'date_expires'                => strtotime('+1 day', time()),
-            'discount_type'               => 'fixed_cart',
-            'description'                 => '',
-            'usage_count'                 => 0,
-            'individual_use'              => false,
-            'product_ids'                 => array(),
-            'excluded_product_ids'        => array(),
-            'usage_limit'                 => 1,
-            'usage_limit_per_user'        => 1,
-            'limit_usage_to_x_items'      => null,
-            'free_shipping'               => false,
-            'product_categories'          => array(),
-            'excluded_product_categories' => array(),
-            'exclude_sale_items'          => false,
-            'minimum_amount'              => '',
-            'maximum_amount'              => '',
-            'email_restrictions'          => array(),
-            'used_by'                     => array(),
-            'virtual'                     => true,
+        $discount_amount = sprintf('%0.2f', $tier['lifetime_discount']);
+
+        $coupon_code = self::REDEEM_LIFETIME_CODE;
+
+        $_SESSION["liana_redemption_{$coupon_code}"] = array(
+            'code'          => self::REDEEM_LIFETIME_CODE,
+            'amount'        => $discount_amount,
+            'discount_type' => 'percent',
+            'beans'         => null,
         );
 
-        $_SESSION['liana_coupon'] = $coupon_data;
+        $cart = Helper::getCart();
+        $cart->apply_coupon(self::REDEEM_LIFETIME_CODE);
+    }
 
-        return $coupon_data;
+    /**
+     * Process the order:
+     * - Debit points from the customer's beans account if there is redemption.
+     * - Clear redemption from cart
+     * - Refresh the customer's beans account balance
+     *
+     * @param int $order_id The id of the order being processed.
+     *
+     * @return void
+     *
+     * @since 3.5.0
+     */
+    public static function processCartRedemption($order_id)
+    {
+        $account = BeansAccount::getSession();
+        $order = new \WC_Order($order_id);
+        self::commitRedemption($account, $order, self::REDEEM_COUPON_CODE);
+        self::cancelRedemption();
+        BeansAccount::refreshSession();
     }
 }

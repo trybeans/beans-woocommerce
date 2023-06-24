@@ -32,7 +32,7 @@ class Connector
 
         Helper::setConfig('card', $card_id);
         Helper::setConfig('key', $integration_key['id']);
-        Helper::setConfig('secret', $integration_key['secret']);
+        Helper::setConfig('secret', $integration_key['access_token']);
 
         return true;
     }

@@ -9,7 +9,6 @@ class Scripts
     public static function init()
     {
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
-
         add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
     }
 
