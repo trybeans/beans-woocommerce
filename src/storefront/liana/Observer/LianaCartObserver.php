@@ -10,7 +10,7 @@ class LianaCartObserver extends LianaObserver
     {
         parent::init($display);
 
-        add_action('woocommerce_checkout_order_processed', array(__CLASS__, 'processCartRedemption'), 10, 1);
+        add_action('woocommerce_checkout_order_processed', array(__CLASS__, 'processCartRedemption'), 10, 3);
         add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
     }
 
@@ -135,15 +135,16 @@ class LianaCartObserver extends LianaObserver
      * - Refresh the customer's beans account balance
      *
      * @param int $order_id The id of the order being processed.
+     * @param array $posted_data
+     * @param \WC_Order $order The order being processed.
      *
      * @return void
      *
      * @since 3.5.0
      */
-    public static function processCartRedemption($order_id)
+    public static function processCartRedemption($order_id, $posted_data, $order)
     {
         $account = BeansAccount::getSession();
-        $order = new \WC_Order($order_id);
         self::commitRedemption($account, $order, self::REDEEM_COUPON_CODE);
         self::cancelRedemption();
         BeansAccount::refreshSession();
