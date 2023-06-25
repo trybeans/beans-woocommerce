@@ -31,60 +31,62 @@ class LianaProductObserver extends LianaObserver
     public static function handleProductRedemption()
     {
         $cart            = Helper::getCart();
+        $coupon_code     = self::REDEEM_COUPON_CODE;
         $account_balance = BeansAccount::getSessionAttribute('beans');
 
-        if (!isset($cart) || is_null($account_balance)) {
+        if (!isset($cart) || !$account_balance) {
             return;
         }
 
         $amount      = 0;
-        $product_ids = array();
-        foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
-            if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids)) {
-                $product_ids[$cart_item_key] = $cart_item['product_id'];
-                $amount                      += $cart_item['data']->get_price() * $cart_item['quantity'];
+        $product_items = array();
+        foreach ($cart->get_cart() as $key => $item) {
+            if (in_array($item['product_id'], self::$pay_with_point_product_ids)) {
+                $product_items[$key] = $item['product_id'];
+                $amount += $item['data']->get_price() * $item['quantity'];
             }
         }
+
+        if (empty($product_items)) {
+            return;
+        }
+
         $beans_amount = $amount * self::$display['beans_rate'];
 
-        if (count($product_ids) != 0 && $beans_amount > $account_balance) {
-            if ($cart->has_discount(self::REDEEM_COUPON_CODE)) {
-                $cart->remove_coupon(self::REDEEM_COUPON_CODE);
+        // Customer does not have enough,
+        // Remove the buyable product from the cart.
+        if ($account_balance < $beans_amount) {
+            if ($cart->has_discount($coupon_code)) {
+                $cart->remove_coupon($coupon_code);
             }
 
-            foreach ($product_ids as $cart_item_key => $pay_with_point_product_id) {
-                $cart->remove_cart_item($cart_item_key);
+            foreach ($product_items as $key => $pay_with_point_product_id) {
+                $cart->remove_cart_item($key);
             }
 
             return;
         }
 
-        if (count($product_ids) != 0 && !$cart->has_discount(self::REDEEM_COUPON_CODE)) {
-            self::cancelRedemption();
-
-            # force quantity to be always equal to 1 for `pay wit point product`
-            foreach ($product_ids as $cart_item_key => $pay_with_point_product_id) {
-                $cart->set_quantity($cart_item_key, 1);
-            }
-
-            if ($beans_amount > $account_balance) {
-                wc_add_notice(Helper::replaceTags(
-                    self::$i18n_strings['reward_product']['not_enough_points'],
-                    array(
-                        "beans_name" => self::$display['beans_name'],
-                    )
-                ), 'notice');
-
-                return;
-            }
-            $_SESSION['liana_redemption_' . self::REDEEM_COUPON_CODE] = array(
-                'code'  => self::REDEEM_COUPON_CODE,
-                'value' => $amount,
-                'beans' => $amount * self::$display['beans_rate'],
-            );
-
-            $cart->apply_coupon(self::REDEEM_COUPON_CODE);
+        if ($cart->has_discount($coupon_code)) {
+            return;
         }
+
+        self::cancelRedemption();
+
+        # force quantity to be always equal to 1 for `pay wit point product`
+        foreach (array_keys($product_items) as $key) {
+            $cart->set_quantity($key, 1);
+        }
+
+        $_SESSION["liana_redemption_{$coupon_code}"] = array(
+            'code'          => $coupon_code,
+            'amount'        => $amount,
+            'discount_type' => 'fixed_cart',
+            'beans'         => $amount * self::$display['beans_rate'],
+            'product_ids'   => array_values($product_items),
+        );
+
+        $cart->apply_coupon($coupon_code);
     }
 
     public static function updateProductCTA($button_text, $product)
@@ -150,9 +152,9 @@ class LianaProductObserver extends LianaObserver
             return $is_purchasable;
         }
 
-        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-            if (in_array($cart_item['product_id'], self::$pay_with_point_product_ids)) {
-                $product_with_points[] = $cart_item['product_id'];
+        foreach (WC()->cart->get_cart() as $key => $item) {
+            if (in_array($item['product_id'], self::$pay_with_point_product_ids)) {
+                $product_with_points[] = $item['product_id'];
             }
         }
 
@@ -194,12 +196,12 @@ class LianaProductObserver extends LianaObserver
         return $result;
     }
 
-    public static function removeProductFromCart($cart_item_key, $cart)
+    public static function removeProductFromCart($key, $cart)
     {
-        $cart_item = $cart->get_cart()[$cart_item_key];
+        $item = $cart->get_cart()[$key];
 
         if (
-            in_array($cart_item['product_id'], self::$pay_with_point_product_ids)
+            in_array($item['product_id'], self::$pay_with_point_product_ids)
             && $cart->has_discount(self::REDEEM_COUPON_CODE)
         ) {
             self::cancelRedemption();

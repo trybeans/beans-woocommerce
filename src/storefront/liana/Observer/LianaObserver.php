@@ -155,23 +155,23 @@ class LianaObserver
         // Check if active customer is member of the rewards program
         // Check if coupon_code is a redemption of points
 
-        $redemption_params  = self::getActiveRedemption($coupon_code);
+        $r  = self::getActiveRedemption($coupon_code);
 
-        if (!$redemption_params) {
+        if (!$r) {
             return $coupon;
         }
 
         $coupon_data = array(
             'id'                          => 0,
-            'amount'                      => $redemption_params['amount'],
+            'amount'                      => $r['amount'],
             'date_created'                => strtotime('-1 hour', time()),
             'date_modified'               => time(),
             'date_expires'                => strtotime('+1 day', time()),
-            'discount_type'               => $redemption_params['discount_type'],
+            'discount_type'               => $r['discount_type'],
             'description'                 => '',
             'usage_count'                 => 0,
             'individual_use'              => false,
-            'product_ids'                 => array(),
+            'product_ids'                 => isset($r['product_ids']) ? $r['product_ids'] : array(),
             'excluded_product_ids'        => array(),
             'usage_limit'                 => 1,
             'usage_limit_per_user'        => 1,
