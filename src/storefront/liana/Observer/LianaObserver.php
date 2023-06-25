@@ -52,8 +52,12 @@ class LianaObserver
      */
     public static function cancelRedemption()
     {
+        $cart = Helper::getCart();
+        if (empty($cart)) {
+            return;
+        }
         foreach (self::getRedeemCodes() as $code) {
-            Helper::getCart()->remove_coupon($code);
+            $cart->remove_coupon($code);
             $key = "liana_redemption_{$code}";
             unset($_SESSION[$key]);
             unset(self::$redemption_cache[$key]);

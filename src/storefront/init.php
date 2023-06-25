@@ -128,11 +128,11 @@ class Main
         }
 
         switch ($action) {
-            case 'redeem-lifetime':
-                LianaCartObserver::applyLifetimeRedemption();
-                break;
             case 'redeem-cart':
                 LianaCartObserver::applyCartRedemption();
+                break;
+            case 'redeem-lifetime':
+                LianaCartObserver::applyLifetimeRedemption();
                 break;
             case 'redeem-subscription':
                 LianaSubscriptionObserver::applySubscriptionRedemption();
@@ -140,7 +140,9 @@ class Main
             case 'cancel-redeem-subscription':
                 LianaSubscriptionObserver::cancelSubscriptionRedemption();
                 break;
+            case 'cancel-redeem':
             case 'cancel-redeem-cart':
+            case 'cancel-redeem-product':
             case 'cancel-redeem-lifetime':
                 LianaObserver::cancelRedemption();
                 break;

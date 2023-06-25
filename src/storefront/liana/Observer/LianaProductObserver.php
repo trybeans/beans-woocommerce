@@ -34,7 +34,7 @@ class LianaProductObserver extends LianaObserver
         $coupon_code     = self::REDEEM_COUPON_CODE;
         $account_balance = BeansAccount::getSessionAttribute('beans');
 
-        if (!isset($cart) || !$account_balance) {
+        if (empty($cart) || empty($account_balance)) {
             return;
         }
 
