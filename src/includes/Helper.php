@@ -73,7 +73,7 @@ class Helper
 
     public static function requestTransientAPI($method, $path, $arg = null, $headers = null)
     {
-        $transient_key = '$beans_' . str_replace('/', '_', $path);
+        $transient_key = 'beans_' . str_replace('/', '_', $path);
 
         $object = get_transient($transient_key);
 
@@ -97,13 +97,14 @@ class Helper
     public static function clearTransients()
     {
         self::log('Deleting transients');
-        delete_transient('$beans_liana_display_current');
-        delete_transient('$beans_core_user_current_loginkey');
+        delete_transient('beans_bamboo_display_current');
+        delete_transient('beans_liana_display_current');
+        delete_transient('beans_core_user_current_loginkey');
 
         # This will help to remove old transients.
         # todo; remove
-        delete_transient('beans_liana_display');
-        delete_transient('beans_card');
+        delete_transient('$beans_liana_display_current');
+        delete_transient('$beans_core_user_current_loginkey');
     }
 
     public static function getConfig($key)
