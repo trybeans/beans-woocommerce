@@ -100,7 +100,7 @@ class LianaObserver
      *
      * @since 3.5.0
      */
-    protected static function getAllowedDiscount($account, $order_value)
+    protected static function getAllowedDiscount($account, $order_value, $is_notice = true)
     {
         $account_beans       = $account['liana']['beans'];
         $account_beans_value = $account['liana']['beans_value'];
@@ -113,13 +113,15 @@ class LianaObserver
         ) {
             $min_beans = self::$redemption['min_beans'];
             if ($account_beans < $min_beans) {
-                wc_add_notice(Helper::replaceTags(
-                    self::$i18n_strings['redemption']['condition_minimum_points'],
-                    array(
-                        'quantity'   => $min_beans,
-                        "beans_name" => self::$display['beans_name'],
-                    )
-                ), 'notice');
+                if ($is_notice) {
+                    wc_add_notice(Helper::replaceTags(
+                        self::$i18n_strings['redemption']['condition_minimum_points'],
+                        array(
+                            'quantity'   => $min_beans,
+                            "beans_name" => self::$display['beans_name'],
+                        )
+                    ), 'notice');
+                }
 
                 return null;
             }
@@ -127,7 +129,7 @@ class LianaObserver
             $percent_discount = self::$redemption['max_percentage'];
             if ($percent_discount < 100) {
                 $max_amount = (1.0 * $order_value * $percent_discount) / 100;
-                if ($max_amount < $account_beans_value) {
+                if ($is_notice && $max_amount < $account_beans_value) {
                     wc_add_notice(Helper::replaceTags(
                         self::$i18n_strings['redemption']['condition_maximum_discount'],
                         array(

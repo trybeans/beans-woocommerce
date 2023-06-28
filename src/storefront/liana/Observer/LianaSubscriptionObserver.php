@@ -44,12 +44,17 @@ class LianaSubscriptionObserver extends LianaObserver
         $coupon_code = self::REDEEM_SUBSCRIPTION_CODE;
         $customer = $order->get_user();
         $account = BeansAccount::retrieve($customer->user_email, false);
-        $discount_amount = self::getAllowedDiscount($account, $subscription->get_subtotal());
+        $account_id = isset($account['id']) ? $account['id'] : null;
+        $discount_amount = self::getAllowedDiscount($account, $subscription->get_subtotal(), false);
 
         Helper::log(
             "processing redemption subscription={$subscription->get_id()} order={$order->get_id()} " .
-            "account={$account['id']} discount_amount={$discount_amount}"
+            "account={$account_id} discount_amount={$discount_amount}"
         );
+
+        if (empty($discount_amount) || empty($account)) {
+            return;
+        }
 
         self::$redemption_cache["liana_redemption_{$coupon_code}"] = array(
             'code'          => $coupon_code,
