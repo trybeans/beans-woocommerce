@@ -7,9 +7,7 @@ defined('ABSPATH') or die;
 // if uninstall not called from WordPress exit
 defined('WP_UNINSTALL_PLUGIN') or die;
 
-require_once 'includes/Beans.php';
-require_once 'includes/Helper.php';
-require_once 'server/Hooks.php';
+require_once 'beans-woocommerce.php';
 
 use BeansWoo\Server;
 
