@@ -5,6 +5,14 @@ namespace BeansWoo\StoreFront;
 use Beans\BeansError;
 use BeansWoo\Helper;
 
+/**
+ * Liana Observer
+ *
+ * Defines common utils useful for all Liana Observers
+ *
+ * @class LianaObserver
+ * @since 3.0.0
+ */
 class LianaObserver
 {
     protected static $display;
@@ -27,6 +35,15 @@ class LianaObserver
     const REDEEM_SUBSCRIPTION_CODE  = 'redeem_subscription'; // protected
     const REDEEM_LIFETIME_CODE      = 'redeem_lifetime'; // protected
 
+    /**
+     * Initialize observer.
+     * Save display object from Beans API and add basic filters.
+     *
+     * @param array $display The display object retrieved from Beans API
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init($display)
     {
         self::$display              = $display;
@@ -38,6 +55,13 @@ class LianaObserver
         add_filter('woocommerce_get_shop_coupon_data', array(__CLASS__, 'getWooCouponData'), 10, 2);
     }
 
+    /**
+     * Return a list of all coupon codes used for redemption.
+     *
+     * @return array
+     *
+     * @since 3.5.0
+     */
     private static function getRedeemCodes()
     {
         return [self::REDEEM_COUPON_CODE, self::REDEEM_SUBSCRIPTION_CODE, self::REDEEM_LIFETIME_CODE];

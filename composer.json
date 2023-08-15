@@ -59,7 +59,7 @@
     "scripts": {
         "lint": [
             "./vendor/bin/phpcs",
-            "./vendor/bin/phpstan analyze --memory-limit=100"
+            "./vendor/bin/phpstan analyze --memory-limit=200M"
         ],
         "test": [
             ""

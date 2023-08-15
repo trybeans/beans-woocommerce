@@ -4,6 +4,7 @@ namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
 
+require_once 'ProductReviewsWebHook.php';
 require_once 'Api.php';
 require_once 'Hooks.php';
 

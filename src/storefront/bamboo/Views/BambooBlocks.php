@@ -33,7 +33,7 @@ class BambooBlocks
     }
 
     /**
-     * Resolve nagivation to the rewards program page from the account navigation menu.
+     * Resolve navigation to the rewards program page from the account navigation menu.
      *
      * @since 3.4.0
      *

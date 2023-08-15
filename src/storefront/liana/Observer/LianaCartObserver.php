@@ -4,8 +4,25 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
+/**
+ * Liana Cart Observer
+ *
+ * Handle cart redemptions
+ *
+ * @class LianaCartObserver
+ * @since 3.0.0
+ */
 class LianaCartObserver extends LianaObserver
 {
+    /**
+     * Initialize observer.
+     * Save display object from Beans API and add filters.
+     *
+     * @param array $display The display object retrieved from Beans API
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init($display)
     {
         parent::init($display);

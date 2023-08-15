@@ -14,6 +14,8 @@ class Hooks
         if (Helper::isSetup()) {
             add_filter('woocommerce_webhook_deliver_async', array(__CLASS__, 'setWebhookDeliverMode'), 10, 3);
         }
+
+        ProductReviewsWebHook::init();
     }
 
     public static function setWebhookDeliverMode($true, $instance, $arg)

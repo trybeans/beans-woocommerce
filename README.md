@@ -92,6 +92,12 @@ php -f scripts/phpinfo.php > phpinfo.txt
 Open `phpinfo.txt` to read the output.
 
 
+To create pot file:
+```bash
+./vendor/bin/wp i18n make-pot src src/i18n/beans-woocommerce.pot --exclude=src
+```
+
+
 ## 📕 Documentation
 
 - [WooCommerce minimum requirements by version](https://woocommerce.com/document/update-php-wordpress/)
@@ -103,3 +109,4 @@ Open `phpinfo.txt` to read the output.
 
 Useful links 
 - Debugging WP 404: https://gist.github.com/yunusga/33cf0ba9e311e12df4046722e93d4123
+

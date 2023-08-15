@@ -4,8 +4,25 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
+/**
+ * Liana Subscription Observer
+ *
+ * Handle subscription redemptions
+ *
+ * @class LianaSubscriptionObserver
+ * @since 3.5.0
+ */
 class LianaSubscriptionObserver extends LianaObserver
 {
+    /**
+     * Initialize observer.
+     * Save display object from Beans API and add filters.
+     *
+     * @param array $display The display object retrieved from Beans API
+     * @return void
+     *
+     * @since 3.5.0
+     */
     public static function init($display)
     {
         parent::init($display);
@@ -53,7 +70,7 @@ class LianaSubscriptionObserver extends LianaObserver
         );
 
         if (empty($discount_amount) || empty($account)) {
-            return;
+            return $order;
         }
 
         self::$redemption_cache["liana_redemption_{$coupon_code}"] = array(

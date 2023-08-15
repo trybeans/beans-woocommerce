@@ -163,16 +163,23 @@ $base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/i
           <input type="hidden" name="page" value="<?=Router::MENU_SLUG ?>">
           <input type="hidden" name="tab" value="<?=Router::TAB_CONNECT ?>">
           <?php if (Inspector::$beans_is_supported) : ?>
-          <button type="submit"
-                  class="btn beans-bg-primary beans-bg-primary-ultimate shadow-md" value="Connect to Beans Ultimate">
-          <?php else : ?>
-              <button type="submit"
-                      class="button button-disabled beans-bg-primary beans-bg-primary-ultimate shadow-md"
-                      value="Connect to Beans Ultimate"
-                      disabled>
-          <?php endif; ?>
+              <button 
+                  type="submit"
+                  class="btn beans-bg-primary beans-bg-primary-ultimate shadow-md" 
+                  value="Connect to Beans Ultimate"
+                  >
                   Get Started
               </button>
+          <?php else : ?>
+                  <!-- class="button button-disabled shadow-md" -->
+              <button 
+                  type="submit"
+                  class="button button-link button-link-delete shadow-md"
+                  value="Connect to Beans Ultimate"
+                  >
+                  Ignore warnings
+              </button>
+          <?php endif; ?>
         </p>
     </div>
     </form>

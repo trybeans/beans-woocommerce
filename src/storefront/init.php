@@ -8,6 +8,7 @@ require_once "base/BeansAccount.php";
 require_once "base/Auth/Auth.php";
 require_once "base/Scripts/Scripts.php";
 require_once "base/Registration/Registration.php";
+// require_once "../server/ProductReviewsWebHook.php";
 
 require_once "liana/Observer/LianaObserver.php";
 require_once "liana/Observer/LianaCartObserver.php";
@@ -20,6 +21,7 @@ require_once "bamboo/Views/BambooBlocks.php";
 require_once "bamboo/Views/BambooPage.php";
 
 use BeansWoo\Helper;
+use BeansWoo\Server\ProductReviewsWebHook;
 
 
 class Main
@@ -27,6 +29,7 @@ class Main
     public static function init()
     {
         Registration::init();
+        ProductReviewsWebHook::init();
 
         if (!Helper::isSetup()) {
             return;

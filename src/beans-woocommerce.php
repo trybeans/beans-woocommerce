@@ -3,12 +3,12 @@
 /**
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
- * Description: Loyalty and Rewards programs
- * Version: 3.5.1
+ * Description: Loyalty and Rewards program
+ * Version: 3.6.0
  * Author: Beans
  * Author URI: https://www.trybeans.com/
- * Text Domain: beans-woo
- * Domain Path: /languages
+ * Text Domain: beans-woocommerce
+ * Domain Path: /i18n/
  * Requires PHP: 7.4
  * Requires at least: 5.8
  * WC requires at least: 6.0
@@ -31,12 +31,16 @@ if (!defined('BEANS_PLUGIN_FILENAME')) {
     define('BEANS_PLUGIN_FILENAME', plugin_basename(__FILE__));
 }
 
+if (!defined('BEANS_PLUGIN_DIRNAME')) {
+    define('BEANS_PLUGIN_DIRNAME', dirname(__DIR__));
+}
+
 if (!defined('BEANS_PLUGIN_PATH')) {
     define('BEANS_PLUGIN_PATH', plugin_dir_path(__FILE__));
 }
 
 if (!defined('BEANS_PLUGIN_VERSION')) {
-    define('BEANS_PLUGIN_VERSION', '3.5.1');
+    define('BEANS_PLUGIN_VERSION', '3.6.0');
 }
 
 
@@ -64,6 +68,14 @@ if (!class_exists('WC_Beans')) :
             ServerMain::registerPluginActivationHooks();
         }
 
+        /**
+         * Create an in-memory instance of the Beans app
+         * to avoid re-initializing the app of each access.
+         *
+         * @return WC_Beans
+         *
+         * @since 1.0
+         */
         public static function instance()
         {
             if (is_null(self::$instance)) {
@@ -72,8 +84,22 @@ if (!class_exists('WC_Beans')) :
             return self::$instance;
         }
 
+        /**
+         * Initialize the plugin by directing the
+         * request through the appropriate entrypoint.
+         *
+         * For example, requests made by admin, and request made
+         * by shoppers are routed to different endpoints as
+         * they serve different purposes.
+         *
+         * @return void
+         *
+         * @since 1.0
+         */
         public static function init()
         {
+            self::loadTranslation();
+
             if (is_admin()) {
                 // If on Admin Dashboard
                 AdminMain::init();
@@ -97,14 +123,40 @@ if (!class_exists('WC_Beans')) :
             }
 
             // For classic web page visit
-
             StoreFrontMain::init();
         }
 
+        /**
+         * Verify is a request is made from AJAX or
+         * more broadly by a JS script on the storefront
+         *
+         * @return bool true if REST request
+         *
+         * @since 3.3.0
+         */
         private static function isRestRequest()
         {
             $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
             return strpos($uri, '/wp-json') !== false;
+        }
+
+        /**
+         * Load the translation strings for the plugin.
+         *
+         * This will first look for the translations in:
+         * "wp-content/languages/plugins/beans-woocommerce-fr_FR.mo"
+         * If not found, it will fallback to:
+         * "wp-content/plugins/beans-woocommerce/i18n/beans-woocommerce-fr_FR.mo"
+         *
+         * This will first check for the user local and fallback to the website local
+         *
+         * @return void
+         *
+         * @since 3.6.0
+         */
+        private static function loadTranslation()
+        {
+            load_plugin_textdomain('beans-woocommerce', false, BEANS_PLUGIN_DIRNAME . '/i18n');
         }
     }
 endif;
@@ -117,7 +169,5 @@ function WC_getBeansInstance()
 {
     return WC_Beans::instance();
 }
-
-// \BeansWoo\Helper::log($_SERVER['REQUEST_URI']);
 
 $GLOBALS['wc_beans'] = WC_getBeansInstance();
