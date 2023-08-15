@@ -12,3 +12,9 @@ cp -r ./assets ./dist/
 echo "syncing trunk folder"
 rsync -r --delete --no-links ./src/* ./dist/trunk/
 rsync -r --delete --no-links ./src/* /Users/yan/PHP/svn/beans-woocommerce-trunk/
+
+# cd /Users/yan/PHP/svn/beans-woocommerce-trunk/
+# sv update
+# svn add|delete on each added/deleted file 
+# svn commit -m "Beans WooCommerce 3.6"
+# help: https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
