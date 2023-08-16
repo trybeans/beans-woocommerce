@@ -138,13 +138,21 @@ class LianaObserver
             $min_beans = self::$redemption['min_beans'];
             if ($account_beans < $min_beans) {
                 if ($is_notice) {
-                    wc_add_notice(Helper::replaceTags(
+                    $message = strtr(
+                        __("You need a minimum of {quantity} {beans_name} to get a discount.", "beans-woocommerce"),
+                        array(
+                            "{quantity}"   => $min_beans,
+                            "{beans_name}" => self::$display['beans_name'],
+                        )
+                    );
+                    $message = Helper::replaceTags(
                         self::$i18n_strings['redemption']['condition_minimum_points'],
                         array(
                             'quantity'   => $min_beans,
                             "beans_name" => self::$display['beans_name'],
                         )
-                    ), 'notice');
+                    );
+                    wc_add_notice($message, 'notice');
                 }
 
                 return null;
@@ -154,12 +162,19 @@ class LianaObserver
             if ($percent_discount < 100) {
                 $max_amount = (1.0 * $order_value * $percent_discount) / 100;
                 if ($is_notice && $max_amount < $account_beans_value) {
-                    wc_add_notice(Helper::replaceTags(
+                    $message = strtr(
+                        __("Maximum discount for this order is {max_discount}%.", "beans-woocommerce"),
+                        array(
+                            '{max_discount}' => $percent_discount,
+                        )
+                    );
+                    $message = Helper::replaceTags(
                         self::$i18n_strings['redemption']['condition_maximum_discount'],
                         array(
                             'max_discount' => $percent_discount,
                         )
-                    ), 'notice');
+                    );
+                    wc_add_notice($message, 'notice');
                 }
             }
         }

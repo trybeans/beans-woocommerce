@@ -91,6 +91,13 @@ class LianaBlocks
 
         $product_points = $product->get_price() * self::$display['beans_ccy_spent'];
 
+        $notice_earn_points = strtr(
+            __("Buy this product and earn {quantity} {beans_name}.", 'beans-woocommerce'),
+            array(
+                "{beans_name}" => self::$display['beans_name'],
+                "{quantity}" => $product_points,
+            )
+        );
         $notice_earn_points = Helper::replaceTags(
             self::$display['i18n_strings']['rules']['earn_points_product'],
             ["beans_name" => self::$display['beans_name'], "quantity" => $product_points]
@@ -124,17 +131,38 @@ class LianaBlocks
         $account = BeansAccount::getSession();
         $active_redemption = LianaObserver::getActiveRedemption(LianaObserver::REDEEM_COUPON_CODE);
 
+        $notice_earn_points = strtr(
+            __("Complete your purchase and earn {quantity} {beans_name}.", "beans-woocommerce"),
+            array(
+                "{beans_name}" => self::$display['beans_name'],
+                "{quantity}" => $cart_points,
+            )
+        );
         $notice_earn_points = Helper::replaceTags(
             self::$display['i18n_strings']['rules']['earn_points_cart'],
             ["beans_name" => self::$display['beans_name'], "quantity" => $cart_points]
         );
 
         if ($active_redemption) {
+            $notice_cancel_redemption = strtr(
+                __("You've redeemed {quantity} {beans_name}.", "beans-woocommerce"),
+                array(
+                    "{beans_name}" => self::$display['beans_name'],
+                    "{quantity}" => $active_redemption['beans'],
+                )
+            );
             $notice_cancel_redemption = Helper::replaceTags(
                 self::$display['i18n_strings']['redemption']['you_redeemed_x_points'],
                 ["beans_name" => self::$display['beans_name'], "quantity" => $active_redemption['beans']]
             );
         } elseif ($account) {
+            $notice_redeem_points = strtr(
+                __("You have {quantity} {beans_name}.", "beans-woocommerce"),
+                array(
+                    "{beans_name}" => self::$display['beans_name'],
+                    "{quantity}" => $account['liana']['beans'],
+                )
+            );
             $notice_redeem_points = Helper::replaceTags(
                 self::$display['i18n_strings']['status']['you_have_points'],
                 ["beans_name" => self::$display['beans_name'], "quantity" => $account['liana']['beans']]
@@ -219,7 +247,7 @@ class LianaBlocks
         if ($redemption_code) {
             $sentence_2 = strtr(
                 __(
-                    'You have requested to redeem your {beans_name} on your upcoming subscription renewal. ',
+                    'You have requested to redeem your {beans_name} on your upcoming subscription renewal.',
                     'beans-woocommerce'
                 ),
                 array('{beans_name}' => self::$display['beans_name'])
@@ -237,7 +265,7 @@ class LianaBlocks
           <tr class="beans-subscription-redemption">
             <td class="beans-content">
               <p>
-                <?=$sentence_1?> 
+                <?=$sentence_1?>&nbsp;
                 <?=$sentence_2?>
               </p>
             </td>

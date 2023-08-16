@@ -4,7 +4,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Loyalty and Rewards program
- * Version: 3.6.0
+ * Version: 3.6.1
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woocommerce
@@ -40,9 +40,8 @@ if (!defined('BEANS_PLUGIN_PATH')) {
 }
 
 if (!defined('BEANS_PLUGIN_VERSION')) {
-    define('BEANS_PLUGIN_VERSION', '3.6.0');
+    define('BEANS_PLUGIN_VERSION', '3.6.1');
 }
-
 
 require_once 'includes/Beans.php';
 require_once 'includes/Helper.php';
@@ -66,6 +65,12 @@ if (!class_exists('WC_Beans')) :
             add_action('init', array(__CLASS__, 'init'), 10, 1);
 
             ServerMain::registerPluginActivationHooks();
+
+            add_action('before_woocommerce_init', function () {
+                if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
+                    \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+                }
+            });
         }
 
         /**

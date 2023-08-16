@@ -92,14 +92,18 @@ class LianaProductObserver extends LianaObserver
     public static function updateProductCTA($button_text, $product)
     {
         if (in_array($product->get_id(), self::$pay_with_point_product_ids)) {
-            $button_text = __(
-                Helper::replaceTags(
-                    self::$i18n_strings['button']['pay_with'],
-                    array(
-                        'beans_name' => self::$display['beans_name'],
-                    )
-                ),
-                "beans-woocommerce"
+            $button_text = strtr(
+                __("Pay with {beans_name}", "beans-woocommerce"),
+                array(
+                    '{beans_name}' => self::$display['beans_name'],
+                )
+            );
+
+            $button_text = Helper::replaceTags(
+                self::$i18n_strings['button']['pay_with'],
+                array(
+                    'beans_name' => self::$display['beans_name'],
+                )
             );
         }
 
@@ -168,7 +172,9 @@ class LianaProductObserver extends LianaObserver
     public static function addToCartValidation($result, $product_id, $quantity, $variation_id = 0, $variations = null)
     {
         if (!is_user_logged_in() && in_array($product_id, self::$pay_with_point_product_ids)) {
-            wc_add_notice(self::$i18n_strings['reward_product']['join_and_get'], 'error');
+            $message = __("Join our rewards program to get this product.", "beans-woocommerce");
+            $message = self::$i18n_strings['reward_product']['join_and_get'];
+            wc_add_notice($message, 'error');
             $result = false;
         } elseif (
             is_user_logged_in()
@@ -185,10 +191,17 @@ class LianaProductObserver extends LianaObserver
             $min_beans = $product->get_price() * self::$display['beans_rate'];
 
             if ($min_beans > $account_balance) {
-                wc_add_notice(Helper::replaceTags(
+                $message = strtr(
+                    __("You don't have enough {beans_name} to get this product.", "beans-woocommerce"),
+                    array(
+                        "{beans_name}" => self::$display['beans_name']
+                    )
+                );
+                $message = Helper::replaceTags(
                     self::$i18n_strings['reward_product']['not_enough_points'],
                     ["beans_name" => self::$display['beans_name']]
-                ), 'notice');
+                );
+                wc_add_notice($message, 'notice');
                 $result = false;
             }
         }
