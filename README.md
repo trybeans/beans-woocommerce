@@ -97,6 +97,13 @@ To create pot file:
 ./vendor/bin/wp i18n make-pot src src/i18n/beans-woocommerce.pot --exclude=src
 ```
 
+To create mo file:
+```bash
+./vendor/bin/wp i18n make-mo src/i18n
+```
+
+Translated strings can be downloaded from [WordPress Translation platform](https://translate.wordpress.org/projects/wp-plugins/beans-woocommerce-loyalty-rewards/)
+
 
 ## 📕 Documentation
 

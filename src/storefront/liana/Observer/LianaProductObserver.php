@@ -98,13 +98,6 @@ class LianaProductObserver extends LianaObserver
                     '{beans_name}' => self::$display['beans_name'],
                 )
             );
-
-            $button_text = Helper::replaceTags(
-                self::$i18n_strings['button']['pay_with'],
-                array(
-                    'beans_name' => self::$display['beans_name'],
-                )
-            );
         }
 
         return $button_text;
@@ -173,7 +166,6 @@ class LianaProductObserver extends LianaObserver
     {
         if (!is_user_logged_in() && in_array($product_id, self::$pay_with_point_product_ids)) {
             $message = __("Join our rewards program to get this product.", "beans-woocommerce");
-            $message = self::$i18n_strings['reward_product']['join_and_get'];
             wc_add_notice($message, 'error');
             $result = false;
         } elseif (
@@ -196,10 +188,6 @@ class LianaProductObserver extends LianaObserver
                     array(
                         "{beans_name}" => self::$display['beans_name']
                     )
-                );
-                $message = Helper::replaceTags(
-                    self::$i18n_strings['reward_product']['not_enough_points'],
-                    ["beans_name" => self::$display['beans_name']]
                 );
                 wc_add_notice($message, 'notice');
                 $result = false;

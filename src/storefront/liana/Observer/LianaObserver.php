@@ -17,7 +17,6 @@ class LianaObserver
 {
     protected static $display;
     protected static $redemption;
-    protected static $i18n_strings;
     protected static $tiers;
 
     /**
@@ -48,7 +47,6 @@ class LianaObserver
     {
         self::$display              = $display;
         self::$redemption           = $display['redemption'];
-        self::$i18n_strings         = $display['i18n_strings'];
         self::$tiers                = $display['tiers'];
         self::$redemption_cache     = array();
 
@@ -145,13 +143,6 @@ class LianaObserver
                             "{beans_name}" => self::$display['beans_name'],
                         )
                     );
-                    $message = Helper::replaceTags(
-                        self::$i18n_strings['redemption']['condition_minimum_points'],
-                        array(
-                            'quantity'   => $min_beans,
-                            "beans_name" => self::$display['beans_name'],
-                        )
-                    );
                     wc_add_notice($message, 'notice');
                 }
 
@@ -166,12 +157,6 @@ class LianaObserver
                         __("Maximum discount for this order is {max_discount}%.", "beans-woocommerce"),
                         array(
                             '{max_discount}' => $percent_discount,
-                        )
-                    );
-                    $message = Helper::replaceTags(
-                        self::$i18n_strings['redemption']['condition_maximum_discount'],
-                        array(
-                            'max_discount' => $percent_discount,
                         )
                     );
                     wc_add_notice($message, 'notice');

@@ -59,7 +59,7 @@ class LianaBlocks
     }
 
     /**
-     * Resolve nagivation to the rewards program page from the account navigation menu.
+     * Resolve navigation to the rewards program page from the account navigation menu.
      *
      * @param string $url: Link to the page before update
      * @param string  $endpoint: account-nav-slug
@@ -98,10 +98,6 @@ class LianaBlocks
                 "{quantity}" => $product_points,
             )
         );
-        $notice_earn_points = Helper::replaceTags(
-            self::$display['i18n_strings']['rules']['earn_points_product'],
-            ["beans_name" => self::$display['beans_name'], "quantity" => $product_points]
-        );
         ?>
         <div class="woocommerce">
           <div class="beans-product-info"><p><?=$notice_earn_points?></p></div>
@@ -138,10 +134,6 @@ class LianaBlocks
                 "{quantity}" => $cart_points,
             )
         );
-        $notice_earn_points = Helper::replaceTags(
-            self::$display['i18n_strings']['rules']['earn_points_cart'],
-            ["beans_name" => self::$display['beans_name'], "quantity" => $cart_points]
-        );
 
         if ($active_redemption) {
             $notice_cancel_redemption = strtr(
@@ -151,10 +143,6 @@ class LianaBlocks
                     "{quantity}" => $active_redemption['beans'],
                 )
             );
-            $notice_cancel_redemption = Helper::replaceTags(
-                self::$display['i18n_strings']['redemption']['you_redeemed_x_points'],
-                ["beans_name" => self::$display['beans_name'], "quantity" => $active_redemption['beans']]
-            );
         } elseif ($account) {
             $notice_redeem_points = strtr(
                 __("You have {quantity} {beans_name}.", "beans-woocommerce"),
@@ -162,10 +150,6 @@ class LianaBlocks
                     "{beans_name}" => self::$display['beans_name'],
                     "{quantity}" => $account['liana']['beans'],
                 )
-            );
-            $notice_redeem_points = Helper::replaceTags(
-                self::$display['i18n_strings']['status']['you_have_points'],
-                ["beans_name" => self::$display['beans_name'], "quantity" => $account['liana']['beans']]
             );
         }
 

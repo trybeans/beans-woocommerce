@@ -4,7 +4,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Loyalty and Rewards program
- * Version: 3.6.1
+ * Version: 3.6.2
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woocommerce
@@ -40,7 +40,7 @@ if (!defined('BEANS_PLUGIN_PATH')) {
 }
 
 if (!defined('BEANS_PLUGIN_VERSION')) {
-    define('BEANS_PLUGIN_VERSION', '3.6.1');
+    define('BEANS_PLUGIN_VERSION', '3.6.2');
 }
 
 require_once 'includes/Beans.php';
@@ -66,16 +66,24 @@ if (!class_exists('WC_Beans')) :
 
             ServerMain::registerPluginActivationHooks();
 
+            /**
+             * Declare compatibility with WooCommerce HPOS
+             * https://woocommerce.com/document/high-performance-order-storage/
+             */
             add_action('before_woocommerce_init', function () {
                 if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
-                    \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+                    \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+                        'custom_order_tables',
+                        __FILE__,
+                        true
+                    );
                 }
             });
         }
 
         /**
          * Create an in-memory instance of the Beans app
-         * to avoid re-initializing the app of each access.
+         * to avoid re-initializing the app on each access.
          *
          * @return WC_Beans
          *
@@ -133,7 +141,7 @@ if (!class_exists('WC_Beans')) :
 
         /**
          * Verify is a request is made from AJAX or
-         * more broadly by a JS script on the storefront
+         * more generally speaking by a JS script on the storefront
          *
          * @return bool true if REST request
          *
@@ -147,13 +155,12 @@ if (!class_exists('WC_Beans')) :
 
         /**
          * Load the translation strings for the plugin.
+         * This will first check for the user local and fallback to the website local
          *
          * This will first look for the translations in:
          * "wp-content/languages/plugins/beans-woocommerce-fr_FR.mo"
          * If not found, it will fallback to:
          * "wp-content/plugins/beans-woocommerce/i18n/beans-woocommerce-fr_FR.mo"
-         *
-         * This will first check for the user local and fallback to the website local
          *
          * @return void
          *

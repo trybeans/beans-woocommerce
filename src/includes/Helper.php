@@ -215,18 +215,6 @@ class Helper
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
-    public static function replaceTags($string, $tags, $force_lower = false)
-    {
-        return preg_replace_callback(
-            '/\\{([^{}]+)\\}/',
-            function ($matches) use ($force_lower, $tags) {
-                $key = $force_lower ? strtolower($matches[1]) : $matches[1];
-                return array_key_exists($key, $tags) ? $tags[$key] : '';
-            },
-            $string
-        );
-    }
-
     public static function getAssetURL($path)
     {
         return plugins_url($path, BEANS_PLUGIN_FILENAME);
