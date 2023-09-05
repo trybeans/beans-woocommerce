@@ -19,7 +19,7 @@ class LianaBlocks
         }
 
         if (get_option(Helper::OPTIONS['product-points']['handle'])) {
-            add_action('woocommerce_simple_add_to_cart', array(__CLASS__, 'renderProductInfo'), 10, 0);
+            add_action('woocommerce_before_add_to_cart_form', array(__CLASS__, 'renderProductInfo'), 10, 0);
         }
 
         if (get_option(Helper::OPTIONS['cart-notices']['handle'])) {
@@ -120,8 +120,30 @@ class LianaBlocks
         $notice_earn_points = null;
         $notice_redeem_points = null;
         $notice_cancel_redemption = null;
+        $redemption_params = self::$display['redemption'];
 
         $cart_subtotal = Helper::getCart()->cart_contents_total;
+
+        # Customers do not get points when they purchase product in the excluded collections.
+        # So they need to be removed from the points estimate.
+        if (!empty($redemption_params["excluded_collection_cms_ids"])) {
+            $amount_to_exclude = 0;
+            $cart_items = Helper::getCart()->get_cart();
+            foreach ($cart_items as $cart_item_key => $values) {
+                $product = $values['data'];
+                if (
+                    is_a($product, "WC_Product") &&
+                    array_intersect(
+                        $product->get_category_ids('edit'),
+                        $redemption_params["excluded_collection_cms_ids"]
+                    )
+                ) {
+                    $amount_to_exclude += $values['line_subtotal'];
+                }
+            }
+            $cart_subtotal = $cart_subtotal - $amount_to_exclude;
+        }
+
         $cart_points = intval($cart_subtotal * self::$display['beans_ccy_spent']);
 
         $account = BeansAccount::getSession();

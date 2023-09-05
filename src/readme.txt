@@ -115,6 +115,10 @@ The WordPress codex contains instructions on
 
 == 3.6.2 ==
 - add NL translations 
+- fix activation on multisite
+- make beans log available in woocommerce logs
+- fix earn points on product page
+- fix exclusion of collection on earn points 
 
 == 3.6.1 ==
 - activate support High-Performance Order Storage
