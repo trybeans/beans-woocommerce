@@ -12,7 +12,7 @@ class LianaProductObserver extends LianaObserver
     {
         parent::init($display);
 
-        if (empty(self::$redemption['reward_exclusive_product_cms_ids'])) {
+        if (empty(self::$redemption_params['exclusive_product_cms_ids'])) {
             return;
         }
 
@@ -215,7 +215,7 @@ class LianaProductObserver extends LianaObserver
             function ($value) {
                 return (int)$value;
             },
-            self::$redemption['reward_exclusive_product_cms_ids']
+            self::$redemption_params['exclusive_product_cms_ids']
         );
     }
 }

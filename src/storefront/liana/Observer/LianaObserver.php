@@ -16,7 +16,7 @@ use BeansWoo\Helper;
 class LianaObserver
 {
     protected static $display;
-    protected static $redemption;
+    protected static $redemption_params;
     protected static $tiers;
 
     /**
@@ -46,8 +46,8 @@ class LianaObserver
     public static function init($display)
     {
         self::$display              = $display;
-        self::$redemption           = $display['redemption'];
         self::$tiers                = $display['tiers'];
+        self::$redemption_params    = $display['redemption'];
         self::$redemption_cache     = array();
 
         add_filter('woocommerce_get_shop_coupon_data', array(__CLASS__, 'getWooCouponData'), 10, 2);
@@ -129,11 +129,8 @@ class LianaObserver
 
         $max_amount = $order_value;
 
-        if (
-            isset(self::$redemption) && isset(self::$redemption['min_beans'])
-            && isset(self::$redemption['max_percentage'])
-        ) {
-            $min_beans = self::$redemption['min_beans'];
+        if (isset(self::$redemption_params['min_beans'])  && isset(self::$redemption_params['max_percentage'])) {
+            $min_beans = self::$redemption_params['min_beans'];
             if ($account_beans < $min_beans) {
                 if ($is_notice) {
                     $message = strtr(
@@ -149,7 +146,7 @@ class LianaObserver
                 return null;
             }
 
-            $percent_discount = self::$redemption['max_percentage'];
+            $percent_discount = self::$redemption_params['max_percentage'];
             if ($percent_discount < 100) {
                 $max_amount = (1.0 * $order_value * $percent_discount) / 100;
                 if ($is_notice && $max_amount < $account_beans_value) {
