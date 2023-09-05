@@ -21,9 +21,22 @@ namespace BeansWoo;
 // Exit if accessed directly
 defined('ABSPATH') or exit;
 
-// Check if WooCommerce is active
-$active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
-if (!in_array('woocommerce/woocommerce.php', $active_plugins)) {
+/**
+ * Is the WooCommerce plugin installed and active?
+ *
+ * @since 3.6.2
+ * @return boolean true if the WooCommerce plugin is installed and active
+ */
+function beans_is_woocommerce_active()
+{
+    $active_plugins = apply_filters('active_plugins', get_option('active_plugins', array()));
+    if (is_multisite()) {
+        $active_plugins = array_merge($active_plugins, get_site_option('active_sitewide_plugins', array()));
+    }
+    return in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins);
+}
+
+if (!beans_is_woocommerce_active()) {
     return;
 }
 
