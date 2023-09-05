@@ -144,6 +144,12 @@ class Helper
 
     public static function log($info)
     {
+
+        try {
+            wc_get_logger()->debug($info, array( 'source' => 'beans' ));
+        } catch (\Exception $e) {
+        }
+
         if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
             unlink(self::LOG_FILE);
         }
