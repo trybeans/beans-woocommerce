@@ -7,7 +7,6 @@ use BeansWoo\Helper;
 
 class Hooks
 {
-
     public static function init()
     {
         add_filter('woocommerce_rest_prepare_system_status', array(__CLASS__, 'addSitePagesInfos'), 90, 2);
@@ -15,6 +14,8 @@ class Hooks
         if (Helper::isSetup()) {
             add_filter('woocommerce_webhook_deliver_async', array(__CLASS__, 'setWebhookDeliverMode'), 10, 3);
         }
+
+        ProductReviewsWebHook::init();
     }
 
     public static function setWebhookDeliverMode($true, $instance, $arg)
@@ -105,7 +106,7 @@ class Hooks
                 'page_visible' => $page_visible,
                 'page_name' => $values['page_name'],
                 'shortcode' => $values['shortcode'],
-                'path' => str_replace(home_url(), '', get_permalink(Helper::getConfig($app_name . '_page')))
+                'path' => str_replace(home_url(), '', get_permalink(Helper::getConfig($app_name . '_page'))),
             );
         }
 

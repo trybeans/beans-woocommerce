@@ -1,0 +1,107 @@
+# Translation of Plugins - Beans · Loyalty and Rewards programs for Woocommerce - Development (trunk) in Dutch
+# This file is distributed under the same license as the Plugins - Beans · Loyalty and Rewards programs for Woocommerce - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-08-16 20:17:45+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.7\n"
+"Language: nl\n"
+"Project-Id-Version: Plugins - Beans · Loyalty and Rewards programs for Woocommerce - Development (trunk)\n"
+
+#: storefront/liana/Views/LianaBlocks.php:148
+msgid "You've redeemed {quantity} {beans_name}."
+msgstr "Je hebt {quantity} {beans_name}."
+
+#: storefront/liana/Views/LianaBlocks.php:135
+msgid "Complete your purchase and earn {quantity} {beans_name}."
+msgstr "Voltooi je aankoop en verdien {quantity} {beans_name}."
+
+#: storefront/liana/Views/LianaBlocks.php:95
+msgid "Buy this product and earn {quantity} {beans_name}."
+msgstr "Koop dit product en verdien {quantity} {beans_name}."
+
+#: storefront/liana/Observer/LianaProductObserver.php:195
+msgid "You don't have enough {beans_name} to get this product."
+msgstr "Je hebt niet genoeg {beans_name} om dit product te krijgen."
+
+#: storefront/liana/Observer/LianaProductObserver.php:175
+msgid "Join our rewards program to get this product."
+msgstr "Word lid van ons beloningsprogramma om dit product te krijgen."
+
+#: storefront/liana/Observer/LianaProductObserver.php:96
+msgid "Pay with {beans_name}"
+msgstr "Betaal met {beans_name}"
+
+#: storefront/liana/Observer/LianaObserver.php:166
+msgid "Maximum discount for this order is {max_discount}%."
+msgstr "De maximale korting voor deze bestelling is {max_discount}%."
+
+#: storefront/liana/Observer/LianaObserver.php:142
+msgid "You need a minimum of {quantity} {beans_name} to get a discount."
+msgstr "Je hebt minimaal {quantity} {beans_name} om korting te krijgen."
+
+#: storefront/liana/Views/LianaBlocks.php:281
+msgid "Redeem"
+msgstr "Inwisselen"
+
+#: storefront/liana/Views/LianaBlocks.php:277
+msgid "Cancel redemption"
+msgstr "Annuleer inwisseling"
+
+#: storefront/liana/Views/LianaBlocks.php:262
+msgid "Loyalty Program"
+msgstr "Loyalty programma"
+
+#: storefront/liana/Views/LianaBlocks.php:257
+msgid "Use your {beans_name} to get a discount on your subscription renewal."
+msgstr "Gebruik je {beans_name} om korting te krijgen op je abonnementsvernieuwing."
+
+#: storefront/liana/Views/LianaBlocks.php:249
+msgid "You have requested to redeem your {beans_name} on your upcoming subscription renewal."
+msgstr "Je hebt gevraagd om je {beans_name} in te wisselen bij je volgende abonnementsvernieuwing "
+
+#: storefront/liana/Views/LianaBlocks.php:160
+#: storefront/liana/Views/LianaBlocks.php:241
+msgid "You have {quantity} {beans_name}."
+msgstr "Je hebt {quantity} {beans_name}."
+
+#: storefront/base/Registration/Registration.php:20
+msgid "Error: Last name is a required field."
+msgstr "Fout: achternaam is een vereist veld."
+
+#: storefront/base/Registration/Registration.php:17
+msgid "Error: First name is a required field."
+msgstr "Fout: voornaam is een vereist veld."
+
+#. Description of the plugin
+msgid "Loyalty and Rewards program"
+msgstr "Loyaliteits- en beloningsprogramma"
+
+#: admin/Router.php:166
+msgid "Beans Ultimate is not properly set up."
+msgstr "Beans Ultimate is niet goed ingesteld."
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://www.trybeans.com/"
+msgstr "https://www.trybeans.com/"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+msgid "Beans"
+msgstr "Beans"
+
+#: admin/Router.php:167
+msgid "Set up"
+msgstr "Instellen"
+
+#: storefront/base/Registration/Registration.php:50
+msgid "Last name"
+msgstr "Achternaam"
+
+#: storefront/base/Registration/Registration.php:42
+msgid "First name"
+msgstr "Voornaam"

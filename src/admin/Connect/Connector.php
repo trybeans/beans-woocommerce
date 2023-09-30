@@ -7,7 +7,6 @@ use BeansWoo\Helper;
 
 class Connector
 {
-
     public static function init()
     {
         if (Helper::isSetup()) {
@@ -31,9 +30,9 @@ class Connector
             return null;
         }
 
+        Helper::setConfig('card', $card_id);
         Helper::setConfig('key', $integration_key['id']);
-        Helper::setConfig('card', $integration_key['card']['id']);
-        Helper::setConfig('secret', $integration_key['secret']);
+        Helper::setConfig('secret', $integration_key['access_token']);
 
         return true;
     }
@@ -63,29 +62,30 @@ class Connector
     public static function registerSettingOptions()
     {
         add_settings_section("beans-section", "", null, "beans-woo");
-        add_settings_field(
-            "beans-liana-display-redemption-checkout",
-            "Redemption on checkout",
-            array(__CLASS__, "displayRedeemCheckboxSettings"),
-            "beans-woo",
-            "beans-section"
-        );
-        register_setting("beans-section", "beans-liana-display-redemption-checkout");
+
+        foreach (Helper::OPTIONS as $key => $params) {
+            add_settings_field(
+                $params['handle'],
+                $params['label'],
+                array(__CLASS__, "displayOption"),
+                "beans-woo",
+                "beans-section",
+                $params
+            );
+            register_setting("beans-section", $params['handle']);
+        }
     }
 
-    public static function displayRedeemCheckboxSettings()
+    public static function displayOption($args)
     {
         ?>
       <!-- Here we are comparing stored value with 1. Stored value is 1 if user
       checks the checkbox otherwise empty string. -->
       <div>
-        <input type="checkbox"
-               id="beans-liana-display-redemption-checkout"
-               name="beans-liana-display-redemption-checkout"
-               value="1"
-            <?php checked(1, get_option('beans-liana-display-redemption-checkout'), true); ?>
+        <input type="checkbox" id="<?=$args['handle']?>" name="<?=$args['handle']?>" value="1"
+            <?php checked(1, get_option($args['handle']), true); ?>
         />
-        <label for="beans-liana-display-redemption-checkout">Display redemption on checkout page</label>
+        <label for="<?=$args['handle']?>"><?=$args['help_text']?></label>
       </div>
         <?php
     }

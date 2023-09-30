@@ -57,6 +57,7 @@ class ConnectorRESTController extends \WP_REST_Controller
         if (isset($request['card']) && isset($request['token'])) {
             $card_id = $request['card'];
             $token   = $request['token'];
+
             // Using `Connector::processSetup()` doesn't work. I had an error about the
             // `Class BeansWoo\Admin\Connector` doesn't exist. I tried to investigate but I am not able to find out
             // what is the bug.
@@ -69,14 +70,14 @@ class ConnectorRESTController extends \WP_REST_Controller
                 Helper::log('Connecting failed: ' . $e->getMessage());
                 return new \WP_Error(
                     "beans_rest_cannot_setup",
-                    __("Unable to setup Beans plugin", 'beans'),
+                    "Unable to set up Beans plugin",
                     array('status' => 400)
                 );
             }
 
+            Helper::setConfig('card', $card_id);
             Helper::setConfig('key', $integration_key['id']);
-            Helper::setConfig('card', $integration_key['card']['id']);
-            Helper::setConfig('secret', $integration_key['secret']);
+            Helper::setConfig('secret', $integration_key['access_token']);
             Helper::clearTransients();
         }
 
@@ -87,8 +88,10 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     public function update_item($request)
     {
-        if (isset($request['riper_version'])) {
-            Helper::setConfig('riper_version', $request['riper_version']);
+        foreach (['riper_version'] as $field) {
+            if (isset($request[$field])) {
+                Helper::setConfig($field, $request[$field]);
+            }
         }
 
         $response = new \WP_REST_Response(self::get_item_data());
@@ -151,10 +154,10 @@ class ConnectorRESTController extends \WP_REST_Controller
 
     private function check_permissions($request, $action)
     {
-        if (!current_user_can('manage_options')) {
+        if (!current_user_can('manage_woocommerce')) {
             return new \WP_Error(
                 "beans_rest_cannot_$action",
-                __("Sorry, you are not allowed to $action this resource.", 'woocommerce'),
+                "Sorry, you are not allowed to `$action` this resource.",
                 array('status' => rest_authorization_required_code())
             );
         }

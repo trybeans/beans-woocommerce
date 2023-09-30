@@ -9,6 +9,37 @@ class Helper
     const CONFIG_NAME = 'beans-config-3'; // private
     const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt'; // private
 
+    /**
+     * Display redemption on checkout page
+     */
+    public const OPTIONS = array(
+        'checkout-redeem' => array(
+            'handle' => 'beans-liana-display-redemption-checkout',
+            'label' => "Redemption on checkout",
+            'help_text' => 'Display redemption on checkout page.',
+        ),
+        'product-points' => array(
+            'handle' => 'beans-liana-display-product-points',
+            'label' => "Product points",
+            'help_text' => 'Display points info on product page.',
+        ),
+        'cart-notices' => array(
+            'handle' => 'beans-liana-display-cart-notices',
+            'label' => "Cart notices",
+            'help_text' => 'Display points balance notice on cart page.',
+        ),
+        'account-nav' => array(
+            'handle' => 'beans-liana-display-account-navigation',
+            'label' => "Account navigation",
+            'help_text' => 'Display links to rewards, referral pages in account navigation.',
+        ),
+        'subscription-redemption' => array(
+            'handle' => 'beans-liana-display-subscription-redemption',
+            'label' => "Subscription redemption",
+            'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
+        ),
+    );
+
     public static $key = null;
 
     public static function getDomain($sub)
@@ -42,7 +73,7 @@ class Helper
 
     public static function requestTransientAPI($method, $path, $arg = null, $headers = null)
     {
-        $transient_key = '$beans_' . str_replace('/', '_', $path);
+        $transient_key = 'beans_' . str_replace('/', '_', $path);
 
         $object = get_transient($transient_key);
 
@@ -66,13 +97,14 @@ class Helper
     public static function clearTransients()
     {
         self::log('Deleting transients');
-        delete_transient('$beans_liana_display_current');
-        delete_transient('$beans_core_user_current_loginkey');
+        delete_transient('beans_bamboo_display_current');
+        delete_transient('beans_liana_display_current');
+        delete_transient('beans_core_user_current_loginkey');
 
         # This will help to remove old transients.
         # todo; remove
-        delete_transient('beans_liana_display');
-        delete_transient('beans_card');
+        delete_transient('$beans_liana_display_current');
+        delete_transient('$beans_core_user_current_loginkey');
     }
 
     public static function getConfig($key)
@@ -112,6 +144,12 @@ class Helper
 
     public static function log($info)
     {
+
+        try {
+            wc_get_logger()->debug($info, array( 'source' => 'beans' ));
+        } catch (\Exception $e) {
+        }
+
         if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
             unlink(self::LOG_FILE);
         }
@@ -181,18 +219,6 @@ class Helper
         $current_page = explode("?", $current_page)[0];
 
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
-    }
-
-    public static function replaceTags($string, $tags, $force_lower = false)
-    {
-        return preg_replace_callback(
-            '/\\{([^{}]+)\\}/',
-            function ($matches) use ($force_lower, $tags) {
-                $key = $force_lower ? strtolower($matches[1]) : $matches[1];
-                return array_key_exists($key, $tags) ? $tags[$key] : '';
-            },
-            $string
-        );
     }
 
     public static function getAssetURL($path)

@@ -7,9 +7,14 @@ use BeansWoo\Helper;
 class Auth
 {
     const COOKIE_KEY = 'beans_cjs'; // public
+    protected static $display_liana;
+    protected static $display_bamboo;
 
-    public static function init()
+    public static function init($display_liana, $display_bamboo)
     {
+        self::$display_liana = $display_liana;
+        self::$display_bamboo = $display_bamboo;
+
         add_action('wp_loaded', array(__CLASS__, 'saveBeansAccountToCookies'), 99);
         add_action('wp_logout', array(__CLASS__, 'onCustomerLogout'), 10, 1);
         add_action('wp_login', array(__CLASS__, 'onCustomerLogin'), 10, 2);
@@ -18,6 +23,12 @@ class Auth
 
     public static function onCustomerRegister($user_id)
     {
+        // Either the rewards program is active, or we are in live test mode
+        if (!self::$display_liana['is_active'] && !isset($_SESSION['beans_mode'])) {
+            Helper::log('Auth: Display is deactivated');
+            return;
+        }
+
         $user_data = get_userdata($user_id);
 
         $first_name = get_user_meta($user_id, 'first_name', true);
@@ -45,7 +56,7 @@ class Auth
         $email = $user_data->user_email;
 
         if ($email) {
-            BeansAccount::create($email, $first_name, $last_name);
+            BeansAccount::create($email, $first_name, $last_name, true);
         }
     }
 
@@ -56,7 +67,7 @@ class Auth
 
     public static function forceCustomerAuthentication()
     {
-        if (BeansAccount::get()) {
+        if (BeansAccount::getSession()) {
             return;
         }
 
@@ -68,30 +79,30 @@ class Auth
 
     public static function onCustomerLogout()
     {
-        BeansAccount::clear();
+        BeansAccount::clearSession();
     }
 
     public static function saveBeansAccountToCookies()
     {
-        $account      = BeansAccount::get();
+        $account      = BeansAccount::getSession();
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
         if (!isset($current_user) and $account) {
-            BeansAccount::clear();
-            $account = BeansAccount::get();
+            BeansAccount::clearSession();
+            $account = BeansAccount::getSession();
         }
 
         if (isset($current_user) and !$account) {
             self::onCustomerRegister($current_user->ID);
-            $account = BeansAccount::get();
+            $account = BeansAccount::getSession();
         }
 
         $cart       = Helper::getCart();
         $cart       = isset($cart) ? $cart : null;
-        $token      = BeansAccount::getToken();
-        $redemption = LianaObserver::getActiveRedemption();
+        $token      = BeansAccount::getSessionToken();
+        $redemption = LianaObserver::getActiveRedemption(LianaObserver::REDEEM_COUPON_CODE);
         if (empty($redemption)) {
-            $redemption = LianaLifetimeDiscountObserver::getActiveTierRedemption();
+            $redemption = LianaObserver::getActiveRedemption(LianaObserver::REDEEM_LIFETIME_CODE);
         }
 
         $data = array(

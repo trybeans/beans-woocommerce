@@ -1,11 +1,11 @@
-=== Beans · Marketing Apps for Woocommerce  ===
+=== Beans · Loyalty and Rewards programs for Woocommerce  ===
 
 Contributors: nas2lor, yan_dah, corentinal
 Tags: loyalty, referral, email, popup, social, rewards, automated emails, referral program, marketing email, widget, message, coupon, reward, retention, voucher, points, loyalty program, incentive, incentivize, woocommerce, marketing, advertising, referring, discount, promoting, coupon, trybeans, beans, affiliate, e-commerce, ecommerce, engage, customers, woocommerce plugin, woocommerce extension, facebook, like, social network, credit, free, twitter, tweet, google, google plus, PInterest
-Requires at least: 5.2
-Requires PHP: 7.1
-Tested up to: 5.9
-Stable tag: 3.3.6
+Requires at least: 5.8
+Requires PHP: 7.4
+Tested up to: 6.3
+Stable tag: 3.6.2
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -80,7 +80,7 @@ Pinterest, Instagram, and more...
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 4.1
+- WooCommerce >= 6.0
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers
@@ -108,13 +108,69 @@ The WordPress codex contains instructions on
 2. Easily manage customers account
 3. Foxx · Automated & Marketing Emails: Send super-targeted emails that drive sales.
 4. Bamboo · Referral Program: Turn your customers into advocates of your brand.
-5. Poppy · Smart Popups: Convert more customers
-6. Snow · Notification Widget: Communicate with customer without disruption
-7. Lotus · Social Media Manager: Save time managing social media
-8. Easily manage customers account
+5. Snow · Notification Widget: Communicate with customer without disruption
 
 
 == Changelog ==
+
+== 3.6.2 ==
+- add NL translations 
+- fix activation on multisite
+- make beans log available in woocommerce logs
+- fix earn points on product page
+- fix exclusion of collection on earn points 
+
+== 3.6.1 ==
+- activate support High-Performance Order Storage
+- update translation strings
+
+== 3.6.0 ==
+- Add support for review webhook 
+- Update translation engine 
+- Fix bugs 
+- Update documentation 
+
+== 3.5.1 ==
+- Fix bug on redemption constraint applied to subscription
+
+== 3.5.0 ==
+- Add support for WooCommerce Subscription
+- Add Beans action controller 
+- Update integration_key object
+- Fix customer registration when rewards program is inactive
+- Fix rounding of values
+- Update Wordpress compatibility version
+- Update WooCommerce compatibility version
+- Update minimum PHP version supported to 7.4
+- Update minimum WordPress version supported to 5.8
+- Update minimum WooCommerce version supported to 6.0
+
+== 3.4.0 ==
+- Drop support for arrow
+- Add support for live testing 
+- Add option to display message on product page 
+- Display woocommerce message on redemption
+- Update Wordpress compatibility version
+- Update WooCommerce compatibility version
+- Update minimum PHP version supported to 7.3
+- Update minimum WordPress version supported to 5.6
+- Update minimum WooCommerce version supported to 5.1
+
+== 3.3.9 ==
+- Update Wordpress compatibility version
+- Update WooCommerce compatibility version
+- Update app screenshots
+
+== 3.3.8 ==
+- Add support to customize powerby section on programs pages
+- Refactor beans initialization script
+
+== 3.3.7 ==
+- Fix WP-Rocket caching issue
+- Fix permission issue on Beans API v1
+- Test compatibility with WooCommerce 6.3.0
+- Add preloader on programs pages
+- Add support to customize powerby section on programs pages
 
 == 3.3.6 ==
 - Load lifetime discount for ajax 

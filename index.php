@@ -1,5 +1,5 @@
 <?php
 
-// Send to wp sub url
-header("Location: /wp");
+// Send to store sub url
+header("Location: /store");
 die();

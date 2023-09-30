@@ -163,12 +163,10 @@ class Router
             ?>
             <div class="notice notice-error" style="margin-left: auto">
                 <div style="margin: 10px auto;">
-                Beans: <?=__("Beans Ultimate is not properly setup", 'beans-woo');?>
-                <a href="<?=self::getTabURL(self::TAB_INSPECT)?>"><?=__('Set up', 'beans-woo')?></a>
+                Beans: <?=__("Beans Ultimate is not properly set up.", 'beans-woocommerce');?>
+                <a href="<?=self::getTabURL(self::TAB_INSPECT)?>"><?=__('Set up', 'beans-woocommerce')?></a>
                 <a href="<?=self::getTabURL()?>&<?=self::NOTICE_KEY?>=1" 
-                    style="float:right; text-decoration: none">
-                    x
-                </a>
+                    style="float:right; text-decoration: none">x</a>
                 </div>
             </div>
             <?php
