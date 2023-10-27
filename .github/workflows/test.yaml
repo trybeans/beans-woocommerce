@@ -1,0 +1,26 @@
+name: Deploy to SVN
+
+on:
+  push:
+    branches:
+      - feature/DEV-818  # Adjust this to match your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install SVN
+      run: sudo apt-get install subversion
+
+    - name: Deploy to SVN
+      run: |
+        svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}  svn://71.163.81.189/beans-woocommerce-loyalty-rewards
+        cd beans-woocommerce-loyalty-rewards
+        svn update
+        svn add .
+        svn commit -m "Automatic deployment from GitHub Action"
+        svn up
