@@ -21,7 +21,7 @@ jobs:
         svn checkout ${{ secrets.SVN_REPO_URL }}   woocommerce-loyalty-rewards
         cp -r assets/* woocommerce-loyalty-rewards/trunk/assets/
         cp -r src/* woocommerce-loyalty-rewards/trunk/
-        cp -r src/* woocommerce-loyalty-rewards/tags/3.6.2
+        mkdir -p woocommerce-loyalty-rewards/tags/3.6.2 &&  cp -r src/* woocommerce-loyalty-rewards/tags/3.6.2
         cd woocommerce-loyalty-rewards
         svn add . --force
         svn commit -m "Automatic deployment from GitHub Action"
