@@ -25,4 +25,4 @@ jobs:
         cd woocommerce-loyalty-rewards
         svn add . --force
         svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
-        svn update  --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} ${{ secrets.SVN_REPO_URL }}
+        svn update
