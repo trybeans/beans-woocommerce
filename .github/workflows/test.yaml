@@ -24,5 +24,5 @@ jobs:
         mkdir -p woocommerce-loyalty-rewards/tags/3.6.2 &&  cp -r src/* woocommerce-loyalty-rewards/tags/3.6.2
         cd woocommerce-loyalty-rewards
         svn add . --force
-        svn commit -m "Automatic deployment from GitHub Action"  
-        svn update ${{ secrets.SVN_REPO_URL }} --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
+        svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
+        svn update  --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} ${{ secrets.SVN_REPO_URL }}
