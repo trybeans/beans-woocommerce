@@ -1,23 +1,29 @@
-name: Deploy to WordPress.org
+name: Deploy to SVN
+
 on:
   push:
     tags:
-    - "v*"
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@master
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Build
-        run: |
-          bash build.sh
+    - name: Install SVN
+      run: sudo apt-get install subversion
 
-      - name: WordPress Plugin Deploy
-        uses: nk-o/action-wordpress-plugin-deploy@master
-        env:
-          SVN_PASSWORD: ${{ secrets.WORDPRESS_SVN_PASSWORD }}
-          SVN_USERNAME: ${{ secrets.WORDPRESS_SVN_USERNAME }}
-          SOURCE_DIR: dist/
-          SLUG: beans-woocommerce-loyalty-rewards
+    - name: Deploy to SVN
+      run: |
+        svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} ${{ secrets.SVN_REPO_URL }}   woocommerce-loyalty-rewards
+        cp -r assets/* woocommerce-loyalty-rewards/trunk/assets/
+        cp -r src/* woocommerce-loyalty-rewards/trunk/
+        mkdir -p woocommerce-loyalty-rewards/tags/${{ github.event.release.tag_name }}  
+        cp -r src/* woocommerce-loyalty-rewards/tags/${{ github.event.release.tag_name }}
+        cd woocommerce-loyalty-rewards
+        svn add . --force
+        svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
+        svn update
