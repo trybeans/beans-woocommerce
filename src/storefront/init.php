@@ -43,6 +43,10 @@ class Main
             $_SESSION['beans_mode'] = $_GET['beans-mode'];
         }
 
+        if (isset($_SESSION['beans_mode'])) {
+            Helper::log('Session: Beans mode live testing is active.');
+        }
+
         add_action('wp_loaded', array(__CLASS__, 'routeActions'), 30, 1);
 
         Scripts::init();
