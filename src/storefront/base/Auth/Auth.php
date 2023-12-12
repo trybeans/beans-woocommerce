@@ -121,7 +121,7 @@ class Auth
             ),
             "cart"    => array(
                 "item_count"  => $cart ? $cart->cart_contents_count : null,
-                "total_price" => $cart ? $cart->subtotal * 100 : null,
+                "total_price" => $cart ? $cart->cart_contents_total * 100 : null,
             ),
         );
 
