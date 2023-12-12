@@ -33,7 +33,8 @@ function beans_is_woocommerce_active()
     if (is_multisite()) {
         $active_plugins = array_merge($active_plugins, get_site_option('active_sitewide_plugins', array()));
     }
-    return in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins);
+    return in_array('woocommerce/woocommerce.php', $active_plugins) ||
+        array_key_exists('woocommerce/woocommerce.php', $active_plugins);
 }
 
 if (!beans_is_woocommerce_active()) {

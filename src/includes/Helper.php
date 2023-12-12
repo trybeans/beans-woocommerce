@@ -152,7 +152,7 @@ class Helper
      *      /wp-content/plugins/beans-woocommerce/log.txt
      *
      * @param string $info the text to print in the log
-     * @return void
+     * @return bool
      *
      * @since 3.0.0
      */
