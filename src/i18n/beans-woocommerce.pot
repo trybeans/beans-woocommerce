@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Beans plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Beans 3.6.2\n"
+"Project-Id-Version: Beans 3.6.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/src\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-17T07:42:16+00:00\n"
+"POT-Creation-Date: 2023-12-13T09:16:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: beans-woocommerce\n"
@@ -36,19 +36,19 @@ msgstr ""
 msgid "Set up"
 msgstr ""
 
-#: storefront/base/Registration/Registration.php:17
+#: storefront/base/Registration.php:17
 msgid "Error: First name is a required field."
 msgstr ""
 
-#: storefront/base/Registration/Registration.php:20
+#: storefront/base/Registration.php:20
 msgid "Error: Last name is a required field."
 msgstr ""
 
-#: storefront/liana/Observer/LianaObserver.php:142
+#: storefront/liana/Observer/LianaObserver.php:137
 msgid "You need a minimum of {quantity} {beans_name} to get a discount."
 msgstr ""
 
-#: storefront/liana/Observer/LianaObserver.php:159
+#: storefront/liana/Observer/LianaObserver.php:154
 msgid "Maximum discount for this order is {max_discount}%."
 msgstr ""
 
@@ -68,35 +68,35 @@ msgstr ""
 msgid "Buy this product and earn {quantity} {beans_name}."
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:131
+#: storefront/liana/Views/LianaBlocks.php:154
 msgid "Complete your purchase and earn {quantity} {beans_name}."
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:140
+#: storefront/liana/Views/LianaBlocks.php:163
 msgid "You've redeemed {quantity} {beans_name}."
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:148
-#: storefront/liana/Views/LianaBlocks.php:225
+#: storefront/liana/Views/LianaBlocks.php:171
+#: storefront/liana/Views/LianaBlocks.php:248
 msgid "You have {quantity} {beans_name}."
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:233
+#: storefront/liana/Views/LianaBlocks.php:256
 msgid "You have requested to redeem your {beans_name} on your upcoming subscription renewal."
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:241
+#: storefront/liana/Views/LianaBlocks.php:264
 msgid "Use your {beans_name} to get a discount on your subscription renewal."
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:246
+#: storefront/liana/Views/LianaBlocks.php:269
 msgid "Loyalty Program"
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:261
+#: storefront/liana/Views/LianaBlocks.php:284
 msgid "Cancel redemption"
 msgstr ""
 
-#: storefront/liana/Views/LianaBlocks.php:265
+#: storefront/liana/Views/LianaBlocks.php:288
 msgid "Redeem"
 msgstr ""
