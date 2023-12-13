@@ -5,10 +5,9 @@ namespace BeansWoo\StoreFront;
 defined('ABSPATH') or die;
 
 require_once "base/BeansAccount.php";
-require_once "base/Auth/Auth.php";
-require_once "base/Scripts/Scripts.php";
-require_once "base/Registration/Registration.php";
-// require_once "../server/ProductReviewsWebHook.php";
+require_once "base/Auth.php";
+require_once "base/Scripts.php";
+require_once "base/Registration.php";
 
 require_once "liana/Observer/LianaObserver.php";
 require_once "liana/Observer/LianaCartObserver.php";
@@ -152,6 +151,9 @@ class Main
             case 'cancel-redeem-product':
             case 'cancel-redeem-lifetime':
                 LianaObserver::cancelRedemption();
+                break;
+            case 'manual-registration':
+                Auth::onManualRegister();
                 break;
         }
     }

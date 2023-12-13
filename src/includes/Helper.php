@@ -39,6 +39,15 @@ class Helper
             'label' => "Subscription redemption",
             'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
         ),
+        'manual-registration' => array(
+            'handle' => 'beans-liana-manual-registration',
+            'label' => "Manual registration",
+            'help_text' => (
+                'Check this box to force new and existing customer to manually ' .
+                'opt in the rewards program by submitting a form. ' .
+                '(This is an experimental feature)'
+            ),
+        ),
     );
 
     public static $key = null;
