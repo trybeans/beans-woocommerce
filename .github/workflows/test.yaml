@@ -21,8 +21,10 @@ jobs:
         svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} ${{ secrets.SVN_REPO_URL }}   woocommerce-loyalty-rewards
         cp -r assets/* woocommerce-loyalty-rewards/trunk/assets/
         cp -r src/* woocommerce-loyalty-rewards/trunk/
-        mkdir -p woocommerce-loyalty-rewards/tags/3.6.2 &&  cp -r src/* woocommerce-loyalty-rewards/tags/3.6.2
         cd woocommerce-loyalty-rewards
+        releaseVersion=$(sed -n 's/Stable tag: //p' trunk/readme.txt)
+        mkdir -p tags/$releaseVersion 
+        svn cp -r trunk/* tags/$releaseVersion
         svn add . --force
         svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
         svn update
