@@ -9,6 +9,7 @@ parameters:
 		- src
 	bootstrapFiles:
 		- tests/phpstan-bootstrap.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
 	excludePaths:
 		- src/src
 includes:

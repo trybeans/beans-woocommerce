@@ -145,6 +145,7 @@ class LianaBlocks
         }
 
         $cart_points = intval($cart_subtotal * self::$display['beans_ccy_spent']);
+        $register_points = self::$display['beans_new_account'];
 
         $account = BeansAccount::getSession();
         $active_redemption = LianaObserver::getActiveRedemption(LianaObserver::REDEEM_COUPON_CODE);
@@ -153,7 +154,7 @@ class LianaBlocks
             __("Complete your purchase and earn {quantity} {beans_name}.", "beans-woocommerce"),
             array(
                 "{beans_name}" => self::$display['beans_name'],
-                "{quantity}" => $cart_points,
+                "{quantity}" => $cart_points + $register_points,
             )
         );
 
@@ -212,7 +213,7 @@ class LianaBlocks
         ?>
         <div
           id="beans-cart-redeem-button"
-          class="beans-cart"
+          class="beans-cart beans-cart-woocommerce"
           beans-btn-class="checkout-button button"
           beans-cart_total="<?=$cart_subtotal?>"
         >

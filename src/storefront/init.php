@@ -5,10 +5,9 @@ namespace BeansWoo\StoreFront;
 defined('ABSPATH') or die;
 
 require_once "base/BeansAccount.php";
-require_once "base/Auth/Auth.php";
-require_once "base/Scripts/Scripts.php";
-require_once "base/Registration/Registration.php";
-// require_once "../server/ProductReviewsWebHook.php";
+require_once "base/Auth.php";
+require_once "base/Scripts.php";
+require_once "base/Registration.php";
 
 require_once "liana/Observer/LianaObserver.php";
 require_once "liana/Observer/LianaCartObserver.php";
@@ -41,6 +40,10 @@ class Main
 
         if (isset($_GET['beans-mode'])) {
             $_SESSION['beans_mode'] = $_GET['beans-mode'];
+        }
+
+        if (isset($_SESSION['beans_mode'])) {
+            Helper::log('Session: Beans mode live testing is active.');
         }
 
         add_action('wp_loaded', array(__CLASS__, 'routeActions'), 30, 1);
@@ -148,6 +151,9 @@ class Main
             case 'cancel-redeem-product':
             case 'cancel-redeem-lifetime':
                 LianaObserver::cancelRedemption();
+                break;
+            case 'manual-registration':
+                Auth::onManualRegister();
                 break;
         }
     }

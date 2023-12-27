@@ -10,7 +10,8 @@ class Helper
     const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt'; // private
 
     /**
-     * Display redemption on checkout page
+     * List of settings params that can be configured by the merchant in
+     * the WordPress dashboard.
      */
     public const OPTIONS = array(
         'checkout-redeem' => array(
@@ -37,6 +38,15 @@ class Helper
             'handle' => 'beans-liana-display-subscription-redemption',
             'label' => "Subscription redemption",
             'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
+        ),
+        'manual-registration' => array(
+            'handle' => 'beans-liana-manual-registration',
+            'label' => "Manual registration",
+            'help_text' => (
+                'Check this box to force new and existing customers to manually ' .
+                'opt in the rewards program by submitting a form. ' .
+                '(This is an experimental feature)'
+            ),
         ),
     );
 
@@ -142,6 +152,19 @@ class Helper
         return true;
     }
 
+    /**
+     * Log a message to:
+     *  1. The woocommerce logger accessible the WordPress admin dashboard under
+     *      WooCommerce > Status > Logs or by going to /wp-admin/admin.php?page=wc-status&tab=logs
+     *  2. A file located at the root of the Beans plugin for WordPress folder:
+     *      /wp-content/plugins/beans-woocommerce-loyalty-rewards/log.txt
+     *      /wp-content/plugins/beans-woocommerce/log.txt
+     *
+     * @param string $info the text to print in the log
+     * @return bool
+     *
+     * @since 3.0.0
+     */
     public static function log($info)
     {
 

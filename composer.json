@@ -54,7 +54,8 @@
         "wp-cli/wp-cli-bundle": "^2.8",
         "wp-coding-standards/wpcs": "^2.3",
         "johnpbloch/wordpress": "~5.8.0",
-        "wpackagist-plugin/woocommerce": "~6.0.0"
+        "wpackagist-plugin/woocommerce": "~6.0.0",
+        "php-stubs/woocommerce-stubs": "^8.3"
     },
     "scripts": {
         "lint": [
