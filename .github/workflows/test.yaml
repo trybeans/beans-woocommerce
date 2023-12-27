@@ -24,7 +24,7 @@ jobs:
         cd woocommerce-loyalty-rewards
         releaseVersion=$(sed -n 's/Stable tag: //p' trunk/readme.txt)
         mkdir -p tags/$releaseVersion 
-        svn cp -r trunk/* tags/$releaseVersion
+        svn copy --parents trunk/* tags/$releaseVersion
         svn add . --force
         svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
         svn update
