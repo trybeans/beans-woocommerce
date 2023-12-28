@@ -1,0 +1,39 @@
+name: Deploy to SVN
+
+on:
+  push:
+    branches:
+      - feature/DEV-818  # Adjust this to match your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install SVN
+      run: sudo apt-get install subversion
+
+    - name: Deploy to SVN
+      run: |
+        svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }} ${{ secrets.SVN_TEST_REPO_URL }}   woocommerce-loyalty-rewards
+        cp -r assets/* woocommerce-loyalty-rewards/trunk/assets/
+        cp -r src/* woocommerce-loyalty-rewards/trunk/
+        cd woocommerce-loyalty-rewards
+        releaseVersion=$(sed -n 's/Stable tag: //p' trunk/readme.txt)
+        mkdir -p tags/$releaseVersion 
+        svn copy --parents trunk/* tags/$releaseVersion
+        svn add . --force
+        svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }}
+        svn update
+    - name: Post to a Slack channel
+      id: slack
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: "Test Slack notification: The Beans Woocommerce plugin has been staged. You can find the updated plugin at at  ${{ secrets.SVN_TEST_REPO_WEB_URL }}/trunk "
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEB_HOOK }}
+
+    
