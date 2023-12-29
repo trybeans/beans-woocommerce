@@ -19,14 +19,17 @@ jobs:
     - name: Deploy to SVN
       run: |
         svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }} ${{ secrets.SVN_TEST_REPO_URL }}   woocommerce-loyalty-rewards
-        cp -r assets/* woocommerce-loyalty-rewards/trunk/assets/
+        ls
         cp -r src/* woocommerce-loyalty-rewards/trunk/
         cd woocommerce-loyalty-rewards
+        
+        svn add . --force
+
         releaseVersion=$(sed -n 's/Stable tag: //p' trunk/readme.txt)
         
         if [ -d "tags/$releaseVersion" ]; then  echo "Directory exist. Removing directory tags/$releaseVersion" && svn rm tags/$releaseVersion; else echo "Directory does not exist."; fi
         if [ -d "tags/$releaseVersion" ]; then  echo "Directory exist."; else echo "Directory does not exist. Creating directory tags/$releaseVersion " &&  mkdir -p tags/$releaseVersion; fi
-      
+        
         svn copy --parents trunk/* tags/$releaseVersion
         svn add . --force
         svn commit -m "Automatic deployment from GitHub Action"   --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }}
