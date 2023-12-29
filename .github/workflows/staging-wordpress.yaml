@@ -19,7 +19,7 @@ jobs:
     - name: Deploy to SVN
       run: |
         svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} ${{ secrets.SVN_REPO_URL }} woocommerce-loyalty-rewards
-        cp -r assets/* woocommerce-loyalty-rewards/trunk/assets/
+        cp -r assets/* woocommerce-loyalty-rewards/assets/
         cp -r src/* woocommerce-loyalty-rewards/trunk/
         cd woocommerce-loyalty-rewards
         svn add . --force
@@ -38,7 +38,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text":  "The Beans Woocommerce plugin has been staged. You can find the updated plugin at at  ${{ secrets.SVN_REPO_URL }}/trunk"
+                  "text":  "The Beans Woocommerce plugin has been staged. You can find the updated plugin at ${{ secrets.SVN_REPO_URL }}/trunk"
                 }
               }
             ]
