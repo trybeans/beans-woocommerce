@@ -19,8 +19,10 @@ jobs:
     - name: Deploy to SVN
       run: |
         svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }} ${{ secrets.SVN_TEST_REPO_URL }}   woocommerce-loyalty-rewards
-        ls
+        
+        cp -r assets/* woocommerce-loyalty-rewards/assets/
         cp -r src/* woocommerce-loyalty-rewards/trunk/
+        
         cd woocommerce-loyalty-rewards
         
         svn add . --force
