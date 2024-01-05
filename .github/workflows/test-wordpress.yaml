@@ -15,9 +15,9 @@ jobs:
     - name: validate version
       run: |
         
-        readmeReleaseVersion= $(sed -n 's/Stable tag: //p' src/readme.txt | egrep -o '[0-9]\.[0-9]\.[0-9]')
+        readmeReleaseVersion=$(sed -n 's/Stable tag: //p' src/readme.txt | egrep -o '[0-9]\.[0-9]\.[0-9]')
         phpFileReleaseVersion= $(sed -n 's/Version: //p' src/beans-woocommerce.php | egrep -o '[0-9]\.[0-9]\.[0-9]')
-        beansReleaseVersion = $(sed -n 's/const VERSION = //p' src/includes/Beans.php| egrep -o '[0-9]\.[0-9]\.[0-9]')
+        beansReleaseVersion=$(sed -n 's/const VERSION = //p' src/includes/Beans.php| egrep -o '[0-9]\.[0-9]\.[0-9]')
 
         if [[ "$readmeReleaseVersion" == "$phpFileReleaseVersion" ]] && [[ "$readmeReleaseVersion" == "$beansReleaseVersion" ]] && [[ "$phpFileReleaseVersion" == "$beansReleaseVersion" ]]; then
           echo "The version in all file are equal"
