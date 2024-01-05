@@ -19,7 +19,7 @@ jobs:
         phpFileReleaseVersion= $(sed -n 's/Version: //p' src/beans-woocommerce.php | egrep -o '[0-9]\.[0-9]\.[0-9]')
         beansReleaseVersion = $(sed -n 's/const VERSION = //p' src/includes/Beans.php| egrep -o '[0-9]\.[0-9]\.[0-9]')
 
-        if [[ "$readmeReleaseVersion" == "$phpFileReleaseVersion" ]] || [[ "$readmeReleaseVersion" == "$beansReleaseVersion" ]] || [[ "$phpFileReleaseVersion" == "$beansReleaseVersion" ]]; then
+        if [[ "$readmeReleaseVersion" == "$phpFileReleaseVersion" ]] && [[ "$readmeReleaseVersion" == "$beansReleaseVersion" ]] && [[ "$phpFileReleaseVersion" == "$beansReleaseVersion" ]]; then
           echo "The version in all file are equal"
           echo "validVersion=true" >> "$GITHUB_ENV"
         else
@@ -28,6 +28,28 @@ jobs:
           echo "SUMMARY=$summary" >> "$GITHUB_ENV"  
           echo "validVersion=false" >> "$GITHUB_ENV"
         fi
+
+    - name: Post to a Slack channel
+      if: ${{ env.validVersion == false }}
+      id: slack
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: |
+          {
+            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text":  "${{ env.SUMMARY }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEB_HOOK }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
   deploy:
     runs-on: ubuntu-latest
@@ -63,10 +85,7 @@ jobs:
 
         summary= "The Beans Woocommerce plugin has been release. You can find the updated plugin at ${{ secrets.SVN_TEST_REPO_URL }}/tags"
         echo "SUMMARY=$summary" >> "$GITHUB_ENV"
-  
-  notify:
-    runs-on: ubuntu-20.04
-    steps:
+
     - name: Post to a Slack channel
       id: slack
       uses: slackapi/slack-github-action@v1.24.0
