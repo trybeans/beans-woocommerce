@@ -22,11 +22,13 @@ jobs:
         if [[ "$readmeReleaseVersion" == "$phpFileReleaseVersion" ]] && [[ "$readmeReleaseVersion" == "$beansReleaseVersion" ]] && [[ "$phpFileReleaseVersion" == "$beansReleaseVersion" ]]; then
           echo "The version in all file are equal"
           echo "validVersion=true" >> "$GITHUB_ENV"
+          echo "validVersion=true" >> "$GITHUB_OUTPUT"
         else
           echo "The version in all file are not equal"
           summary= "The version in the readme.txt $readmeReleaseVersion, beans-woocommerce.php $phpFileReleaseVersion  and Beans.php $beansReleaseVersion  file are differents"
           echo "SUMMARY=$summary" >> "$GITHUB_ENV"  
           echo "validVersion=false" >> "$GITHUB_ENV"
+          echo "validVersion=false" >> "$GITHUB_OUTPUT"
         fi
 
     - name: Post to a Slack channel
@@ -54,7 +56,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: validate
-    if: ${{ env.validVersion == true }}
+    if: ${{ needs.validate.outputs.validVersion == true }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
