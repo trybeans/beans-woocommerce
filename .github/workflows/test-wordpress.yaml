@@ -8,11 +8,14 @@ on:
 jobs:
   validate: 
     runs-on: ubuntu-latest
+    outputs:
+      validVersion: ${{ steps.validate_version.outputs.validVersion }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
     
     - name: validate version
+      id: validate_version
       run: |
         
         readmeReleaseVersion=$(sed -n 's/Stable tag: //p' src/readme.txt | egrep -o '[0-9]\.[0-9]\.[0-9]')
@@ -56,7 +59,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: validate
-    # if: ${{ needs.validate.outputs.validVersion == true }}
+    if: ${{ needs.validate.outputs.validVersion == true }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -85,7 +88,7 @@ jobs:
         svn commit -m "Automatic release from GitHub Action"   --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }}
         svn update
 
-        summary= "The Beans Woocommerce plugin has been release. You can find the updated plugin at ${{ secrets.SVN_TEST_REPO_URL }}/tags"
+        summary="The Beans Woocommerce plugin has been release. You can find the updated plugin at ${{ secrets.SVN_TEST_REPO_URL }}/tags"
         echo "SUMMARY=$summary" >> "$GITHUB_ENV"
 
     - name: Post to a Slack channel
