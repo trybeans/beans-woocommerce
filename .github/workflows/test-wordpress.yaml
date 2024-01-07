@@ -28,7 +28,7 @@ jobs:
           echo "validVersion=true" >> "$GITHUB_OUTPUT"
         else
           echo "The version in all file are not equal"
-          summary= "The version in the readme.txt $readmeReleaseVersion, beans-woocommerce.php $phpFileReleaseVersion  and Beans.php $beansReleaseVersion  file are differents"
+          summary="The version in the readme.txt $readmeReleaseVersion, beans-woocommerce.php $phpFileReleaseVersion  and Beans.php $beansReleaseVersion  file are differents"
           echo "SUMMARY=$summary" >> "$GITHUB_ENV"  
           echo "validVersion=false" >> "$GITHUB_ENV"
           echo "validVersion=false" >> "$GITHUB_OUTPUT"
