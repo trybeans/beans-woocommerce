@@ -3,7 +3,7 @@ name: Deploy to SVN
 on:
   push:
     branches:
-      - feature/DEV-818  # Adjust this to match your branch name
+      - staging  # Adjust this to match your branch name
 
 jobs:
   validate: 
