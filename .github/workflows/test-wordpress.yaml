@@ -78,7 +78,7 @@ jobs:
         
         svn add . --force
 
-        releaseVersion=$(sed -n 's/Stable tag: //p' trunk/readme.txt | egrep -o '[0-9]\.[0-9]\.[0-9])
+        releaseVersion=$(sed -n 's/Stable tag: //p' trunk/readme.txt | egrep -o '[0-9]\.[0-9]\.[0-9]')
         
         if [ -d "tags/$releaseVersion" ]; then  echo "Directory exist. Removing directory tags/$releaseVersion" && svn rm tags/$releaseVersion; else echo "Directory does not exist."; fi
         if [ -d "tags/$releaseVersion" ]; then  echo "Directory exist."; else echo "Directory does not exist. Creating directory tags/$releaseVersion " &&  mkdir -p tags/$releaseVersion; fi
