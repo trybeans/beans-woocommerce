@@ -88,7 +88,7 @@ jobs:
         svn commit -m "Automatic release from GitHub Action"   --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }}
         svn update
 
-        summary="The Beans Woocommerce plugin has been release. You can find the updated plugin at ${{ secrets.SVN_TEST_REPO_WEB_URL }}/tags"
+        summary="Testing. The Beans Woocommerce plugin has been staged. You can find the updated plugin at ${{ secrets.SVN_TEST_REPO_WEB_URL }}/tags"
         echo "SUMMARY=$summary" >> "$GITHUB_ENV"
 
     - name: Post to a Slack channel
