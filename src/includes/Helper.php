@@ -56,29 +56,31 @@ class Helper
     {
         $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
-            'NAME'    => 'trybeans.com',
-            'API'     => 'api.trybeans.com',
-            'CONNECT' => 'connect.trybeans.com',
-            'WWW'     => 'www.trybeans.com',
-            'CDN'     => 'cdn.trybeans.com',
-            'RADIX'    => 'api.radix.trybeans.com',
+            'WWW'     => 'https://www.trybeans.com',
+            'CDN'     => 'https://cdn.trybeans.com',
+            'BOILER'  => 'https://app.trybeans.com',
+            'CONNECT' => 'https://connect.trybeans.com',
+            'STEM'    => 'https://api.trybeans.com/v3/',
+            'RADIX'   => 'https://trellis.trybeans.com/v3/',
         );
-        $val     = getenv($key);
-
-        return empty($val) ? $domains[$sub] : getenv($key);
+        return getenv($key) || $domains[$sub];
     }
 
-    public static function API($domain = 'API')
+    /**
+     * Create an instance of the Beans REST API Wrapper
+     *
+     * @param string $domain: The API service to query: `STEM` (default) or `RADIX`
+     * @return Beans\Beans: An instance of the API Wrapper
+     *
+     * @since 3.0.0
+     */
+    public static function API($domain = 'STEM')
     {
         if (!self::$key) {
             self::$key = self::getConfig('secret');
         }
 
-        $beans = new Beans\Beans(self::$key);
-
-        $beans->endpoint = 'https://' . self::getDomain($domain) . '/v3/';
-
-        return $beans;
+        return new Beans\Beans(self::$key, self::getDomain($domain));
     }
 
     public static function requestTransientAPI($method, $path, $arg = null, $headers = null)
@@ -104,17 +106,19 @@ class Helper
         return $object;
     }
 
+    /**
+     * Clear all transients (cache)
+     *
+     * @return void
+     *
+     * @since 3.3.0
+     */
     public static function clearTransients()
     {
         self::log('Deleting transients');
         delete_transient('beans_bamboo_display_current');
         delete_transient('beans_liana_display_current');
         delete_transient('beans_core_user_current_loginkey');
-
-        # This will help to remove old transients.
-        # todo; remove
-        delete_transient('$beans_liana_display_current');
-        delete_transient('$beans_core_user_current_loginkey');
     }
 
     public static function getConfig($key)
@@ -136,7 +140,7 @@ class Helper
 
     public static function isSetup()
     {
-        return Helper::getConfig('key') && Helper::getConfig('card') && Helper::getConfig('secret');
+        return Helper::getConfig('merchant') && Helper::getConfig('card') && Helper::getConfig('secret');
     }
 
     public static function resetSetup()

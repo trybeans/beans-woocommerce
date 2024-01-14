@@ -30,7 +30,7 @@ class Scripts
         $version = $version ? $version : 'lts';
         wp_enqueue_script(
             'beans-ultimate-js',
-            'https://' . Helper::getDomain("CDN") .
+            Helper::getDomain("CDN") .
                 "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" . $card,
             array(),
             (string)time(),

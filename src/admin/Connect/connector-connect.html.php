@@ -9,7 +9,7 @@ use BeansWoo\Admin\Connector;
 
 Inspector::init();
 Connector::setupPages();
-$base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
+$base_banner_url = Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 $base_asset_url  = Helper::getAssetURL('/assets/img/admin');
 
 $admin = wp_get_current_user();
@@ -23,7 +23,7 @@ if ($country_code && strpos($country_code, ':') !== false) {
     }
 }
 
-$connect = "https://" . Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
+$connect = Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
 
 $beans_app_list = array(
     'liana' => array(

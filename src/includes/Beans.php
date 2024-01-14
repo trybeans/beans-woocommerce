@@ -31,18 +31,20 @@ if (!function_exists('curl_init')) {
 
 class Beans
 {
-    public $endpoint = 'https://api.trybeans.com/v3/';
-
-    const VERSION = '3.6.4';  // private
+    const VERSION = '4.0.0-alpha.1';  // private
 
     private $_secret = '';
     private $_next_page = '';
     private $_previous_page = '';
     private $_curl_handle = null;
+    private $_endpoint = 'https://api.trybeans.com/v3/';
 
-    public function __construct($secret = null)
+    public function __construct($secret = null, $endpoint = null)
     {
         $this->_secret = $secret;
+        if ($endpoint) {
+            $this->_endpoint = $endpoint;
+        }
     }
 
     public function get($path, $arg = null, $headers = null)
@@ -79,7 +81,7 @@ class Beans
     {
         // \BeansWoo\Helper::log("*** API CALL *** ${method} ${path}");
 
-        $url = $this->endpoint . $path;
+        $url = $this->_endpoint . $path;
 
         if (strpos($path, '://') !== false) {
             $url = $path;

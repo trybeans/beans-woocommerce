@@ -49,8 +49,8 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
         </div>
         <div>
           <a class="button beans-woo-banner-link"
-             href="https://<?php echo Helper::getDomain('CONNECT') .
-                 "/auth/login/${loginkey['key']}"; ?>?next=https://app.<?php echo Helper::getDomain('NAME') ?>"
+             href="<?php echo Helper::getDomain('CONNECT') .
+                 "/auth/login/${loginkey['key']}"; ?>?next=<?php echo Helper::getDomain('BOILER') ?>"
              target="_blank">
             Go To Beans Ultimate
           </a>

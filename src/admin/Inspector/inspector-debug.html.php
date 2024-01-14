@@ -18,7 +18,7 @@ function getSupportedTag($vs_is_supported)
     }
 }
 
-$base_banner_url = 'https://' . Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
+$base_banner_url = Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
 
 ?>
 
