@@ -69,7 +69,7 @@ jobs:
 
     - name: Deploy to SVN
       run: |
-        svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }} ${{ secrets.SVN_TEST_REPO_URL }}   woocommerce-loyalty-rewards
+        svn checkout --non-interactive --no-auth-cache --username ${{ secrets.SVN_TEST_USERNAME }} --password "${{ secrets.SVN_TEST_PASSWORD }}" ${{ secrets.SVN_TEST_REPO_URL }}   woocommerce-loyalty-rewards
        
         cp -r assets/* woocommerce-loyalty-rewards/assets/
         cp -r src/* woocommerce-loyalty-rewards/trunk/
@@ -85,7 +85,7 @@ jobs:
         
         svn copy --parents trunk/* tags/$releaseVersion
         svn add . --force
-        svn commit -m "Automatic release from GitHub Action"   --username ${{ secrets.SVN_TEST_USERNAME }} --password ${{ secrets.SVN_TEST_PASSWORD }}
+        svn commit -m "Automatic release from GitHub Action"   --username ${{ secrets.SVN_TEST_USERNAME }} --password "${{ secrets.SVN_TEST_PASSWORD }}"
         svn update
 
         summary="Testing. The Beans Woocommerce plugin has been staged. You can find the updated plugin at ${{ secrets.SVN_TEST_REPO_WEB_URL }}/tags"
