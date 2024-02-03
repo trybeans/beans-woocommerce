@@ -5,11 +5,11 @@ Tags: loyalty, referral, email, popup, social, rewards, automated emails, referr
 Requires PHP: 8.0
 Requires at least: 6.0
 Tested up to: 6.4
-Stable tag: 3.6.4
+Stable tag: 3.6.6
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
-Beans for WooCommerce is a complete suite to create a unified marketing experience for your WooCommerce online shop.
+Retain your customers and get more repeat purchases
 
 
 == Description ==
@@ -19,7 +19,7 @@ It includes a set of apps to help you manage all the marketing for your WooComme
 Visit [Beans Marketing Apps](http://bit.ly/36Al6vj) website for complete details.
 
 
-= Liana · Loyalty & Rewards Program =
+= Loyalty Program =
 
 Make your customers addicted to your shop. Liana helps you get your
 customers to place a second order, a third, a fourth and more. Use Liana to:
@@ -31,7 +31,7 @@ customers to place a second order, a third, a fourth and more. Use Liana to:
 [Learn more about Liana](http://bit.ly/2RC7WJO)
 
 
-= Bamboo · Referral Program =
+= Referral Program =
 
 Turn your customers into advocates of your brand.
 Let your customers grow your business by referring you to their friends. Use Bamboo, to:
@@ -43,7 +43,7 @@ Let your customers grow your business by referring you to their friends. Use Bam
 [Learn more about Bamboo](http://bit.ly/316tvFp)
 
 
-= Foxx · Automated & Marketing Emails =
+= Automated & Marketing Emails =
 
 Super-targeted automated emails that drive sales. Foxx helps you reach out to customers
 with highly relevant offers at the moment they are most likely to shop. Use Foxx, to:
@@ -55,7 +55,7 @@ with highly relevant offers at the moment they are most likely to shop. Use Foxx
 [Learn more about Foxx](http://bit.ly/2GwDomz)
 
 
-= Snow · Notification Widget =
+= Notification Widget =
 
 Communicate with customers without disrupting their journey. Snow helps you share information with online shoppers without requiring the impact of an overlay pop-up. Use Snow, to:
 
@@ -104,14 +104,20 @@ The WordPress codex contains instructions on
 
 == Screenshots ==
 
-1. Liana · Loyalty & rewards program: Make your customers addicted to your shop.
+1. Loyalty & rewards program: Make your customers addicted to your shop.
 2. Easily manage customers account
-3. Foxx · Automated & Marketing Emails: Send super-targeted emails that drive sales.
-4. Bamboo · Referral Program: Turn your customers into advocates of your brand.
-5. Snow · Notification Widget: Communicate with customer without disruption
+3. Automated & Marketing Emails: Send super-targeted emails that drive sales.
+4. Referral Program: Turn your customers into advocates of your brand.
+5. Notification Widget: Communicate with customer without disruption
 
 
 == Changelog ==
+
+== 3.6.6 ==
+- fix pages not being created. 
+
+== 3.6.5 ==
+- Update description
 
 == 3.6.3 ==
 - Fix issues on points calculation on cart 

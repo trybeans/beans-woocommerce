@@ -43,9 +43,6 @@ class Scripts
     public static function renderFooter()
     {
         $account_page_id = get_option('woocommerce_myaccount_page_id');
-
-        // todo; remove `beans_pages`, `beans_pages_ids`, `beans_plugin_version`, & `beans_riper_version`
-        //  cause they've been deprecated. Use `beans_init_data` instead
         ?>
         <script>
             window.beans_init_data = {
@@ -72,13 +69,6 @@ class Scripts
                 plugin_version: "<?= BEANS_PLUGIN_VERSION ?>",
                 riper_version: "<?= Helper::getConfig('riper_version'); ?>",
             };
-
-            // @:deprecated
-            window.beans_pages = window.beans_init_data.pages;
-            window.beans_pages_ids = window.beans_init_data.page_ids;
-            window.beans_plugin_version = window.beans_init_data.plugin_version;
-            window.beans_riper_version = window.beans_init_data.riper_version;
-
             window.Beans3.Radix.init();
         </script>
         <?php
