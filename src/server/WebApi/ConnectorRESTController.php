@@ -2,11 +2,10 @@
 
 namespace BeansWoo\Server;
 
-use Beans\BeansError;
 use BeansWoo\Helper;
 
 /**
- * Add a custom REST resource on WP REST API.
+ * Add the Connector REST resource on WP REST API.
  *
  * @since 3.4.0
  */
@@ -32,12 +31,12 @@ class ConnectorRESTController extends \WP_REST_Controller
                 array(
                     'methods' => \WP_REST_Server::READABLE,
                     'callback' => array($this, 'retrieve'),
-                    'permission_callback' => array($this, 'check_permissions'),
+                    'permission_callback' => array(Helper, 'checkAPIPermission'),
                 ),
                 array(
                     'methods' => \WP_REST_Server::EDITABLE,
                     'callback' => array($this, 'update'),
-                    'permission_callback' => array($this, 'check_permissions'),
+                    'permission_callback' => array(Helper, 'checkAPIPermission'),
                 )
             )
         );
@@ -88,38 +87,21 @@ class ConnectorRESTController extends \WP_REST_Controller
      */
     private static function serialize()
     {
+        $options = array();
+        foreach (Helper::OPTIONS as $key => $params) {
+            $options[] = array_merge($params, array(
+                'key' => $key,
+                'value' => get_option($params['handle'])
+            ));
+        }
+
         return array(
             'card' => Helper::getConfig('card'),
             'merchant' => Helper::getConfig('merchant'),
             'riper_version' => Helper::getConfig('riper_version'),
             'is_setup' => Helper::isSetup(),
             'pages' => Helper::getBeansPages(),
+            'options' => $options
         );
-    }
-
-    /**
-     * Define if the request_use has permission to access the resource.
-     *
-     * @param \WP_REST_Request $request
-     * @return bool True if user has permission
-     *
-     * @since 3.4.0
-     */
-    public function check_permissions($request)
-    {
-        return true;
-        // Make GET request public
-        if ($request->get_method() === 'GET') {
-            return true;
-        }
-
-        if (!current_user_can('manage_woocommerce')) {
-            return new \WP_Error(
-                "beans_rest_cannot_write",
-                "Sorry, you are not allowed to update this resource.",
-                array('status' => rest_authorization_required_code())
-            );
-        }
-        return true;
     }
 }

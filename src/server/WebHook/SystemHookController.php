@@ -5,17 +5,28 @@ namespace BeansWoo\Server;
 use Beans\BeansError;
 use BeansWoo\Helper;
 
-class Hooks
+/**
+ * Override System Status Hooks and Rest API
+ *
+ * @class SystemHookController
+ * @since 3.3.0
+ */
+class SystemHookController
 {
+    /**
+     * Initialize controller.
+     *
+     * @return void
+     *
+     * @since 3.3.0
+     */
     public static function init()
     {
-        add_filter('woocommerce_rest_prepare_system_status', array(__CLASS__, 'addSitePagesInfos'), 90, 2);
+        add_filter('woocommerce_rest_prepare_system_status', array(__CLASS__, 'appendPages'), 90, 2);
 
         if (Helper::isSetup()) {
             add_filter('woocommerce_webhook_deliver_async', array(__CLASS__, 'setWebhookDeliverMode'), 10, 3);
         }
-
-        ProductReviewsWebHook::init();
     }
 
     public static function setWebhookDeliverMode($true, $instance, $arg)
@@ -30,7 +41,7 @@ class Hooks
         return true;
     }
 
-    public static function addSitePagesInfos($response, $system_status)
+    public static function appendPages($response, $system_status)
     {
         $pages = [
             get_option('woocommerce_myaccount_page_id') => array(
@@ -115,6 +126,8 @@ class Hooks
 
     public static function postWebhookStatus($status)
     {
+        Helper::clearTransients();
+
         $args = [
             'status' => $status
         ];

@@ -22,4 +22,4 @@ try {
 } catch (\Exception $e) {
 }
 
-Server\Hooks::postWebhookStatus('uninstalled');
+Server\SystemHookController::postWebhookStatus('uninstalled');

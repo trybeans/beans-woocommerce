@@ -7,13 +7,13 @@ namespace BeansWoo\Server;
  *
  * Send webhook on new product reviews
  *
- * @class ProductReviewsWebHook
+ * @class ReviewHookController
  * @since 3.6.0
  */
-class ProductReviewsWebHook
+class ReviewHookController
 {
     /**
-     * Initialize observer.
+     * Initialize controller.
      *
      * @return void
      *
