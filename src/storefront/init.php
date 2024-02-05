@@ -20,7 +20,7 @@ require_once "bamboo/Views/BambooBlocks.php";
 require_once "bamboo/Views/BambooPage.php";
 
 use BeansWoo\Helper;
-use BeansWoo\Server\ProductReviewsWebHook;
+use BeansWoo\Server\ReviewHookController;
 
 
 class Main
@@ -28,7 +28,7 @@ class Main
     public static function init()
     {
         Registration::init();
-        ProductReviewsWebHook::init();
+        ReviewHookController::init();
 
         if (!Helper::isSetup()) {
             return;

@@ -14,34 +14,60 @@ class Helper
      * the WordPress dashboard.
      */
     public const OPTIONS = array(
-        'checkout-redeem' => array(
-            'handle' => 'beans-liana-display-redemption-checkout',
-            'label' => "Redemption on checkout",
+        'redemption_min_beans' => array(
+            'handle' => 'beans-liana-redemption-max-percentage',
+            'label' => 'Maximum cart discount',
+            'type' => 'boolean',
+            'default' => true,
             'help_text' => 'Display redemption on checkout page.',
         ),
-        'product-points' => array(
+        'redemption_max_percentage' => array(
+            'handle' => 'beans-liana-redemption-max-percentage',
+            'label' => 'Maximum cart discount',
+            'type' => 'boolean',
+            'default' => true,
+            'help_text' => 'Display redemption on checkout page.',
+        ),
+        'checkout_redeem' => array(
+            'handle' => 'beans-liana-display-redemption-checkout',
+            'label' => 'Redemption on checkout',
+            'type' => 'boolean',
+            'default' => true,
+            'help_text' => 'Display redemption on checkout page.',
+        ),
+        'product_points' => array(
             'handle' => 'beans-liana-display-product-points',
-            'label' => "Product points",
+            'label' => 'Product points',
+            'type' => 'boolean',
+            'default' => false,
             'help_text' => 'Display points info on product page.',
         ),
-        'cart-notices' => array(
+        'cart_notices' => array(
             'handle' => 'beans-liana-display-cart-notices',
-            'label' => "Cart notices",
+            'label' => 'Cart notices',
+            'type' => 'boolean',
+            'default' => true,
             'help_text' => 'Display points balance notice on cart page.',
         ),
-        'account-nav' => array(
+        'account_nav' => array(
             'handle' => 'beans-liana-display-account-navigation',
-            'label' => "Account navigation",
+            'label' => 'Account navigation',
+            'type' => 'boolean',
+            'default' => true,
             'help_text' => 'Display links to rewards, referral pages in account navigation.',
         ),
-        'subscription-redemption' => array(
+        'subscription_redemption' => array(
             'handle' => 'beans-liana-display-subscription-redemption',
-            'label' => "Subscription redemption",
+            'label' => 'Subscription redemption',
+            'type' => 'boolean',
+            'default' => false,
             'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
         ),
-        'manual-registration' => array(
+        'manual_registration' => array(
             'handle' => 'beans-liana-manual-registration',
-            'label' => "Manual registration",
+            'label' => 'Manual registration',
+            'type' => 'boolean',
+            'default' => false,
             'help_text' => (
                 'Check this box to force new and existing customers to manually ' .
                 'opt in the rewards program by submitting a form. ' .
@@ -251,5 +277,31 @@ class Helper
     public static function getAssetURL($path)
     {
         return plugins_url($path, BEANS_PLUGIN_FILENAME);
+    }
+
+    /**
+     * Define if the request_user has permission to access the resource.
+     *
+     * @param \WP_REST_Request $request
+     * @return bool True if user has permission
+     *
+     * @since 3.4.0
+     */
+    public static function checkAPIPermission($request)
+    {
+        return true;
+        // Make GET request public
+        if ($request->get_method() === 'GET') {
+            return true;
+        }
+
+        if (!current_user_can('manage_woocommerce')) {
+            return new \WP_Error(
+                "beans_rest_cannot_write",
+                "Sorry, you are not allowed to update this resource.",
+                array('status' => rest_authorization_required_code())
+            );
+        }
+        return true;
     }
 }

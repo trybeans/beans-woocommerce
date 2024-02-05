@@ -26,26 +26,6 @@ if ($country_code && strpos($country_code, ':') !== false) {
 $connect = Helper::getDomain('CONNECT') . "/radix/woocommerce/connect";
 
 $beans_app_list = array(
-    'liana' => array(
-        'title' => 'Make your customers addicted to your shop',
-        'role'  => 'Loyalty Program',
-    ),
-
-    'bamboo' => array(
-        'title' => 'Turn your customers into advocates of your brand',
-        'role'  => 'Referral Program',
-    ),
-
-    'foxx' => array(
-        'title' => 'Super-targeted automated emails that drive sales',
-        'role'  => 'Email Automation',
-    ),
-
-    'snow' => array(
-        'title' => 'Communicate with customers without disrupting their journey',
-        'role'  => 'Notification Widget',
-    ),
-
     'ultimate' => array(
         'title' => 'Connect your shop to get started',
         'role'  => '',
@@ -128,7 +108,7 @@ $beans_app_list = array(
       jQuery(function ($) {
           let info = [];
             <?php
-            $apps = ['liana', 'bamboo', 'foxx', 'snow', 'ultimate'];
+            $apps = ['ultimate'];
             foreach ($apps as $app) {
                 if (in_array($app, ['snow', 'foxx'])) {
                     $hero_image = $app . '-hero.png';
