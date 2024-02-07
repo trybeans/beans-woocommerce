@@ -58,7 +58,7 @@ $WP_CMD --path=$WP_DIR option update woocommerce_store_city	"San Francisco"
 $WP_CMD --path=$WP_DIR option update woocommerce_store_postcode	91234
 $WP_CMD --path=$WP_DIR option update woocommerce_default_country	"US:CA"
 $WP_CMD --path=$WP_DIR option update woocommerce_registration_generate_password	no
-$WP_CMD --path=$WP_DIR option update woocommerce_enable_myaccount_registration	yes
+$WP_CMD --path=$WP_DIR option update woocommerce_enable_myaccount_registration yes
 
 echo "Updating Woocommerce"
 $WP_CMD --path=$WP_DIR --path=$WP_DIR wc update
