@@ -69,7 +69,7 @@ class Connector
     {
         add_settings_section("beans-section", "", null, "beans-woo");
 
-        foreach (BeansWoo\OPTIONS as $key => $params) {
+        foreach (BeansWoo\PREFERENCES_META as $key => $params) {
             add_settings_field(
                 $params['handle'],
                 $params['label'],

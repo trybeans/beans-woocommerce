@@ -4,7 +4,7 @@ namespace BeansWoo\Server;
 
 use Beans\BeansError;
 use BeansWoo\Helper;
-use BeansWoo\Options;
+use BeansWoo\Preferences;
 
 /**
  * Add the Connector REST resource on WP REST API.
@@ -72,9 +72,9 @@ class ConnectorRESTController extends \WP_REST_Controller
         $request_data = $request->get_json_params();
 
         foreach ($request_data as $key => $value) {
-            if ($key === 'options') {
+            if ($key === 'preferences') {
                 foreach ($value as $opt_key => $opt_value) {
-                    Options::set($opt_key, $opt_value);
+                    Preferences::set($opt_key, $opt_value);
                 }
             }
             Helper::setConfig($key, $value);
@@ -102,7 +102,7 @@ class ConnectorRESTController extends \WP_REST_Controller
             'riper_version' => Helper::getConfig('riper_version'),
             'is_setup' => Helper::isSetup(),
             'pages' => Helper::getBeansPages(),
-            'options' => Options::getAll(),
+            'preferences' => Preferences::getAll(),
             'status' => $status
         );
     }

@@ -2,7 +2,7 @@
 
 namespace BeansWoo\StoreFront;
 
-use BeansWoo\Options;
+use BeansWoo\Preferences;
 use BeansWoo\Helper;
 
 class LianaBlocks
@@ -15,27 +15,27 @@ class LianaBlocks
 
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 0);
 
-        if (Options::get('display_checkout_redeem')) {
+        if (Preferences::get('display_checkout_redeem')) {
             add_action('woocommerce_review_order_after_payment', array(__CLASS__, 'renderCart'), 99, 0);
         }
 
-        if (Options::get('display_product_points')) {
+        if (Preferences::get('display_product_points')) {
             add_action('woocommerce_before_add_to_cart_form', array(__CLASS__, 'renderProductInfo'), 10, 0);
         }
 
-        if (Options::get('display_cart_notices')) {
+        if (Preferences::get('display_cart_notices')) {
             add_action('woocommerce_before_cart', array(__CLASS__, 'renderCartNotice'), 10, 0);
-            if (Options::get('display_checkout_redeem')) {
+            if (Preferences::get('display_checkout_redeem')) {
                 add_action('woocommerce_before_checkout_form', array(__CLASS__, 'renderCartNotice'), 10, 0);
             }
         }
 
-        if (Options::get('display_account_nav')) {
+        if (Preferences::get('display_account_nav')) {
             add_filter('woocommerce_account_menu_items', array(__CLASS__, 'updateAccountMenuItems'), 5, 1);
             add_filter('woocommerce_get_endpoint_url', array(__CLASS__, 'getAccountMenuItemLink'), 10, 2);
         }
 
-        if (Options::get('enable_subscription_redemption')) {
+        if (Preferences::get('enable_subscription_redemption')) {
             add_action(
                 'woocommerce_subscription_details_table',
                 array(__CLASS__, 'renderSubscriptionRedemption'),
@@ -121,13 +121,12 @@ class LianaBlocks
         $notice_earn_points = null;
         $notice_redeem_points = null;
         $notice_cancel_redemption = null;
-        $redemption_params = self::$display['redemption'];
 
         $cart_subtotal = Helper::getCart()->cart_contents_total;
 
         # Customers do not get points when they purchase product in the excluded collections.
         # So they need to be removed from the points estimate.
-        if (!empty($redemption_params["excluded_collection_cms_ids"])) {
+        if (!empty(Preferences::get('redemption_collections'))) {
             $amount_to_exclude = 0;
             $cart_items = Helper::getCart()->get_cart();
             foreach ($cart_items as $cart_item_key => $values) {
@@ -136,7 +135,7 @@ class LianaBlocks
                     is_a($product, "WC_Product") &&
                     array_intersect(
                         $product->get_category_ids('edit'),
-                        $redemption_params["excluded_collection_cms_ids"]
+                        Preferences::get('redemption_collections')
                     )
                 ) {
                     $amount_to_exclude += $values['line_subtotal'];

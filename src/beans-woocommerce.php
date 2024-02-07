@@ -58,7 +58,7 @@ if (!defined('BEANS_PLUGIN_VERSION')) {
 }
 
 require_once 'includes/Beans.php';
-require_once 'includes/Options.php';
+require_once 'includes/Preferences.php';
 require_once 'includes/Helper.php';
 
 require_once 'server/init.php';

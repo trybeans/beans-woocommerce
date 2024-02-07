@@ -2,6 +2,7 @@
 
 namespace BeansWoo\StoreFront;
 
+use BeansWoo\Preferences;
 use BeansWoo\Helper;
 
 class LianaProductObserver extends LianaObserver
@@ -12,7 +13,7 @@ class LianaProductObserver extends LianaObserver
     {
         parent::init($display);
 
-        if (empty(self::$redemption_params['exclusive_product_cms_ids'])) {
+        if (empty(Preferences::get('redemption_products'))) {
             return;
         }
 
@@ -215,7 +216,7 @@ class LianaProductObserver extends LianaObserver
             function ($value) {
                 return (int)$value;
             },
-            self::$redemption_params['exclusive_product_cms_ids']
+            Preferences::get('redemption_products')
         );
     }
 }

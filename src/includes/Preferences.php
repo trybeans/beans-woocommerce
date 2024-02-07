@@ -7,7 +7,7 @@
 
 namespace BeansWoo;
 
-const OPTIONS = array(
+const PREFERENCES_META = array(
   'redemption_min_beans' => array(
       'handle' => 'beans-liana-redemption-min-beans',
       'label' => 'Minimum points required',
@@ -88,61 +88,61 @@ const OPTIONS = array(
 );
 
 /**
- * A Helper to perform operations on Beans Options.
+ * A Helper to perform operations on Beans Preferences.
  */
-class Options
+class Preferences
 {
     /**
-     * retrieve a beans option value
+     * retrieve a beans preference value
      *
-     * @param string $key: The key of the option
+     * @param string $key: The key of the preference
      *
-     * @return any: value of the option.
+     * @return any: value of the preference.
      * @since 4.0.0
      */
     public static function get($key)
     {
-        return get_option(OPTIONS[$key]['handle']);
+        return get_option(PREFERENCES_META[$key]['handle']);
     }
 
     /**
-     * Set a beans option value
+     * Set a beans preference value
      *
-     * @param string $key: The key of the option
-     * @param any $value: The value of the option
+     * @param string $key: The key of the preference
+     * @param any $value: The value of the preference
      *
      * @return void:
      * @since 4.0.0
      */
     public static function set($key, $value)
     {
-        return update_option(OPTIONS[$key]['handle'], $value);
+        return update_option(PREFERENCES_META[$key]['handle'], $value);
     }
 
     /**
-     * Clear all beans options
+     * Clear all beans preferences
      *
      * @return void:
      * @since 4.0.0
      */
     public static function clearAll()
     {
-        foreach (OPTIONS as $key => $option) {
-            delete_option($option['handle']);
+        foreach (PREFERENCES_META as $key => $preference) {
+            delete_option($preference['handle']);
         }
     }
 
     /**
-     * Get all beans options
+     * Get all beans preferences
      *
-     * @return array: the dictionary of option_key => option_value
+     * @return array: the dictionary of preference_key => preference_value
      * @since 4.0.0
      */
     public static function getAll()
     {
         $result = array();
-        foreach (OPTIONS as $key => $option) {
-            $result[$key] = get_option($option['handle']);
+        foreach (PREFERENCES_META as $key => $preference) {
+            $result[$key] = get_option($preference['handle']);
         }
         return $result;
     }

@@ -4,6 +4,7 @@ namespace BeansWoo\StoreFront;
 
 use Beans\BeansError;
 use BeansWoo\Helper;
+use BeansWoo\Preferences;
 
 /**
  * Liana Observer
@@ -16,7 +17,6 @@ use BeansWoo\Helper;
 class LianaObserver
 {
     protected static $display;
-    protected static $redemption_params;
     protected static $tiers;
 
     /**
@@ -47,7 +47,6 @@ class LianaObserver
     {
         self::$display              = $display;
         self::$tiers                = $display['tiers'];
-        self::$redemption_params    = $display['redemption'];
         self::$redemption_cache     = array();
 
         add_filter('woocommerce_get_shop_coupon_data', array(__CLASS__, 'getWooCouponData'), 10, 2);
@@ -129,35 +128,33 @@ class LianaObserver
 
         $max_amount = $order_value;
 
-        if (isset(self::$redemption_params['min_beans'])  && isset(self::$redemption_params['max_percentage'])) {
-            $min_beans = self::$redemption_params['min_beans'];
-            if ($account_beans < $min_beans) {
-                if ($is_notice) {
-                    $message = strtr(
-                        __("You need a minimum of {quantity} {beans_name} to get a discount.", "beans-woocommerce"),
-                        array(
-                            "{quantity}"   => $min_beans,
-                            "{beans_name}" => self::$display['beans_name'],
-                        )
-                    );
-                    wc_add_notice($message, 'notice');
-                }
-
-                return null;
+        $min_beans = Preferences::get('redemption_min_beans');
+        if ($account_beans < $min_beans) {
+            if ($is_notice) {
+                $message = strtr(
+                    __("You need a minimum of {quantity} {beans_name} to get a discount.", "beans-woocommerce"),
+                    array(
+                        "{quantity}"   => $min_beans,
+                        "{beans_name}" => self::$display['beans_name'],
+                    )
+                );
+                wc_add_notice($message, 'notice');
             }
 
-            $percent_discount = self::$redemption_params['max_percentage'];
-            if ($percent_discount < 100) {
-                $max_amount = (1.0 * $order_value * $percent_discount) / 100;
-                if ($is_notice && $max_amount < $account_beans_value) {
-                    $message = strtr(
-                        __("Maximum discount for this order is {max_discount}%.", "beans-woocommerce"),
-                        array(
-                            '{max_discount}' => $percent_discount,
-                        )
-                    );
-                    wc_add_notice($message, 'notice');
-                }
+            return null;
+        }
+
+        $percent_discount = Preferences::get('redemption_max_percentage');
+        if ($percent_discount < 100) {
+            $max_amount = (1.0 * $order_value * $percent_discount) / 100;
+            if ($is_notice && $max_amount < $account_beans_value) {
+                $message = strtr(
+                    __("Maximum discount for this order is {max_discount}%.", "beans-woocommerce"),
+                    array(
+                        '{max_discount}' => $percent_discount,
+                    )
+                );
+                wc_add_notice($message, 'notice');
             }
         }
 
