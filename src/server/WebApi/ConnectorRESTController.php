@@ -69,7 +69,14 @@ class ConnectorRESTController extends \WP_REST_Controller
      */
     public function update($request)
     {
-        foreach ($request->get_json_params() as $key => $value) {
+        $request_data = $request->get_json_params();
+
+        foreach ($request_data as $key => $value) {
+            if ($key === 'options') {
+                foreach ($value as $opt_key => $opt_value) {
+                    Options::set($opt_key, $opt_value);
+                }
+            }
             Helper::setConfig($key, $value);
         }
 
