@@ -2,8 +2,9 @@
 
 namespace BeansWoo\Server;
 
+use Beans\BeansError;
 use BeansWoo\Helper;
-use BeansWoo;
+use BeansWoo\Options;
 
 /**
  * Add the Connector REST resource on WP REST API.
@@ -32,12 +33,12 @@ class ConnectorRESTController extends \WP_REST_Controller
                 array(
                     'methods' => \WP_REST_Server::READABLE,
                     'callback' => array($this, 'retrieve'),
-                    'permission_callback' => array(Helper, 'checkAPIPermission'),
+                    'permission_callback' => array("BeansWoo\Helper", 'checkAPIPermission'),
                 ),
                 array(
                     'methods' => \WP_REST_Server::EDITABLE,
                     'callback' => array($this, 'update'),
-                    'permission_callback' => array(Helper, 'checkAPIPermission'),
+                    'permission_callback' => array("BeansWoo\Helper", 'checkAPIPermission'),
                 )
             )
         );
@@ -86,23 +87,28 @@ class ConnectorRESTController extends \WP_REST_Controller
      *
      * @since 3.4.0
      */
-    private static function serialize()
+    private static function serialize($status = null)
     {
-        $options = array();
-        foreach (BeansWoo\OPTIONS as $key => $params) {
-            $options[$key] = array_merge($params, array(
-                'key' => $key,
-                'value' => get_option($params['handle'])
-            ));
-        }
-
         return array(
             'card' => Helper::getConfig('card'),
             'merchant' => Helper::getConfig('merchant'),
             'riper_version' => Helper::getConfig('riper_version'),
             'is_setup' => Helper::isSetup(),
             'pages' => Helper::getBeansPages(),
-            'options' => $options
+            'options' => Options::getAll(),
+            'status' => $status
         );
+    }
+
+    public static function postWebhook($status = null)
+    {
+        try {
+            Helper::API('TRELLIS')->post(
+                "/woocommerce/hooks/connector/updated/?merchant=" . Helper::getConfig('merchant'),
+                self::serialize($status),
+                ['X-WC-Webhook-Source: ' . home_url()]
+            );
+        } catch (BeansError $e) {
+        }
     }
 }

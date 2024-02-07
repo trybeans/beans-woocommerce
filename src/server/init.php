@@ -44,11 +44,11 @@ class Main
     public static function registerPluginActivationHooks()
     {
         register_activation_hook(BEANS_PLUGIN_FILENAME, function () {
-            SystemHookController::postWebhookStatus('activated');
+            ConnectorRESTController::postWebhook('activated');
         });
 
         register_deactivation_hook(BEANS_PLUGIN_FILENAME, function () {
-            SystemHookController::postWebhookStatus('deactivated');
+            ConnectorRESTController::postWebhook('deactivated');
         });
     }
 }

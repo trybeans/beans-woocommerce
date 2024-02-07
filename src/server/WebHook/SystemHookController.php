@@ -123,21 +123,4 @@ class SystemHookController
 
         return $pages_output;
     }
-
-    public static function postWebhookStatus($status)
-    {
-        Helper::clearTransients();
-
-        $args = [
-            'status' => $status
-        ];
-        $headers =  array(
-            'X-WC-Webhook-Source:' . home_url(),
-        );
-
-        try {
-            Helper::API('TRELLIS')->post('hook/radix/woocommerce/shop/plugin_status', $args, $headers);
-        } catch (BeansError $e) {
-        }
-    }
 }

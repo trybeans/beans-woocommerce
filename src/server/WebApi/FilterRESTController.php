@@ -2,8 +2,6 @@
 
 namespace BeansWoo\Server;
 
-use BeansWoo\Helper;
-
 /**
  * Add the Filter REST resource on WP REST API.
  *
@@ -37,7 +35,7 @@ class FilterRESTController extends \WP_REST_Controller
                 array(
                     'methods' => \WP_REST_Server::READABLE,
                     'callback' => array($this, 'retrieve'),
-                    'permission_callback' => array(Helper, 'checkAPIPermission'),
+                    'permission_callback' => array("BeansWoo\Helper", 'checkAPIPermission'),
                 ),
             )
         );

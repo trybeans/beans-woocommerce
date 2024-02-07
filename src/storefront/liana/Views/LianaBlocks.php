@@ -2,7 +2,7 @@
 
 namespace BeansWoo\StoreFront;
 
-use BeansWoo;
+use BeansWoo\Options;
 use BeansWoo\Helper;
 
 class LianaBlocks
@@ -15,27 +15,27 @@ class LianaBlocks
 
         add_action('woocommerce_after_cart_totals', array(__CLASS__, 'renderCart'), 10, 0);
 
-        if (get_option(BeansWoo\OPTIONS['display_checkout_redeem']['handle'])) {
+        if (Options::get('display_checkout_redeem')) {
             add_action('woocommerce_review_order_after_payment', array(__CLASS__, 'renderCart'), 99, 0);
         }
 
-        if (get_option(BeansWoo\OPTIONS['display_product_points']['handle'])) {
+        if (Options::get('display_product_points')) {
             add_action('woocommerce_before_add_to_cart_form', array(__CLASS__, 'renderProductInfo'), 10, 0);
         }
 
-        if (get_option(BeansWoo\OPTIONS['display_cart_notices']['handle'])) {
+        if (Options::get('display_cart_notices')) {
             add_action('woocommerce_before_cart', array(__CLASS__, 'renderCartNotice'), 10, 0);
-            if (get_option(BeansWoo\OPTIONS['display_checkout_redeem']['handle'])) {
+            if (Options::get('display_checkout_redeem')) {
                 add_action('woocommerce_before_checkout_form', array(__CLASS__, 'renderCartNotice'), 10, 0);
             }
         }
 
-        if (get_option(BeansWoo\OPTIONS['display_account_nav']['handle'])) {
+        if (Options::get('display_account_nav')) {
             add_filter('woocommerce_account_menu_items', array(__CLASS__, 'updateAccountMenuItems'), 5, 1);
             add_filter('woocommerce_get_endpoint_url', array(__CLASS__, 'getAccountMenuItemLink'), 10, 2);
         }
 
-        if (get_option(BeansWoo\OPTIONS['enable_subscription_redemption']['handle'])) {
+        if (Options::get('enable_subscription_redemption')) {
             add_action(
                 'woocommerce_subscription_details_table',
                 array(__CLASS__, 'renderSubscriptionRedemption'),

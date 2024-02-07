@@ -86,3 +86,64 @@ const OPTIONS = array(
       ),
   ),
 );
+
+/**
+ * A Helper to perform operations on Beans Options.
+ */
+class Options
+{
+    /**
+     * retrieve a beans option value
+     *
+     * @param string $key: The key of the option
+     *
+     * @return any: value of the option.
+     * @since 4.0.0
+     */
+    public static function get($key)
+    {
+        return get_option(OPTIONS[$key]['handle']);
+    }
+
+    /**
+     * Set a beans option value
+     *
+     * @param string $key: The key of the option
+     * @param any $value: The value of the option
+     *
+     * @return void:
+     * @since 4.0.0
+     */
+    public static function set($key, $value)
+    {
+        return update_option(OPTIONS[$key]['handle'], $value);
+    }
+
+    /**
+     * Clear all beans options
+     *
+     * @return void:
+     * @since 4.0.0
+     */
+    public static function clearAll()
+    {
+        foreach (OPTIONS as $key => $option) {
+            delete_option($option['handle']);
+        }
+    }
+
+    /**
+     * Get all beans options
+     *
+     * @return array: the dictionary of option_key => option_value
+     * @since 4.0.0
+     */
+    public static function getAll()
+    {
+        $result = array();
+        foreach (OPTIONS as $key => $option) {
+            $result[$key] = get_option($option['handle']);
+        }
+        return $result;
+    }
+}
