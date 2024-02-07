@@ -2,6 +2,7 @@
 
 namespace BeansWoo\StoreFront;
 
+use BeansWoo;
 use BeansWoo\Helper;
 
 class BambooBlocks
@@ -12,7 +13,7 @@ class BambooBlocks
     {
         self::$display = $display;
 
-        if (get_option(Helper::OPTIONS['account_nav']['handle'])) {
+        if (get_option(BeansWoo\OPTIONS['display_account_nav']['handle'])) {
             add_filter('woocommerce_account_menu_items', array(__CLASS__, 'updateAccountMenuItems'), 10, 1);
             add_filter('woocommerce_get_endpoint_url', array(__CLASS__, 'getAccountMenuItemLink'), 10, 2);
         }

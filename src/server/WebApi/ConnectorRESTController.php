@@ -3,6 +3,7 @@
 namespace BeansWoo\Server;
 
 use BeansWoo\Helper;
+use BeansWoo;
 
 /**
  * Add the Connector REST resource on WP REST API.
@@ -88,8 +89,8 @@ class ConnectorRESTController extends \WP_REST_Controller
     private static function serialize()
     {
         $options = array();
-        foreach (Helper::OPTIONS as $key => $params) {
-            $options[] = array_merge($params, array(
+        foreach (BeansWoo\OPTIONS as $key => $params) {
+            $options[$key] = array_merge($params, array(
                 'key' => $key,
                 'value' => get_option($params['handle'])
             ));

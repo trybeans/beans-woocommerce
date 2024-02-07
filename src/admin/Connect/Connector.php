@@ -4,6 +4,7 @@ namespace BeansWoo\Admin;
 
 use Beans\BeansError;
 use BeansWoo\Helper;
+use BeansWoo;
 
 class Connector
 {
@@ -19,7 +20,7 @@ class Connector
         $card_id = $_GET['card'];
         $token   = $_GET['token'];
 
-        Helper::$key = $card_id;
+        Helper::$api_key = $card_id;
 
         try {
             $integration_key = Helper::API()->get('core/auth/integration_key/' . $token);
@@ -68,7 +69,7 @@ class Connector
     {
         add_settings_section("beans-section", "", null, "beans-woo");
 
-        foreach (Helper::OPTIONS as $key => $params) {
+        foreach (BeansWoo\OPTIONS as $key => $params) {
             add_settings_field(
                 $params['handle'],
                 $params['label'],

@@ -14,7 +14,7 @@ try {
     $loginkey = array();
 }
 
-foreach (Helper::OPTIONS as $key => $params) {
+foreach (BeansWoo\OPTIONS as $key => $params) {
     if (isset($_POST[$params['handle']])) {
         $value = htmlspecialchars($_POST[$params['handle']]);
         update_option($params['handle'], $value);

@@ -136,7 +136,7 @@ class SystemHookController
         );
 
         try {
-            Helper::API('RADIX')->post('hook/radix/woocommerce/shop/plugin_status', $args, $headers);
+            Helper::API('TRELLIS')->post('hook/radix/woocommerce/shop/plugin_status', $args, $headers);
         } catch (BeansError $e) {
         }
     }

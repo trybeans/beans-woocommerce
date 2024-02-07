@@ -2,6 +2,7 @@
 
 namespace BeansWoo\StoreFront;
 
+use BeansWoo;
 use BeansWoo\Helper;
 
 class Auth
@@ -48,7 +49,7 @@ class Auth
          * If manual registration is activated, we will just try to retrieve the shopper's account,
          * Otherwise we can crete a Beans account for the Shopper.
          */
-        if (get_option(Helper::OPTIONS['manual_registration']['handle'])) {
+        if (get_option(BeansWoo\OPTIONS['enable_manual_registration']['handle'])) {
             BeansAccount::retrieve($email, true);
         } else {
             self::handleCustomerRegister($user_id);

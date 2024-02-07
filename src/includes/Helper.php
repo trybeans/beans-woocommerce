@@ -9,104 +9,38 @@ class Helper
     const CONFIG_NAME = 'beans-config-3'; // private
     const LOG_FILE = BEANS_PLUGIN_PATH . 'log.txt'; // private
 
-    /**
-     * List of settings params that can be configured by the merchant in
-     * the WordPress dashboard.
-     */
-    public const OPTIONS = array(
-        'redemption_min_beans' => array(
-            'handle' => 'beans-liana-redemption-max-percentage',
-            'label' => 'Maximum cart discount',
-            'type' => 'boolean',
-            'default' => true,
-            'help_text' => 'Display redemption on checkout page.',
-        ),
-        'redemption_max_percentage' => array(
-            'handle' => 'beans-liana-redemption-max-percentage',
-            'label' => 'Maximum cart discount',
-            'type' => 'boolean',
-            'default' => true,
-            'help_text' => 'Display redemption on checkout page.',
-        ),
-        'checkout_redeem' => array(
-            'handle' => 'beans-liana-display-redemption-checkout',
-            'label' => 'Redemption on checkout',
-            'type' => 'boolean',
-            'default' => true,
-            'help_text' => 'Display redemption on checkout page.',
-        ),
-        'product_points' => array(
-            'handle' => 'beans-liana-display-product-points',
-            'label' => 'Product points',
-            'type' => 'boolean',
-            'default' => false,
-            'help_text' => 'Display points info on product page.',
-        ),
-        'cart_notices' => array(
-            'handle' => 'beans-liana-display-cart-notices',
-            'label' => 'Cart notices',
-            'type' => 'boolean',
-            'default' => true,
-            'help_text' => 'Display points balance notice on cart page.',
-        ),
-        'account_nav' => array(
-            'handle' => 'beans-liana-display-account-navigation',
-            'label' => 'Account navigation',
-            'type' => 'boolean',
-            'default' => true,
-            'help_text' => 'Display links to rewards, referral pages in account navigation.',
-        ),
-        'subscription_redemption' => array(
-            'handle' => 'beans-liana-display-subscription-redemption',
-            'label' => 'Subscription redemption',
-            'type' => 'boolean',
-            'default' => false,
-            'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
-        ),
-        'manual_registration' => array(
-            'handle' => 'beans-liana-manual-registration',
-            'label' => 'Manual registration',
-            'type' => 'boolean',
-            'default' => false,
-            'help_text' => (
-                'Check this box to force new and existing customers to manually ' .
-                'opt in the rewards program by submitting a form. ' .
-                '(This is an experimental feature)'
-            ),
-        ),
-    );
-
-    public static $key = null;
+    public static $api_key = null;
 
     public static function getDomain($sub)
     {
-        $key     = "BEANS_DOMAIN_$sub";
         $domains = array(
             'WWW'     => 'https://www.trybeans.com',
             'CDN'     => 'https://cdn.trybeans.com',
             'BOILER'  => 'https://app.trybeans.com',
             'CONNECT' => 'https://connect.trybeans.com',
             'STEM'    => 'https://api.trybeans.com/v3/',
-            'RADIX'   => 'https://trellis.trybeans.com/v3/',
+            'TRELLIS'   => 'https://trellis.trybeans.com/v3/',
         );
-        return getenv($key) || $domains[$sub];
+
+        $domain_key     = "BEANS_DOMAIN_$sub";
+        return getenv($domain_key) || $domains[$sub];
     }
 
     /**
      * Create an instance of the Beans REST API Wrapper
      *
-     * @param string $domain: The API service to query: `STEM` (default) or `RADIX`
+     * @param string $domain: The API service to query: `STEM` (default) or `TRELLIS`
      * @return Beans\Beans: An instance of the API Wrapper
      *
      * @since 3.0.0
      */
     public static function API($domain = 'STEM')
     {
-        if (!self::$key) {
-            self::$key = self::getConfig('secret');
+        if (!self::$api_key) {
+            self::$api_key = self::getConfig('secret');
         }
 
-        return new Beans\Beans(self::$key, self::getDomain($domain));
+        return new Beans\Beans(self::$api_key, self::getDomain($domain));
     }
 
     public static function requestTransientAPI($method, $path, $arg = null, $headers = null)

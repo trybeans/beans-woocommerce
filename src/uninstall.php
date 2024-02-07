@@ -1,19 +1,14 @@
 <?php
 
-namespace BeansWoo;
-
 defined('ABSPATH') or die;
 
-// if uninstall not called from WordPress exit
-defined('WP_UNINSTALL_PLUGIN') or die;
+defined('WP_UNINSTALL_PLUGIN') or die;  // if uninstall not called from WordPress exit
 
 require_once 'beans-woocommerce.php';
 
-use BeansWoo\Server;
+BeansWoo\Helper::resetSetup();
 
-Helper::resetSetup();
-
-foreach (Helper::OPTIONS as $key => $params) {
+foreach (BeansWoo\OPTIONS as $key => $params) {
     delete_option($params['handle']);
 }
 
@@ -22,4 +17,4 @@ try {
 } catch (\Exception $e) {
 }
 
-Server\SystemHookController::postWebhookStatus('uninstalled');
+BeansWoo\Server\SystemHookController::postWebhookStatus('uninstalled');
