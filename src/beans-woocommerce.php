@@ -11,8 +11,8 @@
  * Domain Path: /i18n/
  * Requires PHP: 8.0
  * Requires at least: 6.0
- * WC requires at least: 6.0
- * WC tested up to: 8.4.*
+ * WC requires at least: 7.0
+ * WC tested up to: 8.5.*
  * @author Beans
  */
 
@@ -54,7 +54,7 @@ if (!defined('BEANS_PLUGIN_PATH')) {
 }
 
 if (!defined('BEANS_PLUGIN_VERSION')) {
-    define('BEANS_PLUGIN_VERSION', '4.0.0-alpha.1');
+    define('BEANS_PLUGIN_VERSION', '4.0.0');
 }
 
 require_once 'includes/Beans.php';

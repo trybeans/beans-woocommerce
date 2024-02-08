@@ -6,8 +6,8 @@ use BeansWoo\Helper;
 
 require_once 'WebApi/ConnectorRESTController.php';
 require_once 'WebApi/FilterRESTController.php';
-require_once 'Webhook/ReviewHookController.php';
-require_once 'Webhook/SystemHookController.php';
+require_once 'WebHook/ReviewHookController.php';
+require_once 'WebHook/SystemHookController.php';
 
 defined('ABSPATH') or die;
 
