@@ -23,7 +23,9 @@ class Helper
         );
 
         $domain_key     = "BEANS_DOMAIN_$sub";
-        return getenv($domain_key) || $domains[$sub];
+        $val     = getenv($domain_key);
+
+        return empty($val) ? $domains[$sub] : $val;
     }
 
     /**
