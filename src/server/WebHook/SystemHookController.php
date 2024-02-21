@@ -108,14 +108,14 @@ class SystemHookController
             }
 
             $pages_output[] = array(
+                'type' => $values['type'],
                 'page_id' => $page_id,
                 'page_set' => $page_set,
-                'type' => $values['type'],
-                'shortcode_present' => true,
-                'shortcode_required' => true,
+                'page_name' => $values['page_name'],
                 'page_exists' => $values['page_exists'],
                 'page_visible' => $page_visible,
-                'page_name' => $values['page_name'],
+                'shortcode_present' => true,
+                'shortcode_required' => true,
                 'shortcode' => $values['shortcode'],
                 'path' => str_replace(home_url(), '', get_permalink(Helper::getConfig($app_name . '_page'))),
             );

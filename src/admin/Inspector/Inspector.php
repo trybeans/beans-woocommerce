@@ -8,9 +8,9 @@ class Inspector
     public static $wc_endpoint_url_auth;
 
     const VERSIONING_SUPPORTED  = array(
-        'wordpress' => '5.6',
-        'woocommerce' => '5.1',
-        'php' => '7.3',
+        'wordpress' => '6.0',
+        'woocommerce' => '7.0',
+        'php' => '8.0',
     ); // private
 
     public static $versioning_installed = array(
