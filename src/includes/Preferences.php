@@ -74,15 +74,13 @@ const PREFERENCES_META = array(
       'default' => false,
       'help_text' => 'Allow customers to redeem points on their upcoming subscription renewal.',
   ),
-  'enable_manual_registration' => array(
-      'handle' => 'beans-liana-manual-registration',
-      'label' => 'Manual registration',
+  'is_auto_register' => array(
+      'handle' => 'beans-liana-auto-registration',
+      'label' => 'Auto registration',
       'type' => 'boolean',
-      'default' => false,
+      'default' => true,
       'help_text' => (
-          'Check this box to force new and existing customers to manually ' .
-          'opt in the rewards program by submitting a form. ' .
-          '(This is an experimental feature)'
+          'Check this box to enroll shoppers in the rewards program when they create a customer account.'
       ),
   ),
 );

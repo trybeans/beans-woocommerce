@@ -49,10 +49,10 @@ class Auth
          * If manual registration is activated, we will just try to retrieve the shopper's account,
          * Otherwise we can crete a Beans account for the Shopper.
          */
-        if (Preferences::get('enable_manual_registration')) {
-            BeansAccount::retrieve($email, true);
-        } else {
+        if (Preferences::get('is_auto_register')) {
             self::handleCustomerRegister($user_id);
+        } else {
+            BeansAccount::retrieve($email, true);
         }
     }
 
