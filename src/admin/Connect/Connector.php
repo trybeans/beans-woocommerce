@@ -70,15 +70,17 @@ class Connector
         add_settings_section("beans-section", "", null, "beans-woo");
 
         foreach (BeansWoo\PREFERENCES_META as $key => $params) {
-            add_settings_field(
-                $params['handle'],
-                $params['label'],
-                array(__CLASS__, "displayOption"),
-                "beans-woo",
-                "beans-section",
-                $params
-            );
-            register_setting("beans-section", $params['handle']);
+            if ($params['type'] == 'boolean') {
+                add_settings_field(
+                    $params['handle'],
+                    $params['label'],
+                    array(__CLASS__, "displayOption"),
+                    "beans-woo",
+                    "beans-section",
+                    $params
+                );
+                register_setting("beans-section", $params['handle']);
+            }
         }
     }
 
