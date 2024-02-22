@@ -16,10 +16,10 @@ class Helper
         $domains = array(
             'WWW'     => 'https://www.trybeans.com',
             'CDN'     => 'https://cdn.trybeans.com',
-            'BOILER'  => 'https://app.trybeans.com',
+            'STEM'    => 'https://api.trybeans.com/',
+            'TRELLIS' => 'https://trellis.trybeans.com/',
             'CONNECT' => 'https://connect.trybeans.com',
-            'STEM'    => 'https://api.trybeans.com/v3/',
-            'TRELLIS'   => 'https://trellis.trybeans.com/v3/',
+            'BOILER'  => 'https://app.trybeans.com',
         );
 
         $domain_key     = "BEANS_DOMAIN_$sub";
@@ -36,13 +36,13 @@ class Helper
      *
      * @since 3.0.0
      */
-    public static function API($domain = 'STEM')
+    public static function API($domain = 'STEM', $version = 'v3')
     {
         if (!self::$api_key) {
             self::$api_key = self::getConfig('secret');
         }
 
-        return new Beans\Beans(self::$api_key, self::getDomain($domain));
+        return new Beans\Beans(self::$api_key, self::getDomain($domain) . '/' . $version . '/');
     }
 
     public static function requestTransientAPI($method, $path, $arg = null, $headers = null)

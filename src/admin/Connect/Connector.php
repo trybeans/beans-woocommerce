@@ -15,29 +15,6 @@ class Connector
         }
     }
 
-    public static function processSetup()
-    {
-        $card_id = $_GET['card'];
-        $token   = $_GET['token'];
-
-        Helper::$api_key = $card_id;
-
-        try {
-            $integration_key = Helper::API()->get('core/auth/integration_key/' . $token);
-        } catch (BeansError  $e) {
-            Router::alert('error', 'Connecting to Beans failed with message: ' . $e->getMessage());
-            Helper::log('Connecting failed: ' . $e->getMessage());
-
-            return null;
-        }
-
-        Helper::setConfig('card', $card_id);
-        Helper::setConfig('key', $integration_key['id']);
-        Helper::setConfig('secret', $integration_key['access_token']);
-
-        return true;
-    }
-
     /**
      * Create the Rewards and Referral pages.
      *

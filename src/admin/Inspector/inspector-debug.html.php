@@ -18,30 +18,27 @@ function getSupportedTag($vs_is_supported)
     }
 }
 
-$base_banner_url = Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
-
 ?>
 
 <div class="beans-admin-container">
-<img class="beans-admin-logo" src="<?php echo $base_banner_url; ?>logo-full-ultimate.svg" alt="ultimate-logo">
+  <img class="beans-admin-logo" src="<?=Helper::getAssetURL('/assets/img/beans-logo.svg') ?>" alt="ultimate-logo">
   <p>
-    A complete suite to create a unified marketing experience for your online shop
-    <a href="https://<?php echo Helper::getDomain('WWW');?>"  target="_blank">Learn more about Beans Ultimate</a>
+    Take customer loyalty to the next level with Beans.&nbsp;
+    <a href="<?php echo Helper::getDomain('WWW');?>"  target="_blank">Discover Beans</a>
   </p>
 </div>
 
 <div class="beans-admin-container" style="text-align: left !important;">
   <div style="display: flex; flex-direction: column; align-items: start; justify-content: start; width: fit-content;
-                text-align: left">
+                text-align: left; max-width: 500px">
     <a href="javascript:void(0)" id="view-config">View configuration</a>
     <ul class="wc-wizard-features" style="display: None" id="config-status">
-      <h3> Configuration Checking </h3>
+      <h3>Configuration Check</h3>
       <li>
         <p class="">
-          Beans leverages <a href="https://docs.woocommerce.com/document/woocommerce-rest-api/"
-                             target="_blank">WooCommerce
-            REST API</a>
-          to supercharge your online store with powerful features .
+          Ensure your online store has the right setup for Beans to function optimally by using the 
+          <a href="https://docs.woocommerce.com/document/woocommerce-rest-api/"
+                             target="_blank">WooCommerce REST API</a>.
         </p>
       </li>
       <li>
@@ -51,9 +48,9 @@ $base_banner_url = Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
         </p>
         <?php if (!Inspector::$woo_is_supported) : ?>
           <p class="beans-admin-check-warning">
-            Please update your WooCommerce plugin:
+          An update is required for optimal performance:
             <a href="https://docs.woocommerce.com/document/how-to-update-woocommerce/" target="_blank">
-              How to update WooCommerce
+              Update WooCommerce
             </a>
           </p>
         <?php endif; ?>
@@ -67,7 +64,7 @@ $base_banner_url = Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
           <p class="beans-admin-check-warning">
             Please upgrade your Wordpress:
             <a href="https://codex.wordpress.org/Upgrading_WordPress" target="_blank">
-              Upgrading Wordpress
+              Update Wordpress
             </a>
           </p>
         <?php endif; ?>
@@ -80,7 +77,7 @@ $base_banner_url = Helper::getDomain('CDN') . '/static-v3/connect/img/app/';
         <?php if (!Inspector::$php_is_supported) : ?>
           <p class="beans-admin-check-warning">
             Contact your web host to update your PHP:
-            <a href="https://wordpress.org/support/update-php/" target="_blank">Learn more on PHP Update</a>
+            <a href="https://wordpress.org/support/update-php/" target="_blank">See PHP update guide</a>
           </p>
         <?php endif; ?>
       </li>

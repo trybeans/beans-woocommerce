@@ -95,12 +95,6 @@ class Router
             }
         }
 
-        if (isset($_GET['card']) && isset($_GET['token'])) {
-            if (Connector::processSetup()) {
-                return wp_redirect(self::getTabURL(self::TAB_SETTINGS));
-            }
-        }
-
         if (isset($_GET[self::NOTICE_KEY])) {
             if (self::discardAdminNotice()) {
                 return wp_safe_redirect($_SERVER['HTTP_REFERER']);
@@ -163,8 +157,9 @@ class Router
             ?>
             <div class="notice notice-error" style="margin-left: auto">
                 <div style="margin: 10px auto;">
-                Beans: <?=__("Beans Ultimate is not properly set up.", 'beans-woocommerce');?>
-                <a href="<?=self::getTabURL(self::TAB_INSPECT)?>"><?=__('Set up', 'beans-woocommerce')?></a>
+                <?=__("Beans setup incomplete:", 'beans-woocommerce');?>&nbsp;
+                <a href="<?=self::getTabURL(self::TAB_INSPECT)?>"
+                    ><?=__('Start setup process', 'beans-woocommerce')?></a>
                 <a href="<?=self::getTabURL()?>&<?=self::NOTICE_KEY?>=1" 
                     style="float:right; text-decoration: none">x</a>
                 </div>

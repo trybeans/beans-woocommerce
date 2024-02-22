@@ -29,7 +29,7 @@ msgid "Loyalty and Rewards program"
 msgstr ""
 
 #: admin/Router.php:166
-msgid "Beans Ultimate is not properly set up."
+msgid "Beans is not properly set up."
 msgstr ""
 
 #: admin/Router.php:167

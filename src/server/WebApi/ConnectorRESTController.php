@@ -110,8 +110,8 @@ class ConnectorRESTController extends \WP_REST_Controller
     public static function postWebhook($status = null)
     {
         try {
-            Helper::API('TRELLIS')->post(
-                "/woocommerce/hooks/connector/updated/?merchant=" . Helper::getConfig('merchant'),
+            Helper::API('TRELLIS', 'hooks/v4/woocommerce')->post(
+                "connector/updated/?merchant=" . Helper::getConfig('merchant'),
                 self::serialize($status),
                 ['X-WC-Webhook-Source: ' . home_url()]
             );

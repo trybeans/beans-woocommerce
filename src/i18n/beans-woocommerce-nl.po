@@ -81,8 +81,8 @@ msgid "Loyalty and Rewards program"
 msgstr "Loyaliteits- en beloningsprogramma"
 
 #: admin/Router.php:166
-msgid "Beans Ultimate is not properly set up."
-msgstr "Beans Ultimate is niet goed ingesteld."
+msgid "Beans is not properly set up."
+msgstr "Beans is niet goed ingesteld."
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
