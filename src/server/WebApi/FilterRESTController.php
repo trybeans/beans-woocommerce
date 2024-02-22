@@ -24,7 +24,7 @@ class FilterRESTController extends \WP_REST_Controller
     {
         register_rest_route(
             $this->namespace,
-            "/{$this->resource}/(?P<id>[\w]+)",
+            "/{$this->resource}/(?P<id>[\w.-]+)",
             array(
                 'args' => array(
                     'id' => array(
@@ -54,6 +54,12 @@ class FilterRESTController extends \WP_REST_Controller
         global $wp_filter;
 
         $filter_name = $request['id'];
+
+        if (!isset($wp_filter[$filter_name])) {
+            $response = new \WP_REST_Response(array("error" => "Filter `$filter_name` cannot be found."));
+            $response->set_status(404);
+            return $response;
+        }
 
         $response = new \WP_REST_Response($wp_filter[$filter_name]);
         $response->set_status(200);

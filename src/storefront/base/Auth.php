@@ -38,7 +38,7 @@ class Auth
     {
         // Either the rewards program is active, or we are in live test mode
         if (!self::$display_liana['is_active'] && !isset($_SESSION['beans_mode'])) {
-            Helper::log('Auth: Display is deactivated');
+            Helper::log('Auth: Liana display is deactivated');
             return;
         }
 

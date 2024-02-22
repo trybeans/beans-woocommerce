@@ -120,11 +120,8 @@ class Helper
 
     /**
      * Log a message to:
-     *  1. The woocommerce logger accessible the WordPress admin dashboard under
-     *      WooCommerce > Status > Logs or by going to /wp-admin/admin.php?page=wc-status&tab=logs
-     *  2. A file located at the root of the Beans plugin for WordPress folder:
-     *      /wp-content/plugins/beans-woocommerce-loyalty-rewards/log.txt
-     *      /wp-content/plugins/beans-woocommerce/log.txt
+     *  The woocommerce logger accessible the WordPress admin dashboard under
+     *  WooCommerce > Status > Logs or by going to /wp-admin/admin.php?page=wc-status&tab=logs
      *
      * @param string $info the text to print in the log
      * @return bool
@@ -137,26 +134,6 @@ class Helper
         try {
             wc_get_logger()->debug($info, array( 'source' => 'beans' ));
         } catch (\Exception $e) {
-        }
-
-        if (file_exists(self::LOG_FILE) && filesize(self::LOG_FILE) > 100000) {
-            unlink(self::LOG_FILE);
-        }
-
-        if (!file_exists(self::LOG_FILE)) {
-            file_put_contents(self::LOG_FILE, '');
-        }
-
-        if (!is_writable(self::LOG_FILE)) {
-            return false;
-        }
-
-        $log = date('Y-m-d H:i:s.uP') . " => " . $info . PHP_EOL;
-
-        try {
-            file_put_contents(self::LOG_FILE, $log, FILE_APPEND);
-        } catch (\Exception $e) {
-            return false;
         }
 
         return true;
@@ -225,16 +202,11 @@ class Helper
      */
     public static function checkAPIPermission($request)
     {
-        return true;
-        // Make GET request public
-        if ($request->get_method() === 'GET') {
-            return true;
-        }
 
         if (!current_user_can('manage_woocommerce')) {
             return new \WP_Error(
-                "beans_rest_cannot_write",
-                "Sorry, you are not allowed to update this resource.",
+                "beans_rest_cannot_access",
+                "Sorry, you are not allowed to access this resource.",
                 array('status' => rest_authorization_required_code())
             );
         }

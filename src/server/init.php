@@ -6,6 +6,7 @@ use BeansWoo\Helper;
 
 require_once 'WebApi/ConnectorRESTController.php';
 require_once 'WebApi/FilterRESTController.php';
+require_once 'WebApi/LogRESTController.php';
 require_once 'WebHook/ReviewHookController.php';
 require_once 'WebHook/SystemHookController.php';
 
@@ -36,8 +37,9 @@ class Main
 
     public static function registerRESTRoutes($controllers)
     {
-        $controllers['wc-beans/v1']['connector'] = 'BeansWoo\Server\ConnectorRESTController';
-        $controllers['wc-beans/v1']['filter'] = 'BeansWoo\Server\FilterRESTController';
+        $controllers['wc-beans/v2']['connector'] = 'BeansWoo\Server\ConnectorRESTController';
+        $controllers['wc-beans/v2']['filter'] = 'BeansWoo\Server\FilterRESTController';
+        $controllers['wc-beans/v2']['log'] = 'BeansWoo\Server\LogRESTController';
         return $controllers;
     }
 
