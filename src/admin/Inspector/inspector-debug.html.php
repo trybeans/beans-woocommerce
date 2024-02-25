@@ -50,7 +50,7 @@ function getSupportedTag($vs_is_supported)
           <p class="beans-admin-check-warning">
           An update is required for optimal performance:
             <a href="https://docs.woocommerce.com/document/how-to-update-woocommerce/" target="_blank">
-              Update WooCommerce
+              See WooCommerce update guide
             </a>
           </p>
         <?php endif; ?>
@@ -64,7 +64,7 @@ function getSupportedTag($vs_is_supported)
           <p class="beans-admin-check-warning">
             Please upgrade your Wordpress:
             <a href="https://codex.wordpress.org/Upgrading_WordPress" target="_blank">
-              Update Wordpress
+              See Wordpress update guide
             </a>
           </p>
         <?php endif; ?>

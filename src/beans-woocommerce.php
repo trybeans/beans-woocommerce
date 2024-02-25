@@ -4,7 +4,7 @@
  * Plugin Name: Beans
  * Plugin URI: https://www.trybeans.com/
  * Description: Loyalty and Rewards program
- * Version: 4.0.0-alpha.1
+ * Version: 4.0.0-beta
  * Author: Beans
  * Author URI: https://www.trybeans.com/
  * Text Domain: beans-woocommerce

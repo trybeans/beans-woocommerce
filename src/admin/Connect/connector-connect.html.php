@@ -9,7 +9,6 @@ use BeansWoo\Admin\Connector;
 
 Inspector::init();
 Connector::setupPages();
-$base_asset_url  = Helper::getAssetURL('/assets/img/admin');
 
 $admin = wp_get_current_user();
 
@@ -22,7 +21,7 @@ if ($country_code && strpos($country_code, ':') !== false) {
     }
 }
 
-$connect_url = Helper::getDomain('TRELLIS') . "/pages/$xxx/woocommerce/install/";
+$connect_url = Helper::getDomain('TRELLIS') . 'pages/$xxx/woocommerce/install/';
 
 ?>
 
@@ -49,14 +48,16 @@ $connect_url = Helper::getDomain('TRELLIS') . "/pages/$xxx/woocommerce/install/"
         <div style="display: flex; width: 100%; justify-content: center">
           <div style="text-align: center">
             <img id="beans-app-hero" alt="" width="auto" height="280px"
-                 src="<?php echo $base_asset_url . '/onboarding/ultimate-hero.svg' ?>"
+                 src="<?=Helper::getAssetURL('/assets/img/connector/onboarding.webp') ?>"
             />
           </div>
         </div>
         <div id="beans-ultimate-connect">
           <p class="wc-setup-actions step" style="justify-content: center; display: flex"
              id="beans-ultimate-submit-button">
-            <button type="submit" class="btn beans-bg-primary beans-bg-primary-ultimate shadow-md" 
+            <button
+              type="submit"
+              class="btn beans-bg-primary beans-bg-primary-ultimate shadow-md"
               value="Connect to Beans Ultimate">
                 Connect
             </button>
@@ -78,13 +79,11 @@ $connect_url = Helper::getDomain('TRELLIS') . "/pages/$xxx/woocommerce/install/"
         <input type="hidden" name="redirect" value="<?php echo Router::getTabURL(Router::TAB_CONNECT); ?>">
     </form>
   <script>
-
       jQuery(function ($) {
           $("#beans-ultimate-submit-button").on('click', function () {
               $("#beans-connect-form").submit();
           })
       });
-
   </script>
 </div>
     <a href="<?=Router::getTabURL(Router::TAB_INSPECT)?>" id="view-config">View configuration</a>

@@ -9,7 +9,7 @@ Stable tag: 3.6.6
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
-Retain your customers and get more repeat purchases
+Retain your customers and get more repeat purchases.
 
 
 == Description ==
@@ -80,7 +80,8 @@ Pinterest, Instagram, and more...
 == Installation ==
 
 = Minimum Requirements =
-- WooCommerce >= 6.0
+- WooCommerce >= 7.0
+- PHP >= 8.0
 
 = Automatic installation =
 Automatic installation is the easiest option as WordPress handles the file transfers
@@ -112,6 +113,9 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 4.0.0 ==
+- Beans version 4
 
 == 3.6.6 ==
 - fix pages not being created. 
