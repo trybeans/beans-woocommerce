@@ -43,12 +43,12 @@ $connect_url = Helper::getDomain('TRELLIS') . 'pages/$xxx/woocommerce/install/';
         </div>
         <div style="text-align: center;">
           <h1 id="beans-welcome-text">Get started</h1>
-          <p id="beans-app-title">Take customer loyalty to the next level with Beans.</p>
+          <p id="beans-app-title">Retain your customers and get more repeat purchases.</p>
         </div>
         <div style="display: flex; width: 100%; justify-content: center">
           <div style="text-align: center">
             <img id="beans-app-hero" alt="" width="auto" height="280px"
-                 src="<?=Helper::getAssetURL('/assets/img/connector/onboarding.webp') ?>"
+                 src="<?=Helper::getAssetURL('/assets/img/admin/onboarding/ultimate-hero.svg') ?>"
             />
           </div>
         </div>
