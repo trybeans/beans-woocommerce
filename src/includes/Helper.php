@@ -52,14 +52,14 @@ class Helper
         $object = get_transient($transient_key);
 
         if (!is_null($object) && $object !== false) {
-            // self::log("TRANSIENT Use Cache: ${method} ${path} ${transient_key}");
+            // self::log("TRANSIENT Use Cache: {$method} {$path} {$transient_key}");
             return $object;
         }
 
         try {
             $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
         } catch (Beans\BeansError $e) {
-            // self::log("TRANSIENT Query Error: ${method} ${path} ${transient_key} : " . $e->getMessage());
+            // self::log("TRANSIENT Query Error: {$method} {$path} {$transient_key} : " . $e->getMessage());
             $object = array();
         }
 

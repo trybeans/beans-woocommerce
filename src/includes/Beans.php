@@ -79,7 +79,7 @@ class Beans
 
     public function makeRequest($path, $data = null, $method = null, $headers = null)
     {
-        // \BeansWoo\Helper::log("*** API CALL *** ${method} ${path}");
+        // \BeansWoo\Helper::log("*** API CALL *** {$method} {$path}");
 
         $url = $this->_endpoint . $path;
 

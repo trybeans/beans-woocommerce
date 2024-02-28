@@ -78,7 +78,7 @@ class Router
     public static function getTabURL($tab = '')
     {
         $page = self::MENU_SLUG;
-        return admin_url("?page=${page}&tab=${tab}");
+        return admin_url("?page={$page}&tab={$tab}");
     }
 
     public static function renderAdminPage()
