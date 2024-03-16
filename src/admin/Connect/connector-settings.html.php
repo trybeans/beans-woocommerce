@@ -88,18 +88,18 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
           <img width="150px" src="<?php echo $base_asset_url; ?>/reward-page.svg"/>
         </div>
       </div>
-      <div class="beans-woo-settings">
+      <!-- <div class="beans-woo-settings">
         <div class="beans-woo-settings-title">Settings</div>
         <form method="post" action="options.php">
             <?php
-            settings_fields("beans-section");
+            // settings_fields("beans-section");
 
-            do_settings_sections("beans-woo");
+            // do_settings_sections("beans-woo");
 
-            submit_button('Save', 'submit', 'beans-checkout-button', false, ['class' => 'button']);
+            // submit_button('Save', 'submit', 'beans-checkout-button', false, ['class' => 'button']);
             ?>
         </form>
-      </div>
+      </div> -->
       <div class="beans-woo-help">
         <div class="beans-woo-help-title">Need help?</div>
         <div style="display: flex;">

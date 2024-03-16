@@ -39,6 +39,19 @@ const PREFERENCES_META = array(
           'If you prefer points to be redeemable across your entire catalog, leave this section empty.'
       ),
   ),
+  /**
+   *  @deprecated
+   * */
+  'redemption_products' => array(
+      'handle' => 'beans-liana-redemption-products',
+      'label' => 'Redeemable products',
+      'type' => 'list',
+      'default' => array(),
+      'help_text' => (
+          'Choose specific products where points can be redeemed. ' .
+          'If you prefer points to be redeemable across your entire catalog, leave this section empty.'
+      ),
+  ),
   'display_checkout_redeem' => array(
       'handle' => 'beans-liana-display-redemption-checkout',
       'label' => 'Redemption on checkout',

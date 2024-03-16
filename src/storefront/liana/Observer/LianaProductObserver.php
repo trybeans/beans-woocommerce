@@ -5,6 +5,11 @@ namespace BeansWoo\StoreFront;
 use BeansWoo\Preferences;
 use BeansWoo\Helper;
 
+/**
+ * Enable redeemable products.
+ * This option has been deprecated.
+ * @deprecated
+ */
 class LianaProductObserver extends LianaObserver
 {
     public static $pay_with_point_product_ids;

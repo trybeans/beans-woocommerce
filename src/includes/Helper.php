@@ -16,8 +16,8 @@ class Helper
         $domains = array(
             'WWW'     => 'https://www.trybeans.com',
             'CDN'     => 'https://cdn.trybeans.com',
-            'STEM'    => 'https://api.trybeans.com/',
-            'TRELLIS' => 'https://trellis.trybeans.com/',
+            'STEM'    => 'https://api.trybeans.com',
+            'TRELLIS' => 'https://trellis.trybeans.com',
             'CONNECT' => 'https://connect.trybeans.com',
             'BOILER'  => 'https://app.trybeans.com',
         );
