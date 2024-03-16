@@ -7,12 +7,8 @@ use BeansWoo\Helper;
 use BeansWoo\Admin\Router;
 
 
-try {
-    $login_key = Helper::requestTransientAPI('POST', 'core/user/current/loginkey');
-} catch (BeansError $e) {
-    Helper::log('Unable to retrieve login key: ' . $e->getMessage());
-    $login_key = array();
-}
+$login_key = Helper::requestTransientAPI('POST', 'core/user/current/loginkey');
+$login_key_str = isset($login_key['key']) ? $login_key['key'] : "";
 
 foreach (BeansWoo\PREFERENCES_META as $key => $params) {
     if (isset($_POST[$params['handle']])) {
@@ -50,7 +46,7 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
         <div>
           <a class="button beans-woo-banner-link"
              href="<?= Helper::getDomain('CONNECT') .
-                "/auth/login/${login_key['key']}"; ?>?next=<?=Helper::getDomain('BOILER')?>"
+                "/auth/login/{$login_key_str}"; ?>?next=<?=Helper::getDomain('BOILER')?>"
              target="_blank">
             Go To Beans
           </a>

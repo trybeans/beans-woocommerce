@@ -19,6 +19,11 @@
     "config": {
         "platform": {
             "php": "7.4.0"
+        },
+        "allow-plugins": {
+            "composer/installers": true,
+            "johnpbloch/wordpress-core-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "repositories":[

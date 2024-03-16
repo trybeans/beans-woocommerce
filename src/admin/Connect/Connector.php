@@ -15,33 +15,6 @@ class Connector
         }
     }
 
-    /**
-     * Create the Rewards and Referral pages.
-     *
-     * @param string $app_name:
-     * @return void
-     *
-     * @since 3.3.0
-     */
-    private static function installAssets($app_name = null)
-    {
-        $page_id = Helper::getConfig($app_name . '_page');
-        if ($page_id && get_post($page_id)) {
-            return true;
-        }
-
-        $page_infos = Helper::getBeansPages()[$app_name];
-
-        $page_id = wc_create_page(
-            $page_infos['slug'],
-            $page_infos['option'],
-            $page_infos['page_name'],
-            $page_infos['shortcode'],
-            0
-        );
-        Helper::setConfig($app_name . '_page', $page_id);
-    }
-
     public static function registerSettingOptions()
     {
         add_settings_section("beans-section", "", null, "beans-woo");
@@ -75,9 +48,43 @@ class Connector
         <?php
     }
 
+    /**
+     * Create the Rewards and Referral pages if they do not exist.
+     *
+     * @return void
+     *
+     * @since 3.3.0
+     */
     public static function setupPages()
     {
         self::installAssets('liana');
         self::installAssets('bamboo');
+    }
+
+    /**
+     * Create the Rewards and Referral pages.
+     *
+     * @param string $app_name:
+     * @return void
+     *
+     * @since 3.3.0
+     */
+    private static function installAssets($app_name = null)
+    {
+        $page_id = Helper::getConfig($app_name . '_page');
+        if ($page_id && get_post($page_id)) {
+            return true;
+        }
+
+        $page_infos = Helper::getBeansPages()[$app_name];
+
+        $page_id = wc_create_page(
+            $page_infos['slug'],
+            $page_infos['option'],
+            $page_infos['page_name'],
+            $page_infos['shortcode'],
+            0
+        );
+        Helper::setConfig($app_name . '_page', $page_id);
     }
 }
