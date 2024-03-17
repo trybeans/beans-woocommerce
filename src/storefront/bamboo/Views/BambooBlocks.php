@@ -7,12 +7,8 @@ use BeansWoo\Helper;
 
 class BambooBlocks
 {
-    protected static $display;
-
-    public static function init($display)
+    public static function init()
     {
-        self::$display = $display;
-
         if (Preferences::get('display_account_nav')) {
             add_filter('woocommerce_account_menu_items', array(__CLASS__, 'updateAccountMenuItems'), 10, 1);
             add_filter('woocommerce_get_endpoint_url', array(__CLASS__, 'getAccountMenuItemLink'), 10, 2);

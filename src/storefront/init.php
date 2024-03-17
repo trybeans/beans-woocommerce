@@ -54,7 +54,7 @@ class Main
         $display_bamboo = Helper::requestTransientAPI('GET', 'bamboo/display/current');
 
         BambooPage::init($display_bamboo);
-        BambooBlocks::init($display_bamboo);
+        BambooBlocks::init();
 
         LianaPage::init($display_liana);
 
@@ -63,7 +63,7 @@ class Main
             return;
         }
 
-        Auth::init($display_liana, $display_bamboo);
+        Auth::init($display_liana);
 
         // Either the rewards program is active, or we are in live test mode
         if (!$display_liana['is_active'] && !isset($_SESSION['beans_mode'])) {

@@ -9,12 +9,10 @@ class Auth
 {
     const COOKIE_KEY = 'beans_cjs'; // public
     protected static $display_liana;
-    protected static $display_bamboo;
 
-    public static function init($display_liana, $display_bamboo)
+    public static function init($display_liana)
     {
         self::$display_liana = $display_liana;
-        self::$display_bamboo = $display_bamboo;
 
         add_action('wp_loaded', array(__CLASS__, 'saveBeansAccountToCookies'), 99);
         add_action('wp_logout', array(__CLASS__, 'onCustomerLogout'), 10, 1);
