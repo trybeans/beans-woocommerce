@@ -31,7 +31,10 @@ class Scripts
         wp_enqueue_script(
             'beans-ultimate-js',
             Helper::getDomain("CDN") .
-                "/lib/ultimate/$version/woocommerce/ultimate.beans.js?radix=woocommerce&id=" . $card,
+                "/lib/ultimate/$version/woocommerce/ultimate.beans.js" .
+                "?radix=woocommerce" .
+                "&trellis_version=" . BEANS_TRELLIS_VERSION .
+                "&beans_card_id=" . $card,
             array(),
             (string)time(),
             false
