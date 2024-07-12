@@ -4,7 +4,7 @@
 Plugin Name: Beans Staging Activator
 Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
 Description: This plugin allow you to turn the beta mode for Beans on your Woocommerce store
-Version: 1.2.0
+Version: 1.2.1
 Author: Beans
 Author URI: https:/www.trybeans.com
 */
@@ -81,12 +81,12 @@ class BeansWooEnv
 
     public static function setEnv()
     {
-        // putenv('BEANS_DOMAIN_WWW=www.bns.re');
-        // putenv('BEANS_DOMAIN_STEM=api.trybeans.com');
-        // putenv('BEANS_DOMAIN_BOILER=app.trybeans.com');
-        // putenv('BEANS_DOMAIN_CONNECT=connect.trybeans.com');
-        // putenv('BEANS_DOMAIN_TRELLIS=trellis.trybeans.com');
-        putenv('BEANS_DOMAIN_CDN=bnsre.s3.amazonaws.com');
+        // putenv('BEANS_DOMAIN_WWW=https://www.bns.re');
+        // putenv('BEANS_DOMAIN_STEM=https://api.trybeans.com');
+        // putenv('BEANS_DOMAIN_BOILER=https://app.trybeans.com');
+        // putenv('BEANS_DOMAIN_CONNECT=https://connect.trybeans.com');
+        // putenv('BEANS_DOMAIN_TRELLIS=https://trellis.trybeans.com');
+        putenv('BEANS_DOMAIN_CDN=https://bnsre.s3.amazonaws.com');
     }
 }
 
