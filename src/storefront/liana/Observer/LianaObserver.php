@@ -202,7 +202,7 @@ class LianaObserver
             'limit_usage_to_x_items'      => null,
             'free_shipping'               => false,
             'product_categories'          => array(),
-            'excluded_product_categories' => array(),
+            'excluded_product_categories' => Preferences::get('redemption_collections'),
             'exclude_sale_items'          => false,
             'minimum_amount'              => '',
             'maximum_amount'              => '',
