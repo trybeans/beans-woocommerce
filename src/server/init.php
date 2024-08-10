@@ -25,14 +25,14 @@ class Main
             return;
         }
 
-        $display_liana = Helper::requestTransientAPI('GET', 'liana/display/current');
+        $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
 
-        if (empty($display_liana)) {
+        if (empty($display)) {
             Helper::log('Server: Display Liana is empty');
             return;
         }
 
-        \BeansWoo\StoreFront\LianaSubscriptionObserver::init($display_liana);
+        \BeansWoo\StoreFront\LianaSubscriptionObserver::init($display);
     }
 
     public static function registerRESTRoutes($controllers)

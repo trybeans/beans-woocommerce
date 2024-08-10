@@ -50,32 +50,31 @@ class Main
 
         Scripts::init();
 
-        $display_liana = Helper::requestTransientAPI('GET', 'liana/display/current');
-        $display_bamboo = Helper::requestTransientAPI('GET', 'bamboo/display/current');
+        $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
 
-        BambooPage::init($display_bamboo);
+        BambooPage::init($display);
         BambooBlocks::init();
 
-        LianaPage::init($display_liana);
+        LianaPage::init($display);
 
-        if (empty($display_liana)) {
+        if (empty($display)) {
             Helper::log('Init: Display Liana is empty');
             return;
         }
 
-        Auth::init($display_liana);
+        Auth::init($display);
 
         // Either the rewards program is active, or we are in live test mode
-        if (!$display_liana['is_active'] && !isset($_SESSION['beans_mode'])) {
+        if (!$display['is_active'] && !isset($_SESSION['beans_mode'])) {
             Helper::log('Init: Display Liana is deactivated');
             return;
         }
 
-        LianaBlocks::init($display_liana);
+        LianaBlocks::init($display);
 
-        LianaCartObserver::init($display_liana);
-        LianaProductObserver::init($display_liana);
-        LianaSubscriptionObserver::init($display_liana);
+        LianaCartObserver::init($display);
+        LianaProductObserver::init($display);
+        LianaSubscriptionObserver::init($display);
     }
 
     public static function initAjax()
@@ -88,21 +87,21 @@ class Main
             session_start();
         }
 
-        $display_liana = Helper::requestTransientAPI('GET', 'liana/display/current');
+        $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
 
-        if (empty($display_liana)) {
+        if (empty($display)) {
             Helper::log('Ajax: Display Liana is empty');
             return;
         }
 
         // Either the rewards program is active, or we are in live test mode
-        if (!$display_liana['is_active'] && !isset($_SESSION['beans_mode'])) {
+        if (!$display['is_active'] && !isset($_SESSION['beans_mode'])) {
             Helper::log('Ajax: Display Liana is deactivated');
             return;
         }
 
-        LianaCartObserver::init($display_liana);
-        LianaProductObserver::init($display_liana);
+        LianaCartObserver::init($display);
+        LianaProductObserver::init($display);
     }
 
     /**

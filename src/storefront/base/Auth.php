@@ -8,11 +8,11 @@ use BeansWoo\Helper;
 class Auth
 {
     const COOKIE_KEY = 'beans_cjs'; // public
-    protected static $display_liana;
+    protected static $display;
 
-    public static function init($display_liana)
+    public static function init($display)
     {
-        self::$display_liana = $display_liana;
+        self::$display = $display;
 
         add_action('wp_loaded', array(__CLASS__, 'saveBeansAccountToCookies'), 99);
         add_action('wp_logout', array(__CLASS__, 'onCustomerLogout'), 10, 1);
@@ -35,7 +35,7 @@ class Auth
     public static function onCustomerRegister($user_id)
     {
         // Either the rewards program is active, or we are in live test mode
-        if (!self::$display_liana['is_active'] && !isset($_SESSION['beans_mode'])) {
+        if (!self::$display['is_active'] && !isset($_SESSION['beans_mode'])) {
             Helper::log('Auth: Liana display is deactivated');
             return;
         }

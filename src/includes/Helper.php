@@ -45,8 +45,14 @@ class Helper
         return new Beans\Beans(self::$api_key, self::getDomain($domain) . '/' . $version . '/');
     }
 
-    public static function requestTransientAPI($method, $path, $arg = null, $headers = null)
-    {
+    public static function requestTransientAPI(
+        $method,
+        $path,
+        $domain = 'STEM',
+        $version = 'v3',
+        $arg = null,
+        $headers = null
+    ) {
         $transient_key = 'beans_' . str_replace('/', '_', $path);
 
         $object = get_transient($transient_key);
@@ -57,7 +63,7 @@ class Helper
         }
 
         try {
-            $object = self::API()->makeRequest($path, $arg, strtoupper($method), $headers);
+            $object = self::API($domain, $version)->makeRequest($path, $arg, strtoupper($method), $headers);
         } catch (Beans\BeansError $e) {
             // self::log("TRANSIENT Query Error: {$method} {$path} {$transient_key} : " . $e->getMessage());
             $object = array();
