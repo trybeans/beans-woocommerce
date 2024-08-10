@@ -4,6 +4,7 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Preferences;
 use BeansWoo\Helper;
+use TypeError;
 
 class LianaBlocks
 {
@@ -90,7 +91,11 @@ class LianaBlocks
     {
         global $product;
 
-        $product_points = $product->get_price() * self::$display['beans_ccy_spent'];
+        try {
+            $product_points = $product->get_price('edit') * self::$display['beans_ccy_spent'];
+        } catch (TypeError $e) {
+            return;
+        }
 
         $notice_earn_points = strtr(
             __("Buy this product and earn {quantity} {beans_name}.", 'beans-woocommerce'),
