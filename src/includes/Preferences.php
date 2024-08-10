@@ -39,6 +39,16 @@ const PREFERENCES_META = array(
           'If you prefer points to be redeemable across your entire catalog, leave this section empty.'
       ),
   ),
+  'role_exclusions' => array(
+      'handle' => 'beans-liana-role-exclusion',
+      'label' => 'Role exclusions',
+      'type' => 'list',
+      'default' => array(),
+      'help_text' => (
+          'Specify WordPress User Roles to exclude from the rewards program.' .
+          'Excluded roles will not earn rewards for their purchases.'
+      ),
+  ),
   /**
    *  @deprecated
    * */
