@@ -12,7 +12,7 @@
  * Requires PHP: 8.0
  * Requires at least: 6.0
  * WC requires at least: 7.0
- * WC tested up to: 8.8.*
+ * WC tested up to: 9.1.*
  * @author Beans
  */
 
