@@ -258,8 +258,8 @@ class LianaObserver
                     Helper::API()->post('liana/debit', $data);
                 } catch (BeansError $e) {
                     if ($e->getCode() != 409) {
-                        Helper::log('Debiting failed: ' . $e->getMessage());
-                        throw new \Exception('Beans debit failed: ' . $e->getMessage());
+                        Helper::log('Redemption failed: ' . $e->getMessage());
+                        throw new \Exception('Redemption failed: ' . $e->getMessage());
                     }
                 }
             }
