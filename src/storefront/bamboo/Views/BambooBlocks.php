@@ -18,10 +18,10 @@ class BambooBlocks
     /**
      * Append rewards program page to the account navigation menu.
      *
-     * @since 3.4.0
-     *
      * @param array $items: ['account-nav-slug' => 'Page Name', ...]
      * @return array $items: ['account-nav-slug' => 'Page Name', ...]
+     *
+     * @since 3.4.0
      */
     public static function updateAccountMenuItems($items)
     {
@@ -32,12 +32,12 @@ class BambooBlocks
     /**
      * Resolve navigation to the rewards program page from the account navigation menu.
      *
-     * @since 3.4.0
-     *
      * @param string $url: Link to the page before update
      * @param string  $endpoint: account-nav-slug
      *
      * @return string $url: Link to the page after update
+     *
+     * @since 3.4.0
      */
     public static function getAccountMenuItemLink($url, $endpoint)
     {

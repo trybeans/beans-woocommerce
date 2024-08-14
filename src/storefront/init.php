@@ -53,8 +53,6 @@ class Main
         $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
 
         BambooPage::init($display);
-        BambooBlocks::init();
-
         LianaPage::init($display);
 
         if (empty($display)) {
@@ -70,11 +68,12 @@ class Main
             return;
         }
 
+        BambooBlocks::init();
         LianaBlocks::init($display);
 
         LianaCartObserver::init($display);
-        LianaProductObserver::init($display);
         LianaSubscriptionObserver::init($display);
+        // LianaProductObserver::init($display);
     }
 
     public static function initAjax()

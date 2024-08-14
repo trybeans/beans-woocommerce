@@ -79,7 +79,6 @@ class Beans
 
     public function makeRequest($path, $data = null, $method = null, $headers = null)
     {
-        // \BeansWoo\Helper::log("*** API CALL *** {$method} {$path}");
 
         $url = $this->_endpoint . $path;
 
@@ -90,6 +89,8 @@ class Beans
         if ($method === 'GET' && !empty($data)) {
             $url .= '?' . http_build_query($data);
         }
+
+        // \BeansWoo\Helper::log("*** API CALL *** {$method} {$url}");
 
         $data_string = json_encode($data ? $data : array());
 
