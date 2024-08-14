@@ -30,13 +30,13 @@ class BambooPage
         $page_id = Helper::getConfig('bamboo_page');
 
         return array(
-            'shortcode' => '[' . self::PAGE_SHORTCODE . ']',
-            'page_id' => $page_id,
-            'page_name' => 'Referral Program',
-            'option' => 'beans_referral_page_id',
-            'slug' => 'referral-program',
-            'type' => 'referral',
-            'page_exists' => get_post($page_id) ? true : false,
+            'shortcode'     => '[' . self::PAGE_SHORTCODE . ']',
+            'page_id'       => $page_id,
+            'page_name'     => 'Referral Program',
+            'option'        => 'beans_referral_page_id',
+            'slug'          => 'referral-program',
+            'type'          => 'referral',
+            'page_exists'   => get_post($page_id) ? true : false,
         );
     }
 }
