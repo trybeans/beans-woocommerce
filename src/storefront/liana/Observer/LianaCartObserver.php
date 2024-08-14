@@ -86,13 +86,15 @@ class LianaCartObserver extends LianaObserver
         $cart = Helper::getCart();
         $discount_amount = self::getAllowedDiscount($account, $cart->subtotal);
 
-        $_SESSION['liana_redemption_' . self::REDEEM_COUPON_CODE] = array(
-            'code'          => self::REDEEM_COUPON_CODE,
-            'amount'        => $discount_amount,
-            'discount_type' => 'fixed_cart',
-            'beans'         => $discount_amount * self::$display['beans_rate'],
-        );
-        $cart->apply_coupon(self::REDEEM_COUPON_CODE);
+        if ($discount_amount) {
+            $_SESSION['liana_redemption_' . self::REDEEM_COUPON_CODE] = array(
+                'code'          => self::REDEEM_COUPON_CODE,
+                'amount'        => $discount_amount,
+                'discount_type' => 'fixed_cart',
+                'beans'         => $discount_amount * self::$display['beans_rate'],
+            );
+            $cart->apply_coupon(self::REDEEM_COUPON_CODE);
+        }
     }
 
     /**
