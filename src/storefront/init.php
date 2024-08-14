@@ -50,7 +50,7 @@ class Main
 
         Scripts::init();
 
-        $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
+        $display = Helper::getDisplay();
 
         BambooPage::init($display);
         LianaPage::init($display);
@@ -86,7 +86,7 @@ class Main
             session_start();
         }
 
-        $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
+        $display = Helper::getDisplay();
 
         if (empty($display)) {
             Helper::log('Ajax: Display Liana is empty');

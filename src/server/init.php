@@ -25,7 +25,7 @@ class Main
             return;
         }
 
-        $display = Helper::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
+        $display = Helper::getDisplay();
 
         if (empty($display)) {
             Helper::log('Server: Display Liana is empty');

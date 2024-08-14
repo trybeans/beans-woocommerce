@@ -91,6 +91,10 @@ class LianaBlocks
     {
         global $product;
 
+        if (!isset(self::$display['beans_ccy_spent'])) {
+            return;
+        }
+
         try {
             $product_points = $product->get_price('edit') * self::$display['beans_ccy_spent'];
         } catch (TypeError $e) {
@@ -123,6 +127,10 @@ class LianaBlocks
      */
     public static function renderCartNotice()
     {
+        if (!isset(self::$display['beans_ccy_spent']) || !isset(self::$display['beans_new_account'])) {
+            return;
+        }
+
         $notice_earn_points = null;
         $notice_redeem_points = null;
         $notice_cancel_redemption = null;

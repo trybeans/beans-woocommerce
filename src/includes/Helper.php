@@ -259,4 +259,32 @@ class Helper
         }
         return true;
     }
+
+    /**
+     * Retrieve the display object from the Trellis API.
+     * The Display object contains all information needed to display the rewards program.
+     * Especially it is state whether the program should be active or not.
+     *
+     * @return array The display object
+     *
+     * @since 4.0.3
+     */
+    public static function getDisplay()
+    {
+        $display = self::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
+
+        // If display is empty load a default configuration.
+        if (empty($display)) {
+            self::log('Helper: Trellis Display is empty');
+            $display = array(
+                'is_active'         => true,
+                'beans_name'        => 'points',
+                'beans_rate'        => '100',
+                'is_powerby'        => true,
+                'tiers'             => [],
+            );
+        }
+
+        return $display;
+    }
 }
