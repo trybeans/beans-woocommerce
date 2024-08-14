@@ -271,7 +271,15 @@ class Helper
      */
     public static function getDisplay()
     {
-        $display = self::requestTransientAPI('GET', 'display/current', 'TRELLIS', 'api/v4/woocommerce');
+        $card_id = Helper::getConfig('card');
+        $display = self::requestTransientAPI(
+            'GET',
+            'display/current/',
+            'TRELLIS',
+            'api/v4/woocommerce',
+            null,
+            array("X-Riper-Merchant-Id: {$card_id}")
+        );
 
         // If display is empty load a default configuration.
         if (empty($display)) {
