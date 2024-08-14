@@ -107,6 +107,14 @@ class ConnectorRESTController extends \WP_REST_Controller
         );
     }
 
+    /**
+     * Post update of the Beans plugin status
+     *
+     * @param enum $status of the plugin: activated, deactivated, uninstalled
+     * @return void
+     *
+     * @since 3.4.0
+     */
     public static function postWebhook($status = null)
     {
         try {

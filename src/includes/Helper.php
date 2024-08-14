@@ -89,6 +89,15 @@ class Helper
         delete_transient('beans_core_user_current_loginkey');
     }
 
+    /**
+     * Retrieve a config to MySQL Database.
+     *
+     *
+     * @param string $key The key of the config to retrieve
+     * @return any $value The value of the config
+     *
+     * @since 3.3.0
+     */
     public static function getConfig($key)
     {
         $config = get_option(self::CONFIG_NAME);
@@ -99,6 +108,15 @@ class Helper
         return null;
     }
 
+    /**
+     * Save a config to MySQL Database.
+     *
+     * @param string $key The key of the config to save
+     * @param any $value The value of the config to save
+     * @return void
+     *
+     * @since 3.3.0
+     */
     public static function setConfig($key, $value)
     {
         $config       = get_option(self::CONFIG_NAME);
@@ -106,11 +124,26 @@ class Helper
         update_option(self::CONFIG_NAME, $config);
     }
 
+    /**
+     * Check if the Beans plugin is set up.
+     *
+     * @return bool True if the plugin is set up correctly.
+     *
+     * @since 3.3.0
+     */
     public static function isSetup()
     {
         return Helper::getConfig('merchant') && Helper::getConfig('card') && Helper::getConfig('secret');
     }
 
+    /**
+     * Reset the set up of the Beans plugin.
+     * Force merchant to reconnect the Beans plugin.
+     *
+     * @return bool True if successful reset settings
+     *
+     * @since 3.3.0
+     */
     public static function resetSetup()
     {
         foreach (['liana', 'bamboo'] as $app_name) {
@@ -193,6 +226,14 @@ class Helper
         return isset($pages[$current_page]) ? $pages[$current_page] : '';
     }
 
+    /**
+     * Return URL of a static asset in the /assets folder.
+     *
+     * @param string $path the file starting with /assets
+     * @return string Public url of the file
+     *
+     * @since 3.0.0
+     */
     public static function getAssetURL($path)
     {
         return plugins_url($path, BEANS_PLUGIN_FILENAME);
