@@ -120,7 +120,7 @@ $base_asset_url = Helper::getAssetURL('assets/img/connector');
             </a>
           </span>
           <div class="beans-woo-help-action">
-            <a target="_blank" href="http://help.trybeans.com/">
+            <a target="_blank" href="https://docs.trybeans.com/integrations/woocommerce">
               <img src="<?php echo $base_asset_url; ?>/help-center.svg" width="18px" height="18px"/>
               Go to Help Center
             </a>

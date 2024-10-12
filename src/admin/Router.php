@@ -139,7 +139,8 @@ class Router
     {
         $row_meta = array(
             'settings' => '<a href=' . self::getTabURL(self::TAB_SETTINGS) . '>Settings</a>',
-            'help' => '<a href="http://help.trybeans.com/" target="_blank" title="Help">Help Center</a>',
+            'help' => '<a href="https://docs.trybeans.com/integrations/woocommerce" ' .
+                      'target="_blank" title="Help">Help Center</a>',
             'support' => '<a href="mailto:hello@trybeans.com" title="Support">Contact Support</a>',
         );
 
