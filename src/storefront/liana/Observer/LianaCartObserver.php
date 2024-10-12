@@ -51,7 +51,7 @@ class LianaCartObserver extends LianaObserver
         if ($fragments) {
             ?>
             <script>
-                window.Beans3.Liana.Radix.init();
+                window.Beans3.Radix.init();
             </script>
             <?php
         }
