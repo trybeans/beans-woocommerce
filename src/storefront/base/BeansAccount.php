@@ -72,6 +72,9 @@ class BeansAccount
 
         if ($use_session) {
             $_SESSION['beans_account'] = $account;
+            if (!isset($_SESSION['beans_token'])) {
+                self::setSessionToken($account);
+            }
         }
 
         return $account;
