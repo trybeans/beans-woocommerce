@@ -136,32 +136,35 @@ class LianaBlocks
         $notice_redeem_points = "";
         $notice_cancel_redemption = "";
 
-        $cart_subtotal = Helper::getCart()->cart_contents_total;
+        $cart = Helper::getCart();
         $account = BeansAccount::getSession();
-
-        # Customers do not get points when they purchase product in the excluded collections.
-        # So they need to be removed from the points estimate.
-        if (!empty(Preferences::get('redemption_collections'))) {
-            $amount_to_exclude = 0;
-            $cart_items = Helper::getCart()->get_cart();
-            foreach ($cart_items as $cart_item_key => $values) {
-                $product = $values['data'];
-                if (
-                    is_a($product, "WC_Product") &&
-                    array_intersect(
-                        $product->get_category_ids('edit'),
-                        Preferences::get('redemption_collections')
-                    )
-                ) {
-                    $amount_to_exclude += $values['line_subtotal'];
-                }
-            }
-            $cart_subtotal = $cart_subtotal - $amount_to_exclude;
-        }
-
-        $cart_points = intval($cart_subtotal * self::$display['beans_ccy_spent']);
-
         $active_redemption = LianaObserver::getActiveRedemption(LianaObserver::REDEEM_COUPON_CODE);
+
+        // This is incorrect because redemption_collections only apply to redemption and not earning points.
+        // In addition it also is not taking into account discount that has already been applied to the cart.
+        // --------------------------------------------------------------------------------------
+        // Customers do not get points when they purchase product in the excluded collections.
+        // So they need to be removed from the points estimate.
+        // if (!empty(Preferences::get('redemption_collections'))) {
+        //     $amount_to_exclude = 0;
+        //     $cart_items = $cart->get_cart();
+        //     foreach ($cart_items as $cart_item_key => $values) {
+        //         $product = $values['data'];
+        //         if (
+        //             is_a($product, "WC_Product") &&
+        //             array_intersect(
+        //                 $product->get_category_ids('edit'),
+        //                 Preferences::get('redemption_collections')
+        //             )
+        //         ) {
+        //             $amount_to_exclude += $values['line_subtotal'];
+        //         }
+        //     }
+        //     $cart_subtotal = $cart_subtotal - $amount_to_exclude;
+        // }
+
+        $cart_subtotal = $cart->subtotal;
+        $cart_points = intval($cart_subtotal * self::$display['beans_ccy_spent']);
 
         $notice_earn_points = strtr(
             __("Complete your purchase and earn {quantity} {beans_name}.", "beans-woocommerce"),
