@@ -31,7 +31,7 @@ if (!function_exists('curl_init')) {
 
 class Beans
 {
-    const VERSION = '4.0.3';  // private
+    const VERSION = '4.0.4';  // private
 
     private $_secret = '';
     private $_next_page = '';
