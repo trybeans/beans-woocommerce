@@ -168,7 +168,7 @@ class Auth
             $account = BeansAccount::getSession();
         }
 
-        if (isset($current_user) and !$account) {
+        if (isset($current_user) and !$account and Preferences::get('is_auto_register')) {
             self::onCustomerRegister($current_user->ID);
             $account = BeansAccount::getSession();
         }
