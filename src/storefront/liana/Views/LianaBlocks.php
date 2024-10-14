@@ -131,11 +131,13 @@ class LianaBlocks
             return;
         }
 
-        $notice_earn_points = null;
-        $notice_redeem_points = null;
-        $notice_cancel_redemption = null;
+        $notice_join_points = "";
+        $notice_earn_points = "";
+        $notice_redeem_points = "";
+        $notice_cancel_redemption = "";
 
         $cart_subtotal = Helper::getCart()->cart_contents_total;
+        $account = BeansAccount::getSession();
 
         # Customers do not get points when they purchase product in the excluded collections.
         # So they need to be removed from the points estimate.
@@ -158,18 +160,26 @@ class LianaBlocks
         }
 
         $cart_points = intval($cart_subtotal * self::$display['beans_ccy_spent']);
-        $register_points = self::$display['beans_new_account'];
 
-        $account = BeansAccount::getSession();
         $active_redemption = LianaObserver::getActiveRedemption(LianaObserver::REDEEM_COUPON_CODE);
 
         $notice_earn_points = strtr(
             __("Complete your purchase and earn {quantity} {beans_name}.", "beans-woocommerce"),
             array(
                 "{beans_name}" => self::$display['beans_name'],
-                "{quantity}" => $cart_points + $register_points,
+                "{quantity}" => $cart_points,
             )
         );
+
+        if (!$account) {
+            $notice_join_points = strtr(
+                __("Join our rewards program and earn {quantity} {beans_name}.", "beans-woocommerce"),
+                array(
+                    "{beans_name}" => self::$display['beans_name'],
+                    "{quantity}" => self::$display['beans_new_account'],
+                )
+            );
+        }
 
         if ($active_redemption) {
             $notice_cancel_redemption = strtr(
@@ -191,7 +201,7 @@ class LianaBlocks
 
         ?>
         <div class="woocommerce">
-          <div class="woocommerce-info"><?=$notice_earn_points?></div>
+          <div class="woocommerce-info"><?=$notice_join_points?> <?=$notice_earn_points?></div>
           <?php if ($notice_cancel_redemption) : ?>
             <div class="woocommerce-info">
                 <?=$notice_cancel_redemption?>
