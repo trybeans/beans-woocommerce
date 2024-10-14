@@ -21,7 +21,7 @@ if ($country_code && strpos($country_code, ':') !== false) {
     }
 }
 
-$connect_url = Helper::getDomain('TRELLIS') . '/pages/$xxx/woocommerce/install/';
+$connect_url = Helper::getDomain('TRELLIS') . '/pages/c:xxx/woocommerce/install/';
 
 ?>
 
