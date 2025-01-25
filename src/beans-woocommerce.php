@@ -79,6 +79,13 @@ if (!class_exists('WC_Beans')) :
     {
         protected static $instance = null;
 
+        /**
+         * Constructor
+         * 
+         * @return void
+         * 
+         * @since 1.0
+         */
         protected function __construct()
         {
             add_action('init', array(__CLASS__, 'init'), 10, 1);

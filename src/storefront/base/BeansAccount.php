@@ -5,6 +5,12 @@ namespace BeansWoo\StoreFront;
 use Beans\BeansError;
 use BeansWoo\Helper;
 
+/**
+ * Beans account class.
+ *
+ * @class BeansAccount
+ * @since 3.0.0
+ */
 class BeansAccount
 {
     /**

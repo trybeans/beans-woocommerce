@@ -2,8 +2,21 @@
 
 namespace BeansWoo\StoreFront;
 
+/**
+ * Registration class.
+ *
+ * @class Registration
+ * @since 3.0.0
+ */
 class Registration
 {
+    /**
+     * Initialize registration.
+     *
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init()
     {
         add_action('woocommerce_register_form_start', array(__CLASS__, 'renderRegister'));
@@ -11,6 +24,16 @@ class Registration
         add_filter('woocommerce_registration_errors', array(__CLASS__, 'registerValidateNameFields'), 10, 3);
     }
 
+    /**
+     * Validate name fields.
+     *
+     * @param object $errors The errors object
+     * @param string $username The username
+     * @param string $email The email
+     * @return object
+     *
+     * @since 3.0.0
+     */
     public static function registerValidateNameFields($errors, $username, $email)
     {
         if (isset($_POST['first_name']) && empty($_POST['first_name'])) {
@@ -23,6 +46,14 @@ class Registration
     }
 
 
+    /**
+     * Save name fields.
+     *
+     * @param int $customer_id The customer ID
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function registerSaveNameFields($customer_id)
     {
         if (isset($_POST['first_name'])) {
@@ -35,6 +66,13 @@ class Registration
         }
     }
 
+    /**
+     * Render register form.
+     *
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function renderRegister()
     {
         ?>

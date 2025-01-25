@@ -5,11 +5,26 @@ namespace BeansWoo\StoreFront;
 use BeansWoo\Preferences;
 use BeansWoo\Helper;
 
+/**
+ * Auth class.
+ *
+ * @class Auth
+ * @since 3.0.0
+ */
 class Auth
 {
     const COOKIE_KEY = 'beans_cjs'; // public
     protected static $display;
 
+    /**
+     * Initialize auth.
+     * Save display object from Beans API and add actions.
+     *
+     * @param array $display The display object retrieved from Beans API
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init($display)
     {
         self::$display = $display;

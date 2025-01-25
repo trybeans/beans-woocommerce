@@ -6,10 +6,25 @@ use BeansWoo\Preferences;
 use BeansWoo\Helper;
 use TypeError;
 
+/**
+ * Liana blocks renderer.
+ *
+ * @class LianaBlocks
+ * @since 3.0.0
+ */
 class LianaBlocks
 {
     protected static $display;
 
+    /**
+     * Initialize blocks renderer.
+     * Save display object from Beans API and add actions.
+     *
+     * @param array $display The display object retrieved from Beans API
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init($display)
     {
         self::$display = $display;

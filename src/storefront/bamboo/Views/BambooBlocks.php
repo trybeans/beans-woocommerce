@@ -5,8 +5,21 @@ namespace BeansWoo\StoreFront;
 use BeansWoo\Preferences;
 use BeansWoo\Helper;
 
+/**
+ * Bamboo blocks renderer.
+ *
+ * @class BambooBlocks
+ * @since 3.0.0
+ */
 class BambooBlocks
 {
+    /**
+     * Initialize blocks renderer.
+     *
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init()
     {
         if (Preferences::get('display_account_nav')) {

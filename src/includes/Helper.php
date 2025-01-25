@@ -4,6 +4,12 @@ namespace BeansWoo;
 
 use Beans;
 
+/**
+ * Helper class.
+ *
+ * @class Helper
+ * @since 3.0.0
+ */
 class Helper
 {
     const CONFIG_NAME = 'beans-config-3'; // private
@@ -11,6 +17,15 @@ class Helper
 
     public static $api_key = null;
 
+    /**
+     * Get the domain based on the subdomain.
+     *
+     * @param string $sub The subdomain
+     * 
+     * @return string The domain
+     *
+     * @since 3.0.0
+     */
     public static function getDomain($sub)
     {
         $domains = array(
@@ -45,6 +60,20 @@ class Helper
         return new Beans\Beans(self::$api_key, self::getDomain($domain) . '/' . $version . '/');
     }
 
+    /**
+     * Perform an API request and cache the result.
+     *
+     * @param string $method The HTTP method
+     * @param string $path The API path
+     * @param string $domain The API domain
+     * @param string $version The API version
+     * @param mixed $arg The API arguments
+     * @param array $headers The API headers
+     * 
+     * @return array The API response's data
+     *
+     * @since 3.0.0
+     */
     public static function requestTransientAPI(
         $method,
         $path,
@@ -178,6 +207,13 @@ class Helper
         return true;
     }
 
+    /**
+     * Get the WooCommerce cart.
+     *
+     * @return \WC_Cart The WooCommerce cart
+     *
+     * @since 3.0.0
+     */
     public static function getCart()
     {
         global $woocommerce;
@@ -189,14 +225,28 @@ class Helper
         return $woocommerce->cart;
     }
 
+    /**
+     * Get metadata info of liana (reward) and bamboo (referral) pages.
+     *
+     * @return array The Beans pages metadata
+     *
+     * @since 3.0.0
+     */
     public static function getBeansPages()
     {
         return [
-            'liana'  => \BeansWoo\StoreFront\LianaPage::getPageReferences(),
-            'bamboo' => \BeansWoo\StoreFront\BambooPage::getPageReferences(),
+            'liana'  => \BeansWoo\StoreFront\LianaPage::getPageMetadata(),
+            'bamboo' => \BeansWoo\StoreFront\BambooPage::getPageMetadata(),
         ];
     }
 
+    /**
+     * Get the current page visitor is on.
+     *
+     * @return string The current page
+     *
+     * @since 3.0.0
+     */
     public static function getCurrentPage()
     {
 

@@ -4,14 +4,34 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
+/**
+ * Beans scripts class.
+ *
+ * @class Scripts
+ * @since 3.0.0
+ */
 class Scripts
 {
+    /**
+     * Initialize scripts.
+     *
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init()
     {
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'), 10, 1);
         add_action('wp_footer', array(__CLASS__, 'renderFooter'), 10, 1);
     }
 
+    /**
+     * Enqueue scripts.
+     *
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function enqueueScripts()
     {
         $card = Helper::getConfig('card');
@@ -43,6 +63,13 @@ class Scripts
         wp_enqueue_style('beans-style', Helper::getAssetURL('assets/css/beans-storefront.css'));
     }
 
+    /**
+     * Render footer.
+     *
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function renderFooter()
     {
         $account_page_id = get_option('woocommerce_myaccount_page_id');

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Uninstall Beans WooCommerce.
+ *
+ * @since 3.0.0
+ */
+
 use Beans\Beans;
 
 defined('ABSPATH') or die;

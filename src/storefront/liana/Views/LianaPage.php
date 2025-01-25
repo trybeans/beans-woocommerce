@@ -4,12 +4,27 @@ namespace BeansWoo\StoreFront;
 
 use BeansWoo\Helper;
 
+/**
+ * Liana page renderer.
+ *
+ * @class LianaPage
+ * @since 3.0.0
+ */
 class LianaPage
 {
     const PAGE_SHORTCODE = 'beans_page'; // public
     protected static $display;
     public static $is_powerby;
 
+    /**
+     * Initialize page renderer.
+     * Save display object from Beans API and add actions.
+     *
+     * @param array $display The display object retrieved from Beans API
+     * @return void
+     *
+     * @since 3.0.0
+     */
     public static function init($display)
     {
         self::$display = $display;
@@ -18,6 +33,13 @@ class LianaPage
         add_shortcode(self::PAGE_SHORTCODE, array(__CLASS__, 'renderPage'));
     }
 
+    /**
+     * Render page.
+     *
+     * @return string
+     *
+     * @since 3.0.0
+     */
     public static function renderPage()
     {
         ob_start();
@@ -25,7 +47,15 @@ class LianaPage
         return ob_get_clean();
     }
 
-    public static function getPageReferences()
+    /**
+     * Get liana page metadata.
+     * This is used by connector API to get the page metadata.
+     *
+     * @return array
+     *
+     * @since 3.0.0
+     */
+    public static function getPageMetadata()
     {
         $page_id = Helper::getConfig('liana_page');
 
