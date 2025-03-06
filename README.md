@@ -2,6 +2,21 @@
 
 ## 🔨 Prerequisite
 
+- You need to make sure that you have php installed and that `php` is available in your path.
+To check that you can run `which php`
+
+To install php 8.0 on macos, you can use homebrew:
+
+```shell script
+brew install shivammathur/php/php@8.0
+```
+
+To install php 8.0 on ubuntu, you can use the following command:
+
+```shell script
+sudo apt install php8.0
+```
+
 - You need to make sure that you have mysql installed and that `mysql` is available in your path.
 To check that you can run `which mysql`
 

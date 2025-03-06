@@ -165,12 +165,12 @@ class LianaObserver
 
     /**
      * Returns a custom coupon object to be used on the WC_Order
-     * This object reperesents a virtual coupon
+     * This object represents a virtual coupon
      *
      * @param \WC_Coupon $coupon The coupon as initiated by WooCommerce or other third-paty app.
      * @param string $coupon_code The coupon used for redemption.
      *
-     * @return \WC_Coupon|array data use to initially the virtual coupon
+     * @return \WC_Coupon|array data use to initiate the virtual coupon
      *
      * @since 3.5.0
      */
