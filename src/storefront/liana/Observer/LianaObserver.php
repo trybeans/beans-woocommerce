@@ -80,7 +80,7 @@ class LianaObserver
         foreach (self::getRedeemCodes() as $code) {
             $cart->remove_coupon($code);
             $key = "liana_redemption_{$code}";
-            unset($_SESSION[$key]);
+            Helper::unsetSessionData($key);
             unset(self::$redemption_cache[$key]);
         }
     }
@@ -103,11 +103,7 @@ class LianaObserver
             return self::$redemption_cache[$key];
         }
 
-        if (isset($_SESSION[$key])) {
-            return $_SESSION[$key];
-        }
-
-        return null;
+        return Helper::getSessionData($key);
     }
 
     /**

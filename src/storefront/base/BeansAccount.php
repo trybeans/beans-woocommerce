@@ -20,7 +20,7 @@ class BeansAccount
      * @param string $email The email of the customer
      * @param string $first_name The first name of the customer
      * @param string $last_name The last name of the customer
-     * @param bool $use_session If true, save the data in PHP $_SESSION
+     * @param bool $use_session If true, save the data in session
      *
      * @return array|null a Beans member's account object: https://api.trybeans.com/v3/doc/#tag/Account
      *
@@ -44,7 +44,7 @@ class BeansAccount
             return null;
         }
         if ($use_session) {
-            $_SESSION['beans_account'] = $account;
+            Helper::setSessionData('beans_account', $account);
             self::setSessionToken($account);
         }
 
@@ -56,7 +56,7 @@ class BeansAccount
      * (optionally) save it in session.
      *
      * @param string $email_or_id The email or Beans AccountID of the customer
-     * @param bool $use_session If true, save the data in PHP $_SESSION
+     * @param bool $use_session If true, save the data in session
      *
      * @return array|null a Beans member's account object: https://api.trybeans.com/v3/doc/#tag/Account
      *
@@ -70,15 +70,15 @@ class BeansAccount
             Helper::log('Unable to retrieve account: ' . $e->getMessage());
 
             if ($use_session) {
-                unset($_SESSION['beans_account']);
+                Helper::unsetSessionData('beans_account');
             }
 
             return null;
         }
 
         if ($use_session) {
-            $_SESSION['beans_account'] = $account;
-            if (!isset($_SESSION['beans_token'])) {
+            Helper::setSessionData('beans_account', $account);
+            if (!Helper::getSessionData('beans_token')) {
                 self::setSessionToken($account);
             }
         }
@@ -97,7 +97,8 @@ class BeansAccount
      */
     public static function refreshSession()
     {
-        if (empty($_SESSION['beans_account'])) {
+        $account = Helper::getSessionData('beans_account');
+        if (empty($account)) {
             return null;
         }
 
@@ -113,11 +114,8 @@ class BeansAccount
      */
     public static function getSession()
     {
-        if (empty($_SESSION['beans_account'])) {
-            return null;
-        }
-
-        return $_SESSION['beans_account'];
+        $account = Helper::getSessionData('beans_account');
+        return empty($account) ? null : $account;
     }
 
     /**
@@ -157,8 +155,8 @@ class BeansAccount
      */
     public static function clearSession()
     {
-        unset($_SESSION['beans_token']);
-        unset($_SESSION['beans_account']);
+        Helper::unsetSessionData('beans_token');
+        Helper::unsetSessionData('beans_account');
     }
 
     /* Account Token */
@@ -178,11 +176,11 @@ class BeansAccount
             $token = Helper::API()->post('ultimate/auth/consumer_token', array('account' => $account['id']));
         } catch (BeansError $e) {
             Helper::log('Getting Auth Token Failed: ' . $e->getMessage());
-            unset($_SESSION['beans_token']);
+            Helper::unsetSessionData('beans_token');
 
             return;
         }
-        $_SESSION['beans_token'] = $token;
+        Helper::setSessionData('beans_token', $token);
     }
 
     /**
@@ -196,10 +194,7 @@ class BeansAccount
      */
     public static function getSessionToken()
     {
-        if (empty($_SESSION['beans_token'])) {
-            return null;
-        }
-
-        return $_SESSION['beans_token'];
+        $token = Helper::getSessionData('beans_token');
+        return empty($token) ? null : $token;
     }
 }

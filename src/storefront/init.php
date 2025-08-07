@@ -39,10 +39,10 @@ class Main
         }
 
         if (isset($_GET['beans-mode'])) {
-            $_SESSION['beans_mode'] = $_GET['beans-mode'];
+            Helper::setSessionData('beans_mode', $_GET['beans-mode']);
         }
 
-        if (isset($_SESSION['beans_mode'])) {
+        if (Helper::getSessionData('beans_mode')) {
             Helper::log('Session: Beans mode live testing is active.');
         }
 
@@ -63,7 +63,7 @@ class Main
         Auth::init($display);
 
         // Either the rewards program is active, or we are in live test mode
-        if (!$display['is_active'] && !isset($_SESSION['beans_mode'])) {
+        if (!$display['is_active'] && !Helper::getSessionData('beans_mode')) {
             Helper::log('Init: Display Liana is deactivated');
             return;
         }
@@ -94,7 +94,7 @@ class Main
         }
 
         // Either the rewards program is active, or we are in live test mode
-        if (!$display['is_active'] && !isset($_SESSION['beans_mode'])) {
+        if (!$display['is_active'] && !Helper::getSessionData('beans_mode')) {
             Helper::log('Ajax: Display Liana is deactivated');
             return;
         }

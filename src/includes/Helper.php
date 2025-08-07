@@ -21,7 +21,7 @@ class Helper
      * Get the domain based on the subdomain.
      *
      * @param string $sub The subdomain
-     * 
+     *
      * @return string The domain
      *
      * @since 3.0.0
@@ -69,7 +69,7 @@ class Helper
      * @param string $version The API version
      * @param mixed $arg The API arguments
      * @param array $headers The API headers
-     * 
+     *
      * @return array The API response's data
      *
      * @since 3.0.0
@@ -152,7 +152,6 @@ class Helper
         $config[$key] = $value;
         update_option(self::CONFIG_NAME, $config);
     }
-
     /**
      * Check if the Beans plugin is set up.
      *
@@ -344,5 +343,52 @@ class Helper
         }
 
         return $display;
+    }
+
+
+    /**
+     * Get a value from the PHP $_SESSION or WC_Session.
+     *
+     * @param string $key The key of the value to retrieve
+     * @return any The value of the key
+     *
+     * @since 4.0.3
+     */
+    public static function getSessionData($key)
+    {
+        return $_SESSION[$key] ?? (WC()->session ? WC()->session->get($key) : null);
+    }
+
+    /**
+     * Set a value in the PHP $_SESSION or WC_Session.
+     *
+     * @param string $key The key of the value to set
+     * @param any $value The value of the key
+     * @return void
+     *
+     * @since 4.0.5
+     */
+    public static function setSessionData($key, $value)
+    {
+        $_SESSION[$key] = $value;
+        if (WC()->session) {
+            WC()->session->set($key, $value);
+        }
+    }
+
+    /**
+     * Unset a value in the PHP $_SESSION or WC_Session.
+     *
+     * @param string $key The key of the value to unset
+     * @return void
+     *
+     * @since 4.0.5
+     */
+    public static function unsetSessionData($key)
+    {
+        unset($_SESSION[$key]);
+        if (WC()->session) {
+            WC()->session->set($key, null);
+        }
     }
 }

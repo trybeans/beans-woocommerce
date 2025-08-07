@@ -50,7 +50,7 @@ class Auth
     public static function onCustomerRegister($user_id)
     {
         // Either the rewards program is active, or we are in live test mode
-        if (!self::$display['is_active'] && !isset($_SESSION['beans_mode'])) {
+        if (!self::$display['is_active'] && !Helper::getSessionData('beans_mode')) {
             Helper::log('Auth: Liana display is deactivated');
             return;
         }
@@ -90,8 +90,9 @@ class Auth
             return;
         }
 
-        if (!isset($_SESSION['beans_account_force']) and is_user_logged_in()) {
-            $_SESSION['beans_account_force'] = 1;
+        $force = Helper::getSessionData('beans_account_force');
+        if (!$force and is_user_logged_in()) {
+            Helper::setSessionData('beans_account_force', 1);
             self::onCustomerRegister(get_current_user_id());
         }
     }

@@ -84,13 +84,15 @@ class LianaProductObserver extends LianaObserver
             $cart->set_quantity($key, 1);
         }
 
-        $_SESSION["liana_redemption_{$coupon_code}"] = array(
+        $session_key = "liana_redemption_{$coupon_code}";
+        $session_data = array(
             'code'          => $coupon_code,
             'amount'        => $amount,
             'discount_type' => 'fixed_cart',
             'beans'         => $amount * self::$display['beans_rate'],
             'product_ids'   => array_values($product_items),
         );
+        Helper::setSessionData($session_key, $session_data);
 
         $cart->apply_coupon($coupon_code);
     }

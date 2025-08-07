@@ -65,7 +65,7 @@ class LianaCartObserver extends LianaObserver
      * - Ensure that the customer has enough points
      * - Create redemption coupon while ensuring redemption constraints
      *
-     * @return void The redemption metadata is saved to $_SESSION
+     * @return void The redemption metadata is saved to session
      *
      * @since 3.0.0
      */
@@ -87,12 +87,14 @@ class LianaCartObserver extends LianaObserver
         $discount_amount = self::getAllowedDiscount($account, $cart->subtotal);
 
         if ($discount_amount) {
-            $_SESSION['liana_redemption_' . self::REDEEM_COUPON_CODE] = array(
+            $session_key = 'liana_redemption_' . self::REDEEM_COUPON_CODE;
+            $session_data = array(
                 'code'          => self::REDEEM_COUPON_CODE,
                 'amount'        => $discount_amount,
                 'discount_type' => 'fixed_cart',
                 'beans'         => $discount_amount * self::$display['beans_rate'],
             );
+            Helper::setSessionData($session_key, $session_data);
             $cart->apply_coupon(self::REDEEM_COUPON_CODE);
         }
     }
@@ -103,7 +105,7 @@ class LianaCartObserver extends LianaObserver
      * - Ensure that the customer is on the right tier
      * - Create redemption coupon
      *
-     * @return void The redemption metadata is saved to $_SESSION
+     * @return void The redemption metadata is saved to PHP session
      *
      * @since 3.4.0
      */
@@ -136,12 +138,14 @@ class LianaCartObserver extends LianaObserver
 
         $coupon_code = self::REDEEM_LIFETIME_CODE;
 
-        $_SESSION["liana_redemption_{$coupon_code}"] = array(
+        $session_key = "liana_redemption_{$coupon_code}";
+        $session_data = array(
             'code'          => self::REDEEM_LIFETIME_CODE,
             'amount'        => $discount_amount,
             'discount_type' => 'percent',
             'beans'         => null,
         );
+        Helper::setSessionData($session_key, $session_data);
 
         $cart = Helper::getCart();
         $cart->apply_coupon(self::REDEEM_LIFETIME_CODE);
