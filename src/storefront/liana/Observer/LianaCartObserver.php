@@ -28,6 +28,7 @@ class LianaCartObserver extends LianaObserver
         parent::init($display);
 
         add_action('woocommerce_checkout_order_processed', array(__CLASS__, 'processCartRedemption'), 10, 3);
+        add_action('woocommerce_store_api_checkout_order_processed', array( __CLASS__, 'processCartRedemptionStoreApi' ), 10, 2);
         add_filter('woocommerce_add_to_cart_fragments', array(__CLASS__, 'renderCartFragment'), 15, 1);
     }
 
@@ -171,5 +172,21 @@ class LianaCartObserver extends LianaObserver
         self::commitRedemption($account, $order, self::REDEEM_COUPON_CODE);
         self::cancelRedemption();
         BeansAccount::refreshSession();
+    }
+
+    /**
+     * Bridge for WooCommerce Blocks (Store API) checkout completion.
+     *
+     * @param \WC_Order         $order
+     * @param \WP_REST_Request  $request
+     *
+     * @return void
+     *
+     * @since 4.0.5
+     */
+    public static function processCartRedemptionStoreApi($order, $request)
+    {
+        // Reuse your existing handler: ($order_id, $posted_data, $order)
+        self::processCartRedemption($order->get_id(), null, $order);
     }
 }

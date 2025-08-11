@@ -32,6 +32,8 @@ class Main
             return;
         }
 
+        \BeansWoo\StoreFront\LianaCartObserver::init($display);
+
         \BeansWoo\StoreFront\LianaSubscriptionObserver::init($display);
     }
 
