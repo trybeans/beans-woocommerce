@@ -114,6 +114,9 @@ The WordPress codex contains instructions on
 
 == Changelog ==
 
+== 4.0.5 ==
+- Fix support for Block Themes
+
 == 4.0.4 ==
 - Bugs fixes
 
