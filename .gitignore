@@ -35,3 +35,5 @@ beans-woo-env/*
 .history
 store
 phpinfo.txt
+
+.DS_Store
