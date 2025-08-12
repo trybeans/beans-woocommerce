@@ -10,9 +10,9 @@
  * Text Domain: beans-woocommerce
  * Domain Path: /i18n/
  * Requires PHP: 8.0
- * Requires at least: 6.0
- * WC requires at least: 7.0
- * WC tested up to: 9.1.*
+ * Requires at least: 6.3
+ * WC requires at least: 8.0
+ * WC tested up to: 10.0.*
  * @author Beans
  */
 
