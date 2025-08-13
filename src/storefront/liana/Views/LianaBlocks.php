@@ -178,7 +178,7 @@ class LianaBlocks
         //     $cart_subtotal = $cart_subtotal - $amount_to_exclude;
         // }
 
-        $cart_subtotal = $cart->subtotal;
+        $cart_subtotal = $cart->subtotal_ex_tax;
         $cart_points = intval($cart_subtotal * self::$display['beans_ccy_spent']);
 
         $notice_earn_points = strtr(
