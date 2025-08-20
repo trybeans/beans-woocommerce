@@ -5,7 +5,7 @@ Tags: loyalty, referral, email, popup, social, rewards, automated emails, referr
 Requires PHP: 8.0
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 4.0.6
+Stable tag: 4.0.7
 License: Apache License, Version 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -113,6 +113,9 @@ The WordPress codex contains instructions on
 
 
 == Changelog ==
+
+== 4.0.7 ==
+- Update points display on cart page
 
 == 4.0.6 ==
 - Update readme
